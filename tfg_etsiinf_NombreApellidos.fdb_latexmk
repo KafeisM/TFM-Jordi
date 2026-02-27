@@ -1,12 +1,12 @@
 # Fdb version 4
-["biber tfg_etsiinf_NombreApellidos"] 1772188564.3443 "tfg_etsiinf_NombreApellidos.bcf" "tfg_etsiinf_NombreApellidos.bbl" "tfg_etsiinf_NombreApellidos" 1772204955.15117 0
+["biber tfg_etsiinf_NombreApellidos"] 1772205582.66759 "tfg_etsiinf_NombreApellidos.bcf" "tfg_etsiinf_NombreApellidos.bbl" "tfg_etsiinf_NombreApellidos" 1772205587.93854 0
   "bibliography.bib" 1772118712 756 00c397b57053d58471e90a40332bb213 ""
-  "tfg_etsiinf_NombreApellidos.bcf" 1772204955.00792 107804 353f06e19bb01fcdc1549c77c317a45a "pdflatex"
+  "tfg_etsiinf_NombreApellidos.bcf" 1772205587.80494 107804 353f06e19bb01fcdc1549c77c317a45a "pdflatex"
   (generated)
   "tfg_etsiinf_NombreApellidos.bbl"
   "tfg_etsiinf_NombreApellidos.blg"
   (rewritten before read)
-["pdflatex"] 1772204954.05363 "/Users/jordi/Documents/GitHub/TFM-Jordi/tfg_etsiinf_NombreApellidos.tex" "tfg_etsiinf_NombreApellidos.pdf" "tfg_etsiinf_NombreApellidos" 1772204955.15153 0
+["pdflatex"] 1772205586.86019 "/Users/jordi/Documents/GitHub/TFM-Jordi/tfg_etsiinf_NombreApellidos.tex" "tfg_etsiinf_NombreApellidos.pdf" "tfg_etsiinf_NombreApellidos" 1772205587.93887 0
   "/Users/jordi/Documents/GitHub/TFM-Jordi/tfg_etsiinf_NombreApellidos.tex" 1772118712 1512 122f17de94243fd3053f21cd50a13e50 ""
   "/Users/jordi/Library/Application Support/MiKTeX/texmfs/data/fonts/map/pdftex/pdftex.map" 1772188322.40677 82507 a9eef8696c92627b87e9975edea03b2a ""
   "/Users/jordi/Library/Application Support/MiKTeX/texmfs/data/miktex/data/le/pdftex/pdflatex.fmt" 1772188002.46141 13342342 448c14d2abddd8cda1f22b9da2913cda ""
@@ -238,15 +238,15 @@
   "secciones/08_Resultados.tex" 1772188508.67708 1098 f7c3e805c96132d42870cdb1bb56ca70 ""
   "secciones/09_Anexos.tex" 1772188508.67709 183 784ba6f2bb616e5a62c7cbbf66699650 ""
   "secciones/_DatosTFG.tex" 1772204953.45463 772 18c9f5cbd75b686d8b721a6e1bfd2b9d ""
-  "tfg_etsiinf_NombreApellidos.aux" 1772204955.00497 5160 f64eb5e0188d8cb63a27f2493318f267 "pdflatex"
-  "tfg_etsiinf_NombreApellidos.bbl" 1772188592.36385 1639 1dd040edbfeec3de4975c4cb03851240 "biber tfg_etsiinf_NombreApellidos"
-  "tfg_etsiinf_NombreApellidos.lof" 1772204955.00888 150 3a6ad1353bb13c43205b8c09ae5230e4 "pdflatex"
-  "tfg_etsiinf_NombreApellidos.lol" 1772204954.96631 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "tfg_etsiinf_NombreApellidos.lot" 1772204955.0089 150 3a6ad1353bb13c43205b8c09ae5230e4 "pdflatex"
-  "tfg_etsiinf_NombreApellidos.out" 1772204955.00701 3747 94d2c5e3875aff758718daaa2e698844 "pdflatex"
-  "tfg_etsiinf_NombreApellidos.run.xml" 1772204955.00873 2499 b206db184e6e48c631af1aeeac0d4c8f "pdflatex"
+  "tfg_etsiinf_NombreApellidos.aux" 1772205587.80204 5160 f64eb5e0188d8cb63a27f2493318f267 "pdflatex"
+  "tfg_etsiinf_NombreApellidos.bbl" 1772205584.64829 1639 1dd040edbfeec3de4975c4cb03851240 "biber tfg_etsiinf_NombreApellidos"
+  "tfg_etsiinf_NombreApellidos.lof" 1772205587.80579 150 3a6ad1353bb13c43205b8c09ae5230e4 "pdflatex"
+  "tfg_etsiinf_NombreApellidos.lol" 1772205587.76587 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "tfg_etsiinf_NombreApellidos.lot" 1772205587.80581 150 3a6ad1353bb13c43205b8c09ae5230e4 "pdflatex"
+  "tfg_etsiinf_NombreApellidos.out" 1772205587.80407 3747 94d2c5e3875aff758718daaa2e698844 "pdflatex"
+  "tfg_etsiinf_NombreApellidos.run.xml" 1772205587.80569 2499 b206db184e6e48c631af1aeeac0d4c8f "pdflatex"
   "tfg_etsiinf_NombreApellidos.tex" 1772118712 1512 122f17de94243fd3053f21cd50a13e50 ""
-  "tfg_etsiinf_NombreApellidos.toc" 1772204955.00884 1981 b34e1cca3cf545187776b34aa7578692 "pdflatex"
+  "tfg_etsiinf_NombreApellidos.toc" 1772205587.80577 1981 b34e1cca3cf545187776b34aa7578692 "pdflatex"
   (generated)
   "tfg_etsiinf_NombreApellidos.aux"
   "tfg_etsiinf_NombreApellidos.bcf"

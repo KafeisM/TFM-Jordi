@@ -1,0 +1,2 @@
+# Keep LaTeX build artifacts out of version control
+build/
