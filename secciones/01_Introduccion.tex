@@ -1,40 +1,152 @@
 % !TEX root = ../tfg_etsiinf_NombreApellidos.tex
 \chapter{Introducción} \label{chp:intro}
 
-<<Breve explicación, por secciones, de los contenidos de este capítulo>>
+Este capítulo presenta el marco general del Trabajo Fin de Máster, centrado en
+la aplicación de aprendizaje por refuerzo al control de vehículos aéreos no
+tripulados dentro del ecosistema Aerostack2. En primer lugar se expone la
+motivación del proyecto y su relevancia en el contexto actual de la robótica
+aérea autónoma. A continuación se describe el contexto técnico y de
+investigación en el que se enmarca el trabajo, así como el estado actual del
+desarrollo realizado hasta la fecha. Posteriormente se detallan el objetivo
+general y los objetivos específicos que guían la tesis. Por último, se resume
+la estructura del documento.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Motivación del proyecto} \label{sct:intro:motivacion}
 
-<<Motivación de llevar a cabo el desarrollo de este TFG, en relación con la actualidad, el objetivo que se quiere conseguir, etc.>>
+Los vehículos aéreos no tripulados han pasado en pocos años de ser una
+tecnología principalmente experimental a convertirse en una herramienta útil en
+aplicaciones industriales, logísticas, de inspección y competición. En todos
+estos escenarios, la autonomía y la capacidad de respuesta del vehículo son
+aspectos críticos, especialmente cuando el dron debe seguir trayectorias
+dinámicas, reaccionar ante referencias cambiantes o mantener un comportamiento
+estable a altas velocidades.
+
+Dentro de este contexto, el control clásico basado en reguladores PID sigue
+siendo una solución ampliamente utilizada por su simplicidad, interpretabilidad
+y robustez. Sin embargo, cuando la dinámica del sistema es fuertemente no
+lineal y el régimen de operación es exigente, el ajuste manual de estos
+controladores puede resultar costoso y su capacidad de generalización limitada.
+Frente a ello, el aprendizaje por refuerzo ofrece una alternativa atractiva:
+permitir que una política de control aprenda a actuar a partir de la interacción
+con un entorno, optimizando directamente un criterio de comportamiento definido
+mediante recompensas.
+
+La motivación de este trabajo surge precisamente en la intersección entre
+robótica aérea e inteligencia artificial. En el grupo CVAR
+(\emph{Computer Vision and Aerial Robotics}) existe interés en desarrollar
+soluciones de control cada vez más ágiles para drones, en particular en el
+marco de la competición A2RL, donde el rendimiento del vehículo depende de su
+capacidad para ejecutar maniobras rápidas y precisas. Para que este tipo de
+aproximación sea viable, resulta imprescindible disponer de un entorno de
+entrenamiento que sea fiel desde el punto de vista dinámico, pero también lo
+suficientemente ligero como para permitir entrenar múltiples agentes en
+paralelo.
+
+Este Trabajo Fin de Máster responde a esa necesidad. La idea central no es
+solamente entrenar un controlador con aprendizaje por refuerzo, sino construir
+una infraestructura experimental que conecte de forma correcta el simulador
+dinámico de Aerostack2 con una interfaz estándar de aprendizaje, de manera que
+el entrenamiento, la evaluación y la comparación con soluciones convencionales
+puedan realizarse de forma sistemática y reproducible.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Contexto del proyecto} \label{sct:intro:contexto}
 
-<<Contexto del desarrollo de este TFG, previos trabajos, el estado actual del campo del tema de este TFG, etc.>>
+El trabajo se desarrolla sobre Aerostack2, un \emph{framework} para robótica
+aérea basado en ROS 2 que proporciona componentes reutilizables para control,
+estimación, comportamientos de vuelo e integración con diferentes plataformas y
+simuladores. En particular, este proyecto utiliza el simulador dinámico de
+multirrotores de Aerostack2, una herramienta sin interfaz gráfica que modela la
+dinámica del vehículo y que puede visualizarse mediante RViz2. La elección de
+este simulador es especialmente relevante para aprendizaje por refuerzo, ya que
+su bajo coste computacional permite plantear entornos vectorizados y ejecutar
+muchas instancias en paralelo, aumentando la eficiencia del muestreo durante el
+entrenamiento.
+
+La propuesta inicial del tutor establece una progresión clara. En una primera
+fase es necesario comprender el funcionamiento de Aerostack2, del simulador de
+multirrotores y de las interfaces ROS 2 disponibles. Sobre esa base debe
+construirse un entorno de aprendizaje por refuerzo cuya entrada y salida estén
+definidas de forma coherente con el problema de control planteado. Más adelante,
+una vez validada la comunicación y la consistencia temporal de los datos, se
+abordarán aspectos propiamente relacionados con el aprendizaje, como el diseño
+de recompensas, la elección del algoritmo, el ajuste de hiperparámetros o la
+comparación frente a un controlador PID convencional.
+
+El estado actual del proyecto refleja precisamente esa primera fase de
+integración. En el repositorio \texttt{rl\_uav\_aerostack2} se ha implementado un
+entorno mínimo en Gymnasium, denominado \texttt{AS2TestEnv}, cuya finalidad es
+verificar la conectividad entre el simulador y el entorno de aprendizaje. Este
+entorno encapsula el ciclo básico \texttt{reset-step-close}, inicializa la
+interfaz \texttt{DroneInterface} de Aerostack2, arma el dron, activa el modo
+\emph{offboard}, ejecuta el despegue, envía comandos de velocidad lineal y lee
+observaciones compuestas por posición y velocidad. Junto a ello, el repositorio
+incluye scripts de lanzamiento del simulador, configuración del mundo, un
+controlador PID de referencia y un script de prueba que permite comprobar el
+intercambio de observaciones y acciones.
+
+Por tanto, el trabajo realizado hasta el momento no corresponde todavía al
+entrenamiento final del controlador, sino a una etapa fundacional imprescindible:
+garantizar que la interfaz entre simulación, middleware robótico y entorno de
+aprendizaje funciona de manera estable. Esta validación es especialmente
+importante en un problema como el presente, donde la calidad del entrenamiento
+depende de que el agente reciba observaciones correctas, aplique acciones en el
+instante adecuado y pueda escalar posteriormente a ejecuciones paralelas.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Objetivos} \label{sct:intro:objetivos}
 
-<<Breve explicación del objetivo principal de este Trabajo de Fin de Grado>>
+El objetivo general de este Trabajo Fin de Máster es desarrollar un entorno de
+aprendizaje por refuerzo sobre el simulador dinámico de multirrotores de
+Aerostack2 y utilizarlo para entrenar y evaluar un controlador de alto nivel
+para un dron, capaz de recibir como entrada una referencia de posición global
+$[x, y, z]$ y generar como salida comandos de velocidad
+$[v_x, v_y, v_z, \omega_z]$, manteniendo además una orientación en yaw alineada
+con el vector velocidad.
 
-<<Lista de objetivos específicos, con una breve explicación, en los que se divide el anterior objetivo principal que este Trabajo de Fin de Grado.>>
+Para alcanzar este objetivo general, el trabajo se divide en los siguientes
+objetivos específicos:
 
 \begin{itemize}
 
-    \item[•] Objetivo 1
+    \item[•] Familiarizarse con el ecosistema Aerostack2, su organización en ROS
+    2 y el funcionamiento del simulador dinámico de multirrotores, identificando
+    los componentes necesarios para el control del vehículo y el intercambio de
+    información con el exterior.
 
-    \item[•] Objetivo 2
+    \item[•] Diseñar e implementar una primera interfaz entre el simulador y un
+    entorno compatible con Gymnasium, de forma que el problema pueda abordarse
+    posteriormente con herramientas estándar de aprendizaje por refuerzo.
 
-    \item[•] \ldots
+    \item[•] Validar experimentalmente el ciclo básico de interacción del
+    entorno, incluyendo inicialización, despegue, envío de acciones, recepción
+    de observaciones y finalización segura de la simulación.
 
-    \item[•] Objetivo N
+    \item[•] Extender esta base hacia un entorno vectorizado que permita
+    ejecutar múltiples simulaciones en paralelo, aprovechando el bajo coste
+    computacional del simulador para mejorar la eficiencia del entrenamiento.
+
+    \item[•] Definir un problema de control progresivo en el que el agente
+    aprenda a transformar referencias de posición en comandos de velocidad,
+    incorporando explícitamente el requisito de \emph{path facing}, es decir,
+    que el yaw del dron quede alineado con la dirección de movimiento.
+
+    \item[•] Entrenar y evaluar un controlador basado en aprendizaje por
+    refuerzo en diferentes escenarios de simulación con referencias
+    secuenciales, y comparar su comportamiento frente a un controlador PID
+    convencional utilizado como línea base.
+
+    \item[•] Como posible extensión, estudiar una arquitectura jerárquica o en
+    cascada en la que un segundo controlador aprenda a transformar velocidades
+    deseadas en consignas de tasas angulares, aproximando así el problema a un
+    control de menor nivel.
 
 \end{itemize}
 
@@ -43,7 +155,20 @@
 
 \section{Estructura del Documento} \label{sct:intro_estructura}
 
-<<Estructura de este Trabajo de Fin de Grado, explicando los contenidos de cada sección>>
+El documento se organiza en varios capítulos que recogen tanto el contexto del
+problema como el desarrollo técnico del trabajo. Tras este capítulo
+introductorio, el Capítulo 2 presenta el estado del arte y el contexto
+tecnológico relacionado con el aprendizaje por refuerzo, el control de drones y
+las herramientas empleadas. El Capítulo 3 describe el desarrollo realizado,
+prestando especial atención a la integración entre Aerostack2, el simulador de
+multirrotores y el entorno de aprendizaje implementado.
+
+Posteriormente, el Capítulo 4 aborda el impacto del proyecto desde distintas
+perspectivas relevantes para un trabajo de ingeniería. El Capítulo 5 recoge los
+resultados obtenidos y la discusión asociada, incluyendo la validación del
+entorno y, en fases posteriores del trabajo, la evaluación de los controladores
+desarrollados. Finalmente, el documento se cierra con la bibliografía y los
+anexos, donde se podrá incluir material complementario de carácter técnico.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

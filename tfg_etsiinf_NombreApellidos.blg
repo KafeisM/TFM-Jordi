@@ -1,14 +1,14 @@
 [0] Config.pm:328> INFO - This is Biber 2.21
-[0] Config.pm:331> INFO - Logfile is 'tfg_etsiinf_NombreApellidos.blg'
-[55] biber-darwin:342> INFO - === Fri Feb 27, 2026, 16:19:44
-[66] Biber.pm:421> INFO - Reading 'tfg_etsiinf_NombreApellidos.bcf'
-[125] Biber.pm:1002> INFO - Found 1 citekeys in bib section 0
-[135] Biber.pm:4487> INFO - Processing section 0
-[141] Biber.pm:4678> INFO - Looking for bibtex file 'bibliography.bib' for section 0
-[142] bibtex.pm:1713> INFO - LaTeX decoding ...
-[144] bibtex.pm:1519> INFO - Found BibTeX data source 'bibliography.bib'
-[170] UCollate.pm:68> INFO - Overriding locale 'es-ES' defaults 'variable = shifted' with 'variable = non-ignorable'
-[170] UCollate.pm:68> INFO - Overriding locale 'es-ES' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[170] Biber.pm:4307> INFO - Sorting list 'none/global//global/global/global' of type 'entry' with template 'none' and locale 'es-ES'
-[171] bbl.pm:676> INFO - Writing 'tfg_etsiinf_NombreApellidos.bbl' with encoding 'UTF-8'
-[172] bbl.pm:779> INFO - Output to tfg_etsiinf_NombreApellidos.bbl
+[1] Config.pm:331> INFO - Logfile is 'tfg_etsiinf_NombreApellidos.blg'
+[54] biber-darwin:342> INFO - === Wed Mar 18, 2026, 18:29:35
+[65] Biber.pm:421> INFO - Reading 'tfg_etsiinf_NombreApellidos.bcf'
+[130] Biber.pm:1002> INFO - Found 13 citekeys in bib section 0
+[140] Biber.pm:4487> INFO - Processing section 0
+[146] Biber.pm:4678> INFO - Looking for bibtex file 'bibliography.bib' for section 0
+[148] bibtex.pm:1713> INFO - LaTeX decoding ...
+[159] bibtex.pm:1519> INFO - Found BibTeX data source 'bibliography.bib'
+[250] UCollate.pm:68> INFO - Overriding locale 'es-ES' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[250] UCollate.pm:68> INFO - Overriding locale 'es-ES' defaults 'variable = shifted' with 'variable = non-ignorable'
+[250] Biber.pm:4307> INFO - Sorting list 'none/global//global/global/global' of type 'entry' with template 'none' and locale 'es-ES'
+[259] bbl.pm:676> INFO - Writing 'tfg_etsiinf_NombreApellidos.bbl' with encoding 'UTF-8'
+[266] bbl.pm:779> INFO - Output to tfg_etsiinf_NombreApellidos.bbl

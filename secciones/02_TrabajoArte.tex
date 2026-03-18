@@ -1,12 +1,199 @@
 % !TEX root = ../tfg_etsiinf_NombreApellidos.tex
 \chapter{Trabajo relacionado y Estado del Arte} \label{chp:state-of-the-art}
 
-<<Breve explicación, por secciones, de los contenidos de este capítulo>>
+Este cap{\'i}tulo revisa el estado del arte relacionado con el control de
+veh{\'i}culos a{\'e}reos no tripulados mediante aprendizaje por refuerzo y con
+las infraestructuras software y de simulaci{\'o}n necesarias para su
+desarrollo. La revisi{\'o}n se organiza en torno a cuatro ejes. En primer
+lugar, se presentan algunos marcos software relevantes en rob{\'o}tica a{\'e}rea
+y, en particular, la evoluci{\'o}n desde Aerostack hasta Aerostack2. A
+continuaci{\'o}n, se analizan las principales l{\'i}neas de trabajo en control
+de cuadric{\'o}pteros mediante aprendizaje por refuerzo, diferenciando entre
+control a bajo nivel, seguimiento de trayectorias y vuelo agresivo. En tercer
+lugar, se estudian los simuladores y entornos de entrenamiento m{\'a}s
+utilizados en la literatura. Finalmente, se sintetizan las limitaciones
+observadas y se posiciona el presente trabajo respecto a ellas.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-<<Explicación, en secciones, del estado del arte de las diferentes tecnologías,
-estudios, sistemas, etc., que trata este Trabajo de Fin de Grado, con
-referencias a la información, artículos, estudios, etc. que se tratan, como a
-continuación: \cite{stallings2006}>>
+\section{Marcos software para rob{\'o}tica a{\'e}rea}
+
+El desarrollo de sistemas a{\'e}reos aut{\'o}nomos requiere combinar de forma
+coherente control, estimaci{\'o}n, percepci{\'o}n, planificaci{\'o}n y
+coordinaci{\'o}n entre m{\'u}ltiples componentes heterog{\'e}neos. Este problema
+de integraci{\'o}n ha sido identificado desde hace a{\~n}os como uno de los
+principales obst{\'a}culos para trasladar algoritmos aislados a sistemas
+rob{\'o}ticos completos \cite{sanchez2017aerostack}. En ese contexto,
+S{\'a}nchez-L{\'o}pez et al.\ propusieron Aerostack como un marco software
+abierto, modular y multicapa orientado al desarrollo de sistemas a{\'e}reos
+aut{\'o}nomos complejos \cite{sanchez2017aerostack}. Su aportaci{\'o}n m{\'a}s
+relevante fue proporcionar una arquitectura reutilizable, espec{\'i}ficamente
+dise{\~n}ada para rob{\'o}tica a{\'e}rea, capaz de integrar desde funciones
+reactivas de control hasta capas deliberativas y sociales para misiones de
+mayor complejidad.
+
+La evoluci{\'o}n natural de esta l{\'i}nea es Aerostack2, redise{\~n}ado sobre
+ROS 2 y orientado a sistemas a{\'e}reos multi-robot m{\'a}s vers{\'a}tiles y
+portables \cite{fernandez2023aerostack2}. Frente a la versi{\'o}n anterior,
+Aerostack2 enfatiza la independencia de plataforma, la arquitectura basada en
+\emph{plugins} y la definici{\'o}n de misiones a trav{\'e}s de comportamientos,
+lo que facilita reutilizar componentes y conectar diferentes simuladores o
+plataformas reales. Para este TFM, Aerostack2 no es solo una herramienta de
+soporte, sino el sustrato tecnol{\'o}gico sobre el que se construye el entorno
+experimental. Por ello, resulta especialmente relevante en la revisi{\'o}n del
+estado del arte, ya que buena parte de los trabajos publicados en aprendizaje
+por refuerzo para drones se apoyan en simuladores o \emph{stacks} propios, pero
+no en ecosistemas modulares integrados con ROS 2 de uso directo en rob{\'o}tica
+a{\'e}rea.
+
+\section{Aprendizaje por refuerzo para el control de UAV}
+
+Las revisiones recientes muestran que el aprendizaje por refuerzo profundo se ha
+aplicado a problemas de planificaci{\'o}n, navegaci{\'o}n y control de UAV, con
+especial inter{\'e}s en escenarios donde la din{\'a}mica del veh{\'i}culo es no
+lineal o donde el dise{\~n}o manual del controlador resulta costoso
+\cite{azar2021drone_review}. Al mismo tiempo, la literatura tambi{\'e}n
+subraya limitaciones persistentes: tiempos de entrenamiento elevados,
+dificultades de transferencia del simulador al mundo real y fuerte dependencia
+de la calidad del entorno de simulaci{\'o}n \cite{azar2021drone_review,
+chan2024drone_simulators}.
+
+Una parte significativa de los trabajos se ha centrado en control a bajo nivel,
+es decir, en aprender pol{\'i}ticas que act{\'u}an cerca de los actuadores o de
+las consignas de actitud. Pi et al.\ propusieron un controlador de bajo nivel
+basado en aprendizaje por refuerzo capaz de generalizar a veh{\'i}culos
+multirrotor con distintas configuraciones f{\'i}sicas, tratando de reducir la
+necesidad de reentrenamiento cuando cambian los par{\'a}metros del veh{\'i}culo
+\cite{pi2021lowlevel}. En una l{\'i}nea relacionada, Yoo et al.\ combinaron
+controladores deterministas cl{\'a}sicos con una pol{\'i}tica aprendida,
+mostrando que una aproximaci{\'o}n h{\'i}brida puede mejorar la convergencia y
+el seguimiento de trayectorias mediante control en velocidad
+\cite{yoo2021hybrid}. Estos trabajos son especialmente relevantes para la
+extensi{\'o}n futura planteada en esta tesis, en la que se contempla encadenar
+un controlador de alto nivel con otro de menor nivel que produzca tasas
+angulares.
+
+Otra l{\'i}nea muy activa es la del vuelo agresivo y el empuje del dron hacia
+sus l{\'i}mites din{\'a}micos. Kaufmann et al.\ demostraron en
+\emph{Deep Drone Acrobatics} que es posible entrenar en simulaci{\'o}n una
+pol{\'i}tica para realizar maniobras acrob{\'a}ticas y transferirla al dron real
+sin ajuste fino posterior \cite{kaufmann2020acrobatics}. M{\'a}s adelante, los
+mismos autores analizaron comparativamente distintas abstracciones de control y
+observaron que las pol{\'i}ticas que act{\'u}an sobre \emph{body-rates} y thrust
+resultan m{\'a}s robustas en transferencia que aquellas que operan
+directamente sobre los motores \cite{kaufmann2022benchmark}. Este punto es de
+gran inter{\'e}s para el presente trabajo, porque ayuda a entender que el nivel
+de abstracci{\'o}n elegido para la acci{\'o}n no es una decisi{\'o}n menor, sino
+un elemento central del dise{\~n}o del problema de aprendizaje.
+
+Los resultados m{\'a}s recientes en vuelo agresivo refuerzan esta idea.
+Eschmann et al.\ mostraron que, con una arquitectura adecuada y un simulador muy
+optimizado, es posible entrenar controladores de bajo nivel en tiempos
+extraordinariamente reducidos y mantener capacidad de transferencia a plataformas
+reales \cite{eschmann2024seconds}. En paralelo, Song et al.\ estudiaron de
+manera sistem{\'a}tica la competici{\'o}n entre control {\'o}ptimo y aprendizaje
+por refuerzo en un problema de carrera aut{\'o}noma con drones, concluyendo que
+RL puede superar al control {\'o}ptimo cuando el objetivo se formula
+directamente a nivel de tarea y se entrena con suficiente robustez frente a
+incertidumbres del modelo \cite{song2023racing}. Este resultado es
+particularmente pertinente dado el contexto de A2RL que motiva la tesis.
+
+Sin embargo, la literatura revisada tambi{\'e}n revela una cierta dispersi{\'o}n
+en el tipo de problema abordado. Muchos trabajos se centran en estabilizaci{\'o}n
+de actitud, control a nivel de actuadores, vuelo acrob{\'a}tico o navegaci{\'o}n
+end-to-end basada en percepci{\'o}n \cite{kaufmann2020acrobatics,
+pi2021lowlevel, yoo2021hybrid}. Por el contrario, es menos frecuente encontrar
+trabajos orientados a un controlador intermedio de alto nivel, cuya entrada sea
+una referencia de posici{\'o}n global y cuya salida sean velocidades lineales y
+velocidad angular en yaw, integrados adem{\'a}s en un \emph{stack} rob{\'o}tico
+como Aerostack2. Esta observaci{\'o}n es una inferencia a partir de las obras
+revisadas y ayuda a justificar el espacio de contribuci{\'o}n de este TFM.
+
+\section{Simuladores y entornos de entrenamiento para RL en drones}
+
+El entrenamiento mediante aprendizaje por refuerzo en rob{\'o}tica a{\'e}rea
+depende fuertemente del simulador empleado. Un simulador adecuado debe ofrecer
+fidelidad din{\'a}mica suficiente para capturar el comportamiento del veh{\'i}culo,
+pero tambi{\'e}n un coste computacional reducido que permita generar gran
+cantidad de experiencia de entrenamiento \cite{chan2024drone_simulators}. La
+literatura reciente coincide en que este equilibrio entre realismo, velocidad y
+facilidad de integraci{\'o}n es uno de los factores determinantes del {\'e}xito
+de una soluci{\'o}n basada en RL \cite{azar2021drone_review,
+chan2024drone_simulators}.
+
+Entre los entornos m{\'a}s influyentes se encuentra Flightmare, un simulador de
+cuadric{\'o}pteros dise{\~n}ado para desacoplar el renderizado y la f{\'i}sica,
+lo que permite combinar flexibilidad con una velocidad de simulaci{\'o}n muy
+elevada \cite{song2021flightmare}. Su inter{\'e}s para aprendizaje por refuerzo
+reside en que puede simular centenares de drones en paralelo, lo cual lo
+convierte en una referencia cuando el objetivo es maximizar el rendimiento de
+muestreo. Desde otra perspectiva, Air Learning ampli{\'o} el uso de AirSim con
+un entorno tipo Gym para navegaci{\'o}n aut{\'o}noma, introduciendo
+aleatorizaci{\'o}n del dominio, \emph{hardware-in-the-loop} y m{\'e}tricas de
+``calidad de vuelo'' orientadas al despliegue en plataformas con recursos
+limitados \cite{krishnan2021airlearning}. Este trabajo es relevante porque
+muestra que el valor de un simulador para RL no depende solo de la din{\'a}mica,
+sino tambi{\'e}n de su capacidad para aproximar las restricciones computacionales
+del sistema final.
+
+En una direcci{\'o}n m{\'a}s ligera y abierta, Panerati et al.\ propusieron un
+entorno Gym basado en PyBullet para cuadric{\'o}pteros individuales y
+multiagente, expl{\'i}citamente orientado a facilitar la comparaci{\'o}n entre
+enfoques de control cl{\'a}sico y de aprendizaje \cite{panerati2021pybullet}. Su
+aportaci{\'o}n es especialmente interesante para trabajos acad{\'e}micos porque
+reduce la fricci{\'o}n de entrada, ofrece portabilidad y proporciona ejemplos
+tanto de control PID como de tareas de RL. Finalmente, \emph{Learning to Fly in
+Seconds} plantea un simulador extremadamente optimizado para entrenamiento de
+controladores de bajo nivel, subrayando que la eficiencia computacional puede
+llegar a ser tan importante como la fidelidad din{\'a}mica cuando el objetivo es
+acelerar el ciclo de investigaci{\'o}n \cite{eschmann2024seconds}.
+
+Las revisiones de conjunto confirman esta diversidad de soluciones. Chan et
+al.\ comparan simuladores orientados a RL desde la perspectiva de sus
+prestaciones, interfaces y capacidades de integraci{\'o}n, y concluyen que no
+existe una herramienta universalmente superior, sino distintas elecciones
+dependiendo del problema, del tipo de aprendizaje y del nivel de realismo
+requerido \cite{chan2024drone_simulators}. Desde la perspectiva de este TFM,
+esta conclusi{\'o}n es importante: el simulador de multirrotores de Aerostack2
+puede no ofrecer el fotorrealismo de otras plataformas, pero su ligereza y su
+integraci{\'o}n natural con ROS 2 lo hacen especialmente atractivo para un
+entorno vectorizado de entrenamiento orientado al control din{\'a}mico.
+
+\section{S{\'i}ntesis cr{\'i}tica y posicionamiento del trabajo}
+
+La revisi{\'o}n anterior permite extraer varias conclusiones. En primer lugar,
+el aprendizaje por refuerzo ha demostrado ser una herramienta v{\'a}lida para el
+control de drones en problemas de estabilizaci{\'o}n, seguimiento, navegaci{\'o}n
+y vuelo agresivo \cite{kaufmann2020acrobatics, pi2021lowlevel,
+yoo2021hybrid, song2023racing}. En segundo lugar, el rendimiento final depende
+de forma decisiva del nivel de abstracci{\'o}n de la acci{\'o}n, del dise{\~n}o
+de la recompensa y de la calidad del simulador empleado
+\cite{kaufmann2022benchmark, chan2024drone_simulators}. En tercer lugar, la
+literatura ha prestado especial atenci{\'o}n a simuladores propios o
+entornos Gym independientes, pero menos a la integraci{\'o}n del aprendizaje por
+refuerzo con \emph{frameworks} modulares de rob{\'o}tica a{\'e}rea basados en
+ROS 2 \cite{fernandez2023aerostack2, song2021flightmare,
+krishnan2021airlearning, panerati2021pybullet}.
+
+A partir de las fuentes revisadas, puede inferirse que existe una oportunidad de
+investigaci{\'o}n en la construcci{\'o}n de entornos de aprendizaje por refuerzo
+ligeros, vectorizables y directamente integrados con un \emph{stack} rob{\'o}tico
+operativo como Aerostack2. Esta necesidad es todav{\'i}a m{\'a}s clara cuando el
+problema de control no se formula a nivel de actuadores, sino a un nivel
+intermedio m{\'a}s pr{\'o}ximo a la planificaci{\'o}n y a la ejecuci{\'o}n de
+misiones: recibir una referencia global de posici{\'o}n y generar comandos de
+velocidad compatibles con la arquitectura del dron, imponiendo adem{\'a}s una
+restricci{\'o}n funcional sobre la orientaci{\'o}n en yaw para alinear el dron
+con su direcci{\'o}n de movimiento.
+
+En este punto se sit{\'u}a el presente Trabajo Fin de M{\'a}ster. La
+contribuci{\'o}n propuesta no consiste solo en entrenar un controlador, sino en
+sentar la base experimental necesaria para hacerlo dentro de Aerostack2: validar
+la interfaz entre simulador, ROS 2 y entorno de aprendizaje, preparar un
+entorno vectorizable y establecer posteriormente una comparaci{\'o}n rigurosa
+frente a un controlador PID de referencia. Desde esta perspectiva, el trabajo se
+alinea con la literatura m{\'a}s reciente sobre control aprendido para
+cuadric{\'o}pteros, pero aporta un enfoque diferencial en t{\'e}rminos de
+integraci{\'o}n software, reproducibilidad y adecuaci{\'o}n a un problema de
+control jer{\'a}rquico progresivo.

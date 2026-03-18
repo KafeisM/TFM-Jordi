@@ -2373,7 +2373,39 @@
     <bcf:datasource type="file" datatype="bibtex">bibliography.bib</bcf:datasource>
   </bcf:bibdata>
   <bcf:section number="0">
-    <bcf:citekey order="1" intorder="1">stallings2006</bcf:citekey>
+    <bcf:citekey order="1" intorder="1">sanchez2017aerostack</bcf:citekey>
+    <bcf:citekey order="2" intorder="1">sanchez2017aerostack</bcf:citekey>
+    <bcf:citekey order="3" intorder="1">fernandez2023aerostack2</bcf:citekey>
+    <bcf:citekey order="4" intorder="1">azar2021drone_review</bcf:citekey>
+    <bcf:citekey order="5" intorder="1">azar2021drone_review</bcf:citekey>
+    <bcf:citekey order="5" intorder="2">chan2024drone_simulators</bcf:citekey>
+    <bcf:citekey order="6" intorder="1">pi2021lowlevel</bcf:citekey>
+    <bcf:citekey order="7" intorder="1">yoo2021hybrid</bcf:citekey>
+    <bcf:citekey order="8" intorder="1">kaufmann2020acrobatics</bcf:citekey>
+    <bcf:citekey order="9" intorder="1">kaufmann2022benchmark</bcf:citekey>
+    <bcf:citekey order="10" intorder="1">eschmann2024seconds</bcf:citekey>
+    <bcf:citekey order="11" intorder="1">song2023racing</bcf:citekey>
+    <bcf:citekey order="12" intorder="1">kaufmann2020acrobatics</bcf:citekey>
+    <bcf:citekey order="12" intorder="2">pi2021lowlevel</bcf:citekey>
+    <bcf:citekey order="12" intorder="3">yoo2021hybrid</bcf:citekey>
+    <bcf:citekey order="13" intorder="1">chan2024drone_simulators</bcf:citekey>
+    <bcf:citekey order="14" intorder="1">azar2021drone_review</bcf:citekey>
+    <bcf:citekey order="14" intorder="2">chan2024drone_simulators</bcf:citekey>
+    <bcf:citekey order="15" intorder="1">song2021flightmare</bcf:citekey>
+    <bcf:citekey order="16" intorder="1">krishnan2021airlearning</bcf:citekey>
+    <bcf:citekey order="17" intorder="1">panerati2021pybullet</bcf:citekey>
+    <bcf:citekey order="18" intorder="1">eschmann2024seconds</bcf:citekey>
+    <bcf:citekey order="19" intorder="1">chan2024drone_simulators</bcf:citekey>
+    <bcf:citekey order="20" intorder="1">kaufmann2020acrobatics</bcf:citekey>
+    <bcf:citekey order="20" intorder="2">pi2021lowlevel</bcf:citekey>
+    <bcf:citekey order="20" intorder="3">yoo2021hybrid</bcf:citekey>
+    <bcf:citekey order="20" intorder="4">song2023racing</bcf:citekey>
+    <bcf:citekey order="21" intorder="1">kaufmann2022benchmark</bcf:citekey>
+    <bcf:citekey order="21" intorder="2">chan2024drone_simulators</bcf:citekey>
+    <bcf:citekey order="22" intorder="1">fernandez2023aerostack2</bcf:citekey>
+    <bcf:citekey order="22" intorder="2">song2021flightmare</bcf:citekey>
+    <bcf:citekey order="22" intorder="3">krishnan2021airlearning</bcf:citekey>
+    <bcf:citekey order="22" intorder="4">panerati2021pybullet</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="none">

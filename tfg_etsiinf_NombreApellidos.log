@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.1) (preloaded format=pdflatex 2026.2.27)  27 FEB 2026 16:19
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.1) (preloaded format=pdflatex 2026.2.27)  18 MAR 2026 18:29
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**/Users/jordi/Documents/GitHub/TFM-Jordi/tfg_etsiinf_NombreApellidos.tex
-(/Users/jordi/Documents/GitHub/TFM-Jordi/tfg_etsiinf_NombreApellidos.tex
+**/Users/jordi/Documents/UPM/TFM/TFM-Jordi/tfg_etsiinf_NombreApellidos.tex
+(/Users/jordi/Documents/UPM/TFM/TFM-Jordi/tfg_etsiinf_NombreApellidos.tex
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
 (secciones/_DatosTFG.tex) (include/Preambulo.tex (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/base/book.cls
@@ -1080,7 +1080,7 @@ Package biblatex Info: Reference section=0 on input line 12.
 Package biblatex Info: Reference segment=0 on input line 12.
 \c@lstlisting=\count529
  (include/Portada.tex
-<./include/EscUpm.png, id=98, 245.91875pt x 200.75pt>
+<./include/EscUpm.png, id=114, 245.91875pt x 200.75pt>
 File: ./include/EscUpm.png Graphic file (type png)
 <use ./include/EscUpm.png>
 Package pdftex.def Info: ./include/EscUpm.png  used on input line 7.
@@ -1109,7 +1109,7 @@ LaTeX Font Info:    Font shape `T1/pbk/m/n' in size <14.4> not available
 (Font)              Font shape `T1/pbk/l/n' tried instead on input line 13.
 LaTeX Font Info:    Font shape `T1/pbk/b/n' in size <14.4> not available
 (Font)              Font shape `T1/pbk/db/n' tried instead on input line 13.
-<./include/FacInformatica.png, id=100, 160.6pt x 170.6375pt>
+<./include/FacInformatica.png, id=116, 160.6pt x 170.6375pt>
 File: ./include/FacInformatica.png Graphic file (type png)
 <use ./include/FacInformatica.png>
 Package pdftex.def Info: ./include/FacInformatica.png  used on input line 17.
@@ -1206,54 +1206,104 @@ l.2 \chapter
 
 ]
 Cap\'{\i }tulo 1.
-LaTeX Font Info:    Trying to load font information for TS1+pbk on input line 31.
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/psnfss/ts1pbk.fd
-File: ts1pbk.fd 2001/06/04 font definitions for TS1/pbk.
-)
-LaTeX Font Info:    Font shape `TS1/pbk/m/n' in size <10.95> not available
-(Font)              Font shape `TS1/pbk/l/n' tried instead on input line 31.
-) (secciones/02_TrabajoArte.tex
+LaTeX Font Info:    Font shape `T1/pbk/m/it' in size <10.95> not available
+(Font)              Font shape `T1/pbk/l/it' tried instead on input line 39.
+
 
 [3
 
 ]
-Cap\'{\i }tulo 2.
-) (secciones/03_Desarrollo.tex
+LaTeX Font Info:    Trying to load font information for T1+pcr on input line 82.
+ (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/psnfss/t1pcr.fd
+File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
+)
+Underfull \vbox (badness 6691) has occurred while \output is active []
 
-[4
+
+
+LaTeX Info: Redefining \. on input line 113.
+LaTeX Info: Redefining \% on input line 113.
+Package babel Info: 'spanish' activates 'spanish' shorthands.
+(babel)             Reported on input line 113.
+[4]
+LaTeX Font Info:    Trying to load font information for TS1+pbk on input line 119.
+ (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/psnfss/ts1pbk.fd
+File: ts1pbk.fd 2001/06/04 font definitions for TS1/pbk.
+)
+LaTeX Font Info:    Font shape `TS1/pbk/m/n' in size <10.95> not available
+(Font)              Font shape `TS1/pbk/l/n' tried instead on input line 119.
+
+
+LaTeX Info: Redefining \. on input line 172.
+LaTeX Info: Redefining \% on input line 172.
+[5]) (secciones/02_TrabajoArte.tex
+
+LaTeX Info: Redefining \. on input line 2.
+LaTeX Info: Redefining \% on input line 2.
+[6]
+Cap\'{\i }tulo 2.
+
+
+[7
 
 ]
+
+LaTeX Info: Redefining \. on input line 112.
+LaTeX Info: Redefining \% on input line 112.
+[8]
+
+LaTeX Info: Redefining \. on input line 178.
+LaTeX Info: Redefining \% on input line 178.
+[9]) (secciones/03_Desarrollo.tex
+
+LaTeX Info: Redefining \. on input line 2.
+LaTeX Info: Redefining \% on input line 2.
+[10]
 Cap\'{\i }tulo 3.
 LaTeX Font Info:    Font shape `T1/pbk/b/n' in size <12> not available
 (Font)              Font shape `T1/pbk/db/n' tried instead on input line 13.
 ) (secciones/07_Impacto.tex
 
-[5
+[11
 
 ]
 Cap\'{\i }tulo 4.
 ) (secciones/08_Resultados.tex
 
-[6
+[12
 
 ]
 Cap\'{\i }tulo 5.
 )
 
-[7
+[13
 
 ]
-LaTeX Font Info:    Font shape `T1/pbk/m/it' in size <10.95> not available
-(Font)              Font shape `T1/pbk/l/it' tried instead on input line 49.
+LaTeX Font Info:    Font shape `T1/pbk/m/sc' in size <10.95> not available
+(Font)              Font shape `T1/pbk/l/sc' tried instead on input line 49.
+
+Overfull \hbox (10.71397pt too wide) in paragraph at lines 49--49
+\T1/pbk/l/it/10.95 na-tio-nal Con-fe-ren-ce on Ro-bo-tics and Au-to-ma-tion (ICRA)\T1/pbk/l/n/10.95 . 2022, p^^e1gs. 10504[]10510.
+ []
 
 
-[8
+Overfull \hbox (6.21086pt too wide) in paragraph at lines 49--49
+\T1/pbk/l/n/10.95 trol ver-sus Re-in-for-ce-ment Lear-ning^^T. En: \T1/pbk/l/it/10.95 Scien-ce Ro-bo-tics \T1/pbk/l/n/10.95 8.82 (2023), eadg1462.
+ []
 
-] (secciones/09_Anexos.tex
+
+
+[14
+
+]
+
+LaTeX Info: Redefining \. on input line 54.
+LaTeX Info: Redefining \% on input line 54.
+[15] (secciones/09_Anexos.tex
 Ap\'{e}ndice A.
 )
 
-[9
+[16
 
 
 ] (tfg_etsiinf_NombreApellidos.aux
@@ -1266,23 +1316,23 @@ LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
  ***********
 Package rerunfilecheck Info: File `tfg_etsiinf_NombreApellidos.out' has not changed.
-(rerunfilecheck)             Checksum: 94D2C5E3875AFF758718DAAA2E698844;3747.
+(rerunfilecheck)             Checksum: 247A8BA0F38F764169AA3BB5B54D80A2;4976.
 Package logreq Info: Writing requests to 'tfg_etsiinf_NombreApellidos.run.xml'.
 \openout1 = `tfg_etsiinf_NombreApellidos.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 35854 strings out of 467870
- 693360 string characters out of 5409725
- 1530241 words of memory out of 5000000
- 64086 multiletter control sequences out of 15000+600000
- 652404 words of font info for 89 fonts, out of 8000000 for 9000
+ 35981 strings out of 467870
+ 697034 string characters out of 5409725
+ 1536173 words of memory out of 5000000
+ 64183 multiletter control sequences out of 15000+600000
+ 655043 words of font info for 93 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 104i,7n,121p,756b,1907s stack positions out of 10000i,1000n,20000p,200000b,200000s
-{/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/enc/dvips/base/8r.enc}</Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/urw/bookman/ubkd8a.pfb></Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/urw/bookman/ubkl8a.pfb></Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/urw/bookman/ubkli8a.pfb>
-Output written on tfg_etsiinf_NombreApellidos.pdf (15 pages, 172203 bytes).
+ 104i,11n,121p,757b,1907s stack positions out of 10000i,1000n,20000p,200000b,200000s
+{/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/enc/dvips/base/8r.enc}</Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/cm/cmmi10.pfb></Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/cm/cmmi8.pfb></Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/cm/cmr10.pfb></Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/urw/bookman/ubkd8a.pfb></Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/urw/bookman/ubkl8a.pfb></Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/urw/bookman/ubkli8a.pfb></Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/urw/courier/ucrr8a.pfb>
+Output written on tfg_etsiinf_NombreApellidos.pdf (22 pages, 265446 bytes).
 PDF statistics:
- 228 PDF objects out of 1000 (max. 8388607)
- 44 named destinations out of 1000 (max. 500000)
- 207 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 381 PDF objects out of 1000 (max. 8388607)
+ 67 named destinations out of 1000 (max. 500000)
+ 239 words of extra memory for PDF output out of 10000 (max. 10000000)
 

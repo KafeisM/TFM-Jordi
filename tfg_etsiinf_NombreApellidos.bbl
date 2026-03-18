@@ -19,31 +19,768 @@
 
 \refsection{0}
   \datalist[entry]{none/global//global/global/global}
-    \entry{stallings2006}{book}{}{}
-      \name{author}{1}{}{%
-        {{hash=0599c551bf066f66e0e9c44815384cb4}{%
-           family={Stallings},
+    \entry{sanchez2017aerostack}{article}{}{}
+      \name{author}{8}{}{%
+        {{hash=63fd957c4c74656b2634f6e88864135b}{%
+           family={Sánchez-López},
+           familyi={S\bibinithyphendelim L\bibinitperiod},
+           given={José\bibnamedelima Luis},
+           giveni={J\bibinitperiod\bibinitdelim L\bibinitperiod}}}%
+        {{hash=9c5f4ab284ede6762eb66f65a428c609}{%
+           family={Molina},
+           familyi={M\bibinitperiod},
+           given={Martín},
+           giveni={M\bibinitperiod}}}%
+        {{hash=a2189cfbccf8bf6306bec551dcee25f3}{%
+           family={Bavle},
+           familyi={B\bibinitperiod},
+           given={Hriday},
+           giveni={H\bibinitperiod}}}%
+        {{hash=5b903e923f6f354b667398d8f148692c}{%
+           family={Sampedro},
            familyi={S\bibinitperiod},
-           given={William},
-           giveni={W\bibinitperiod}}}%
+           given={Carlos},
+           giveni={C\bibinitperiod}}}%
+        {{hash=845d09d0386f3aa3ac6158ff536c3e93}{%
+           family={Fernández},
+           familyi={F\bibinitperiod},
+           given={Ramón\bibnamedelima Suárez},
+           giveni={R\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+        {{hash=c499167c652c545f65d849109a4a8f2b}{%
+           family={Palacios},
+           familyi={P\bibinitperiod},
+           given={David},
+           giveni={D\bibinitperiod}}}%
+        {{hash=f574f64ea397d108329c89cf4434ae3a}{%
+           family={Díaz-Moreno},
+           familyi={D\bibinithyphendelim M\bibinitperiod},
+           given={Antonio},
+           giveni={A\bibinitperiod}}}%
+        {{hash=87bd462d9e35eedf40fef11c42aacf2c}{%
+           family={Campoy},
+           familyi={C\bibinitperiod},
+           given={Pascual},
+           giveni={P\bibinitperiod}}}%
       }
-      \list{publisher}{1}{%
-        {Prentice Hall}%
-      }
-      \strng{namehash}{0599c551bf066f66e0e9c44815384cb4}
-      \strng{fullhash}{0599c551bf066f66e0e9c44815384cb4}
-      \strng{fullhashraw}{0599c551bf066f66e0e9c44815384cb4}
-      \strng{bibnamehash}{0599c551bf066f66e0e9c44815384cb4}
-      \strng{authorbibnamehash}{0599c551bf066f66e0e9c44815384cb4}
-      \strng{authornamehash}{0599c551bf066f66e0e9c44815384cb4}
-      \strng{authorfullhash}{0599c551bf066f66e0e9c44815384cb4}
-      \strng{authorfullhashraw}{0599c551bf066f66e0e9c44815384cb4}
+      \strng{namehash}{ed47dc66b00e1c11d9e469b3486508e2}
+      \strng{fullhash}{9ba95f8921420db3e207754dbf3a8335}
+      \strng{fullhashraw}{9ba95f8921420db3e207754dbf3a8335}
+      \strng{bibnamehash}{ed47dc66b00e1c11d9e469b3486508e2}
+      \strng{authorbibnamehash}{ed47dc66b00e1c11d9e469b3486508e2}
+      \strng{authornamehash}{ed47dc66b00e1c11d9e469b3486508e2}
+      \strng{authorfullhash}{9ba95f8921420db3e207754dbf3a8335}
+      \strng{authorfullhashraw}{9ba95f8921420db3e207754dbf3a8335}
       \field{sortinit}{1}
       \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{title}{Computer Organization and Architecture}
-      \field{year}{2006}
+      \field{journaltitle}{Journal of Intelligent \& Robotic Systems}
+      \field{number}{2--4}
+      \field{title}{A Multi-Layered Component-Based Approach for the Development of Aerial Robotic Systems: The {Aerostack} Framework}
+      \field{volume}{88}
+      \field{year}{2017}
+      \field{pages}{683\bibrangedash 709}
+      \range{pages}{27}
+      \verb{doi}
+      \verb 10.1007/s10846-017-0551-4
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1007/s10846-017-0551-4
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1007/s10846-017-0551-4
+      \endverb
+    \endentry
+    \entry{fernandez2023aerostack2}{article}{}{}
+      \name{author}{6}{}{%
+        {{hash=95e40dfc96c74975ac5ade3507be62f8}{%
+           family={Fernández-Cortizas},
+           familyi={F\bibinithyphendelim C\bibinitperiod},
+           given={Miguel},
+           giveni={M\bibinitperiod}}}%
+        {{hash=9c5f4ab284ede6762eb66f65a428c609}{%
+           family={Molina},
+           familyi={M\bibinitperiod},
+           given={Martín},
+           giveni={M\bibinitperiod}}}%
+        {{hash=02694c56717bf64334d13f93ca27faa9}{%
+           family={Arias-Perez},
+           familyi={A\bibinithyphendelim P\bibinitperiod},
+           given={Pedro},
+           giveni={P\bibinitperiod}}}%
+        {{hash=5e54b8bd7ded4b2901a02134fedf605a}{%
+           family={Perez-Segui},
+           familyi={P\bibinithyphendelim S\bibinitperiod},
+           given={Rafael},
+           giveni={R\bibinitperiod}}}%
+        {{hash=08440495770354f109b80d628ce58094}{%
+           family={Perez-Saura},
+           familyi={P\bibinithyphendelim S\bibinitperiod},
+           given={David},
+           giveni={D\bibinitperiod}}}%
+        {{hash=87bd462d9e35eedf40fef11c42aacf2c}{%
+           family={Campoy},
+           familyi={C\bibinitperiod},
+           given={Pascual},
+           giveni={P\bibinitperiod}}}%
+      }
+      \strng{namehash}{77fa85c9b184afb27a8840ece4c61c93}
+      \strng{fullhash}{167c89f8d52c303fd17d258bf45cc6c5}
+      \strng{fullhashraw}{167c89f8d52c303fd17d258bf45cc6c5}
+      \strng{bibnamehash}{77fa85c9b184afb27a8840ece4c61c93}
+      \strng{authorbibnamehash}{77fa85c9b184afb27a8840ece4c61c93}
+      \strng{authornamehash}{77fa85c9b184afb27a8840ece4c61c93}
+      \strng{authorfullhash}{167c89f8d52c303fd17d258bf45cc6c5}
+      \strng{authorfullhashraw}{167c89f8d52c303fd17d258bf45cc6c5}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{arXiv preprint arXiv:2303.18237}
+      \field{title}{{Aerostack2}: A Software Framework for Developing Multi-robot Aerial Systems}
+      \field{year}{2023}
+      \verb{doi}
+      \verb 10.48550/arXiv.2303.18237
+      \endverb
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/2303.18237
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/2303.18237
+      \endverb
+    \endentry
+    \entry{azar2021drone_review}{article}{}{}
+      \name{author}{11}{}{%
+        {{hash=34ef27303c6e4991e652d4678479feaf}{%
+           family={Azar},
+           familyi={A\bibinitperiod},
+           given={Ahmad\bibnamedelima Taher},
+           giveni={A\bibinitperiod\bibinitdelim T\bibinitperiod}}}%
+        {{hash=bfa7caea7320966a6a6bd9ef6a4bd029}{%
+           family={Koubaa},
+           familyi={K\bibinitperiod},
+           given={Anis},
+           giveni={A\bibinitperiod}}}%
+        {{hash=dd2db8a0dba1a0bc3d9d63ef265e4afe}{%
+           family={Mohamed},
+           familyi={M\bibinitperiod},
+           given={Nada\bibnamedelima Ali},
+           giveni={N\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=95cd29df245b83e649213d5b1f50975d}{%
+           family={Ibrahim},
+           familyi={I\bibinitperiod},
+           given={Habiba\bibnamedelima A.},
+           giveni={H\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=6be7419a16ee524c9663b50b0d24d568}{%
+           family={Ibrahim},
+           familyi={I\bibinitperiod},
+           given={Zahra\bibnamedelima Fathy},
+           giveni={Z\bibinitperiod\bibinitdelim F\bibinitperiod}}}%
+        {{hash=77bba1a590bc9f6cc5ebea7dc1e85450}{%
+           family={Kazim},
+           familyi={K\bibinitperiod},
+           given={Muhammad},
+           giveni={M\bibinitperiod}}}%
+        {{hash=ff3f137b2e899429d79cf352ba226d2b}{%
+           family={Ammar},
+           familyi={A\bibinitperiod},
+           given={Adel},
+           giveni={A\bibinitperiod}}}%
+        {{hash=33b331028891639a07033403d034b8b2}{%
+           family={Benjdira},
+           familyi={B\bibinitperiod},
+           given={Bilel},
+           giveni={B\bibinitperiod}}}%
+        {{hash=1a9cfdfe403ea58dba790f61b65010eb}{%
+           family={Khamis},
+           familyi={K\bibinitperiod},
+           given={Alaa\bibnamedelima M.},
+           giveni={A\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+        {{hash=5da8a8320eddb66c8f99644f4349bb09}{%
+           family={Hameed},
+           familyi={H\bibinitperiod},
+           given={Ibrahim\bibnamedelima A.},
+           giveni={I\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=25915f48b083b304205d95994b4ef3fd}{%
+           family={Casalino},
+           familyi={C\bibinitperiod},
+           given={Gabriella},
+           giveni={G\bibinitperiod}}}%
+      }
+      \strng{namehash}{1c4564498c8493b2d3c7c10a5ecfe1cb}
+      \strng{fullhash}{16774d0737e44cd485bb2474c560ff5d}
+      \strng{fullhashraw}{16774d0737e44cd485bb2474c560ff5d}
+      \strng{bibnamehash}{1c4564498c8493b2d3c7c10a5ecfe1cb}
+      \strng{authorbibnamehash}{1c4564498c8493b2d3c7c10a5ecfe1cb}
+      \strng{authornamehash}{1c4564498c8493b2d3c7c10a5ecfe1cb}
+      \strng{authorfullhash}{16774d0737e44cd485bb2474c560ff5d}
+      \strng{authorfullhashraw}{16774d0737e44cd485bb2474c560ff5d}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Electronics}
+      \field{number}{9}
+      \field{title}{Drone Deep Reinforcement Learning: A Review}
+      \field{volume}{10}
+      \field{year}{2021}
+      \field{pages}{999}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.3390/electronics10090999
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.3390/electronics10090999
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.3390/electronics10090999
+      \endverb
+    \endentry
+    \entry{chan2024drone_simulators}{article}{}{}
+      \name{author}{5}{}{%
+        {{hash=1c640f2f68bc391bbc606081667112ee}{%
+           family={Chan},
+           familyi={C\bibinitperiod},
+           given={Jun\bibnamedelima Hoong},
+           giveni={J\bibinitperiod\bibinitdelim H\bibinitperiod}}}%
+        {{hash=25b9f35fc4e73c25450ef97e7c37b292}{%
+           family={Liu},
+           familyi={L\bibinitperiod},
+           given={Kai},
+           giveni={K\bibinitperiod}}}%
+        {{hash=5ffb5aba0d9858b862639d446d48f8eb}{%
+           family={Chen},
+           familyi={C\bibinitperiod},
+           given={Yu},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=2c011c26bdb806cd98ae32bcad807885}{%
+           family={Sagar},
+           familyi={S\bibinitperiod},
+           given={A.\bibnamedelimi S.\bibnamedelimi M.\bibnamedelimi Sharifuzzaman},
+           giveni={A\bibinitperiod\bibinitdelim S\bibinitperiod\bibinitdelim M\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+        {{hash=45c873c43bfa22b90fd6c3600a944fe2}{%
+           family={Kim},
+           familyi={K\bibinitperiod},
+           given={Yong-Guk},
+           giveni={Y\bibinithyphendelim G\bibinitperiod}}}%
+      }
+      \strng{namehash}{e89b7dffe72b1733818609e74e82ec8b}
+      \strng{fullhash}{bb6db088b3a8e40b2bc009962034c44b}
+      \strng{fullhashraw}{bb6db088b3a8e40b2bc009962034c44b}
+      \strng{bibnamehash}{e89b7dffe72b1733818609e74e82ec8b}
+      \strng{authorbibnamehash}{e89b7dffe72b1733818609e74e82ec8b}
+      \strng{authornamehash}{e89b7dffe72b1733818609e74e82ec8b}
+      \strng{authorfullhash}{bb6db088b3a8e40b2bc009962034c44b}
+      \strng{authorfullhashraw}{bb6db088b3a8e40b2bc009962034c44b}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Artificial Intelligence Review}
+      \field{number}{10}
+      \field{title}{Reinforcement Learning-based Drone Simulators: Survey, Practice, and Challenge}
+      \field{volume}{57}
+      \field{year}{2024}
+      \field{pages}{281}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1007/s10462-024-10933-w
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1007/s10462-024-10933-w
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1007/s10462-024-10933-w
+      \endverb
+    \endentry
+    \entry{pi2021lowlevel}{article}{}{}
+      \name{author}{4}{}{%
+        {{hash=f454237872a610bf2288d0eea64cb123}{%
+           family={Pi},
+           familyi={P\bibinitperiod},
+           given={Chen-Huan},
+           giveni={C\bibinithyphendelim H\bibinitperiod}}}%
+        {{hash=c5e4d911a80ab28b4f0ae1a6b4608cd6}{%
+           family={Dai},
+           familyi={D\bibinitperiod},
+           given={Yi-Wei},
+           giveni={Y\bibinithyphendelim W\bibinitperiod}}}%
+        {{hash=c6210d1462199d1fde102f5e2fb7e49d}{%
+           family={Hu},
+           familyi={H\bibinitperiod},
+           given={Kai-Chun},
+           giveni={K\bibinithyphendelim C\bibinitperiod}}}%
+        {{hash=dca741e651948e903193389b4f049369}{%
+           family={Cheng},
+           familyi={C\bibinitperiod},
+           given={Stone},
+           giveni={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{4322883d72a48097212e421204b097c2}
+      \strng{fullhash}{23f9d0203d329738a80183d48f69d381}
+      \strng{fullhashraw}{23f9d0203d329738a80183d48f69d381}
+      \strng{bibnamehash}{4322883d72a48097212e421204b097c2}
+      \strng{authorbibnamehash}{4322883d72a48097212e421204b097c2}
+      \strng{authornamehash}{4322883d72a48097212e421204b097c2}
+      \strng{authorfullhash}{23f9d0203d329738a80183d48f69d381}
+      \strng{authorfullhashraw}{23f9d0203d329738a80183d48f69d381}
+      \field{sortinit}{6}
+      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Sensors}
+      \field{number}{13}
+      \field{title}{General Purpose Low-Level Reinforcement Learning Control for Multi-Axis Rotor Aerial Vehicles}
+      \field{volume}{21}
+      \field{year}{2021}
+      \field{pages}{4560}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.3390/s21134560
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.3390/s21134560
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.3390/s21134560
+      \endverb
+    \endentry
+    \entry{yoo2021hybrid}{article}{}{}
+      \name{author}{4}{}{%
+        {{hash=bc0752d8dbb319018022b04ded9ba275}{%
+           family={Yoo},
+           familyi={Y\bibinitperiod},
+           given={Jaehyun},
+           giveni={J\bibinitperiod}}}%
+        {{hash=d0870eae4dab231d9ddb214f42d05923}{%
+           family={Jang},
+           familyi={J\bibinitperiod},
+           given={Dohyun},
+           giveni={D\bibinitperiod}}}%
+        {{hash=120b4c8256eecc682569e8373e6ae324}{%
+           family={Kim},
+           familyi={K\bibinitperiod},
+           given={H.\bibnamedelimi Jin},
+           giveni={H\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+        {{hash=ca50080f9b7c6c18b9184edcde522d37}{%
+           family={Johansson},
+           familyi={J\bibinitperiod},
+           given={Karl\bibnamedelima H.},
+           giveni={K\bibinitperiod\bibinitdelim H\bibinitperiod}}}%
+      }
+      \strng{namehash}{e7a9f90a91e27a7decf4fd829b77d160}
+      \strng{fullhash}{d7b2125393d34d9053c224529db09c9e}
+      \strng{fullhashraw}{d7b2125393d34d9053c224529db09c9e}
+      \strng{bibnamehash}{e7a9f90a91e27a7decf4fd829b77d160}
+      \strng{authorbibnamehash}{e7a9f90a91e27a7decf4fd829b77d160}
+      \strng{authornamehash}{e7a9f90a91e27a7decf4fd829b77d160}
+      \strng{authorfullhash}{d7b2125393d34d9053c224529db09c9e}
+      \strng{authorfullhashraw}{d7b2125393d34d9053c224529db09c9e}
+      \field{sortinit}{7}
+      \field{sortinithash}{108d0be1b1bee9773a1173443802c0a3}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{IEEE Control Systems Letters}
+      \field{number}{2}
+      \field{title}{Hybrid Reinforcement Learning Control for a Micro Quadrotor Flight}
+      \field{volume}{5}
+      \field{year}{2021}
+      \field{pages}{505\bibrangedash 510}
+      \range{pages}{6}
+      \verb{doi}
+      \verb 10.1109/LCSYS.2020.3001663
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1109/LCSYS.2020.3001663
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1109/LCSYS.2020.3001663
+      \endverb
+    \endentry
+    \entry{kaufmann2020acrobatics}{inproceedings}{}{}
+      \name{author}{6}{}{%
+        {{hash=67c97d80868fd6b133dedb6e929aac2d}{%
+           family={Kaufmann},
+           familyi={K\bibinitperiod},
+           given={Elia},
+           giveni={E\bibinitperiod}}}%
+        {{hash=ac29e4e32ee2a5bcaa325934a585b06f}{%
+           family={Loquercio},
+           familyi={L\bibinitperiod},
+           given={Antonio},
+           giveni={A\bibinitperiod}}}%
+        {{hash=80e68e08dd8bccf126d4163539480e5d}{%
+           family={Ranftl},
+           familyi={R\bibinitperiod},
+           given={Rene},
+           giveni={R\bibinitperiod}}}%
+        {{hash=81a3feeb579a36f8ed14c22d7264cf2c}{%
+           family={Müller},
+           familyi={M\bibinitperiod},
+           given={Matthias},
+           giveni={M\bibinitperiod}}}%
+        {{hash=9025300f43a193cfed8e10e924f2a117}{%
+           family={Koltun},
+           familyi={K\bibinitperiod},
+           given={Vladlen},
+           giveni={V\bibinitperiod}}}%
+        {{hash=dac21ab4ede215439fcc6b051be53a11}{%
+           family={Scaramuzza},
+           familyi={S\bibinitperiod},
+           given={Davide},
+           giveni={D\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Corvallis, Oregon, USA}%
+      }
+      \strng{namehash}{92409b57e303bc9e6aa9740c5b8df0de}
+      \strng{fullhash}{ad9bb9ebab53007051ecb0293b2b2fc4}
+      \strng{fullhashraw}{ad9bb9ebab53007051ecb0293b2b2fc4}
+      \strng{bibnamehash}{92409b57e303bc9e6aa9740c5b8df0de}
+      \strng{authorbibnamehash}{92409b57e303bc9e6aa9740c5b8df0de}
+      \strng{authornamehash}{92409b57e303bc9e6aa9740c5b8df0de}
+      \strng{authorfullhash}{ad9bb9ebab53007051ecb0293b2b2fc4}
+      \strng{authorfullhashraw}{ad9bb9ebab53007051ecb0293b2b2fc4}
+      \field{sortinit}{8}
+      \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of Robotics: Science and Systems}
+      \field{title}{Deep Drone Acrobatics}
+      \field{year}{2020}
+      \verb{doi}
+      \verb 10.15607/RSS.2020.XVI.040
+      \endverb
+      \verb{urlraw}
+      \verb https://www.roboticsproceedings.org/rss16/p040.html
+      \endverb
+      \verb{url}
+      \verb https://www.roboticsproceedings.org/rss16/p040.html
+      \endverb
+    \endentry
+    \entry{kaufmann2022benchmark}{inproceedings}{}{}
+      \name{author}{3}{}{%
+        {{hash=67c97d80868fd6b133dedb6e929aac2d}{%
+           family={Kaufmann},
+           familyi={K\bibinitperiod},
+           given={Elia},
+           giveni={E\bibinitperiod}}}%
+        {{hash=59afafcd8a1882db2ba4f6af81e0f01a}{%
+           family={Bauersfeld},
+           familyi={B\bibinitperiod},
+           given={Leonard},
+           giveni={L\bibinitperiod}}}%
+        {{hash=dac21ab4ede215439fcc6b051be53a11}{%
+           family={Scaramuzza},
+           familyi={S\bibinitperiod},
+           given={Davide},
+           giveni={D\bibinitperiod}}}%
+      }
+      \strng{namehash}{09154f81ab94b9eb9011a2aeb6f13d5a}
+      \strng{fullhash}{09154f81ab94b9eb9011a2aeb6f13d5a}
+      \strng{fullhashraw}{09154f81ab94b9eb9011a2aeb6f13d5a}
+      \strng{bibnamehash}{09154f81ab94b9eb9011a2aeb6f13d5a}
+      \strng{authorbibnamehash}{09154f81ab94b9eb9011a2aeb6f13d5a}
+      \strng{authornamehash}{09154f81ab94b9eb9011a2aeb6f13d5a}
+      \strng{authorfullhash}{09154f81ab94b9eb9011a2aeb6f13d5a}
+      \strng{authorfullhashraw}{09154f81ab94b9eb9011a2aeb6f13d5a}
+      \field{sortinit}{9}
+      \field{sortinithash}{0a5ebc79d83c96b6579069544c73c7d4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{2022 International Conference on Robotics and Automation ({ICRA})}
+      \field{title}{A Benchmark Comparison of Learned Control Policies for Agile Quadrotor Flight}
+      \field{year}{2022}
+      \field{pages}{10504\bibrangedash 10510}
+      \range{pages}{7}
+      \verb{doi}
+      \verb 10.1109/ICRA46639.2022.9811564
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1109/ICRA46639.2022.9811564
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1109/ICRA46639.2022.9811564
+      \endverb
+    \endentry
+    \entry{eschmann2024seconds}{article}{}{}
+      \name{author}{3}{}{%
+        {{hash=cf2dc8fc638c7a73de367f8692d9805d}{%
+           family={Eschmann},
+           familyi={E\bibinitperiod},
+           given={Jonas},
+           giveni={J\bibinitperiod}}}%
+        {{hash=83a64f48e2f228efcc75d6385ced7734}{%
+           family={Albani},
+           familyi={A\bibinitperiod},
+           given={Dario},
+           giveni={D\bibinitperiod}}}%
+        {{hash=43621feced2cb49592fb38277ac77477}{%
+           family={Loianno},
+           familyi={L\bibinitperiod},
+           given={Giuseppe},
+           giveni={G\bibinitperiod}}}%
+      }
+      \strng{namehash}{47e84b1c10d35aca9553b1ca5e4d426a}
+      \strng{fullhash}{47e84b1c10d35aca9553b1ca5e4d426a}
+      \strng{fullhashraw}{47e84b1c10d35aca9553b1ca5e4d426a}
+      \strng{bibnamehash}{47e84b1c10d35aca9553b1ca5e4d426a}
+      \strng{authorbibnamehash}{47e84b1c10d35aca9553b1ca5e4d426a}
+      \strng{authornamehash}{47e84b1c10d35aca9553b1ca5e4d426a}
+      \strng{authorfullhash}{47e84b1c10d35aca9553b1ca5e4d426a}
+      \strng{authorfullhashraw}{47e84b1c10d35aca9553b1ca5e4d426a}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{IEEE Robotics and Automation Letters}
+      \field{number}{7}
+      \field{title}{Learning to Fly in Seconds}
+      \field{volume}{9}
+      \field{year}{2024}
+      \field{pages}{6336\bibrangedash 6343}
+      \range{pages}{8}
+      \verb{doi}
+      \verb 10.1109/LRA.2024.3396025
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1109/LRA.2024.3396025
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1109/LRA.2024.3396025
+      \endverb
+    \endentry
+    \entry{song2023racing}{article}{}{}
+      \name{author}{5}{}{%
+        {{hash=2cf9aadafe81136ce6f72094a85347b6}{%
+           family={Song},
+           familyi={S\bibinitperiod},
+           given={Yunlong},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=3d20df0e1a531fb1a6aaf0c013b4db3d}{%
+           family={Romero},
+           familyi={R\bibinitperiod},
+           given={Angel},
+           giveni={A\bibinitperiod}}}%
+        {{hash=81a3feeb579a36f8ed14c22d7264cf2c}{%
+           family={Müller},
+           familyi={M\bibinitperiod},
+           given={Matthias},
+           giveni={M\bibinitperiod}}}%
+        {{hash=9025300f43a193cfed8e10e924f2a117}{%
+           family={Koltun},
+           familyi={K\bibinitperiod},
+           given={Vladlen},
+           giveni={V\bibinitperiod}}}%
+        {{hash=dac21ab4ede215439fcc6b051be53a11}{%
+           family={Scaramuzza},
+           familyi={S\bibinitperiod},
+           given={Davide},
+           giveni={D\bibinitperiod}}}%
+      }
+      \strng{namehash}{6d9500f9a7fedbd6e449eeeb7432d334}
+      \strng{fullhash}{2c46d25395b099509e251ae5652cc4ba}
+      \strng{fullhashraw}{2c46d25395b099509e251ae5652cc4ba}
+      \strng{bibnamehash}{6d9500f9a7fedbd6e449eeeb7432d334}
+      \strng{authorbibnamehash}{6d9500f9a7fedbd6e449eeeb7432d334}
+      \strng{authornamehash}{6d9500f9a7fedbd6e449eeeb7432d334}
+      \strng{authorfullhash}{2c46d25395b099509e251ae5652cc4ba}
+      \strng{authorfullhashraw}{2c46d25395b099509e251ae5652cc4ba}
+      \field{extraname}{1}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Science Robotics}
+      \field{number}{82}
+      \field{title}{Reaching the Limit in Autonomous Racing: Optimal Control versus Reinforcement Learning}
+      \field{volume}{8}
+      \field{year}{2023}
+      \field{pages}{eadg1462}
+      \range{pages}{-1}
+      \verb{doi}
+      \verb 10.1126/scirobotics.adg1462
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1126/scirobotics.adg1462
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1126/scirobotics.adg1462
+      \endverb
+    \endentry
+    \entry{song2021flightmare}{inproceedings}{}{}
+      \name{author}{5}{}{%
+        {{hash=2cf9aadafe81136ce6f72094a85347b6}{%
+           family={Song},
+           familyi={S\bibinitperiod},
+           given={Yunlong},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=e163fc6e4b847af12a1d093f0ce58b6e}{%
+           family={Naji},
+           familyi={N\bibinitperiod},
+           given={Selim},
+           giveni={S\bibinitperiod}}}%
+        {{hash=67c97d80868fd6b133dedb6e929aac2d}{%
+           family={Kaufmann},
+           familyi={K\bibinitperiod},
+           given={Elia},
+           giveni={E\bibinitperiod}}}%
+        {{hash=ac29e4e32ee2a5bcaa325934a585b06f}{%
+           family={Loquercio},
+           familyi={L\bibinitperiod},
+           given={Antonio},
+           giveni={A\bibinitperiod}}}%
+        {{hash=dac21ab4ede215439fcc6b051be53a11}{%
+           family={Scaramuzza},
+           familyi={S\bibinitperiod},
+           given={Davide},
+           giveni={D\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {PMLR}%
+      }
+      \strng{namehash}{6d9500f9a7fedbd6e449eeeb7432d334}
+      \strng{fullhash}{de31ad61fcc0dd6f46e6b48ab5a66a7a}
+      \strng{fullhashraw}{de31ad61fcc0dd6f46e6b48ab5a66a7a}
+      \strng{bibnamehash}{6d9500f9a7fedbd6e449eeeb7432d334}
+      \strng{authorbibnamehash}{6d9500f9a7fedbd6e449eeeb7432d334}
+      \strng{authornamehash}{6d9500f9a7fedbd6e449eeeb7432d334}
+      \strng{authorfullhash}{de31ad61fcc0dd6f46e6b48ab5a66a7a}
+      \strng{authorfullhashraw}{de31ad61fcc0dd6f46e6b48ab5a66a7a}
+      \field{extraname}{2}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the 5th Conference on Robot Learning}
+      \field{series}{Proceedings of Machine Learning Research}
+      \field{title}{Flightmare: A Flexible Quadrotor Simulator}
+      \field{volume}{155}
+      \field{year}{2021}
+      \field{pages}{1147\bibrangedash 1157}
+      \range{pages}{11}
+      \verb{urlraw}
+      \verb https://proceedings.mlr.press/v155/song21a.html
+      \endverb
+      \verb{url}
+      \verb https://proceedings.mlr.press/v155/song21a.html
+      \endverb
+    \endentry
+    \entry{krishnan2021airlearning}{article}{}{}
+      \name{author}{5}{}{%
+        {{hash=3f3b72aa8aa1b72064884e61030d3a1f}{%
+           family={Krishnan},
+           familyi={K\bibinitperiod},
+           given={Srivatsan},
+           giveni={S\bibinitperiod}}}%
+        {{hash=2b2fa9cb3d2ec8eb4bd59f3216a97186}{%
+           family={Boroujerdian},
+           familyi={B\bibinitperiod},
+           given={Behzad},
+           giveni={B\bibinitperiod}}}%
+        {{hash=3808d86ba5d39f696eadfc0b064627bd}{%
+           family={Fu},
+           familyi={F\bibinitperiod},
+           given={William},
+           giveni={W\bibinitperiod}}}%
+        {{hash=e50ccc4c85a1e40cf12d5f515dea85c8}{%
+           family={Faust},
+           familyi={F\bibinitperiod},
+           given={Aleksandra},
+           giveni={A\bibinitperiod}}}%
+        {{hash=ffa72a5331db6a0a5696041c81fd2086}{%
+           family={Reddi},
+           familyi={R\bibinitperiod},
+           given={Vijay\bibnamedelima Janapa},
+           giveni={V\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+      }
+      \strng{namehash}{6f8f75a4c1c01c92a8196e25b9bfcb41}
+      \strng{fullhash}{a8f98b4274e659f69f173e04c612786e}
+      \strng{fullhashraw}{a8f98b4274e659f69f173e04c612786e}
+      \strng{bibnamehash}{6f8f75a4c1c01c92a8196e25b9bfcb41}
+      \strng{authorbibnamehash}{6f8f75a4c1c01c92a8196e25b9bfcb41}
+      \strng{authornamehash}{6f8f75a4c1c01c92a8196e25b9bfcb41}
+      \strng{authorfullhash}{a8f98b4274e659f69f173e04c612786e}
+      \strng{authorfullhashraw}{a8f98b4274e659f69f173e04c612786e}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Machine Learning}
+      \field{title}{Air Learning: a Deep Reinforcement Learning Gym for Autonomous Aerial Robot Visual Navigation}
+      \field{volume}{110}
+      \field{year}{2021}
+      \field{pages}{2501\bibrangedash 2540}
+      \range{pages}{40}
+      \verb{doi}
+      \verb 10.1007/s10994-021-06006-6
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1007/s10994-021-06006-6
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1007/s10994-021-06006-6
+      \endverb
+    \endentry
+    \entry{panerati2021pybullet}{inproceedings}{}{}
+      \name{author}{6}{}{%
+        {{hash=8e74542c04eea3f83f736a0289303288}{%
+           family={Panerati},
+           familyi={P\bibinitperiod},
+           given={Jacopo},
+           giveni={J\bibinitperiod}}}%
+        {{hash=7b62c31d1a8f56a6633b24f2ae3b6bad}{%
+           family={Zheng},
+           familyi={Z\bibinitperiod},
+           given={Hehui},
+           giveni={H\bibinitperiod}}}%
+        {{hash=4bb7319672063347b8fca5521db03788}{%
+           family={Zhou},
+           familyi={Z\bibinitperiod},
+           given={Siqi},
+           giveni={S\bibinitperiod}}}%
+        {{hash=95e10ffe1a3cfc22b29f8be89fd2b2d1}{%
+           family={Xu},
+           familyi={X\bibinitperiod},
+           given={James},
+           giveni={J\bibinitperiod}}}%
+        {{hash=e804a7c3777838ff9fdf2b94a17a5bc9}{%
+           family={Prorok},
+           familyi={P\bibinitperiod},
+           given={Amanda},
+           giveni={A\bibinitperiod}}}%
+        {{hash=f84c642b8b17f55dce44eaa4eabb0dc3}{%
+           family={Schoellig},
+           familyi={S\bibinitperiod},
+           given={Angela\bibnamedelima P.},
+           giveni={A\bibinitperiod\bibinitdelim P\bibinitperiod}}}%
+      }
+      \strng{namehash}{9fd6481166ced254fb7e81aee2e329fb}
+      \strng{fullhash}{c8ffdd05bddfcba3b9f2f9234377e036}
+      \strng{fullhashraw}{c8ffdd05bddfcba3b9f2f9234377e036}
+      \strng{bibnamehash}{9fd6481166ced254fb7e81aee2e329fb}
+      \strng{authorbibnamehash}{9fd6481166ced254fb7e81aee2e329fb}
+      \strng{authornamehash}{9fd6481166ced254fb7e81aee2e329fb}
+      \strng{authorfullhash}{c8ffdd05bddfcba3b9f2f9234377e036}
+      \strng{authorfullhashraw}{c8ffdd05bddfcba3b9f2f9234377e036}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{2021 IEEE/RSJ International Conference on Intelligent Robots and Systems ({IROS})}
+      \field{title}{Learning to Fly --- a Gym Environment with {PyBullet} Physics for Reinforcement Learning of Multi-agent Quadcopter Control}
+      \field{year}{2021}
+      \field{pages}{7512\bibrangedash 7519}
+      \range{pages}{8}
+      \verb{doi}
+      \verb 10.1109/IROS51168.2021.9635857
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1109/IROS51168.2021.9635857
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1109/IROS51168.2021.9635857
+      \endverb
     \endentry
   \enddatalist
 \endrefsection
