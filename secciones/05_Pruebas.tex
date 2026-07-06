@@ -12,7 +12,7 @@ de entrenamiento dejan de representar la tarea que se pretende aprender.
 
 \section{Estrategia de validación} \label{sct:pruebas:estrategia}
 
-La estrategia de pruebas se organiza en tres niveles. El primer nivel agrupa
+La estrategia de pruebas se organiza en cuatro niveles. El primer nivel agrupa
 pruebas deterministas del entorno ejecutadas sin depender del simulador real.
 Estas pruebas verifican cálculo de observaciones, recompensas, terminaciones,
 recorte de acciones y propagación de configuración. El segundo nivel reúne
@@ -20,7 +20,10 @@ validaciones de integración con Aerostack2 y ROS 2, cuyo objetivo es comprobar
 que el entorno puede iniciar el UAV, enviar comandos y recibir estado físico del
 simulador. El tercer nivel corresponde a ejecuciones PPO acotadas, utilizadas
 para comprobar que la infraestructura de entrenamiento genera métricas,
-\emph{checkpoints} y diagnósticos interpretables.
+\emph{checkpoints} y diagnósticos interpretables. El cuarto nivel es la
+evaluación formal: campañas de 100 episodios generados por semillas fijas,
+idénticos entre controladores, que producen las métricas comparativas del
+Capítulo~\ref{chp:resultados}.
 
 La validación se plantea de forma incremental. Antes de lanzar entrenamientos de
 mayor duración se exige que el entorno pase pruebas de configuración, que el
@@ -91,6 +94,11 @@ simulador físico.
 \texttt{scripts/test\_exp011\_randomization\_contract.py} & Validar muestreo aleatorio de inicio, objetivo y guiñada con margen de seguridad y límite de distancia. & Las muestras respetan separación mínima, distancia máxima y márgenes de escena. \\
 \texttt{scripts/test\_exp012\_training\_contract.py} & Verificar la configuración del guard de límites, el corredor vertical y las claves de monitorización. & La configuración de Exp012 conserva la recompensa del tutor y activa las protecciones de frontera. \\
 \texttt{scripts/test\_resume\_checkpoint.py} & Validar la resolución de \emph{checkpoints} para reanudación de PPO. & El entrenamiento puede reanudarse desde una ruta explícita o desde el último \emph{checkpoint}. \\
+\texttt{scripts/test\_bounds\_action\_guard.py} y \texttt{test\_predictive\_guard.py} & Verificar los guards de acción reactivos y predictivos en fronteras y techo. & Los comandos salientes se sustituyen por empuje interior en las condiciones geométricas especificadas. \\
+\texttt{scripts/test\_idle\_watchdog.py} & Validar el mecanismo de vigilancia de comandos inactivos. & Publica hover tras el umbral de inactividad, no interfiere con la operación normal y se desactiva por defecto. \\
+\texttt{scripts/test\_evaluation\_harness.py} & Verificar el protocolo de evaluación por semillas y sus métricas. & Dos evaluaciones con la misma semilla producen episodios idénticos y los artefactos CSV/JSON son coherentes. \\
+\texttt{scripts/test\_pid\_controller.py} & Validar el controlador PID de referencia. & Signos, saturación, anti-\emph{windup} y convergencia en lazo cerrado cinemático. \\
+\texttt{scripts/test\_exp01*\_training\_contract.py} & Fijar el contrato de cada configuración experimental (Exp013--Exp018). & Geometría de guards, curriculum e hiperparámetros del tutor invariantes entre etapas. \\
 \texttt{scripts/validate\_deterministic\_reset.py} & Validar reinicios controlados y coherencia de pose inicial. & El UAV o doble de prueba alcanza el estado inicial esperado. \\
 \texttt{scripts/validate\_exp008\_training\_smoke.py} & Ejecutar una prueba corta con acción fija o PPO y analizar movimiento físico. & Las acciones aceptadas producen desplazamiento suficiente y métricas coherentes. \\
 \hline
@@ -149,6 +157,9 @@ Bloqueo por \texttt{go\_to} & Comportamiento de Aerostack2 ejecutándose indefin
 Timeout de reset por velocidad & Derivas grandes o recuperación insuficiente entre episodios. & Diagnósticos de reset, \texttt{reset\_max\_vel} y fases de corrección. & Exp007--Exp008a. \\
 Comando aceptado sin movimiento & Desacoplamiento entre aceptación de API y acción física tras reset. & Prueba de accionabilidad y fallo cerrado antes de entrenar. & Smokes Exp008a. \\
 Degradación por reinicios de servicio repetidos & Muchos episodios terminan en fronteras no observables y fuerzan teleports sucesivos. & Reintentos completos del servicio, guard de acción en límites y supervisor con reanudación. & Exp010--Exp012. \\
+Inercia vertical atraviesa el guard reactivo & La plataforma invierte la velocidad vertical con lentitud y el margen se cruza antes de que actúe la corrección. & Disparo predictivo (posición + velocidad $\times$ horizonte) y empuje vertical con autoridad completa. & Exp012--Exp013. \\
+Deriva en vectorizado por \emph{lockstep} & El controlador mantiene la última referencia de velocidad mientras el paso vectorizado espera el reset de otro entorno (8,05 m en 20 s medidos). & Watchdog de comandos inactivos con consigna de hover periódica. & Exp017--Exp018, sondas dedicadas. \\
+Cuelgue del reciclado preventivo & La señal de terminación puede coincidir con un reset en curso y el cierre de ROS 2 queda bloqueado. & Escalado a terminación forzosa tras un tiempo de gracia en el supervisor. & Exp016. \\
 \hline
 \end{tabular}
 \caption{Fallos de integración identificados y mecanismos de control incorporados.}

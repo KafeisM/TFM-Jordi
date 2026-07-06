@@ -542,20 +542,19 @@ recibir una referencia relativa al objetivo y generar comandos de velocidad
 compatibles con la arquitectura del dron, incorporando además una restricción de
 \emph{path-facing} para alinear el yaw con la dirección de movimiento.
 
-En este punto se sitúa el presente Trabajo Fin de Máster. La contribución
-diferencial no debe expresarse como una mejora de rendimiento todavía no
-cuantificada, sino como una integración reproducible entre Gymnasium,
-Stable-Baselines3, ROS 2 y Aerostack2. El entorno \texttt{AS2TestEnv-v0}, la
-configuración PPO, los scripts de entrenamiento y la validación de
-vectorización proporcionan la base para ejecutar experimentos posteriores de
-forma sistemática. La comparación con un controlador PID de referencia queda
-planteada como parte necesaria de la evaluación, pero solo podrá sostenerse como
-resultado cuando existan métricas experimentales suficientes. 
+En este punto se sitúa el presente Trabajo Fin de Máster. La contribución se
+articula en dos planos. El primero es una integración reproducible entre
+Gymnasium, Stable-Baselines3, ROS 2 y Aerostack2: el entorno
+\texttt{AS2TestEnv-v0}, las configuraciones experimentales, la supervisión de
+campañas largas y la validación de la vectorización. El segundo es la resolución
+de la tarea de navegación propuesta mediante un curriculum de distancia, con una
+evaluación final sobre episodios reproducibles que incluye la comparación
+directa con un controlador PID de referencia sobre los mismos episodios.
 
 Desde esta perspectiva, el trabajo se alinea con la literatura reciente sobre
-control aprendido para cuadricópteros, pero desplaza el foco desde la obtención
-inmediata de un controlador superior hacia la construcción rigurosa de la
-infraestructura experimental. Esta decisión es importante porque, sin una interfaz estable, una formulación
-clara de observaciones y acciones, una recompensa trazable y una estrategia de
-evaluación reproducible, cualquier comparación posterior entre aprendizaje por
+control aprendido para cuadricópteros, pero mantiene el rigor de la
+infraestructura experimental como condición previa de cualquier afirmación de
+rendimiento. Esta decisión es importante porque, sin una interfaz estable, una
+formulación clara de observaciones y acciones, una recompensa trazable y una
+estrategia de evaluación reproducible, la comparación entre aprendizaje por
 refuerzo y control clásico carecería de una base experimental sólida.

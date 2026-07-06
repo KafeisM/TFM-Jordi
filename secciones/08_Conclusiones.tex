@@ -1,80 +1,108 @@
 % !TEX root = ../tfg_etsiinf_NombreApellidos.tex
 \chapter{Conclusiones y líneas futuras} \label{chp:conclusiones}
 
-Este capítulo resume las principales conclusiones del trabajo y valora el grado
-de cumplimiento de los objetivos planteados. La discusión se apoya en la
-evidencia obtenida durante el diseño, la implementación y las pruebas, evitando
-formular conclusiones que no estén respaldadas por resultados.
+Este capítulo valora el grado de cumplimiento de los objetivos planteados en el
+Capítulo~\ref{chp:intro} y resume las conclusiones técnicas y metodológicas del
+trabajo. La discusión se apoya en la evidencia cuantitativa presentada en el
+Capítulo~\ref{chp:resultados}.
 
 \section{Conclusiones} \label{sct:conclusiones:conclusiones}
 
-El presente trabajo ha desarrollado una infraestructura operativa para formular
-un problema de control de UAV como entorno de aprendizaje por refuerzo integrado
-con Aerostack2. El entorno implementado proporciona el contrato estándar de
-Gymnasium, transforma acciones continuas en comandos de velocidad, calcula
-observaciones relativas al objetivo y registra información auxiliar suficiente
-para analizar episodios, recompensas y condiciones de fallo. Con ello se cumple
-el objetivo de construir una base reproducible sobre la que ejecutar pruebas de
-aprendizaje y validación.
+El objetivo general del trabajo, desarrollar un entorno de aprendizaje por
+refuerzo sobre el simulador de multirrotores de Aerostack2 y utilizarlo para
+entrenar y evaluar un controlador de velocidad, se ha alcanzado de forma
+satisfactoria. La política final resuelve el 100\,\% de los 100 episodios del
+protocolo de evaluación determinista sobre la tarea completa (objetivos
+aleatorios a hasta 5 m con orientación final), con una distancia final media de
+0,32 m.
 
-También se ha validado la integración entre Stable-Baselines3, ROS 2 y el AS2
-Multirotor Simulator. Las pruebas muestran que el pipeline puede crear modelos
-PPO, conectarse al simulador, enviar comandos, generar métricas de monitorización
-y producir artefactos como eventos de TensorBoard y \emph{checkpoints}. Sin
-embargo, esta validación funcional no debe confundirse con una demostración de
-aprendizaje robusto. Los experimentos disponibles indican que la estabilidad del
-ciclo de episodio es una condición previa para interpretar cualquier curva de
-entrenamiento.
+El primer objetivo específico, la familiarización con Aerostack2 y su simulador,
+se alcanzó de forma natural durante las primeras fases y quedó reflejado en la
+identificación de los componentes de control, estimación y comportamiento
+relevantes para el problema. El segundo, la construcción de la interfaz
+Gymnasium sobre el simulador, se cumplió con un matiz importante que constituye
+una de las lecciones del trabajo: la interfaz mínima fue rápida de construir,
+pero convertirla en un entorno \emph{válido} para aprendizaje por refuerzo exigió
+un esfuerzo muy superior al previsto, concentrado en el reinicio certificado de
+episodios y en la verificación de accionabilidad.
 
-Una conclusión central es que el principal cuello de botella detectado no es la
-formulación básica de PPO, sino la integración física del ciclo
-\texttt{reset}-\texttt{step} en un simulador robótico. Los experimentos revelaron
-éxitos triviales por mala configuración inicial, bucles de salida de límites,
-bloqueos por comportamientos de retorno, timeouts de reset por velocidad y casos
-en los que los comandos eran aceptados por la interfaz pero no producían
-movimiento físico suficiente. Estos hallazgos justifican la instrumentación de
-reset, la separación entre velocidad de política y velocidad interna de reset, y
-la comprobación explícita de accionabilidad.
+El tercer objetivo, la validación experimental del ciclo de interacción, se
+alcanzó mediante una estrategia de tres niveles (pruebas deterministas,
+integración con el simulador y ejecuciones PPO acotadas) que acabó articulada en
+una veintena de suites de validación automatizadas. La consecución del cuarto
+objetivo, el entorno vectorizado, resultó la más difícil: el primer
+entrenamiento con dos drones colapsó por una interacción no documentada entre el
+paso vectorizado en \emph{lockstep} y la persistencia de referencias de velocidad
+del controlador, y solo un diagnóstico sistemático con pruebas discriminatorias
+permitió identificar la causa raíz (8,05 m de deriva en 20 s sin comandos) y
+corregirla con un mecanismo de vigilancia de comandos inactivos. Tras la
+corrección, el entrenamiento vectorizado duplica el muestreo efectivo y mejoró
+la política final del 78\,\% al 100\,\% de éxito determinista.
 
-Desde el punto de vista metodológico, el trabajo muestra la importancia de
-tratar los resultados negativos como evidencia de ingeniería. Un experimento que
-falla de forma acotada, registra la causa y evita continuar con datos inválidos
-aporta más información que una ejecución larga cuyo estado físico no puede
-reconstruirse. Por tanto, la contribución principal del trabajo es una base de
-entrenamiento y diagnóstico que permite avanzar hacia aprendizaje robusto con
-criterios de validez más estrictos.
+El quinto objetivo, la definición de un problema de control progresivo, resultó
+ser la clave del aprendizaje. Con la recompensa mínima y la tarea completa, la
+exploración no encontraba señal de éxito suficiente (tasas planas del 11\,\% aun
+con la infraestructura ya libre de fallos); el curriculum de distancia en tres
+etapas con reutilización del modelo anterior elevó la tasa de éxito del 27\,\% al
+65\,\% y finalmente al 91--99\,\% sobre la tarea original. El sexto objetivo, el
+entrenamiento, la evaluación y la comparación con un controlador PID, se cumplió
+mediante un protocolo de episodios sembrados idénticos para todos los
+controladores. La comparación es honesta: el PID gana la tarea nominal en tiempo
+y precisión de orientación, la política alcanza la paridad en tasa de éxito, y
+la diferencia queda explicada y cuantificada. La extensión jerárquica planteada
+como séptimo objetivo opcional no se abordó y se recoge como línea futura.
+
+Más allá de los objetivos, el trabajo deja dos conclusiones metodológicas. La
+primera es que en aprendizaje por refuerzo sobre simuladores robóticos reales la
+validez física del episodio es la condición que gobierna todo lo demás: la mayor
+parte del esfuerzo de ingeniería se invirtió en garantizar que cada transición
+entregada al algoritmo representara de verdad la tarea, y los mecanismos
+resultantes (reinicio certificado con verificación de accionabilidad, guards de
+acción predictivos, supervisión con reanudación y reciclado preventivo) son
+aportaciones reutilizables independientes de la política entrenada. La segunda
+es el valor de los resultados negativos tratados como evidencia: los fallos de
+Exp010, Exp011 y Exp017 produjeron los tres hallazgos más importantes del
+trabajo (la degradación acumulativa del simulador con los reinicios de servicio,
+la insuficiencia de los guards reactivos frente a la inercia, y la persistencia
+indefinida de las referencias de velocidad), todos ellos diagnosticados con
+causa raíz y cuantificación.
+
+El código desarrollado queda publicado en los dos repositorios indicados en el
+Capítulo~\ref{chp:implementacion}, con configuraciones, pruebas automatizadas y
+artefactos de evaluación reproducibles mediante semillas.
 
 \section{Líneas futuras} \label{sct:conclusiones:futuro}
 
-La primera línea futura consiste en completar la validación de estados,
-recompensas y terminaciones en coordenadas límite del escenario. Esta validación
-debe comprobar de forma sistemática que el entorno devuelve observaciones,
-recompensas y señales de fin de episodio coherentes para posiciones seguras,
-casos de éxito, salidas de límites y alturas críticas. Este paso permitiría
-cerrar la validación funcional antes de lanzar campañas de entrenamiento más
-largas.
+La línea futura principal, ya planteada por el tutor durante el trabajo y ahora
+motivada cuantitativamente por tres hallazgos independientes, es sustituir ROS 2
+en el bucle de entrenamiento por \emph{bindings} directos sobre la dinámica del
+simulador, con llamadas explícitas de la forma estado--acción--paso temporal. Un
+simulador pausable eliminaría de raíz la degradación por teleports (el estado se
+asignaría directamente), la deriva por referencias persistentes (no habría
+tiempo real entre pasos) y el coste del \emph{lockstep} vectorizado (los
+reinicios serían instantáneos), y permitiría escalar la vectorización a decenas
+de agentes aprovechando la inferencia por lotes. ROS 2 quedaría reservado para el
+despliegue de la política entrenada a la frecuencia correspondiente al paso
+temporal usado en entrenamiento.
 
-Una segunda línea futura es mejorar el mecanismo de reset del simulador. El
-servicio de reinicio debe garantizar no solo la pose externa del UAV, sino también
-la coherencia de los estados internos de la dinámica y del controlador. En
-sistemas dinámicos, cambiar de un estado terminal a un estado inicial en tiempo
-nulo puede generar inconsistencias si no se reinician correctamente las variables
-internas. Resolver este punto es necesario para que los episodios de aprendizaje
-sean independientes y reproducibles.
+Una segunda línea es corregir en su raíz la degradación del nodo de plataforma
+del fork ante reinicios de servicio repetidos, cuyo síntoma quedó cuantificado en
+este trabajo pero cuya causa interna no se investigó. Esta corrección
+beneficiaría a cualquier uso intensivo del servicio de reinicio, no solo al
+aprendizaje por refuerzo.
 
-Otra continuación natural consiste en estudiar una vía de entrenamiento más
-cercana al simulador físico interno, reduciendo la dependencia de ROS 2 en el
-bucle de aprendizaje. Una arquitectura basada en \emph{bindings} Python y un
-paso temporal fijo permitiría integrar la dinámica con un \texttt{dt} controlado
-y ejecutar el entrenamiento a mayor velocidad. En ese escenario, ROS 2 quedaría
-reservado para el despliegue o para validaciones integradas, mientras que la
-generación masiva de experiencia se realizaría sobre una interfaz más directa y
-determinista.
+En el plano del aprendizaje, los resultados sugieren dos refinamientos: revisar
+la bonificación terminal para que la orientación final deficiente no resulte
+rentable (el error de yaw residual de 0,44 rad frente a los 0,01 rad del PID
+tiene origen en el diseño de la recompensa), y estudiar el escalado del
+curriculum hacia trayectorias con múltiples puntos de paso y referencias
+dinámicas. Sobre esa base, la extensión jerárquica planteada en los objetivos
+(un segundo controlador que transforme velocidades deseadas en tasas angulares)
+seguiría siendo la continuación natural hacia el control de bajo nivel.
 
-Finalmente, una vez estabilizado el ciclo de reset y accionabilidad, el entorno
-podrá utilizarse para comparar políticas PPO entrenadas frente a controladores de
-referencia, ampliar el curriculum de navegación, introducir trayectorias más
-complejas y evaluar transferencia progresiva hacia escenarios multirrobot o
-plataformas reales. Estas líneas futuras continúan directamente la infraestructura
-desarrollada y evitan extraer conclusiones de rendimiento antes de garantizar la
-validez de los datos de entrenamiento.
+Finalmente, la comparación con el controlador PID puede ampliarse en dos
+direcciones que delimitarían mejor el espacio donde el aprendizaje aporta
+ventaja: escenarios con perturbaciones (viento, ruido de estimación, retardos) y
+tareas sin ley de control evidente, donde el enfoque clásico requiere diseño
+manual específico y la política puede aprenderse con la misma infraestructura sin
+cambios.

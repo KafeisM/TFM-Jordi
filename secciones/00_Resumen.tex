@@ -1,9 +1,43 @@
 % !TEX root = ../tfg_etsiinf_NombreApellidos.tex
 \chapter*{Resumen} \label{chp:abstract}
 
-<<Aquí va el resumen del Trabajo Fin de Máster. Extensión máxima 2 páginas.>>
+Este trabajo desarrolla un entorno de aprendizaje por refuerzo sobre el
+simulador dinámico de multirrotores de Aerostack2, un \emph{framework} de
+robótica aérea basado en ROS 2, y lo utiliza para entrenar y evaluar un
+controlador de velocidad de alto nivel para un dron. La tarea consiste en
+alcanzar objetivos con posición y orientación aleatorias a partir de estados
+iniciales también aleatorios, utilizando una observación relativa normalizada y
+comandos continuos de velocidad lineal y de guiñada.
 
-\textbf{Palabras Clave}: 
+La contribución se articula en dos planos. El primero es la infraestructura: un
+entorno Gymnasium integrado con Aerostack2, un servicio de reinicio determinista
+del simulador con certificación de accionabilidad (cada episodio comienza solo si
+el vehículo responde físicamente a los comandos), guards de acción predictivos
+que sustituyen las terminaciones en fronteras no observables por correcciones
+activas, un supervisor de campañas largas con reanudación desde
+\emph{checkpoint} y reciclado preventivo, y la ejecución vectorizada de dos
+drones sobre un mismo simulador, que duplica el muestreo efectivo. El segundo
+plano es la resolución de la tarea: con la recompensa mínima basada en distancia
+y un curriculum de tres etapas que amplía progresivamente el rango de
+distancias, la tasa de éxito evoluciona desde valores inferiores al 1\,\% hasta
+el 100\,\% en evaluación determinista sobre 100 episodios reproducibles por
+semillas.
+
+La evaluación final compara la política aprendida con un controlador PID de
+referencia sobre episodios idénticos. Ambos alcanzan el 100\,\% de éxito; el PID
+resuelve la tarea nominal con mayor rapidez y precisión de orientación, lo que
+se analiza con detalle: el control de velocidad hacia un objetivo estático es el
+caso ideal de una ley proporcional, y el valor del enfoque aprendido reside en
+la paridad alcanzada y en la aplicabilidad de la misma infraestructura a tareas
+sin ley de control evidente. El trabajo documenta además dos hallazgos de
+ingeniería sobre el simulador (la degradación acumulativa asociada a los
+reinicios de servicio y la persistencia indefinida de las referencias de
+velocidad) que motivan, como línea futura principal, el entrenamiento sobre
+\emph{bindings} directos de la dinámica sin ROS 2 en el bucle.
+
+\textbf{Palabras Clave}: aprendizaje por refuerzo, vehículos aéreos no
+tripulados, Aerostack2, ROS 2, PPO, curriculum, simulación, control de
+velocidad.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -13,6 +47,35 @@
 
 \chapter*{Abstract}
 
-<<Abstract of the Master's Thesis. Maximum length: 2 pages.>>
+This work develops a reinforcement learning environment on top of the
+Aerostack2 multirotor dynamics simulator, a ROS 2 based aerial robotics
+framework, and uses it to train and evaluate a high-level velocity controller
+for a drone. The task consists of reaching randomly placed targets with a
+required final heading from random initial states, using a normalized relative
+observation and continuous linear and yaw velocity commands.
 
-\textbf{Keywords}:
+The contribution is twofold. The first part is the infrastructure: a Gymnasium
+environment integrated with Aerostack2, a deterministic simulator reset service
+with actionability certification (an episode only starts if the vehicle
+physically responds to commands), predictive action guards that replace
+terminations at unobservable boundaries with active corrections, a supervisor
+for long training campaigns with checkpoint resumption and preventive
+recycling, and vectorized execution of two drones on a single simulator, which
+doubles the effective sampling rate. The second part is solving the task: with
+a minimal distance-based reward and a three-stage distance curriculum, the
+success rate evolves from below 1\,\% to 100\,\% under deterministic evaluation
+on 100 seed-reproducible episodes.
+
+The final evaluation compares the learned policy against a reference PID
+controller on identical episodes. Both reach 100\,\% success; the PID solves
+the nominal task faster and with better final heading, which is analyzed in
+detail: velocity control towards a static target is the ideal case for a
+proportional law, and the value of the learned approach lies in the achieved
+parity and in the applicability of the same infrastructure to tasks without an
+obvious control law. The work also documents two engineering findings about the
+simulator (cumulative degradation associated with reset service calls and the
+indefinite persistence of velocity references) that motivate, as the main
+future line, training over direct dynamics bindings without ROS 2 in the loop.
+
+\textbf{Keywords}: reinforcement learning, unmanned aerial vehicles,
+Aerostack2, ROS 2, PPO, curriculum learning, simulation, velocity control.

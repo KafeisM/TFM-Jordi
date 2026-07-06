@@ -448,8 +448,9 @@ intervalo $[0,1]$.
 
 El entorno conserva la capacidad de calcular términos adicionales, como progreso,
 seguridad vertical o coherencia de guiñada con la dirección de movimiento. Sin
-embargo, esos términos se desactivan en Exp010--Exp012 para evitar que el agente
-optimice una recompensa de shaping distinta de la tarea principal. La guiñada se mantiene como requisito terminal suave. Cuando el UAV alcanza la
+embargo, esos términos se desactivan a partir de Exp010 y en toda la campaña
+principal para evitar que el agente optimice una recompensa de shaping distinta
+de la tarea principal. La guiñada se mantiene como requisito terminal suave. Cuando el UAV alcanza la
 región objetivo, la bonificación de éxito se reduce en función del error de
 guiñada. Si
 $e_{\mathrm{yaw}}$ representa el error angular normalizado, la recompensa terminal
@@ -460,7 +461,7 @@ de éxito se calcula mediante
     w_{\mathrm{yaw}} \frac{|e_{\mathrm{yaw}}|}{\pi}.
 \end{equation}
 
-La expresión final aplicada en las configuraciones Exp010--Exp012 incorpora las
+La expresión final aplicada desde Exp010 en adelante incorpora las
 condiciones terminales del episodio de la forma siguiente.
 \begin{equation}
     r_t =
@@ -518,6 +519,46 @@ Limita la duración del episodio cuando no se alcanza una condición terminal. \
 \label{tab:diseno:componentes_recompensa}
 \end{table}
 
+\section{Guards de acción y protección de fronteras} \label{sct:diseno:guards}
+
+La observación relativa tiene una consecuencia de diseño que los primeros
+experimentos hicieron explícita: el agente no puede percibir los límites del
+escenario. Una terminación por salida de límites es, desde el punto de vista de
+la política, un castigo imprevisible aplicado en estados que no se distinguen de
+los estados seguros, por lo que la función de valor no puede anticiparla. Además,
+cada una de estas terminaciones obliga a un reinicio mediante el servicio del
+simulador, con un coste de decenas de segundos y efectos acumulativos sobre la
+plataforma. Por ambos motivos, el diseño sustituye la muerte en frontera por una
+protección activa: un \emph{guard} de acción que, cerca de los límites, reemplaza
+la componente de velocidad saliente por un empuje hacia el interior.
+
+El guard se diseña con disparo predictivo. La versión reactiva, que actúa cuando
+la posición cruza una línea de guardia, resultó insuficiente en el eje vertical:
+la plataforma invierte la velocidad con lentitud y la inercia atraviesa el margen
+antes de que la orden correctora surta efecto. Por ello el disparo evalúa la
+posición \emph{predicha}, calculada como posición actual más velocidad medida por
+un horizonte de anticipación, y el empuje vertical utiliza la autoridad completa
+de velocidad disponible. Las terminaciones por salida de límites y por baja
+altitud se conservan intactas como red de seguridad final, pero con el guard
+activo pasan de ser el desenlace dominante (80--93\,\% de los episodios en
+Exp010--Exp011) a ser residuales, lo que elimina a la vez el ruido inaprendible
+de la recompensa y la mayor parte de los reinicios costosos.
+
+\section{Diseño del curriculum de distancia} \label{sct:diseno:curriculum}
+
+Con la recompensa mínima $-d_{\mathrm{norm}}$, la única señal positiva del
+problema es la bonificación terminal, y su densidad depende de la probabilidad de
+que la exploración alcance la esfera de éxito de 0,4 m. Con separaciones
+inicio--objetivo de hasta 5 m esa probabilidad es demasiado baja para arrancar el
+gradiente con la tasa de aprendizaje configurada. El diseño adopta por ello un
+curriculum de distancia \cite{bengio2009curriculum} en tres etapas: la primera acota la separación máxima a
+2,5 m, de modo que un vuelo directo requiere del orden de 25 pasos; las dos
+siguientes amplían el límite a 3,5 m y a los 5,0 m de la tarea original. Cada
+etapa se inicializa con el modelo final de la anterior (\emph{warm start}) y
+todas mantienen la separación mínima de 1,0 m, de forma que la distribución de
+episodios de una etapa contiene a la anterior y la política no olvida los
+objetivos cercanos al aprender los lejanos.
+
 \section{Diseño de la ejecución vectorizada} \label{sct:diseno:vectorizacion}
 
 La ejecución vectorizada se diseña para permitir varias instancias lógicas del
@@ -528,24 +569,52 @@ infraestructura ROS 2. Esta organización reduce la necesidad de duplicar toda l
 infraestructura del simulador, pero exige tratar con cuidado la inicialización de
 ROS 2, los nombres de los drones y la sincronización entre episodios.
 
-Desde el punto de vista del diseño de ejecución, \texttt{SyncVectorEnv} ofrece
-un mecanismo directo de ejecución síncrona en el que las instancias avanzan de
-forma coordinada. En el contexto de Stable-Baselines3, el diseño contempla
-\texttt{DummyVecEnv} y \texttt{SubprocVecEnv} como alternativas configurables. La
-opción síncrona, equivalente en este caso a \texttt{DummyVecEnv}, constituye el
-camino prudente cuando se comparte un simulador y se desea minimizar la
-complejidad de concurrencia. \texttt{SubprocVecEnv} puede
-aportar aislamiento por proceso, pero también introduce mayores exigencias sobre
-la inicialización de ROS 2 y la gestión de recursos compartidos.
+La elección del mecanismo de vectorización viene determinada por una propiedad
+del simulador: opera en tiempo de reloj real, de modo que cada paso del entorno
+consume la duración física configurada (0,2 s) con independencia del proceso que
+lo invoque. Esta propiedad invalida en este sistema el razonamiento habitual a
+favor de la vectorización secuencial (\texttt{SyncVectorEnv} en Gymnasium,
+\texttt{DummyVecEnv} en Stable-Baselines3), cuyo beneficio procede de agrupar las
+observaciones para una única inferencia por lotes: con un simulador de reloj
+real, $N$ entornos secuenciales tardan $N$ veces el paso físico en producir $N$
+muestras, es decir, el mismo caudal de muestreo que un solo entorno. Por ello el
+diseño adopta \texttt{SubprocVecEnv}, que ejecuta los pasos de los $N$ entornos
+en paralelo real manteniendo la inferencia por lotes, con la expectativa
+(verificada experimentalmente) de multiplicar el muestreo por el número de
+drones.
 
-La decisión principal de diseño consiste, por tanto, en priorizar la corrección de
-la interacción sobre la paralelización agresiva. En un sistema donde varias
-instancias comparten simulador, una vectorización incorrecta puede producir
-interferencias entre drones, bloqueos por inicialización repetida o estados de
-episodio difíciles de atribuir. Por ello, la arquitectura favorece una
-vectorización controlada, con espacios de nombres explícitos y una inicialización
-de ROS 2 protegida por proceso, antes que asumir incrementos de rendimiento no
-verificados.
+El paso vectorizado en paralelo introduce, sin embargo, un modo de fallo propio
+de los simuladores de reloj real: el avance en \emph{lockstep}. Cuando uno de los
+entornos ejecuta su reinicio certificado, operación que tarda decenas de
+segundos, el paso vectorizado queda bloqueado para todos; durante ese intervalo
+los demás drones no reciben órdenes nuevas mientras el mundo sigue avanzando, y
+el controlador de Aerostack2 mantiene la última referencia de velocidad como
+consigna activa. El diseño incorpora por ello un mecanismo de vigilancia
+(\emph{watchdog}) de comandos inactivos: si un entorno en vuelo supera un umbral
+de tiempo sin emitir referencias de movimiento, el mecanismo publica una consigna
+de velocidad nula de forma periódica hasta que el flujo normal de comandos se
+reanuda. El umbral se dimensiona por encima de la duración del paso, de modo que
+el mecanismo permanece inerte durante la operación normal y solo actúa en los
+huecos de \emph{lockstep}; en ejecución monodron queda desactivado y el
+comportamiento del entorno es idéntico al de la fase anterior.
+
+\section{Diseño del protocolo de evaluación} \label{sct:diseno:evaluacion}
+
+La comparación entre la política aprendida y un controlador clásico exige que
+ambos se evalúen exactamente sobre los mismos episodios. El protocolo se diseña
+en torno a dos decisiones. La primera es la reproducibilidad por semillas: el
+episodio $i$ de una evaluación se genera reiniciando el entorno con la semilla
+$s_0 + i$, de modo que la secuencia de pares inicio--objetivo es idéntica entre
+evaluaciones y controladores. La segunda es la abstracción del controlador: el
+protocolo define una interfaz mínima (reiniciar estado interno al comienzo del
+episodio y transformar una observación en una acción) que cumplen tanto la
+política PPO, en modo determinista o estocástico, como un controlador PID por
+ejes que consume la misma observación relativa normalizada y emite acciones en el
+mismo espacio acotado. Cada evaluación registra métricas por episodio (éxito,
+razón de terminación, pasos, distancia final, longitud de trayectoria, error de
+guiñada terminal y normas de acción) y las agrega globalmente y por tramos de
+distancia inicial, lo que permite comparar controladores con evidencia
+cuantitativa homogénea.
 
 La Figura~\ref{fig:diseno:vectorizacion} resume esta organización mediante
 varias instancias lógicas conectadas a una infraestructura de simulación

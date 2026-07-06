@@ -58,6 +58,8 @@ estado físico del multirrotor durante las campañas experimentales.
 \texttt{scripts/train\_ppo.py} & Punto de entrada para entrenamiento y comprobación de configuración. \\
 \texttt{scripts/as2\_runtime.py} & Comprobación y relanzamiento controlado del simulador AS2. \\
 \texttt{scripts/supervise\_train.sh} & Supervisor de entrenamientos largos con reinicio del stack AS2 y reanudación desde \emph{checkpoint}. \\
+\texttt{rl\_uav/evaluation/} & Protocolo de evaluación por semillas con controladores enchufables (PPO y PID). \\
+\texttt{scripts/evaluate\_policy.py} & Punto de entrada de la evaluación formal y de la comparación entre controladores. \\
 \texttt{as2\_platform\_multirotor\_simulator} & Fork del simulador con servicio de reinicio determinista del estado del multirrotor. \\
 \texttt{as2\_sim/launch\_sim.bash} & Arranque del simulador monodron o multidron mediante nombres de dron. \\
 \texttt{scripts/test\_*} y \texttt{scripts/validate\_*} & Validaciones locales y reales del entorno, la vectorización y la integración. \\
@@ -409,7 +411,25 @@ la frecuencia de reinicios forzados mediante un guard de acción en fronteras.
 El guard de Exp012 modifica las acciones que empujan al UAV hacia fuera cuando se
 aproxima a los límites XY o al techo de la escena. Las terminaciones por salida
 de límites y baja altitud se mantienen como red de seguridad, pero dejan de ser
-el mecanismo habitual para corregir a un agente aún no entrenado.
+el mecanismo habitual para corregir a un agente aún no entrenado. A partir de
+Exp013 el disparo de ambos guards es predictivo: se evalúa la posición estimada
+como posición actual más velocidad medida por un horizonte configurable
+(\texttt{bounds\_guard\_lookahead\_s},
+\texttt{low\_altitude\_guard\_lookahead\_s}), y el empuje vertical dispone de
+autoridad completa (\texttt{bounds\_guard\_vertical\_push\_speed}), porque los
+datos de Exp012 mostraron que la inercia vertical atravesaba un guard puramente
+reactivo (404 de 428 salidas de límites se produjeron por techo o suelo).
+
+Para la ejecución vectorizada se implementa además el mecanismo de vigilancia de
+comandos inactivos descrito en el diseño. Un hilo de fondo comprueba el tiempo
+transcurrido desde la última referencia de movimiento enviada por cualquier vía
+(pasos del agente, comandos de reinicio o sondas de accionabilidad); si el
+vehículo está en vuelo y ese tiempo supera \texttt{idle\_command\_watchdog\_s},
+publica referencias de velocidad nula a la cadencia de publicación configurada
+hasta que el flujo normal se reanuda. La validación en vivo del mecanismo redujo
+la deriva por referencias persistentes de 8,05 m a 0,27 m en una ventana de 20 s
+sin comandos. El parámetro vale cero por defecto, de modo que la ejecución
+monodron no crea el hilo ni altera su comportamiento.
 
 
 \section{Infraestructura de entrenamiento y vectorización} \label{sct:implementacion:infraestructura_entrenamiento}
@@ -433,11 +453,25 @@ antes que paralelización agresiva.
 El entrenamiento se ejecuta en dos pasos explícitos. Primero se lanza o verifica
 el simulador con los scripts de AS2; después se ejecuta
 \texttt{scripts/train\_ppo.py} con la configuración seleccionada. Para campañas
-largas, \texttt{train\_ppo.py} acepta \texttt{--resume-from} y
-\texttt{scripts/supervise\_train.sh} automatiza el reinicio del stack AS2, la
-comprobación del servicio de simulación y la reanudación desde el último
-\emph{checkpoint}. Esta capa no modifica PPO, pero hace más robusta la ejecución
-experimental.
+largas, \texttt{train\_ppo.py} acepta \texttt{--resume-from}, que reanuda desde
+un \emph{checkpoint} explícito o desde el más reciente y calcula el número de
+pasos restante hasta el total configurado (Stable-Baselines3 suma el argumento al
+contador del \emph{checkpoint}, por lo que pasar el total completo duplicaría el
+objetivo en cada reanudación).
+
+El supervisor \texttt{scripts/supervise\_train.sh} automatiza tres mecanismos
+sobre esa base. Ante un fallo del entrenamiento, reinicia el stack AS2 completo,
+espera a que el servicio de reinicio de cada dron esté disponible y reanuda desde
+el último \emph{checkpoint}. Mediante la variable \texttt{RECYCLE\_SECONDS}
+aplica además un reciclado preventivo: interrumpe el entrenamiento a intervalos
+fijos y lo reanuda sobre un stack recién iniciado, de modo que cada tramo se
+ejecuta sobre un simulador sin degradación acumulada; los reciclados se detectan
+por el tiempo transcurrido, no solo por el código de salida, y no consumen el
+presupuesto de reintentos por fallo. Por último, \texttt{DRONE\_NAMESPACES}
+extiende el reinicio y la comprobación de salud a varios drones para las campañas
+vectorizadas, e \texttt{INITIAL\_RESUME} permite sembrar una etapa del curriculum
+con el modelo final de la etapa anterior cuando aún no existen \emph{checkpoints}
+propios.
 
 La validación inicial confirma que el pipeline puede crear el modelo PPO,
 conectarse con AS2, enviar comandos de velocidad y generar trazas

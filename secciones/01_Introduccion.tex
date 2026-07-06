@@ -67,9 +67,8 @@ simuladores. En particular, se utiliza el simulador dinámico de multirrotores d
 Aerostack2, una herramienta sin interfaz gráfica que modela la dinámica del
 vehículo y que puede visualizarse mediante RViz2. Al no requerir interfaz
 gráfica, resulta adecuado para plantear experimentos con varios drones dentro de
-un mismo simulador compartido, aunque la validación
-disponible hasta el momento debe entenderse como validación de infraestructura y
-no como evidencia de aceleración de entrenamiento ni de rendimiento final.
+un mismo simulador compartido, posibilidad que este trabajo valida
+experimentalmente con dos drones entrenando en paralelo.
 
 El repositorio \texttt{rl\_uav\_aerostack2} contiene el entorno
 \texttt{AS2TestEnv-v0}, registrado en \texttt{rl\_uav/\_\_init\_\_.py} e
@@ -83,25 +82,21 @@ velocidades lineales y una velocidad angular en yaw.
 La observación principal del entorno no está formada por posición y velocidad
 absolutas, sino por el vector normalizado
 $[dx, dy, dz, d_{\mathrm{yaw}}]$, que representa la diferencia de posición y
-orientación respecto al objetivo. La velocidad del dron se utiliza cuando
-procede como dato auxiliar para recompensa, diagnóstico y cálculo del término de
-\emph{path-facing}, pero no forma parte de la observación principal del agente.
-La recompensa combina una penalización continua por distancia al objetivo con
-un término de alineación entre el yaw del dron y la dirección horizontal de
-movimiento. La finalización del episodio contempla tres casos: éxito al
-alcanzar una distancia inferior al umbral definido, salida de los límites del
-escenario y truncado por superar el número máximo de pasos.
+orientación respecto al objetivo. La recompensa empleada en la campaña principal
+es deliberadamente mínima: una penalización continua por distancia al objetivo y
+una bonificación terminal de éxito reducida según el error de orientación final.
+La finalización del episodio contempla el éxito al alcanzar una distancia
+inferior al umbral definido, las terminaciones de seguridad por salida de límites
+o baja altitud, y el truncado por superar el número máximo de pasos.
 
-Sobre esta base se ha preparado infraestructura de entrenamiento con PPO
-mediante Stable-Baselines3, incluyendo el archivo de configuración
-\texttt{configs/train\_ppo.yaml}, scripts de entrenamiento, registro de métricas,
-\emph{checkpoints} y soporte para entornos vectorizados. (También existe una
-configuración de referencia basada en PID que puede servir como línea base en la
-evaluación posterior. No obstante, el estado actual del trabajo exige distinguir
-con precisión entre tres niveles: la infraestructura implementada y validada, el
-entrenamiento PPO preparado para su ejecución sistemática y la comparación
-experimental con PID, que queda planteada como evaluación prevista y no como un
-resultado ya demostrado.) <- Idea inical del tfm, a dia de hoy no se si sera posible hacer la comparativa con PID, por lo que lo dejo como previsto y no como hecho.
+Sobre esta base se ha construido la infraestructura completa de entrenamiento y
+evaluación con PPO mediante Stable-Baselines3: configuraciones declarativas por
+experimento, registro de métricas y \emph{checkpoints}, supervisión de campañas
+largas con reanudación automática, entrenamiento vectorizado con varios drones
+sobre un mismo simulador y un protocolo de evaluación reproducible por semillas.
+Con esa infraestructura, la política final resuelve la tarea completa con un
+100\,\% de éxito en evaluación determinista y se compara, sobre episodios
+idénticos, con un controlador PID de referencia.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -128,23 +123,22 @@ objetivos específicos:
     simulador dinámico con el \emph{middleware} robótico y permita ejecutar el
     ciclo de interacción entre agente y dron de forma reproducible.
 
-    \item Incorporar una función de recompensa coherente con el seguimiento
-    de objetivos espaciales y la restricción de \emph{path-facing}, manteniendo
+    \item Incorporar una función de recompensa coherente con el seguimiento de
+    objetivos espaciales y la orientación final del vehículo, manteniendo
     información de diagnóstico suficiente para analizar el comportamiento del
     entorno.
 
-    \item Preparar la infraestructura de entrenamiento con PPO y soporte para
-    vectorización síncrona de múltiples drones dentro de un simulador compartido,
-    diferenciando la validación funcional de la infraestructura de la evaluación
-    posterior del aprendizaje.
+    \item Entrenar una política capaz de resolver la tarea de navegación con
+    inicio, objetivo y orientación aleatorios, empleando la infraestructura
+    de entrenamiento con PPO y la vectorización de múltiples drones dentro de
+    un simulador compartido.
 
     \item Analizar las limitaciones de integración observadas durante los
     experimentos, especialmente las asociadas al reinicio de episodios, la
     accionabilidad de los comandos y la reproducibilidad física del simulador.
 
-    \item Establecer una base experimental para evaluar el controlador
-    aprendido y compararlo con una configuración PID de referencia cuando se
-    disponga de ejecuciones completas y métricas representativas. <- (Idea inical del tfm, a dia de hoy no se si sera posible hacer la comparativa con PID, por lo que lo dejo como previsto y no como hecho.)
+    \item Evaluar el controlador aprendido con un protocolo reproducible y
+    compararlo con un controlador PID de referencia sobre episodios idénticos.
 
 \end{itemize}
 

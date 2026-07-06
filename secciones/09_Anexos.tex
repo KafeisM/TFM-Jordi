@@ -12,10 +12,12 @@ Capítulo~\ref{chp:resultados}.
 
 Las configuraciones Exp007, Exp008 y Exp008a representan la evolución desde un
 entrenamiento largo bloqueado por reset hacia ejecuciones de curriculum con mayor
-instrumentación. Las configuraciones Exp009--Exp012 corresponden a la fase
-posterior, en la que el reinicio del simulador ya está certificado y el foco se
-desplaza hacia la validez de la recompensa, la randomización de episodios, la
-reducción de salidas de límites y la continuidad de entrenamientos largos.
+instrumentación. Las configuraciones Exp009--Exp012 corresponden a la fase en la
+que el reinicio del simulador ya está certificado y el foco se desplaza hacia la
+validez de la recompensa, la randomización de episodios y la reducción de salidas
+de límites. Las configuraciones Exp013--Exp018 forman la campaña final: guards
+predictivos, curriculum de distancia en tres etapas y entrenamiento vectorizado
+con watchdog.
 
 \begin{table}[H]
 \centering
@@ -33,6 +35,12 @@ Exp009 & Stack de reset certificado. & 5000 pasos. & Primera ejecución PPO comp
 Exp010 & Reward mínima y randomización completa. & 50000 pasos planificados. & Recompensa alineada con el tutor e hiperparámetros PPO revisados. \\
 Exp011 & Área segura y anti-saturación. & 50000 pasos planificados. & Margen de muestreo y límite de distancia inicio--objetivo. \\
 Exp012 & Guards de límites y reanudación. & 50000 pasos planificados. & Guard de acción, corredor vertical ampliado y supervisor con \emph{resume}. \\
+Exp013 & Guards predictivos. & 50000 pasos. & Disparo por posición + velocidad $\times$ 1 s y empuje vertical con autoridad completa. \\
+Exp014 & Curriculum etapa 1. & 50000 pasos. & Objetivos a $\leq 2{,}5$ m; primer aprendizaje sostenido. \\
+Exp015 & Curriculum etapa 2. & 100000 pasos acumulados. & Objetivos a $\leq 3{,}5$ m con \emph{warm start} de Exp014. \\
+Exp016 & Curriculum etapa 3. & 150000 pasos acumulados. & Rango completo de 5 m; tarea original resuelta. \\
+Exp017 & Primer vectorizado (2 drones). & Detenido. & Colapso por deriva en \emph{lockstep}; origen del diagnóstico del watchdog. \\
+Exp018 & Vectorizado con watchdog. & 200000 pasos acumulados. & 2 drones en paralelo, reciclado preventivo y modelo final. \\
 \hline
 \end{tabular}
 \caption{Configuraciones representativas de la fase de estabilización.}
@@ -74,8 +82,25 @@ Python, la configuración más reciente se ejecuta mediante un supervisor que
 reinicia el stack de AS2, valida la disponibilidad del servicio de reinicio y
 reanuda desde el último \emph{checkpoint} disponible:
 
-\begin{listing}[style=consola,caption={Ejemplo de entrenamiento supervisado con reanudación.},label={lst:anexo:supervise_train}]
-bash scripts/supervise_train.sh configs/train_ppo_phase1_exp012.yaml
+\begin{listing}[style=consola,caption={Ejemplo de entrenamiento supervisado con reciclado preventivo, dos drones y \emph{warm start} de la etapa anterior del curriculum.},label={lst:anexo:supervise_train}]
+RECYCLE_SECONDS=9000 \
+DRONE_NAMESPACES=drone0,drone1 \
+INITIAL_RESUME=runs/ppo/<run_exp016>/model_final.zip \
+bash scripts/supervise_train.sh configs/train_ppo_phase1_exp018.yaml
+\end{listing}
+
+La evaluación formal y la comparación entre controladores se ejecutan con el
+mismo punto de entrada, variando únicamente el controlador y el modo:
+
+\begin{listing}[style=consola,caption={Evaluación por semillas de la política y del PID de referencia sobre episodios idénticos.},label={lst:anexo:evaluate}]
+python3 scripts/evaluate_policy.py \
+  --config configs/train_ppo_phase1_exp016.yaml \
+  --model runs/ppo/<run>/model_final.zip \
+  --episodes 100 --seed 1000
+
+python3 scripts/evaluate_policy.py \
+  --config configs/train_ppo_phase1_exp016.yaml \
+  --controller pid --episodes 100 --seed 1000
 \end{listing}
 
 \section{Capturas de TensorBoard} \label{sct:anexos:tensorboard}
@@ -147,7 +172,12 @@ inspección del repositorio, generación de propuestas de modificación, revisi�
 errores y apoyo a la edición de la memoria \cite{openai2026codex}. También se ha
 utilizado ChatGPT como asistente conversacional para estructurar explicaciones,
 revisar redacción y sintetizar criterios de presentación académica
-\cite{openai2026chatgpt}.
+\cite{openai2026chatgpt}. Asimismo, se ha utilizado Claude Code como agente de
+desarrollo en la fase final del trabajo, con apoyo a la campaña experimental
+(supervisión de entrenamientos, análisis de registros y diagnóstico de fallos de
+integración), a la implementación asistida de componentes con sus pruebas y a la
+redacción de secciones de la memoria a partir de los datos experimentales
+\cite{anthropic2026claudecode}.
 
 El uso de estas herramientas no sustituye la autoría ni la responsabilidad
 académica del trabajo. Las decisiones de diseño, la interpretación de resultados,
@@ -169,6 +199,7 @@ código.
 \hline
 OpenAI Codex & Inspección del repositorio, edición de LaTeX, revisión de errores de compilación y apoyo a cambios de código. & Revisión manual de los diffs, compilación de LaTeX y contraste con el repositorio.\\
 ChatGPT & Estructuración de explicaciones, síntesis de resultados y apoyo a redacción académica. & Revisión del texto, eliminación de afirmaciones no respaldadas y contraste con evidencias experimentales. \\
+Claude Code & Apoyo a la campaña experimental, implementación asistida con pruebas automatizadas, generación de figuras desde los datos y redacción de secciones de la memoria. & Pruebas automatizadas en verde, revisión adversarial previa a cada integración, verificación de cifras contra los registros experimentales y revisión manual del texto. \\
 \hline
 \end{tabular}
 \caption{Resumen del uso de herramientas de inteligencia artificial generativa.}
