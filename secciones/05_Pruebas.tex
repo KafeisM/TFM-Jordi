@@ -1,0 +1,196 @@
+% !TEX root = ../tfg_etsiinf_NombreApellidos.tex
+\chapter{Pruebas y evaluación} \label{chp:pruebas}
+
+Este capítulo define la estrategia de validación del sistema desarrollado. Las
+pruebas no se limitan a comprobar que el software se ejecuta, sino que permiten
+valorar si la interfaz entre simulación, \emph{middleware} robótico y entorno de
+aprendizaje proporciona observaciones, acciones, recompensas y condiciones de
+reinicio coherentes. En un sistema de aprendizaje por refuerzo para UAV, esta
+validación previa es imprescindible: si el episodio no se reinicia correctamente
+o si una acción aceptada por la interfaz no produce movimiento físico, los datos
+de entrenamiento dejan de representar la tarea que se pretende aprender.
+
+\section{Estrategia de validación} \label{sct:pruebas:estrategia}
+
+La estrategia de pruebas se organiza en tres niveles. El primer nivel agrupa
+pruebas deterministas del entorno ejecutadas sin depender del simulador real.
+Estas pruebas verifican cálculo de observaciones, recompensas, terminaciones,
+recorte de acciones y propagación de configuración. El segundo nivel reúne
+validaciones de integración con Aerostack2 y ROS 2, cuyo objetivo es comprobar
+que el entorno puede iniciar el UAV, enviar comandos y recibir estado físico del
+simulador. El tercer nivel corresponde a ejecuciones PPO acotadas, utilizadas
+para comprobar que la infraestructura de entrenamiento genera métricas,
+\emph{checkpoints} y diagnósticos interpretables.
+
+La validación se plantea de forma incremental. Antes de lanzar entrenamientos de
+mayor duración se exige que el entorno pase pruebas de configuración, que el
+simulador se encuentre en un estado limpio y que los reinicios de episodio sean
+físicamente válidos. Esta decisión evita confundir un problema de aprendizaje con
+un problema de infraestructura. Los experimentos que terminan en fallo se
+mantienen como evidencia útil cuando permiten identificar una condición de diseño
+o de integración que debe corregirse antes de continuar.
+
+\begin{table}[H]
+\centering
+\small
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{p{0.22\textwidth} p{0.34\textwidth} p{0.32\textwidth}}
+\hline
+\textbf{Nivel} & \textbf{Objetivo} & \textbf{Evidencia esperada} \\
+\hline
+Pruebas deterministas & Validar la semántica del entorno sin depender del estado del simulador. & Observaciones, recompensas, terminaciones y parámetros reproducibles. \\
+Pruebas de integración AS2 & Verificar conexión, ciclo de vida del UAV, reinicio y comandos de velocidad. & Movimiento físico medible, diagnósticos de reset, servicio de reinicio disponible y ausencia de bloqueos indefinidos. \\
+Ejecuciones PPO acotadas & Comprobar que la infraestructura de entrenamiento produce métricas y artefactos. & Ficheros de monitor, TensorBoard, \emph{checkpoints} y clasificación de fallos. \\
+\hline
+\end{tabular}
+\caption{Niveles de validación aplicados al entorno desarrollado.}
+\label{tab:pruebas:niveles_validacion}
+\end{table}
+
+\section{Entorno experimental} \label{sct:pruebas:entorno}
+
+Las pruebas se realizan sobre el repositorio \texttt{rl\_uav\_aerostack2}, que
+contiene el entorno \texttt{AS2TestEnv-v0}, las configuraciones PPO, los scripts
+de entrenamiento y las utilidades de validación. La ejecución con simulador se
+apoya en ROS 2 Humble, Aerostack2 y el AS2 Multirotor Simulator. La ejecución de
+los scripts Python se organiza mediante el entorno de ejecución del proyecto,
+que incluye Gymnasium, Stable-Baselines3 y las dependencias de comunicación con
+Aerostack2.
+
+La observabilidad de las ejecuciones se apoya en varias fuentes. Los ficheros de
+monitor registran información por episodio, TensorBoard permite inspeccionar
+métricas agregadas cuando PPO alcanza suficientes pasos de \emph{rollout}, y
+RViz2 proporciona una vista cualitativa del estado del UAV, el marcador de
+objetivo y la trayectoria reciente. Además, el entorno incorpora campos
+específicos de diagnóstico para reset y accionabilidad, de modo que una ejecución
+fallida pueda clasificarse sin depender únicamente de la inspección visual.
+
+\section{Pruebas deterministas y de configuración} \label{sct:pruebas:deterministas}
+
+Las pruebas deterministas verifican las propiedades del entorno que no requieren
+un simulador activo. Entre ellas se incluyen la forma y rango de la observación,
+la acotación de acciones, la propagación de parámetros desde YAML, la lógica de
+éxito, salida de límites y truncamiento, y la compatibilidad con entornos
+vectorizados. Este nivel de prueba es necesario porque permite detectar errores
+de formulación antes de introducir la variabilidad propia de ROS 2 y del
+simulador físico.
+
+\begin{table}[H]
+\centering
+\small
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.12}
+\begin{tabular}{p{0.30\textwidth} p{0.34\textwidth} p{0.26\textwidth}}
+\hline
+\textbf{Validador} & \textbf{Propósito} & \textbf{Criterio de aceptación} \\
+\hline
+\texttt{scripts/test\_vectorization.py} & Comprobar contrato del entorno, vectorización, reset y diagnósticos con dobles de prueba. & Todas las comprobaciones deterministas pasan. \\
+\texttt{scripts/test\_ppo\_config\_propagation.py} & Verificar que los parámetros YAML llegan al entorno y al modelo PPO. & Los parámetros críticos aparecen en la instancia final. \\
+\texttt{scripts/test\_exp010\_reward\_contract.py} & Comprobar la recompensa mínima usada en la configuración alineada con el tutor. & La recompensa continua depende de la distancia normalizada y el éxito aplica la penalización terminal de guiñada. \\
+\texttt{scripts/test\_exp011\_randomization\_contract.py} & Validar muestreo aleatorio de inicio, objetivo y guiñada con margen de seguridad y límite de distancia. & Las muestras respetan separación mínima, distancia máxima y márgenes de escena. \\
+\texttt{scripts/test\_exp012\_training\_contract.py} & Verificar la configuración del guard de límites, el corredor vertical y las claves de monitorización. & La configuración de Exp012 conserva la recompensa del tutor y activa las protecciones de frontera. \\
+\texttt{scripts/test\_resume\_checkpoint.py} & Validar la resolución de \emph{checkpoints} para reanudación de PPO. & El entrenamiento puede reanudarse desde una ruta explícita o desde el último \emph{checkpoint}. \\
+\texttt{scripts/validate\_deterministic\_reset.py} & Validar reinicios controlados y coherencia de pose inicial. & El UAV o doble de prueba alcanza el estado inicial esperado. \\
+\texttt{scripts/validate\_exp008\_training\_smoke.py} & Ejecutar una prueba corta con acción fija o PPO y analizar movimiento físico. & Las acciones aceptadas producen desplazamiento suficiente y métricas coherentes. \\
+\hline
+\end{tabular}
+\caption{Validadores representativos utilizados durante el desarrollo.}
+\label{tab:pruebas:validadores}
+\end{table}
+
+El Cuadro~\ref{tab:pruebas:validadores} resume los validadores más relevantes.
+La existencia de estas pruebas permite tratar el entrenamiento PPO como una fase
+posterior a la validación del entorno, no como el único mecanismo para detectar
+fallos.
+
+\section{Pruebas con Aerostack2 y reinicio de episodios} \label{sct:pruebas:as2_reset}
+
+Las pruebas con Aerostack2 evalúan si el contrato de Gymnasium puede sostenerse
+sobre un sistema robótico simulado. En particular, se comprueba que el método
+\texttt{reset} deja el UAV en una pose inicial válida, que \texttt{step} envía
+comandos de velocidad y que \texttt{close} no deja referencias activas ni estados
+bloqueantes. Durante las ejecuciones se detectaron fallos de reset que no podían
+tratarse como simples errores de PPO: episodios que comenzaban fuera de límites,
+comportamientos bloqueantes de retorno a pose inicial, pérdidas de estabilidad
+tras recrear el controlador y comandos aceptados sin movimiento físico medible.
+
+Como consecuencia de estos fallos, el reinicio de episodios se trasladó
+parcialmente al simulador mediante un servicio específico del fork del AS2
+Multirotor Simulator. Este servicio recibe la pose objetivo del UAV, muta el
+estado interno de la dinámica, limpia velocidades, aceleraciones, referencias y
+estado de actuadores, y sincroniza la capa de plataforma de Aerostack2 para que
+el vehículo quede armado, en modo \emph{offboard} y en estado de vuelo. La
+validación del servicio distingue entre dos fronteras de prueba: la respuesta
+inmediata del servicio, que informa errores de posición, guiñada y normas
+dinámicas residuales, y la telemetría posterior publicada por ROS 2, que debe
+confirmar que no aparecen picos transitorios tras el reinicio.
+
+Para evitar que estos casos contaminen el entrenamiento, el entorno registra
+razones de fallo y adopta una política de fallo acotado. Si el UAV no vuelve a la
+pose inicial dentro del tiempo configurado, si no se mantiene estable tras el
+reset o si una acción aceptada no produce movimiento observable, la ejecución se
+rechaza como evidencia de entrenamiento válido. Este criterio es más estricto que
+permitir que PPO continúe acumulando pasos, pero resulta necesario para mantener
+la validez de los datos.
+
+\begin{table}[H]
+\centering
+\small
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{p{0.24\textwidth} p{0.26\textwidth} p{0.28\textwidth} p{0.14\textwidth}}
+\hline
+\textbf{Fallo observado} & \textbf{Causa probable} & \textbf{Mitigación incorporada} & \textbf{Evidencia} \\
+\hline
+Éxitos triviales de un paso & Objetivo demasiado cercano al despegue inicial. & Objetivos desplazados y separación explícita entre inicio y objetivo. & Exp001--Exp002. \\
+Bucle de episodios fuera de límites & Reset fijo insuficiente tras una salida de escena. & \texttt{fixed\_start\_pose} y retorno controlado a pose inicial. & Exp002--Exp003. \\
+Bloqueo por \texttt{go\_to} & Comportamiento de Aerostack2 ejecutándose indefinidamente. & Eliminación del fallback bloqueante y fallo explícito. & Exp006--Exp007. \\
+Timeout de reset por velocidad & Derivas grandes o recuperación insuficiente entre episodios. & Diagnósticos de reset, \texttt{reset\_max\_vel} y fases de corrección. & Exp007--Exp008a. \\
+Comando aceptado sin movimiento & Desacoplamiento entre aceptación de API y acción física tras reset. & Prueba de accionabilidad y fallo cerrado antes de entrenar. & Smokes Exp008a. \\
+Degradación por reinicios de servicio repetidos & Muchos episodios terminan en fronteras no observables y fuerzan teleports sucesivos. & Reintentos completos del servicio, guard de acción en límites y supervisor con reanudación. & Exp010--Exp012. \\
+\hline
+\end{tabular}
+\caption{Fallos de integración identificados y mecanismos de control incorporados.}
+\label{tab:pruebas:fallos_control}
+\end{table}
+
+Además de las pruebas ejecutadas desde el repositorio del entorno, el fork del
+simulador incorpora pruebas unitarias sobre el servicio de reinicio. Estas
+pruebas verifican que el servicio está disponible, que rechaza entradas no
+finitas o tolerancias inválidas, que limpia referencias dinámicas obsoletas y que
+mantiene una altitud válida incluso cuando el estado previo del vehículo no era
+apto para iniciar un nuevo episodio. Estas comprobaciones son relevantes porque
+el servicio no solo debe modificar la pose externa del UAV, sino también dejar
+el estado interno del simulador en condiciones compatibles con el siguiente
+comando de velocidad.
+
+\section{Métricas y criterios de aceptación} \label{sct:pruebas:metricas}
+
+Las métricas empleadas combinan indicadores de aprendizaje e indicadores de
+infraestructura. En el primer grupo se encuentran la recompensa por episodio, la
+longitud de episodio, la tasa de éxito y la distancia final al objetivo. En el
+segundo grupo se registran razones de terminación, desplazamiento físico,
+longitud de trayectoria, altitud mínima, ratio de comandos aceptados, método de
+reset y clase de fallo. Esta separación permite determinar si una ejecución
+fracasa porque la política todavía no resuelve la tarea o porque el entorno no
+está entregando transiciones físicamente válidas.
+
+Las curvas de TensorBoard se utilizan como evidencia complementaria, no como
+única prueba de aprendizaje. En particular, las métricas
+\texttt{rollout/ep\_rew\_mean} y \texttt{rollout/ep\_len\_mean} permiten
+observar tendencias agregadas, mientras que los campos de monitor por episodio
+permiten explicar esas tendencias mediante razones de terminación, distancia
+final, éxitos, salidas de límites o eventos de baja altitud. Esta combinación es
+necesaria porque una curva plana de recompensa puede deberse a una política que
+no aprende, pero también a episodios dominados por terminaciones de seguridad o
+por reinicios costosos del simulador.
+
+El criterio de aceptación para un entrenamiento no se reduce a que el proceso de
+Python siga ejecutándose. Una ejecución solo se considera apta para análisis de
+aprendizaje si el entorno inicia episodios desde estados válidos, si las acciones
+producen movimiento físico medible, si los fallos de reset no se ocultan como
+episodios válidos y si las métricas de monitorización permiten reconstruir lo
+ocurrido. En caso contrario, el resultado se documenta como evidencia de
+integración y se utiliza para mejorar el entorno antes de extraer conclusiones
+sobre PPO.

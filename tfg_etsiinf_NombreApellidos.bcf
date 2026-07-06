@@ -71,7 +71,7 @@
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>labeldateparts</bcf:key>
-      <bcf:value>0</bcf:value>
+      <bcf:value>1</bcf:value>
     </bcf:option>
     <bcf:option type="multivalued">
       <bcf:key>labeldatespec</bcf:key>
@@ -96,15 +96,15 @@
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>maxbibnames</bcf:key>
-      <bcf:value>3</bcf:value>
+      <bcf:value>99</bcf:value>
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>maxcitenames</bcf:key>
-      <bcf:value>3</bcf:value>
+      <bcf:value>2</bcf:value>
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>maxsortnames</bcf:key>
-      <bcf:value>3</bcf:value>
+      <bcf:value>99</bcf:value>
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>maxitems</bcf:key>
@@ -172,7 +172,7 @@
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>sortingtemplatename</bcf:key>
-      <bcf:value>none</bcf:value>
+      <bcf:value>nyt</bcf:value>
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>sortsets</bcf:key>
@@ -184,7 +184,7 @@
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>uniquename</bcf:key>
-      <bcf:value>false</bcf:value>
+      <bcf:value>full</bcf:value>
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>uniqueprimaryauthor</bcf:key>
@@ -314,7 +314,7 @@
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>labeldateparts</bcf:key>
-      <bcf:value>0</bcf:value>
+      <bcf:value>1</bcf:value>
     </bcf:option>
     <bcf:option type="multivalued">
       <bcf:key>labeldatespec</bcf:key>
@@ -331,15 +331,15 @@
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>maxbibnames</bcf:key>
-      <bcf:value>3</bcf:value>
+      <bcf:value>99</bcf:value>
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>maxcitenames</bcf:key>
-      <bcf:value>3</bcf:value>
+      <bcf:value>2</bcf:value>
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>maxsortnames</bcf:key>
-      <bcf:value>3</bcf:value>
+      <bcf:value>99</bcf:value>
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>maxitems</bcf:key>
@@ -399,7 +399,7 @@
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>uniquename</bcf:key>
-      <bcf:value>false</bcf:value>
+      <bcf:value>full</bcf:value>
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>uniqueprimaryauthor</bcf:key>
@@ -560,6 +560,7 @@
     <bcf:option datatype="string">datelabel</bcf:option>
     <bcf:option datatype="string">backrefstyle</bcf:option>
     <bcf:option datatype="string">arxiv</bcf:option>
+    <bcf:option datatype="string">mergedate</bcf:option>
     <bcf:option datatype="boolean">familyinits</bcf:option>
     <bcf:option datatype="boolean">giveninits</bcf:option>
     <bcf:option datatype="boolean">prefixinits</bcf:option>
@@ -643,7 +644,7 @@
     <bcf:option datatype="boolean">doi</bcf:option>
     <bcf:option datatype="boolean">eprint</bcf:option>
     <bcf:option datatype="boolean">related</bcf:option>
-    <bcf:option datatype="boolean">subentry</bcf:option>
+    <bcf:option datatype="boolean">dashed</bcf:option>
     <bcf:option datatype="boolean">bibtexcaseprotection</bcf:option>
     <bcf:option datatype="integer">mincrossrefs</bcf:option>
     <bcf:option datatype="integer">minxrefs</bcf:option>
@@ -674,6 +675,7 @@
     <bcf:option datatype="string">loccittracker</bcf:option>
     <bcf:option datatype="string">uniquelist</bcf:option>
     <bcf:option datatype="string">uniquename</bcf:option>
+    <bcf:option datatype="string">mergedate</bcf:option>
     <bcf:option datatype="boolean">familyinits</bcf:option>
     <bcf:option datatype="boolean">giveninits</bcf:option>
     <bcf:option datatype="boolean">prefixinits</bcf:option>
@@ -725,7 +727,6 @@
     <bcf:option datatype="boolean">doi</bcf:option>
     <bcf:option datatype="boolean">eprint</bcf:option>
     <bcf:option datatype="boolean">related</bcf:option>
-    <bcf:option datatype="boolean">subentry</bcf:option>
     <bcf:option datatype="boolean">bibtexcaseprotection</bcf:option>
     <bcf:option datatype="xml">labelalphatemplate</bcf:option>
     <bcf:option datatype="xml">translit</bcf:option>
@@ -764,6 +765,7 @@
     <bcf:option datatype="string" backendout="1">loccittracker</bcf:option>
     <bcf:option datatype="string">uniquelist</bcf:option>
     <bcf:option datatype="string">uniquename</bcf:option>
+    <bcf:option datatype="string" backendout="1">mergedate</bcf:option>
     <bcf:option datatype="boolean" backendout="1">familyinits</bcf:option>
     <bcf:option datatype="boolean" backendout="1">giveninits</bcf:option>
     <bcf:option datatype="boolean" backendout="1">prefixinits</bcf:option>
@@ -814,7 +816,6 @@
     <bcf:option datatype="boolean" backendout="1">doi</bcf:option>
     <bcf:option datatype="boolean" backendout="1">eprint</bcf:option>
     <bcf:option datatype="boolean" backendout="1">related</bcf:option>
-    <bcf:option datatype="boolean" backendout="1">subentry</bcf:option>
     <bcf:option datatype="boolean" backendout="1">bibtexcaseprotection</bcf:option>
     <bcf:option datatype="integer" backendin="maxcitenames,maxbibnames,maxsortnames">maxnames</bcf:option>
     <bcf:option datatype="integer" backendin="mincitenames,minbibnames,minsortnames">minnames</bcf:option>
@@ -2370,57 +2371,108 @@
   <!-- CITATION DATA -->
   <!-- SECTION 0 -->
   <bcf:bibdata section="0">
-    <bcf:datasource type="file" datatype="bibtex">bibliography.bib</bcf:datasource>
+    <bcf:datasource type="file" datatype="bibtex" glob="false">bibliography.bib</bcf:datasource>
   </bcf:bibdata>
   <bcf:section number="0">
-    <bcf:citekey order="1" intorder="1">sanchez2017aerostack</bcf:citekey>
-    <bcf:citekey order="2" intorder="1">sanchez2017aerostack</bcf:citekey>
-    <bcf:citekey order="3" intorder="1">fernandez2023aerostack2</bcf:citekey>
-    <bcf:citekey order="4" intorder="1">azar2021drone_review</bcf:citekey>
-    <bcf:citekey order="5" intorder="1">azar2021drone_review</bcf:citekey>
-    <bcf:citekey order="5" intorder="2">chan2024drone_simulators</bcf:citekey>
-    <bcf:citekey order="6" intorder="1">pi2021lowlevel</bcf:citekey>
-    <bcf:citekey order="7" intorder="1">yoo2021hybrid</bcf:citekey>
-    <bcf:citekey order="8" intorder="1">kaufmann2020acrobatics</bcf:citekey>
-    <bcf:citekey order="9" intorder="1">kaufmann2022benchmark</bcf:citekey>
-    <bcf:citekey order="10" intorder="1">eschmann2024seconds</bcf:citekey>
-    <bcf:citekey order="11" intorder="1">song2023racing</bcf:citekey>
-    <bcf:citekey order="12" intorder="1">kaufmann2020acrobatics</bcf:citekey>
-    <bcf:citekey order="12" intorder="2">pi2021lowlevel</bcf:citekey>
-    <bcf:citekey order="12" intorder="3">yoo2021hybrid</bcf:citekey>
-    <bcf:citekey order="13" intorder="1">chan2024drone_simulators</bcf:citekey>
-    <bcf:citekey order="14" intorder="1">azar2021drone_review</bcf:citekey>
-    <bcf:citekey order="14" intorder="2">chan2024drone_simulators</bcf:citekey>
-    <bcf:citekey order="15" intorder="1">song2021flightmare</bcf:citekey>
-    <bcf:citekey order="16" intorder="1">krishnan2021airlearning</bcf:citekey>
-    <bcf:citekey order="17" intorder="1">panerati2021pybullet</bcf:citekey>
-    <bcf:citekey order="18" intorder="1">eschmann2024seconds</bcf:citekey>
-    <bcf:citekey order="19" intorder="1">chan2024drone_simulators</bcf:citekey>
-    <bcf:citekey order="20" intorder="1">kaufmann2020acrobatics</bcf:citekey>
-    <bcf:citekey order="20" intorder="2">pi2021lowlevel</bcf:citekey>
-    <bcf:citekey order="20" intorder="3">yoo2021hybrid</bcf:citekey>
-    <bcf:citekey order="20" intorder="4">song2023racing</bcf:citekey>
-    <bcf:citekey order="21" intorder="1">kaufmann2022benchmark</bcf:citekey>
-    <bcf:citekey order="21" intorder="2">chan2024drone_simulators</bcf:citekey>
-    <bcf:citekey order="22" intorder="1">fernandez2023aerostack2</bcf:citekey>
-    <bcf:citekey order="22" intorder="2">song2021flightmare</bcf:citekey>
-    <bcf:citekey order="22" intorder="3">krishnan2021airlearning</bcf:citekey>
-    <bcf:citekey order="22" intorder="4">panerati2021pybullet</bcf:citekey>
+    <bcf:citekey order="7" intorder="1">ros2_humble_concepts</bcf:citekey>
+    <bcf:citekey order="8" intorder="1">chollet2021ros</bcf:citekey>
+    <bcf:citekey order="9" intorder="1">chollet2021ros</bcf:citekey>
+    <bcf:citekey order="10" intorder="1">sanchez2017aerostack</bcf:citekey>
+    <bcf:citekey order="11" intorder="1">fernandez2023aerostack2</bcf:citekey>
+    <bcf:citekey order="12" intorder="1">fernandez2023aerostack2</bcf:citekey>
+    <bcf:citekey order="13" intorder="1">fernandez2023aerostack2</bcf:citekey>
+    <bcf:citekey order="14" intorder="1">towers2024gymnasium</bcf:citekey>
+    <bcf:citekey order="14" intorder="2">gymnasium_env_api</bcf:citekey>
+    <bcf:citekey order="15" intorder="1">stablebaselines3_ppo</bcf:citekey>
+    <bcf:citekey order="16" intorder="1">sutton2018reinforcement</bcf:citekey>
+    <bcf:citekey order="16" intorder="2">molina2025rl_intro</bcf:citekey>
+    <bcf:citekey order="17" intorder="1">objectways2025dl_vs_rl</bcf:citekey>
+    <bcf:citekey order="18" intorder="1">objectways2025dl_vs_rl</bcf:citekey>
+    <bcf:citekey order="19" intorder="1">sutton2018reinforcement</bcf:citekey>
+    <bcf:citekey order="20" intorder="1">altexsoft2021rl</bcf:citekey>
+    <bcf:citekey order="21" intorder="1">sutton2018reinforcement</bcf:citekey>
+    <bcf:citekey order="22" intorder="1">altexsoft2021rl</bcf:citekey>
+    <bcf:citekey order="23" intorder="1">sutton2018reinforcement</bcf:citekey>
+    <bcf:citekey order="24" intorder="1">sutton2018reinforcement</bcf:citekey>
+    <bcf:citekey order="25" intorder="1">azar2021drone_review</bcf:citekey>
+    <bcf:citekey order="25" intorder="2">chan2024drone_simulators</bcf:citekey>
+    <bcf:citekey order="26" intorder="1">pi2021lowlevel</bcf:citekey>
+    <bcf:citekey order="27" intorder="1">yoo2021hybrid</bcf:citekey>
+    <bcf:citekey order="28" intorder="1">kaufmann2020acrobatics</bcf:citekey>
+    <bcf:citekey order="29" intorder="1">kaufmann2022benchmark</bcf:citekey>
+    <bcf:citekey order="30" intorder="1">eschmann2024seconds</bcf:citekey>
+    <bcf:citekey order="31" intorder="1">song2023racing</bcf:citekey>
+    <bcf:citekey order="32" intorder="1">kaufmann2020acrobatics</bcf:citekey>
+    <bcf:citekey order="32" intorder="2">pi2021lowlevel</bcf:citekey>
+    <bcf:citekey order="32" intorder="3">yoo2021hybrid</bcf:citekey>
+    <bcf:citekey order="33" intorder="1">schulman2017ppo</bcf:citekey>
+    <bcf:citekey order="34" intorder="1">researchgate2024ppo_architecture</bcf:citekey>
+    <bcf:citekey order="35" intorder="1">researchgate2024ppo_architecture</bcf:citekey>
+    <bcf:citekey order="36" intorder="1">molina2025actorcritic</bcf:citekey>
+    <bcf:citekey order="36" intorder="2">molina2025ppo</bcf:citekey>
+    <bcf:citekey order="37" intorder="1">schulman2017ppo</bcf:citekey>
+    <bcf:citekey order="38" intorder="1">schulman2017ppo</bcf:citekey>
+    <bcf:citekey order="38" intorder="2">stablebaselines3_ppo</bcf:citekey>
+    <bcf:citekey order="39" intorder="1">stablebaselines3_ppo</bcf:citekey>
+    <bcf:citekey order="40" intorder="1">chan2024drone_simulators</bcf:citekey>
+    <bcf:citekey order="41" intorder="1">azar2021drone_review</bcf:citekey>
+    <bcf:citekey order="41" intorder="2">chan2024drone_simulators</bcf:citekey>
+    <bcf:citekey order="42" intorder="1">song2021flightmare</bcf:citekey>
+    <bcf:citekey order="43" intorder="1">krishnan2021airlearning</bcf:citekey>
+    <bcf:citekey order="44" intorder="1">panerati2021pybullet</bcf:citekey>
+    <bcf:citekey order="45" intorder="1">eschmann2024seconds</bcf:citekey>
+    <bcf:citekey order="46" intorder="1">chan2024drone_simulators</bcf:citekey>
+    <bcf:citekey order="47" intorder="1">kaufmann2020acrobatics</bcf:citekey>
+    <bcf:citekey order="47" intorder="2">pi2021lowlevel</bcf:citekey>
+    <bcf:citekey order="47" intorder="3">yoo2021hybrid</bcf:citekey>
+    <bcf:citekey order="47" intorder="4">song2023racing</bcf:citekey>
+    <bcf:citekey order="48" intorder="1">kaufmann2022benchmark</bcf:citekey>
+    <bcf:citekey order="48" intorder="2">chan2024drone_simulators</bcf:citekey>
+    <bcf:citekey order="49" intorder="1">fernandez2023aerostack2</bcf:citekey>
+    <bcf:citekey order="49" intorder="2">song2021flightmare</bcf:citekey>
+    <bcf:citekey order="49" intorder="3">krishnan2021airlearning</bcf:citekey>
+    <bcf:citekey order="49" intorder="4">panerati2021pybullet</bcf:citekey>
+    <bcf:citekey order="50" intorder="1">fernandez2023aerostack2</bcf:citekey>
+    <bcf:citekey order="51" intorder="1">fernandez2023aerostack2</bcf:citekey>
+    <bcf:citekey order="51" intorder="2">ros2_humble_concepts</bcf:citekey>
+    <bcf:citekey order="52" intorder="1">fernandez2023aerostack2</bcf:citekey>
+    <bcf:citekey order="53" intorder="1">openai2026codex</bcf:citekey>
+    <bcf:citekey order="54" intorder="1">openai2026chatgpt</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
-  <bcf:sortingtemplate name="none">
+  <bcf:sortingtemplate name="nyt">
     <bcf:sort order="1">
-      <bcf:sortitem order="1">citeorder</bcf:sortitem>
+      <bcf:sortitem order="1">presort</bcf:sortitem>
     </bcf:sort>
-    <bcf:sort order="2">
-      <bcf:sortitem order="1">intciteorder</bcf:sortitem>
+    <bcf:sort order="2" final="1">
+      <bcf:sortitem order="1">sortkey</bcf:sortitem>
+    </bcf:sort>
+    <bcf:sort order="3">
+      <bcf:sortitem order="1">sortname</bcf:sortitem>
+      <bcf:sortitem order="2">author</bcf:sortitem>
+      <bcf:sortitem order="3">editor</bcf:sortitem>
+      <bcf:sortitem order="4">translator</bcf:sortitem>
+      <bcf:sortitem order="5">sorttitle</bcf:sortitem>
+      <bcf:sortitem order="6">title</bcf:sortitem>
+    </bcf:sort>
+    <bcf:sort order="4">
+      <bcf:sortitem order="1">sortyear</bcf:sortitem>
+      <bcf:sortitem order="2">year</bcf:sortitem>
+    </bcf:sort>
+    <bcf:sort order="5">
+      <bcf:sortitem order="1">sorttitle</bcf:sortitem>
+      <bcf:sortitem order="2">title</bcf:sortitem>
+    </bcf:sort>
+    <bcf:sort order="6">
+      <bcf:sortitem order="1">volume</bcf:sortitem>
+      <bcf:sortitem literal="1" order="2">0</bcf:sortitem>
     </bcf:sort>
   </bcf:sortingtemplate>
   <!-- DATALISTS -->
   <bcf:datalist section="0"
-                name="none/global//global/global/global"
+                name="nyt/global//global/global/global"
                 type="entry"
-                sortingtemplatename="none"
+                sortingtemplatename="nyt"
                 sortingnamekeytemplatename="global"
                 labelprefix=""
                 uniquenametemplatename="global"

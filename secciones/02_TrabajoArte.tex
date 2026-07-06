@@ -1,199 +1,561 @@
 % !TEX root = ../tfg_etsiinf_NombreApellidos.tex
-\chapter{Trabajo relacionado y Estado del Arte} \label{chp:state-of-the-art}
+\chapter{Fundamentos técnicos y trabajo relacionado} \label{chp:state-of-the-art}
 
-Este cap{\'i}tulo revisa el estado del arte relacionado con el control de
-veh{\'i}culos a{\'e}reos no tripulados mediante aprendizaje por refuerzo y con
-las infraestructuras software y de simulaci{\'o}n necesarias para su
-desarrollo. La revisi{\'o}n se organiza en torno a cuatro ejes. En primer
-lugar, se presentan algunos marcos software relevantes en rob{\'o}tica a{\'e}rea
-y, en particular, la evoluci{\'o}n desde Aerostack hasta Aerostack2. A
-continuaci{\'o}n, se analizan las principales l{\'i}neas de trabajo en control
-de cuadric{\'o}pteros mediante aprendizaje por refuerzo, diferenciando entre
-control a bajo nivel, seguimiento de trayectorias y vuelo agresivo. En tercer
-lugar, se estudian los simuladores y entornos de entrenamiento m{\'a}s
-utilizados en la literatura. Finalmente, se sintetizan las limitaciones
-observadas y se posiciona el presente trabajo respecto a ellas.
+Este capítulo introduce los fundamentos técnicos necesarios para comprender el
+entorno desarrollado y revisa los trabajos relacionados con aprendizaje por
+refuerzo aplicado a vehículos aéreos no tripulados. No se pretende
+realizar una revisión exhaustiva de todos los conceptos de robótica o aprendizaje
+automático, sino seleccionar aquellos elementos que condicionan directamente el
+diseño posterior como el middleware robótico empleado, la arquitectura aérea sobre la
+que se ejecuta el sistema, el papel de la simulación y la formulación del
+problema de aprendizaje.
+
+La organización sigue una progresión de infraestructura a método. En primer
+lugar, se presentan ROS 2 y Aerostack2 como base software para construir sistemas
+aéreos autónomos. A continuación, se revisa el aprendizaje por refuerzo profundo
+en drones y se justifica el uso de PPO como algoritmo de entrenamiento. Después
+se analizan simuladores y entornos de entrenamiento relevantes, con especial
+atención a las implicaciones de usar un simulador integrado en un \emph{stack}
+robótico. Finalmente, se sintetiza el posicionamiento del presente trabajo
+respecto a la literatura revisada.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Marcos software para rob{\'o}tica a{\'e}rea}
+\section{Infraestructura robótica: ROS 2 y Aerostack2}
 
-El desarrollo de sistemas a{\'e}reos aut{\'o}nomos requiere combinar de forma
-coherente control, estimaci{\'o}n, percepci{\'o}n, planificaci{\'o}n y
-coordinaci{\'o}n entre m{\'u}ltiples componentes heterog{\'e}neos. Este problema
-de integraci{\'o}n ha sido identificado desde hace a{\~n}os como uno de los
-principales obst{\'a}culos para trasladar algoritmos aislados a sistemas
-rob{\'o}ticos completos \cite{sanchez2017aerostack}. En ese contexto,
-S{\'a}nchez-L{\'o}pez et al.\ propusieron Aerostack como un marco software
-abierto, modular y multicapa orientado al desarrollo de sistemas a{\'e}reos
-aut{\'o}nomos complejos \cite{sanchez2017aerostack}. Su aportaci{\'o}n m{\'a}s
-relevante fue proporcionar una arquitectura reutilizable, espec{\'i}ficamente
-dise{\~n}ada para rob{\'o}tica a{\'e}rea, capaz de integrar desde funciones
-reactivas de control hasta capas deliberativas y sociales para misiones de
-mayor complejidad.
+El desarrollo de sistemas aéreos autónomos no consiste únicamente en programar
+un algoritmo de control. Un UAV operativo requiere coordinar estimación de
+estado, control, comunicaciones, gestión de modos de vuelo, seguridad,
+planificación y, en muchos casos, percepción. Esta integración es uno de los
+principales motivos por los que los trabajos de robótica suelen apoyarse en
+arquitecturas software reutilizables que permiten que los algoritmos se conecten con
+un sistema completo en lugar de ejecutarse como componentes aislados.
 
-La evoluci{\'o}n natural de esta l{\'i}nea es Aerostack2, redise{\~n}ado sobre
-ROS 2 y orientado a sistemas a{\'e}reos multi-robot m{\'a}s vers{\'a}tiles y
-portables \cite{fernandez2023aerostack2}. Frente a la versi{\'o}n anterior,
-Aerostack2 enfatiza la independencia de plataforma, la arquitectura basada en
-\emph{plugins} y la definici{\'o}n de misiones a trav{\'e}s de comportamientos,
-lo que facilita reutilizar componentes y conectar diferentes simuladores o
-plataformas reales. Para este TFM, Aerostack2 no es solo una herramienta de
-soporte, sino el sustrato tecnol{\'o}gico sobre el que se construye el entorno
-experimental. Por ello, resulta especialmente relevante en la revisi{\'o}n del
-estado del arte, ya que buena parte de los trabajos publicados en aprendizaje
-por refuerzo para drones se apoyan en simuladores o \emph{stacks} propios, pero
-no en ecosistemas modulares integrados con ROS 2 de uso directo en rob{\'o}tica
-a{\'e}rea.
+\subsection{ROS 2 como middleware robótico}
+
+ROS 2 proporciona una infraestructura de comunicación para sistemas robóticos
+distribuidos. Un sistema ROS 2 se organiza como un grafo de nodos que intercambian
+información mediante distintos mecanismos de comunicación. Los \emph{topics}
+permiten publicar flujos continuos de datos, los servicios modelan interacciones
+de petición y respuesta, y las acciones representan tareas de mayor duración con
+realimentación y posibilidad de cancelación \cite{ros2_humble_concepts}. Esta
+separación resulta especialmente útil en robótica aérea, donde conviven señales
+continuas de estado con órdenes discretas de ciclo de vida, como armar, despegar
+o aterrizar.
+
+La Figura~\ref{fig:estadoarte:ros_comunicacion} muestra esta idea de forma
+conceptual. Un nodo puede actuar como publicador o suscriptor de un \emph{topic},
+lo que permite distribuir información de estado o medidas de sensores. El mismo
+nodo también puede ofrecer o consumir servicios, adecuados para operaciones
+puntuales que requieren una respuesta explícita. Esta distinción es importante en
+el presente trabajo porque el ciclo de aprendizaje combina ambos tipos de
+interacción: lectura recurrente del estado del UAV y ejecución de órdenes de
+preparación o control sobre la plataforma simulada.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.86\textwidth]{images/ros_nodes_topics_services.png}
+    \caption{Comunicación entre nodos en ROS mediante \emph{topics} y servicios.
+    Fuente: Chollet \cite{chollet2021ros}.}
+    \label{fig:estadoarte:ros_comunicacion}
+\end{figure}
+
+Desde el punto de vista de este trabajo, ROS 2 se usa como la capa que permite 
+comunicar el entorno de aprendizaje con el sistema robótico simulado. 
+La política de aprendizaje por
+refuerzo no publica directamente en todos los \emph{topics} ni gestiona todos los
+servicios disponibles; esa responsabilidad queda encapsulada en las capas de
+Aerostack2 y en la interfaz desarrollada. Esta decisión evita que el algoritmo de
+aprendizaje dependa de detalles de comunicación de bajo nivel.
+
+\subsection{Aerostack2}
+
+Sobre esta base se sitúa Aerostack2. Inicialmente Aerostack fue propuesto como un marco
+software abierto, modular y multicapa para el desarrollo de sistemas aéreos
+autónomos complejos \cite{sanchez2017aerostack}. Su objetivo era proporcionar una
+arquitectura reutilizable capaz de integrar componentes de control, percepción,
+planificación y ejecución de misiones en robótica aérea. Esta idea es relevante
+porque desplaza el foco desde el algoritmo aislado hacia el sistema completo que
+permite ejecutar una misión aérea.
+
+Por otra parte, Aerostack2 constituye la evolución de esta línea sobre ROS 2. Su diseño enfatiza
+la independencia de plataforma, la arquitectura basada en \emph{plugins}, el
+soporte para sistemas multirrobot y la definición de misiones mediante
+comportamientos reutilizables \cite{fernandez2023aerostack2}. En lugar de imponer
+un único simulador o una única plataforma física, Aerostack2 actúa como capa de
+abstracción para conectar distintos vehículos, simuladores y componentes de
+misión. Esta característica lo hace adecuado para trabajos en los que interesa
+aproximar la experimentación en simulación a un flujo de robótica aérea
+operativo.
+
+La arquitectura de Aerostack2 puede entenderse como una organización por capas,
+resumida en la Figura~\ref{fig:estadoarte:as2_capas}. En los niveles inferiores
+se sitúan el middleware, los mensajes de comunicación y las interfaces con
+plataformas o sensores. Sobre ellos se construyen funciones robóticas básicas,
+como estimación de estado, control de movimiento o gestión de emergencias. A un
+nivel superior aparecen los comportamientos de robot, como despegue, aterrizaje,
+seguimiento de trayectorias o detección de marcadores. Finalmente, las capas de
+misión y aplicación permiten componer esas capacidades para casos de uso
+concretos.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{images/aerostack2_layered_architecture.png}
+    \caption{Organización por capas de los componentes software de Aerostack2.
+    Fuente: Fernández-Cortizas et al. \cite{fernandez2023aerostack2}.}
+    \label{fig:estadoarte:as2_capas}
+\end{figure}
+
+Esta organización por capas ayuda a explicar por qué Aerostack2 resulta
+especialmente útil para el presente trabajo. El entorno de aprendizaje por
+refuerzo no sustituye a los controladores, estimadores o comportamientos de
+Aerostack2, sino que se conecta por encima de ellos para emitir consignas de
+velocidad dentro de una infraestructura robótica ya existente. Así, el problema
+de aprendizaje se mantiene centrado en decidir acciones de alto nivel, mientras
+que la ejecución robótica queda delegada en componentes especializados del
+\emph{stack}.
+
+
+\begin{table}[H]
+\centering
+\small
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{p{0.25\textwidth} p{0.31\textwidth} p{0.34\textwidth}}
+\hline
+\textbf{Nivel} & \textbf{Función principal} & \textbf{Papel en este trabajo} \\
+\hline
+ROS 2 & Comunicación entre nodos mediante \emph{topics}, servicios y acciones. & Transporte de órdenes, estados y operaciones de ciclo de vida. \\
+Aerostack2 & Arquitectura aérea sobre ROS 2 con interfaces y comportamientos reutilizables. & Sustrato robótico usado por el entorno de aprendizaje. \\
+Simulador AS2 & Ejecución simulada del multirrotor y de sus interfaces robóticas. & Fuente de experiencia para entrenamiento y validación funcional. \\
+Gymnasium/SB3 & Interfaz estándar de aprendizaje por refuerzo y entrenamiento PPO. & Capa de interacción del agente con observaciones, acciones y recompensas. \\
+\hline
+\end{tabular}
+\caption{Relación entre las capas tecnológicas empleadas en el presente trabajo.}
+\label{tab:estadoarte:capas_tecnologicas}
+\end{table}
+
+El Cuadro~\ref{tab:estadoarte:capas_tecnologicas} resume la función de cada capa.
+Esta separación ayuda a delimitar la contribución del trabajo. No se propone un
+nuevo middleware robótico ni una nueva arquitectura aérea, sino una interfaz
+reproducible entre un entorno de aprendizaje por refuerzo y una plataforma aérea
+basada en ROS 2 y Aerostack2. Por ello, los capítulos posteriores distinguen
+entre la infraestructura robótica reutilizada, el diseño del problema de
+aprendizaje y la implementación del entorno Gymnasium.
+
+\subsection{Gymnasium y Stable-Baselines3 en el flujo de aprendizaje}
+
+Gymnasium proporciona una API común para definir entornos de aprendizaje por
+refuerzo mediante operaciones como \texttt{reset} y \texttt{step}, junto con
+espacios de observación y acción explícitos \cite{towers2024gymnasium,
+gymnasium_env_api}. Su papel en este trabajo no es simular por sí mismo la
+dinámica del UAV, sino ofrecer el contrato mediante el cual un algoritmo de
+aprendizaje puede interactuar de forma uniforme con una tarea implementada sobre
+ROS 2 y Aerostack2. Esta separación permite que la lógica del agente no dependa
+directamente de los detalles de comunicación robótica.
+
+Stable-Baselines3 aporta implementaciones mantenidas de algoritmos de aprendizaje
+por refuerzo profundo y utilidades de entrenamiento compatibles con este tipo de
+entornos, incluida la implementación de PPO utilizada más adelante
+\cite{stablebaselines3_ppo}. En el presente trabajo se emplea como capa de
+entrenamiento y monitorización, mientras que la definición del problema, la
+recompensa, los reinicios y las condiciones de seguridad permanecen en el entorno
+desarrollado. Por tanto, Gymnasium estandariza la interfaz y Stable-Baselines3
+proporciona el algoritmo, pero la validez experimental depende de que la
+adaptación robótica produzca transiciones físicas fiables.
+
 
 \section{Aprendizaje por refuerzo para el control de UAV}
 
-Las revisiones recientes muestran que el aprendizaje por refuerzo profundo se ha
-aplicado a problemas de planificaci{\'o}n, navegaci{\'o}n y control de UAV, con
-especial inter{\'e}s en escenarios donde la din{\'a}mica del veh{\'i}culo es no
-lineal o donde el dise{\~n}o manual del controlador resulta costoso
-\cite{azar2021drone_review}. Al mismo tiempo, la literatura tambi{\'e}n
-subraya limitaciones persistentes: tiempos de entrenamiento elevados,
-dificultades de transferencia del simulador al mundo real y fuerte dependencia
-de la calidad del entorno de simulaci{\'o}n \cite{azar2021drone_review,
-chan2024drone_simulators}.
+El aprendizaje por refuerzo se diferencia de otros enfoques de aprendizaje
+automático porque el conocimiento no se obtiene a partir de un conjunto fijo de
+pares entrada--salida, sino mediante interacción secuencial con un entorno. En
+aprendizaje supervisado clásico, una red neuronal aprende a aproximar una función
+usando ejemplos etiquetados; en aprendizaje por refuerzo, en cambio, el agente
+debe actuar, observar las consecuencias de sus acciones y ajustar su comportamiento
+según una señal de recompensa. Esta diferencia es esencial en robótica: un robot no
+solo debe reconocer patrones, sino decidir acciones que modifican el estado físico
+del sistema.
 
-Una parte significativa de los trabajos se ha centrado en control a bajo nivel,
-es decir, en aprender pol{\'i}ticas que act{\'u}an cerca de los actuadores o de
-las consignas de actitud. Pi et al.\ propusieron un controlador de bajo nivel
-basado en aprendizaje por refuerzo capaz de generalizar a veh{\'i}culos
-multirrotor con distintas configuraciones f{\'i}sicas, tratando de reducir la
-necesidad de reentrenamiento cuando cambian los par{\'a}metros del veh{\'i}culo
-\cite{pi2021lowlevel}. En una l{\'i}nea relacionada, Yoo et al.\ combinaron
-controladores deterministas cl{\'a}sicos con una pol{\'i}tica aprendida,
-mostrando que una aproximaci{\'o}n h{\'i}brida puede mejorar la convergencia y
-el seguimiento de trayectorias mediante control en velocidad
-\cite{yoo2021hybrid}. Estos trabajos son especialmente relevantes para la
-extensi{\'o}n futura planteada en esta tesis, en la que se contempla encadenar
-un controlador de alto nivel con otro de menor nivel que produzca tasas
-angulares.
+Esta diferencia puede resumirse en el Cuadro~\ref{tab:estadoarte:dl_vs_rl}. En
+aprendizaje profundo supervisado, el objetivo habitual es aprender una relación
+estática entre entradas y etiquetas. En aprendizaje por refuerzo, el problema es
+dinámico las decisiones modifican los datos que se observarán después. Por ello,
+la calidad del aprendizaje no depende solo del modelo neuronal, sino también de la
+definición del entorno, de la recompensa y de la estrategia de exploración
+\cite{sutton2018reinforcement,molina2025rl_intro}.
 
-Otra l{\'i}nea muy activa es la del vuelo agresivo y el empuje del dron hacia
-sus l{\'i}mites din{\'a}micos. Kaufmann et al.\ demostraron en
-\emph{Deep Drone Acrobatics} que es posible entrenar en simulaci{\'o}n una
-pol{\'i}tica para realizar maniobras acrob{\'a}ticas y transferirla al dron real
-sin ajuste fino posterior \cite{kaufmann2020acrobatics}. M{\'a}s adelante, los
-mismos autores analizaron comparativamente distintas abstracciones de control y
-observaron que las pol{\'i}ticas que act{\'u}an sobre \emph{body-rates} y thrust
-resultan m{\'a}s robustas en transferencia que aquellas que operan
-directamente sobre los motores \cite{kaufmann2022benchmark}. Este punto es de
-gran inter{\'e}s para el presente trabajo, porque ayuda a entender que el nivel
-de abstracci{\'o}n elegido para la acci{\'o}n no es una decisi{\'o}n menor, sino
-un elemento central del dise{\~n}o del problema de aprendizaje.
+\begin{table}[H]
+\centering
+\small
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{p{0.27\textwidth} p{0.30\textwidth} p{0.33\textwidth}}
+\hline
+\textbf{Aspecto} & \textbf{Aprendizaje profundo supervisado} & \textbf{Aprendizaje por refuerzo} \\
+\hline
+Datos de entrenamiento & Conjunto de ejemplos normalmente fijo y etiquetado. & Experiencia generada por interacción con el entorno. \\
+Señal de aprendizaje & Error entre predicción y etiqueta conocida. & Recompensa escalar y acumulativa. \\
+Salida del modelo & Predicción, clasificación o regresión. & Acción o distribución de acciones. \\
+Dependencia temporal & Las muestras suelen tratarse como ejemplos independientes. & Cada acción condiciona los estados y recompensas futuros. \\
+Relevancia en robótica & Percepción, estimación o reconocimiento. & Control, navegación y toma de decisiones secuencial. \\
+\hline
+\end{tabular}
+\caption{Diferencias principales entre aprendizaje profundo supervisado y aprendizaje por refuerzo.}
+\label{tab:estadoarte:dl_vs_rl}
+\end{table}
 
-Los resultados m{\'a}s recientes en vuelo agresivo refuerzan esta idea.
-Eschmann et al.\ mostraron que, con una arquitectura adecuada y un simulador muy
-optimizado, es posible entrenar controladores de bajo nivel en tiempos
-extraordinariamente reducidos y mantener capacidad de transferencia a plataformas
-reales \cite{eschmann2024seconds}. En paralelo, Song et al.\ estudiaron de
-manera sistem{\'a}tica la competici{\'o}n entre control {\'o}ptimo y aprendizaje
-por refuerzo en un problema de carrera aut{\'o}noma con drones, concluyendo que
-RL puede superar al control {\'o}ptimo cuando el objetivo se formula
-directamente a nivel de tarea y se entrena con suficiente robustez frente a
-incertidumbres del modelo \cite{song2023racing}. Este resultado es
-particularmente pertinente dado el contexto de A2RL que motiva la tesis.
+La Figura~\ref{fig:estadoarte:deep_rl_comparacion} complementa esta comparación.
+El aprendizaje por refuerzo clásico puede representarse mediante tablas de valor
+cuando los estados y acciones son discretos y de tamaño limitado. El aprendizaje
+profundo supervisado, por su parte, utiliza redes neuronales para extraer patrones
+a partir de datos etiquetados. El aprendizaje por refuerzo profundo combina ambas
+ideas: emplea redes neuronales para aproximar políticas, funciones de valor o ambas,
+pero mantiene el ciclo de interacción con el entorno propio del aprendizaje por
+refuerzo. Esta combinación es la que permite aplicar RL a problemas con estados
+continuos, observaciones de alta dimensión o espacios de acción complejos, como los
+que aparecen en robótica aérea.
 
-Sin embargo, la literatura revisada tambi{\'e}n revela una cierta dispersi{\'o}n
-en el tipo de problema abordado. Muchos trabajos se centran en estabilizaci{\'o}n
-de actitud, control a nivel de actuadores, vuelo acrob{\'a}tico o navegaci{\'o}n
-end-to-end basada en percepci{\'o}n \cite{kaufmann2020acrobatics,
-pi2021lowlevel, yoo2021hybrid}. Por el contrario, es menos frecuente encontrar
-trabajos orientados a un controlador intermedio de alto nivel, cuya entrada sea
-una referencia de posici{\'o}n global y cuya salida sean velocidades lineales y
-velocidad angular en yaw, integrados adem{\'a}s en un \emph{stack} rob{\'o}tico
-como Aerostack2. Esta observaci{\'o}n es una inferencia a partir de las obras
-revisadas y ayuda a justificar el espacio de contribuci{\'o}n de este TFM.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.86\textwidth]{images/deep_rl_conceptual_comparison.png}
+    \caption{Relación conceptual entre aprendizaje por refuerzo clásico,
+    aprendizaje profundo supervisado y aprendizaje por refuerzo profundo. Fuente:
+    Objectways \cite{objectways2025dl_vs_rl}.}
+    \label{fig:estadoarte:deep_rl_comparacion}
+\end{figure}
 
-\section{Simuladores y entornos de entrenamiento para RL en drones}
+La Figura~\ref{fig:estadoarte:rl_bucle_agente_entorno} resume el ciclo básico de
+aprendizaje por refuerzo. En cada instante $t$, el agente recibe un estado u
+observación $S_t$, selecciona una acción $A_t$ y el entorno responde con una nueva
+situación $S_{t+1}$ y una recompensa $R_{t+1}$ \cite{sutton2018reinforcement}. En
+un problema robótico, el entorno incluye tanto la dinámica del vehículo como la
+infraestructura que ejecuta las órdenes y proporciona medidas del estado. En este
+trabajo, ese papel lo desempeñan conjuntamente Aerostack2, ROS 2 y el simulador
+multirrotor.
 
-El entrenamiento mediante aprendizaje por refuerzo en rob{\'o}tica a{\'e}rea
-depende fuertemente del simulador empleado. Un simulador adecuado debe ofrecer
-fidelidad din{\'a}mica suficiente para capturar el comportamiento del veh{\'i}culo,
-pero tambi{\'e}n un coste computacional reducido que permita generar gran
-cantidad de experiencia de entrenamiento \cite{chan2024drone_simulators}. La
-literatura reciente coincide en que este equilibrio entre realismo, velocidad y
-facilidad de integraci{\'o}n es uno de los factores determinantes del {\'e}xito
-de una soluci{\'o}n basada en RL \cite{azar2021drone_review,
-chan2024drone_simulators}.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.76\textwidth]{images/rl_agent_environment_loop.png}
+    \caption{Bucle de interacción entre agente y entorno en aprendizaje por refuerzo.
+    Fuente: AltexSoft \cite{altexsoft2021rl}, basado en la formulación clásica de
+    Sutton y Barto \cite{sutton2018reinforcement}.}
+    \label{fig:estadoarte:rl_bucle_agente_entorno}
+\end{figure}
 
-Entre los entornos m{\'a}s influyentes se encuentra Flightmare, un simulador de
-cuadric{\'o}pteros dise{\~n}ado para desacoplar el renderizado y la f{\'i}sica,
-lo que permite combinar flexibilidad con una velocidad de simulaci{\'o}n muy
-elevada \cite{song2021flightmare}. Su inter{\'e}s para aprendizaje por refuerzo
-reside en que puede simular centenares de drones en paralelo, lo cual lo
-convierte en una referencia cuando el objetivo es maximizar el rendimiento de
-muestreo. Desde otra perspectiva, Air Learning ampli{\'o} el uso de AirSim con
-un entorno tipo Gym para navegaci{\'o}n aut{\'o}noma, introduciendo
-aleatorizaci{\'o}n del dominio, \emph{hardware-in-the-loop} y m{\'e}tricas de
-``calidad de vuelo'' orientadas al despliegue en plataformas con recursos
-limitados \cite{krishnan2021airlearning}. Este trabajo es relevante porque
-muestra que el valor de un simulador para RL no depende solo de la din{\'a}mica,
-sino tambi{\'e}n de su capacidad para aproximar las restricciones computacionales
-del sistema final.
+Formalmente, un problema de aprendizaje por refuerzo suele expresarse como un
+proceso de decisión de Markov. Esta formulación se define mediante un conjunto de
+estados $S$, un conjunto de acciones $A$, una función de transición $P$, una función
+de recompensa $R$ y un factor de descuento $\gamma \in [0,1]$ \cite{sutton2018reinforcement}.
+La política $\pi$ determina cómo actúa el agente: puede representarse como una
+función determinista $\pi(s)=a$ o como una distribución de probabilidad
+$\pi(a|s)$ sobre acciones posibles. El objetivo del aprendizaje consiste en encontrar
+una política que maximice la recompensa acumulada esperada.
 
-En una direcci{\'o}n m{\'a}s ligera y abierta, Panerati et al.\ propusieron un
-entorno Gym basado en PyBullet para cuadric{\'o}pteros individuales y
-multiagente, expl{\'i}citamente orientado a facilitar la comparaci{\'o}n entre
-enfoques de control cl{\'a}sico y de aprendizaje \cite{panerati2021pybullet}. Su
-aportaci{\'o}n es especialmente interesante para trabajos acad{\'e}micos porque
-reduce la fricci{\'o}n de entrada, ofrece portabilidad y proporciona ejemplos
-tanto de control PID como de tareas de RL. Finalmente, \emph{Learning to Fly in
+El retorno descontado desde un instante $t$ se define como:
+\[
+    G_t = \sum_{k=0}^{T-t-1} \gamma^k R_{t+k+1}.
+\]
+Este valor resume la utilidad futura de una secuencia de decisiones. El factor de
+descuento $\gamma$ permite ponderar las recompensas lejanas: valores cercanos a
+uno consideran horizontes más largos, mientras que valores menores favorecen
+recompensas inmediatas. En robótica aérea esta distinción es importante, porque una
+acción puede parecer buena a corto plazo, por ejemplo aumentar la velocidad hacia el
+objetivo, pero generar trayectorias inestables o salidas de la región segura en pasos
+posteriores.
+
+A partir del retorno se definen dos funciones habituales. La función de valor
+$V^{\pi}(s)$ estima el retorno esperado al seguir la política $\pi$ desde un estado
+$s$. La función de valor-acción $Q^{\pi}(s,a)$ estima el retorno esperado al ejecutar
+una acción concreta $a$ en el estado $s$ y continuar después con la política $\pi$.
+La diferencia entre ambas magnitudes permite definir la ventaja:
+\[
+    A^{\pi}(s,a) = Q^{\pi}(s,a) - V^{\pi}(s).
+\]
+La ventaja mide si una acción concreta es mejor o peor que el comportamiento medio
+esperado en ese estado. Esta idea será relevante para PPO, ya que el algoritmo usa
+estimaciones de ventaja para decidir en qué dirección debe modificarse la política.
+
+En el contexto de vehículos aéreos no tripulados, el aprendizaje por refuerzo resulta
+atractivo porque permite optimizar comportamientos difíciles de programar mediante
+reglas cerradas. Las revisiones recientes muestran aplicaciones en planificación,
+navegación y control de UAV, especialmente en escenarios con dinámica no lineal,
+espacios de acción continuos o transferencia desde simulación \cite{azar2021drone_review,
+chan2024drone_simulators}. Sin embargo, estas mismas revisiones subrayan
+limitaciones importantes: necesidad de muchas interacciones, sensibilidad al diseño
+de la recompensa, dependencia de la fidelidad del simulador y dificultad de trasladar
+políticas entrenadas a plataformas reales.
+
+Una parte significativa de los trabajos se ha centrado en control a bajo nivel, es
+decir, en aprender políticas que actúan cerca de los actuadores o de las consignas de
+actitud. Pi et al. propusieron un controlador de bajo nivel basado en aprendizaje por
+refuerzo capaz de generalizar a vehículos multirrotor con distintas configuraciones
+físicas \cite{pi2021lowlevel}. En una línea relacionada, Yoo et al. combinaron
+controladores deterministas clásicos con una política aprendida, mostrando que una
+aproximación híbrida puede mejorar la convergencia y el seguimiento de trayectorias
+mediante control en velocidad \cite{yoo2021hybrid}. Estos trabajos son relevantes
+para una posible extensión jerárquica del presente trabajo, aunque el entorno
+desarrollado se sitúa actualmente en un nivel de control más alto: la política genera
+comandos de velocidad lineal y velocidad angular en yaw, no señales de motor ni
+tasas angulares completas.
+
+Otra línea activa es la del vuelo agresivo y el empuje del dron hacia sus límites
+dinámicos. Kaufmann et al. demostraron en \emph{Deep Drone Acrobatics} que es
+posible entrenar en simulación una política para realizar maniobras acrobáticas y
+transferirla al dron real sin ajuste fino posterior \cite{kaufmann2020acrobatics}.
+Más adelante, los mismos autores analizaron comparativamente distintas abstracciones
+de control y observaron que las políticas que actúan sobre \emph{body-rates} y
+\emph{thrust} resultan más robustas en transferencia que aquellas que operan
+directamente sobre los motores \cite{kaufmann2022benchmark}. Este punto muestra
+que el nivel de abstracción de la acción no es una decisión secundaria, sino un
+elemento central del diseño del problema de aprendizaje.
+
+Los resultados recientes en vuelo agresivo refuerzan esta idea. Eschmann et al.
+mostraron que, con una arquitectura adecuada y un simulador muy optimizado, es
+posible entrenar controladores de bajo nivel en tiempos extraordinariamente
+reducidos y mantener capacidad de transferencia a plataformas reales
+\cite{eschmann2024seconds}. En paralelo, Song et al. estudiaron de manera
+sistemática la competición entre control óptimo y aprendizaje por refuerzo en un
+problema de carrera autónoma con drones, concluyendo que el aprendizaje por
+refuerzo puede superar al control óptimo cuando el objetivo se formula directamente
+a nivel de tarea y se entrena con suficiente robustez frente a incertidumbres del
+modelo \cite{song2023racing}. Este resultado es pertinente para el contexto de A2RL
+que motiva el trabajo, aunque debe interpretarse como antecedente de la literatura y
+no como evidencia del rendimiento del entorno aquí desarrollado.
+
+La literatura revisada revela, por tanto, una diversidad de formulaciones. Muchos
+trabajos se centran en estabilización de actitud, control a nivel de actuadores, vuelo
+acrobático o navegación \emph{end-to-end} basada en percepción
+\cite{kaufmann2020acrobatics, pi2021lowlevel, yoo2021hybrid}. A partir de esas obras
+puede inferirse que existe menos atención a controladores intermedios integrados en
+un \emph{stack} robótico de ROS 2, donde la acción se expresa como
+$[v_x, v_y, v_z, v_{\mathrm{yaw}}]$ y la observación principal como un estado relativo
+normalizado $[dx, dy, dz, d_{\mathrm{yaw}}]$. Esta inferencia ayuda a delimitar el
+espacio de contribución del presente trabajo sin convertirlo en una afirmación
+absoluta sobre toda la literatura existente.
+
+\subsection{PPO como algoritmo de entrenamiento}
+
+PPO, \emph{Proximal Policy Optimization}, pertenece a la familia de métodos de
+gradiente de política. Estos métodos no aprenden únicamente una función que valora
+acciones, sino que optimizan directamente una política parametrizada
+$\pi_\theta(a|s)$ \cite{schulman2017ppo}. En aprendizaje por refuerzo profundo, esta
+política se implementa habitualmente mediante una red neuronal que recibe una
+observación y produce una distribución de acciones. En espacios continuos, como el
+empleado en este trabajo, la acción puede interpretarse como una muestra o una
+salida de una distribución sobre velocidades admisibles.
+
+PPO suele implementarse con una arquitectura actor-crítico. El actor representa la
+política y decide qué acción ejecutar. El crítico estima el valor de los estados o de
+las acciones y proporciona una señal auxiliar para evaluar si la acción tomada fue
+mejor o peor de lo esperado. La Figura~\ref{fig:estadoarte:ppo_actor_critic} muestra
+este esquema: las trayectorias generadas por la interacción con el entorno se usan
+para actualizar tanto el crítico como la política del actor. Esta separación es útil
+porque el actor aprende a decidir, mientras que el crítico reduce la varianza de la
+estimación del gradiente mediante información de valor.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.82\textwidth]{images/ppo_actor_critic_architecture.png}
+    \caption{Arquitectura actor-crítico utilizada habitualmente en PPO. Fuente:
+    ResearchGate \cite{researchgate2024ppo_architecture}.}
+    \label{fig:estadoarte:ppo_actor_critic}
+\end{figure}
+
+En una arquitectura actor-crítico, el crítico permite estimar la ventaja sin
+esperar siempre al retorno completo de un episodio. Una aproximación habitual es
+partir del error temporal:
+\[
+    \delta_t = R_{t+1} + \gamma V(s_{t+1}) - V(s_t),
+\]
+que compara la recompensa inmediata más el valor estimado del estado siguiente con
+el valor estimado del estado actual. En implementaciones modernas de PPO se emplea
+frecuentemente una estimación de ventaja generalizada, que combina varios errores
+temporales ponderados:
+\[
+    \hat{A}_t = \sum_{l=0}^{T-t-1} (\gamma\lambda)^l \delta_{t+l}.
+\]
+El parámetro \(\lambda\) controla el compromiso entre sesgo y varianza: valores
+altos incorporan más información de retornos largos, mientras que valores bajos se
+apoyan más en el valor estimado por el crítico. Esta explicación es relevante para
+interpretar parámetros como \texttt{gamma} y \texttt{gae\_lambda} en la
+configuración de entrenamiento del presente trabajo \cite{molina2025actorcritic,molina2025ppo}.
+
+La dificultad principal de los métodos de gradiente de política es que una
+actualización demasiado grande puede destruir una política que estaba funcionando
+razonablemente bien. PPO aborda este problema comparando la política nueva con la
+política anterior mediante la razón de probabilidades:
+\[
+    r_t(\theta) = \frac{\pi_\theta(a_t|s_t)}{\pi_{\theta_{old}}(a_t|s_t)}.
+\]
+Si esta razón se aleja demasiado de uno, significa que la nueva política asigna una
+probabilidad muy distinta a la acción tomada respecto a la política que generó los
+datos. PPO limita ese cambio mediante una función objetivo recortada:
+\[
+    L^{CLIP}(\theta) = \mathbb{E}_t \left[
+    \min\left(r_t(\theta)\hat{A}_t,
+    \mathrm{clip}(r_t(\theta), 1-\epsilon, 1+\epsilon)\hat{A}_t\right)
+    \right].
+\]
+El parámetro $\epsilon$ define cuánto puede separarse la nueva política de la
+anterior en una actualización. Si la ventaja estimada $\hat{A}_t$ es positiva, la
+actualización aumenta la probabilidad de la acción, pero solo hasta el límite
+permitido por el recorte. Si la ventaja es negativa, reduce esa probabilidad, de nuevo
+sin permitir cambios excesivos. Este mecanismo proporciona una forma práctica de
+mantener las actualizaciones cerca de la política que generó las muestras, evitando
+saltos demasiado bruscos \cite{schulman2017ppo}.
+
+El funcionamiento práctico de PPO puede resumirse como un ciclo de cinco pasos.
+Primero, la política actual interactúa con el entorno y genera trayectorias de
+estados, acciones, recompensas y finales de episodio. Segundo, el crítico estima
+valores y se calculan ventajas para cada transición. Tercero, se actualiza el actor
+maximizando la función objetivo recortada. Cuarto, se entrena el crítico para
+reducir el error entre sus valores estimados y los retornos objetivo. Quinto, se
+puede añadir un término de entropía para favorecer exploración y evitar que la
+política se vuelva determinista demasiado pronto. En la práctica, muchas
+implementaciones optimizan una combinación de pérdida de política, pérdida de
+valor y bonificación de entropía \cite{schulman2017ppo,stablebaselines3_ppo}:
+\[
+    L(\theta) = L^{CLIP}(\theta) - c_1 L^{VF}(\theta) + c_2 S[\pi_\theta].
+\]
+Aquí, \(L^{VF}\) representa el error de la función de valor, \(S[\pi_\theta]\)
+la entropía de la política, y \(c_1\) y \(c_2\) ponderan la importancia relativa
+de ambos términos. Esta expresión permite entender por qué la configuración de PPO
+incluye parámetros específicos para la función de valor, la exploración y la norma
+del gradiente, no se entrena solo una red que ``elige acciones'', sino un sistema de
+optimización que equilibra mejora de política, estimación de valor y estabilidad.
+
+En el presente trabajo, PPO resulta adecuado por tres motivos. En primer lugar, el
+espacio de acciones es continuo y acotado, ya que la política genera velocidades
+lineales y velocidad de guiñada. En segundo lugar, su implementación en
+Stable-Baselines3 se integra de forma directa con entornos Gymnasium y entornos
+vectorizados. En tercer lugar, el mecanismo de \emph{clipping} reduce el riesgo de
+actualizaciones inestables, un aspecto relevante cuando cada muestra requiere
+interactuar con un simulador robótico \cite{stablebaselines3_ppo}. La elección de
+PPO debe entenderse, por tanto, como una decisión de diseño para construir un
+pipeline experimental estable, no como evidencia previa de que la política aprendida
+supere a un controlador clásico.
+
+Desde una perspectiva robótica, PPO también impone una restricción metodológica:
+la calidad del aprendizaje depende de la definición del entorno. Observaciones mal
+normalizadas, acciones con escalas inadecuadas, recompensas ambiguas o reinicios
+poco fiables pueden producir políticas aparentemente entrenadas pero incapaces de
+resolver la tarea. Por ello, los capítulos posteriores no se limitan a indicar que se
+usa PPO, sino que describen explícitamente el contrato Gymnasium, la formulación de
+observaciones y acciones, la recompensa, las condiciones de finalización y la
+infraestructura de validación.
+
+\section{Trabajo relacionado: Simuladores y entornos de entrenamiento para RL en drones}
+
+El entrenamiento mediante aprendizaje por refuerzo en robótica aérea depende
+fuertemente del simulador empleado. Un simulador adecuado debe ofrecer fidelidad
+dinámica suficiente para capturar el comportamiento del vehículo, pero también un
+coste computacional reducido que permita generar experiencia de entrenamiento
+\cite{chan2024drone_simulators}. La literatura reciente coincide en que este
+equilibrio entre realismo, velocidad y facilidad de integración es uno de los
+factores determinantes del éxito de una solución basada en aprendizaje por
+refuerzo \cite{azar2021drone_review, chan2024drone_simulators}.
+
+Entre los entornos influyentes se encuentra Flightmare, un simulador de
+cuadricópteros diseñado para desacoplar el renderizado y la física, lo que
+permite combinar flexibilidad con una velocidad de simulación elevada
+\cite{song2021flightmare}. Su interés para aprendizaje por refuerzo reside en
+que puede simular centenares de drones en paralelo, lo cual lo convierte en una
+referencia cuando el objetivo es maximizar el rendimiento de muestreo. Desde
+otra perspectiva, Air Learning amplió el uso de AirSim con un entorno tipo Gym
+para navegación autónoma, introduciendo aleatorización del dominio,
+\emph{hardware-in-the-loop} y métricas de ``calidad de vuelo'' orientadas al
+despliegue en plataformas con recursos limitados \cite{krishnan2021airlearning}.
+Este trabajo muestra que el valor de un simulador para aprendizaje por refuerzo
+no depende solo de la dinámica, sino también de su capacidad para aproximar las
+restricciones computacionales del sistema final.
+
+En una dirección más ligera y abierta, Panerati et al. propusieron un entorno
+Gym basado en PyBullet para cuadricópteros individuales y multiagente,
+explícitamente orientado a facilitar la comparación entre enfoques de control
+clásico y de aprendizaje \cite{panerati2021pybullet}. Su aportación es
+especialmente interesante para trabajos académicos porque reduce la fricción de
+entrada, ofrece portabilidad y proporciona ejemplos tanto de control PID como de
+tareas de aprendizaje por refuerzo. Finalmente, \emph{Learning to Fly in
 Seconds} plantea un simulador extremadamente optimizado para entrenamiento de
 controladores de bajo nivel, subrayando que la eficiencia computacional puede
-llegar a ser tan importante como la fidelidad din{\'a}mica cuando el objetivo es
-acelerar el ciclo de investigaci{\'o}n \cite{eschmann2024seconds}.
+llegar a ser tan importante como la fidelidad dinámica cuando el objetivo es
+acelerar el ciclo de investigación \cite{eschmann2024seconds}.
 
-Las revisiones de conjunto confirman esta diversidad de soluciones. Chan et
-al.\ comparan simuladores orientados a RL desde la perspectiva de sus
-prestaciones, interfaces y capacidades de integraci{\'o}n, y concluyen que no
+Las revisiones de conjunto confirman esta diversidad de soluciones. Chan et al.
+comparan simuladores orientados a aprendizaje por refuerzo desde la perspectiva
+de sus prestaciones, interfaces y capacidades de integración, y concluyen que no
 existe una herramienta universalmente superior, sino distintas elecciones
 dependiendo del problema, del tipo de aprendizaje y del nivel de realismo
-requerido \cite{chan2024drone_simulators}. Desde la perspectiva de este TFM,
-esta conclusi{\'o}n es importante: el simulador de multirrotores de Aerostack2
-puede no ofrecer el fotorrealismo de otras plataformas, pero su ligereza y su
-integraci{\'o}n natural con ROS 2 lo hacen especialmente atractivo para un
-entorno vectorizado de entrenamiento orientado al control din{\'a}mico.
+requerido \cite{chan2024drone_simulators}. Desde la perspectiva de este trabajo,
+esta conclusión es importante: el simulador de multirrotores de Aerostack2 puede
+no ofrecer el fotorrealismo de otras plataformas, pero su ejecución sin
+interfaz gráfica y su integración natural con ROS 2 lo hacen atractivo para
+construir una infraestructura de entrenamiento conectada con un \emph{stack}
+robótico real.
 
-\section{S{\'i}ntesis cr{\'i}tica y posicionamiento del trabajo}
+En este punto conviene precisar el alcance de la vectorización. El soporte para
+varios drones en un único simulador compartido y un único proceso Python permite
+validar la viabilidad funcional de escenarios con $N$ instancias del entorno. En
+la infraestructura de entrenamiento preparada, la opción prudente es utilizar
+vectorización síncrona, por ejemplo mediante \texttt{DummyVecEnv}, antes de
+plantear esquemas asíncronos o afirmaciones de aceleración. Sin métricas de
+rendimiento comparables, la vectorización debe presentarse como capacidad de la
+infraestructura, no como mejora cuantificada del entrenamiento.
 
-La revisi{\'o}n anterior permite extraer varias conclusiones. En primer lugar,
-el aprendizaje por refuerzo ha demostrado ser una herramienta v{\'a}lida para el
-control de drones en problemas de estabilizaci{\'o}n, seguimiento, navegaci{\'o}n
-y vuelo agresivo \cite{kaufmann2020acrobatics, pi2021lowlevel,
-yoo2021hybrid, song2023racing}. En segundo lugar, el rendimiento final depende
-de forma decisiva del nivel de abstracci{\'o}n de la acci{\'o}n, del dise{\~n}o
-de la recompensa y de la calidad del simulador empleado
-\cite{kaufmann2022benchmark, chan2024drone_simulators}. En tercer lugar, la
-literatura ha prestado especial atenci{\'o}n a simuladores propios o
-entornos Gym independientes, pero menos a la integraci{\'o}n del aprendizaje por
-refuerzo con \emph{frameworks} modulares de rob{\'o}tica a{\'e}rea basados en
-ROS 2 \cite{fernandez2023aerostack2, song2021flightmare,
-krishnan2021airlearning, panerati2021pybullet}.
 
-A partir de las fuentes revisadas, puede inferirse que existe una oportunidad de
-investigaci{\'o}n en la construcci{\'o}n de entornos de aprendizaje por refuerzo
-ligeros, vectorizables y directamente integrados con un \emph{stack} rob{\'o}tico
-operativo como Aerostack2. Esta necesidad es todav{\'i}a m{\'a}s clara cuando el
-problema de control no se formula a nivel de actuadores, sino a un nivel
-intermedio m{\'a}s pr{\'o}ximo a la planificaci{\'o}n y a la ejecuci{\'o}n de
-misiones: recibir una referencia global de posici{\'o}n y generar comandos de
-velocidad compatibles con la arquitectura del dron, imponiendo adem{\'a}s una
-restricci{\'o}n funcional sobre la orientaci{\'o}n en yaw para alinear el dron
-con su direcci{\'o}n de movimiento.
+\paragraph{Herramientas de observación y monitorización.}
+En una infraestructura de aprendizaje por refuerzo integrada con ROS 2, la
+observación del sistema no se limita a las métricas internas del algoritmo. RViz2
+proporciona una visualización espacial del estado del UAV, de sus referencias y
+de los marcadores publicados en el grafo ROS 2, por lo que resulta útil para
+validar cualitativamente que la escena simulada y los comandos robóticos son
+coherentes. TensorBoard, por su parte, permite inspeccionar las métricas emitidas
+por Stable-Baselines3 y por los monitores de episodio, como recompensa media,
+longitud de episodio y señales auxiliares registradas durante la ejecución. En
+este trabajo, ambas herramientas se emplean como soporte de validación y
+diagnóstico, no como sustituto de las métricas cuantitativas del entorno.
 
-En este punto se sit{\'u}a el presente Trabajo Fin de M{\'a}ster. La
-contribuci{\'o}n propuesta no consiste solo en entrenar un controlador, sino en
-sentar la base experimental necesaria para hacerlo dentro de Aerostack2: validar
-la interfaz entre simulador, ROS 2 y entorno de aprendizaje, preparar un
-entorno vectorizable y establecer posteriormente una comparaci{\'o}n rigurosa
-frente a un controlador PID de referencia. Desde esta perspectiva, el trabajo se
-alinea con la literatura m{\'a}s reciente sobre control aprendido para
-cuadric{\'o}pteros, pero aporta un enfoque diferencial en t{\'e}rminos de
-integraci{\'o}n software, reproducibilidad y adecuaci{\'o}n a un problema de
-control jer{\'a}rquico progresivo.
+\section{Síntesis y posicionamiento del trabajo}
+
+La revisión anterior permite extraer varias conclusiones. En primer lugar, el
+aprendizaje por refuerzo ha demostrado ser una herramienta válida en la
+literatura para distintos problemas de control de drones, incluyendo
+estabilización, seguimiento, navegación y vuelo agresivo
+\cite{kaufmann2020acrobatics, pi2021lowlevel, yoo2021hybrid, song2023racing}.
+En segundo lugar, el rendimiento final depende de forma decisiva del nivel de
+abstracción de la acción, del diseño de la recompensa y de la calidad del
+simulador empleado \cite{kaufmann2022benchmark, chan2024drone_simulators}. En
+tercer lugar, muchos trabajos priorizan simuladores especializados o entornos
+Gym independientes, mientras que la integración reproducible con un ecosistema
+robótico basado en ROS 2 introduce problemas de ingeniería que también son
+relevantes para la investigación aplicada \cite{fernandez2023aerostack2,
+song2021flightmare, krishnan2021airlearning, panerati2021pybullet}.
+
+A partir de las fuentes revisadas, puede inferirse una oportunidad de trabajo en
+la construcción de entornos de aprendizaje por refuerzo vectorizables y
+directamente integrados con un \emph{stack} robótico operativo como Aerostack2.
+Esta necesidad es más clara cuando el problema de control no se formula a nivel
+de actuadores, sino a un nivel intermedio próximo a la ejecución de misiones:
+recibir una referencia relativa al objetivo y generar comandos de velocidad
+compatibles con la arquitectura del dron, incorporando además una restricción de
+\emph{path-facing} para alinear el yaw con la dirección de movimiento.
+
+En este punto se sitúa el presente Trabajo Fin de Máster. La contribución
+diferencial no debe expresarse como una mejora de rendimiento todavía no
+cuantificada, sino como una integración reproducible entre Gymnasium,
+Stable-Baselines3, ROS 2 y Aerostack2. El entorno \texttt{AS2TestEnv-v0}, la
+configuración PPO, los scripts de entrenamiento y la validación de
+vectorización proporcionan la base para ejecutar experimentos posteriores de
+forma sistemática. La comparación con un controlador PID de referencia queda
+planteada como parte necesaria de la evaluación, pero solo podrá sostenerse como
+resultado cuando existan métricas experimentales suficientes. 
+
+Desde esta perspectiva, el trabajo se alinea con la literatura reciente sobre
+control aprendido para cuadricópteros, pero desplaza el foco desde la obtención
+inmediata de un controlador superior hacia la construcción rigurosa de la
+infraestructura experimental. Esta decisión es importante porque, sin una interfaz estable, una formulación
+clara de observaciones y acciones, una recompensa trazable y una estrategia de
+evaluación reproducible, cualquier comparación posterior entre aprendizaje por
+refuerzo y control clásico carecería de una base experimental sólida.

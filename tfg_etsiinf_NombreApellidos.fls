@@ -1,6 +1,6 @@
-PWD /Users/jordi/Documents/UPM/TFM/TFM-Jordi
+PWD /Users/jordi/GitHub/TFM/TFM-Jordi
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/data/miktex/data/le/pdftex/pdflatex.fmt
-INPUT /Users/jordi/Documents/UPM/TFM/TFM-Jordi/tfg_etsiinf_NombreApellidos.tex
+INPUT /Users/jordi/GitHub/TFM/TFM-Jordi/tfg_etsiinf_NombreApellidos.tex
 OUTPUT tfg_etsiinf_NombreApellidos.log
 INPUT ./secciones/_DatosTFG.tex
 INPUT ./secciones/_DatosTFG.tex
@@ -289,6 +289,11 @@ INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/p
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/utilities/pgfcalendar.code.tex
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/utilities/pgfcalendar.code.tex
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/utilities/pgfcalendar.code.tex
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/libraries/pgflibraryarrows.meta.code.tex
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/libraries/pgflibraryarrows.meta.code.tex
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/libraries/pgflibraryarrows.meta.code.tex
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryfit.code.tex
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryfit.code.tex
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/biblatex/biblatex.sty
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/biblatex/biblatex.sty
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/logreq/logreq.sty
@@ -305,15 +310,15 @@ INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/b
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/biblatex/biblatex.def
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/biblatex/biblatex.def
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/biblatex/biblatex.def
-INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/biblatex/bbx/numeric.bbx
-INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/biblatex/bbx/numeric.bbx
-INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/biblatex/bbx/numeric.bbx
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/biblatex/bbx/authoryear.bbx
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/biblatex/bbx/authoryear.bbx
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/biblatex/bbx/authoryear.bbx
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/biblatex/bbx/standard.bbx
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/biblatex/bbx/standard.bbx
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/biblatex/bbx/standard.bbx
-INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/biblatex/cbx/numeric.cbx
-INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/biblatex/cbx/numeric.cbx
-INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/biblatex/cbx/numeric.cbx
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/biblatex/cbx/authoryear.cbx
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/biblatex/cbx/authoryear.cbx
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/biblatex/cbx/authoryear.cbx
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/biblatex/biblatex.cfg
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/biblatex/biblatex.cfg
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/biblatex/biblatex.cfg
@@ -470,16 +475,25 @@ INPUT ./tfg_etsiinf_NombreApellidos.toc
 INPUT ./tfg_etsiinf_NombreApellidos.toc
 INPUT tfg_etsiinf_NombreApellidos.toc
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/adobe/bookman/pbkd8t.tfm
-OUTPUT tfg_etsiinf_NombreApellidos.toc
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/vf/adobe/bookman/pbkd8t.vf
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/adobe/bookman/pbkd8r.tfm
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/vf/adobe/bookman/pbkd8t.vf
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/adobe/bookman/pbkd8r.tfm
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/vf/adobe/bookman/pbkl8t.vf
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/adobe/bookman/pbkl8r.tfm
+OUTPUT tfg_etsiinf_NombreApellidos.toc
 INPUT ./tfg_etsiinf_NombreApellidos.lof
 INPUT ./tfg_etsiinf_NombreApellidos.lof
 INPUT tfg_etsiinf_NombreApellidos.lof
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/adobe/bookman/pbkli8t.tfm
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/psnfss/t1pcr.fd
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/psnfss/t1pcr.fd
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/psnfss/t1pcr.fd
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/adobe/courier/pcrr8t.tfm
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/vf/adobe/bookman/pbkli8t.vf
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/adobe/bookman/pbkli8r.tfm
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/vf/adobe/courier/pcrr8t.vf
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/adobe/courier/pcrr8r.tfm
 OUTPUT tfg_etsiinf_NombreApellidos.lof
 INPUT ./tfg_etsiinf_NombreApellidos.lot
 INPUT ./tfg_etsiinf_NombreApellidos.lot
@@ -499,43 +513,140 @@ INPUT ./secciones/01_Introduccion.tex
 INPUT ./secciones/01_Introduccion.tex
 INPUT ./secciones/01_Introduccion.tex
 INPUT secciones/01_Introduccion.tex
-INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/adobe/bookman/pbkli8t.tfm
-INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/vf/adobe/bookman/pbkli8t.vf
-INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/adobe/bookman/pbkli8r.tfm
-INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/psnfss/t1pcr.fd
-INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/psnfss/t1pcr.fd
-INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/psnfss/t1pcr.fd
-INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/adobe/courier/pcrr8t.tfm
-INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/vf/adobe/courier/pcrr8t.vf
-INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/adobe/courier/pcrr8r.tfm
-INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/psnfss/ts1pbk.fd
-INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/psnfss/ts1pbk.fd
-INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/psnfss/ts1pbk.fd
-INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/adobe/bookman/pbkl8c.tfm
-INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/vf/adobe/bookman/pbkl8c.vf
 INPUT ./secciones/02_TrabajoArte.tex
 INPUT ./secciones/02_TrabajoArte.tex
 INPUT ./secciones/02_TrabajoArte.tex
 INPUT ./secciones/02_TrabajoArte.tex
 INPUT secciones/02_TrabajoArte.tex
-INPUT ./secciones/03_Desarrollo.tex
-INPUT ./secciones/03_Desarrollo.tex
-INPUT ./secciones/03_Desarrollo.tex
-INPUT ./secciones/03_Desarrollo.tex
-INPUT secciones/03_Desarrollo.tex
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/adobe/bookman/pbkd8t.tfm
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/vf/adobe/bookman/pbkd8t.vf
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/adobe/bookman/pbkd8r.tfm
+INPUT ./images/ros_nodes_topics_services.png
+INPUT ./images/ros_nodes_topics_services.png
+INPUT ./images/ros_nodes_topics_services.png
+INPUT ./images/ros_nodes_topics_services.png
+INPUT ./images/ros_nodes_topics_services.png
+INPUT ./images/ros_nodes_topics_services.png
+INPUT ./images/ros_nodes_topics_services.png
+INPUT ./images/aerostack2_layered_architecture.png
+INPUT ./images/aerostack2_layered_architecture.png
+INPUT ./images/aerostack2_layered_architecture.png
+INPUT ./images/aerostack2_layered_architecture.png
+INPUT ./images/aerostack2_layered_architecture.png
+INPUT ./images/aerostack2_layered_architecture.png
+INPUT ./images/aerostack2_layered_architecture.png
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/adobe/bookman/pbkl8t.tfm
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/public/amsfonts/symbols/msam10.tfm
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/public/amsfonts/symbols/msam7.tfm
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/public/amsfonts/symbols/msam5.tfm
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/public/amsfonts/symbols/msbm10.tfm
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/public/amsfonts/symbols/msbm7.tfm
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/public/amsfonts/symbols/msbm5.tfm
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/adobe/bookman/pbkd8t.tfm
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/adobe/bookman/pbkli8t.tfm
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/vf/adobe/bookman/pbkd8t.vf
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/adobe/bookman/pbkd8r.tfm
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/vf/adobe/bookman/pbkl8t.vf
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/adobe/bookman/pbkl8r.tfm
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/vf/adobe/bookman/pbkli8t.vf
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/adobe/bookman/pbkli8r.tfm
+INPUT ./images/deep_rl_conceptual_comparison.png
+INPUT ./images/deep_rl_conceptual_comparison.png
+INPUT ./images/deep_rl_conceptual_comparison.png
+INPUT ./images/deep_rl_conceptual_comparison.png
+INPUT ./images/deep_rl_conceptual_comparison.png
+INPUT ./images/deep_rl_conceptual_comparison.png
+INPUT ./images/deep_rl_conceptual_comparison.png
+INPUT ./images/rl_agent_environment_loop.png
+INPUT ./images/rl_agent_environment_loop.png
+INPUT ./images/rl_agent_environment_loop.png
+INPUT ./images/rl_agent_environment_loop.png
+INPUT ./images/rl_agent_environment_loop.png
+INPUT ./images/rl_agent_environment_loop.png
+INPUT ./images/rl_agent_environment_loop.png
+INPUT ./images/ppo_actor_critic_architecture.png
+INPUT ./images/ppo_actor_critic_architecture.png
+INPUT ./images/ppo_actor_critic_architecture.png
+INPUT ./images/ppo_actor_critic_architecture.png
+INPUT ./images/ppo_actor_critic_architecture.png
+INPUT ./images/ppo_actor_critic_architecture.png
+INPUT ./images/ppo_actor_critic_architecture.png
+INPUT ./secciones/03_Diseno.tex
+INPUT ./secciones/03_Diseno.tex
+INPUT ./secciones/03_Diseno.tex
+INPUT ./secciones/03_Diseno.tex
+INPUT secciones/03_Diseno.tex
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/adobe/courier/pcrr8t.tfm
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/vf/adobe/courier/pcrr8t.vf
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/adobe/courier/pcrr8r.tfm
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/adobe/bookman/pbkl8t.tfm
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/adobe/bookman/pbkl8t.tfm
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/public/cm/cmr9.tfm
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/public/cm/cmmi9.tfm
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/public/cm/cmsy9.tfm
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/public/amsfonts/cmextra/cmex9.tfm
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/public/amsfonts/symbols/msam10.tfm
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/public/amsfonts/symbols/msbm10.tfm
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/adobe/bookman/pbkl8t.tfm
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/adobe/courier/pcrr8t.tfm
+INPUT ./images/drone_pose_roll_pitch_yaw.png
+INPUT ./images/drone_pose_roll_pitch_yaw.png
+INPUT ./images/drone_pose_roll_pitch_yaw.png
+INPUT ./images/drone_pose_roll_pitch_yaw.png
+INPUT ./images/drone_pose_roll_pitch_yaw.png
+INPUT ./images/drone_pose_roll_pitch_yaw.png
+INPUT ./images/drone_pose_roll_pitch_yaw.png
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/vf/adobe/bookman/pbkl8t.vf
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/adobe/bookman/pbkl8r.tfm
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/vf/adobe/bookman/pbkl8t.vf
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/adobe/bookman/pbkl8r.tfm
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/vf/adobe/bookman/pbkl8t.vf
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/adobe/bookman/pbkl8r.tfm
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/vf/adobe/courier/pcrr8t.vf
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/adobe/courier/pcrr8r.tfm
+INPUT ./secciones/04_Implementacion.tex
+INPUT ./secciones/04_Implementacion.tex
+INPUT ./secciones/04_Implementacion.tex
+INPUT ./secciones/04_Implementacion.tex
+INPUT secciones/04_Implementacion.tex
+INPUT ./images/rviz2_training_view.png
+INPUT ./images/rviz2_training_view.png
+INPUT ./images/rviz2_training_view.png
+INPUT ./images/rviz2_training_view.png
+INPUT ./images/rviz2_training_view.png
+INPUT ./images/rviz2_training_view.png
+INPUT ./images/rviz2_training_view.png
+INPUT ./secciones/05_Pruebas.tex
+INPUT ./secciones/05_Pruebas.tex
+INPUT ./secciones/05_Pruebas.tex
+INPUT ./secciones/05_Pruebas.tex
+INPUT secciones/05_Pruebas.tex
+INPUT ./secciones/06_Resultados.tex
+INPUT ./secciones/06_Resultados.tex
+INPUT ./secciones/06_Resultados.tex
+INPUT ./secciones/06_Resultados.tex
+INPUT secciones/06_Resultados.tex
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/adobe/bookman/pbkd8t.tfm
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/adobe/courier/pcrr8t.tfm
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/adobe/bookman/pbkli8t.tfm
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/vf/adobe/bookman/pbkd8t.vf
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/adobe/bookman/pbkd8r.tfm
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/vf/adobe/courier/pcrr8t.vf
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/adobe/courier/pcrr8r.tfm
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/vf/adobe/bookman/pbkli8t.vf
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/adobe/bookman/pbkli8r.tfm
 INPUT ./secciones/07_Impacto.tex
 INPUT ./secciones/07_Impacto.tex
 INPUT ./secciones/07_Impacto.tex
 INPUT ./secciones/07_Impacto.tex
 INPUT secciones/07_Impacto.tex
-INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/vf/adobe/bookman/pbkd8t.vf
-INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/adobe/bookman/pbkd8r.tfm
-INPUT ./secciones/08_Resultados.tex
-INPUT ./secciones/08_Resultados.tex
-INPUT ./secciones/08_Resultados.tex
-INPUT ./secciones/08_Resultados.tex
-INPUT secciones/08_Resultados.tex
+INPUT ./secciones/08_Conclusiones.tex
+INPUT ./secciones/08_Conclusiones.tex
+INPUT ./secciones/08_Conclusiones.tex
+INPUT ./secciones/08_Conclusiones.tex
+INPUT secciones/08_Conclusiones.tex
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/adobe/bookman/pbklc8t.tfm
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/vf/adobe/bookman/pbklc8t.vf
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/adobe/bookman/pbkl8r.tfm
@@ -544,23 +655,72 @@ INPUT ./secciones/09_Anexos.tex
 INPUT ./secciones/09_Anexos.tex
 INPUT ./secciones/09_Anexos.tex
 INPUT secciones/09_Anexos.tex
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/adobe/courier/pcrb8t.tfm
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/vf/adobe/courier/pcrb8t.vf
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/adobe/courier/pcrb8r.tfm
+INPUT ./images/tensorboard_exp010_rollout.png
+INPUT ./images/tensorboard_exp010_rollout.png
+INPUT ./images/tensorboard_exp010_rollout.png
+INPUT ./images/tensorboard_exp010_rollout.png
+INPUT ./images/tensorboard_exp010_rollout.png
+INPUT ./images/tensorboard_exp010_rollout.png
+INPUT ./images/tensorboard_exp010_rollout.png
+INPUT ./images/tensorboard_exp011_rollout.png
+INPUT ./images/tensorboard_exp011_rollout.png
+INPUT ./images/tensorboard_exp011_rollout.png
+INPUT ./images/tensorboard_exp011_rollout.png
+INPUT ./images/tensorboard_exp011_rollout.png
+INPUT ./images/tensorboard_exp011_rollout.png
+INPUT ./images/tensorboard_exp011_rollout.png
+INPUT ./images/tensorboard_exp010_train.png
+INPUT ./images/tensorboard_exp010_train.png
+INPUT ./images/tensorboard_exp010_train.png
+INPUT ./images/tensorboard_exp010_train.png
+INPUT ./images/tensorboard_exp010_train.png
+INPUT ./images/tensorboard_exp010_train.png
+INPUT ./images/tensorboard_exp010_train.png
+INPUT ./images/tensorboard_exp011_train.png
+INPUT ./images/tensorboard_exp011_train.png
+INPUT ./images/tensorboard_exp011_train.png
+INPUT ./images/tensorboard_exp011_train.png
+INPUT ./images/tensorboard_exp011_train.png
+INPUT ./images/tensorboard_exp011_train.png
+INPUT ./images/tensorboard_exp011_train.png
 INPUT tfg_etsiinf_NombreApellidos.aux
 INPUT ./tfg_etsiinf_NombreApellidos.out
 INPUT ./tfg_etsiinf_NombreApellidos.out
 INPUT tfg_etsiinf_NombreApellidos.run.xml
 OUTPUT tfg_etsiinf_NombreApellidos.run.xml
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/enc/dvips/base/8r.enc
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/cm/cmex10.pfb
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/cm/cmex10.pfb
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/cm/cmmi10.pfb
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/cm/cmmi10.pfb
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/cm/cmmi6.pfb
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/cm/cmmi6.pfb
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/cm/cmmi7.pfb
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/cm/cmmi7.pfb
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/cm/cmmi8.pfb
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/cm/cmmi8.pfb
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/cm/cmr10.pfb
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/cm/cmr10.pfb
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/cm/cmr7.pfb
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/cm/cmr7.pfb
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/cm/cmr8.pfb
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/cm/cmr8.pfb
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/cm/cmsy10.pfb
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/cm/cmsy10.pfb
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/cm/cmsy8.pfb
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/cm/cmsy8.pfb
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/symbols/msbm10.pfb
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/symbols/msbm10.pfb
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/urw/bookman/ubkd8a.pfb
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/urw/bookman/ubkd8a.pfb
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/urw/bookman/ubkl8a.pfb
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/urw/bookman/ubkl8a.pfb
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/urw/bookman/ubkli8a.pfb
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/urw/bookman/ubkli8a.pfb
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/urw/courier/ucrb8a.pfb
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/urw/courier/ucrb8a.pfb
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/urw/courier/ucrr8a.pfb
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/urw/courier/ucrr8a.pfb

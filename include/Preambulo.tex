@@ -14,7 +14,7 @@
 \usepackage[
   pdftex,
   pdfauthor={\NombreAutor{}},
-  pdftitle={Trabajo de Fin de Grado},
+  pdftitle={Trabajo Fin de Máster},
   pdfborder={0 0 0}
 ]{hyperref}
 \usepackage{pdfpages}
@@ -25,13 +25,32 @@
 \usepackage{lscape}
 \usepackage{pgfgantt}
 
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, positioning, fit, calc}
+
 % --- BIBLIOGRAPHY ---
+% The TFM writing guide recommends an author-year style, preferably similar to
+% APA, and an alphabetically ordered bibliography instead of numeric references.
 \usepackage[
   backend=biber,
-  style=numeric,
-  sorting=none
+  style=authoryear,
+  sorting=nyt,
+  maxcitenames=2,
+  maxbibnames=99,
+  uniquelist=false
 ]{biblatex}
-\bibliography{bibliography}
+\DeclareDelimFormat{nameyeardelim}{\addcomma\space}
+\DeclareCiteCommand{\cite}[\mkbibbrackets]
+  {\usebibmacro{prenote}}
+  {\usebibmacro{citeindex}\usebibmacro{cite}}
+  {\multicitedelim}
+  {\usebibmacro{postnote}}
+\DeclareCiteCommand{\parencite}[\mkbibbrackets]
+  {\usebibmacro{prenote}}
+  {\usebibmacro{citeindex}\usebibmacro{cite}}
+  {\multicitedelim}
+  {\usebibmacro{postnote}}
+\addbibresource{bibliography.bib}
 \usepackage{csquotes}
 % --- BIBLIOGRAPHY ---
 

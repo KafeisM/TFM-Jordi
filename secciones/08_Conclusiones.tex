@@ -1,0 +1,80 @@
+% !TEX root = ../tfg_etsiinf_NombreApellidos.tex
+\chapter{Conclusiones y líneas futuras} \label{chp:conclusiones}
+
+Este capítulo resume las principales conclusiones del trabajo y valora el grado
+de cumplimiento de los objetivos planteados. La discusión se apoya en la
+evidencia obtenida durante el diseño, la implementación y las pruebas, evitando
+formular conclusiones que no estén respaldadas por resultados.
+
+\section{Conclusiones} \label{sct:conclusiones:conclusiones}
+
+El presente trabajo ha desarrollado una infraestructura operativa para formular
+un problema de control de UAV como entorno de aprendizaje por refuerzo integrado
+con Aerostack2. El entorno implementado proporciona el contrato estándar de
+Gymnasium, transforma acciones continuas en comandos de velocidad, calcula
+observaciones relativas al objetivo y registra información auxiliar suficiente
+para analizar episodios, recompensas y condiciones de fallo. Con ello se cumple
+el objetivo de construir una base reproducible sobre la que ejecutar pruebas de
+aprendizaje y validación.
+
+También se ha validado la integración entre Stable-Baselines3, ROS 2 y el AS2
+Multirotor Simulator. Las pruebas muestran que el pipeline puede crear modelos
+PPO, conectarse al simulador, enviar comandos, generar métricas de monitorización
+y producir artefactos como eventos de TensorBoard y \emph{checkpoints}. Sin
+embargo, esta validación funcional no debe confundirse con una demostración de
+aprendizaje robusto. Los experimentos disponibles indican que la estabilidad del
+ciclo de episodio es una condición previa para interpretar cualquier curva de
+entrenamiento.
+
+Una conclusión central es que el principal cuello de botella detectado no es la
+formulación básica de PPO, sino la integración física del ciclo
+\texttt{reset}-\texttt{step} en un simulador robótico. Los experimentos revelaron
+éxitos triviales por mala configuración inicial, bucles de salida de límites,
+bloqueos por comportamientos de retorno, timeouts de reset por velocidad y casos
+en los que los comandos eran aceptados por la interfaz pero no producían
+movimiento físico suficiente. Estos hallazgos justifican la instrumentación de
+reset, la separación entre velocidad de política y velocidad interna de reset, y
+la comprobación explícita de accionabilidad.
+
+Desde el punto de vista metodológico, el trabajo muestra la importancia de
+tratar los resultados negativos como evidencia de ingeniería. Un experimento que
+falla de forma acotada, registra la causa y evita continuar con datos inválidos
+aporta más información que una ejecución larga cuyo estado físico no puede
+reconstruirse. Por tanto, la contribución principal del trabajo es una base de
+entrenamiento y diagnóstico que permite avanzar hacia aprendizaje robusto con
+criterios de validez más estrictos.
+
+\section{Líneas futuras} \label{sct:conclusiones:futuro}
+
+La primera línea futura consiste en completar la validación de estados,
+recompensas y terminaciones en coordenadas límite del escenario. Esta validación
+debe comprobar de forma sistemática que el entorno devuelve observaciones,
+recompensas y señales de fin de episodio coherentes para posiciones seguras,
+casos de éxito, salidas de límites y alturas críticas. Este paso permitiría
+cerrar la validación funcional antes de lanzar campañas de entrenamiento más
+largas.
+
+Una segunda línea futura es mejorar el mecanismo de reset del simulador. El
+servicio de reinicio debe garantizar no solo la pose externa del UAV, sino también
+la coherencia de los estados internos de la dinámica y del controlador. En
+sistemas dinámicos, cambiar de un estado terminal a un estado inicial en tiempo
+nulo puede generar inconsistencias si no se reinician correctamente las variables
+internas. Resolver este punto es necesario para que los episodios de aprendizaje
+sean independientes y reproducibles.
+
+Otra continuación natural consiste en estudiar una vía de entrenamiento más
+cercana al simulador físico interno, reduciendo la dependencia de ROS 2 en el
+bucle de aprendizaje. Una arquitectura basada en \emph{bindings} Python y un
+paso temporal fijo permitiría integrar la dinámica con un \texttt{dt} controlado
+y ejecutar el entrenamiento a mayor velocidad. En ese escenario, ROS 2 quedaría
+reservado para el despliegue o para validaciones integradas, mientras que la
+generación masiva de experiencia se realizaría sobre una interfaz más directa y
+determinista.
+
+Finalmente, una vez estabilizado el ciclo de reset y accionabilidad, el entorno
+podrá utilizarse para comparar políticas PPO entrenadas frente a controladores de
+referencia, ampliar el curriculum de navegación, introducir trayectorias más
+complejas y evaluar transferencia progresiva hacia escenarios multirrobot o
+plataformas reales. Estas líneas futuras continúan directamente la infraestructura
+desarrollada y evitan extraer conclusiones de rendimiento antes de garantizar la
+validez de los datos de entrenamiento.

@@ -1,0 +1,160 @@
+% !TEX root = ../tfg_etsiinf_NombreApellidos.tex
+\chapter{Resultados} \label{chp:resultados}
+
+Este capítulo presenta los resultados obtenidos mediante la estrategia de pruebas
+definida previamente. La exposición distingue entre resultados de infraestructura
+y resultados de aprendizaje. Esta distinción es esencial en el presente trabajo:
+la capacidad de lanzar PPO y generar métricas no implica por sí misma que se haya
+obtenido una política robusta, especialmente cuando los experimentos revelan
+problemas de reinicio, accionabilidad o coherencia física del simulador.
+
+\section{Validación funcional de la infraestructura} \label{sct:resultados:validacion}
+
+Las primeras pruebas confirman que la infraestructura básica es operativa. El
+entorno puede instanciarse como entorno Gymnasium, conectarse con Aerostack2,
+armar el UAV, activar el modo \emph{offboard}, ejecutar despegue, enviar comandos
+de velocidad y registrar métricas mediante los mecanismos de monitorización. Esta
+validación funcional demuestra que la integración entre Gymnasium,
+Stable-Baselines3, ROS 2 y Aerostack2 es viable.
+
+No obstante, los resultados también muestran que la validez de un entrenamiento
+depende de condiciones adicionales. En las primeras ejecuciones se observaron
+éxitos triviales cuando el objetivo estaba demasiado cerca de la pose de
+despegue, ausencia de escalares de TensorBoard cuando PPO no alcanzaba suficientes
+pasos de \emph{rollout}, y bucles de episodios fuera de límites cuando el reset no
+garantizaba un estado inicial seguro. Las iteraciones posteriores permitieron
+certificar el reinicio mediante el servicio del simulador y ejecutar
+entrenamientos más largos, pero también revelaron que las salidas de límites y la
+degradación acumulada por reinicios de servicio podían dominar el comportamiento
+observado. Estos resultados condujeron a separar el problema en dos niveles:
+primero validar el ciclo físico de episodio y después analizar el aprendizaje.
+
+\section{Matriz de experimentos PPO} \label{sct:resultados:matriz_experimentos}
+
+El Cuadro~\ref{tab:resultados:experimentos} resume la evolución de los
+experimentos principales. La tabla no debe interpretarse como una búsqueda lineal
+de hiperparámetros, sino como una secuencia de validación en la que cada ejecución
+revela una propiedad de la infraestructura.
+
+\begin{table}[H]
+\centering
+\scriptsize
+\setlength{\tabcolsep}{2.5pt}
+\renewcommand{\arraystretch}{1.12}
+\begin{tabular}{p{0.10\textwidth} p{0.21\textwidth} p{0.25\textwidth} p{0.34\textwidth}}
+\hline
+\textbf{Experimento} & \textbf{Objetivo} & \textbf{Resultado observado} & \textbf{Interpretación técnica} \\
+\hline
+Exp001 & Smoke PPO con configuración inicial. & Episodios de éxito en un paso y métricas insuficientes. & El objetivo estaba demasiado cerca del estado inicial; no era una tarea de navegación útil. \\
+Exp002 & Objetivo desplazado y TensorBoard en prueba corta. & Primeros episodios útiles, después bucles de salida de límites. & El pipeline generaba artefactos, pero el reset no garantizaba inicio seguro tras OOB. \\
+Exp003 & Introducir \texttt{fixed\_start\_pose}. & Entrenamiento corto completado con monitor, TensorBoard y \emph{checkpoints}. & El reset determinista resolvió el bucle inmediato de OOB en una prueba acotada. \\
+Exp004 & Target más lejano y marcador RViz. & Se mejoró la observabilidad del objetivo y de métricas. & RViz y marcadores ayudan a validar cualitativamente la escena, no sustituyen métricas. \\
+Exp005 & Target estable a 2 m y reset en vuelo. & Primeras evidencias de éxito real hacia un punto, con incidencias de reset. & El reset en vuelo evitó bloqueos de aterrizaje, pero la robustez seguía siendo limitada. \\
+Exp006 & Mejorar estabilidad y evitar fallback problemático. & Se detectó bloqueo asociado a \texttt{go\_to}. & El retorno a pose inicial debía evitar comportamientos bloqueantes. \\
+Exp007 & Gate largo tras eliminar \texttt{go\_to}. & Fallo acotado por timeout de reset por velocidad. & El entrenamiento ya no quedaba bloqueado, pero el reset seguía sin ser fiable para runs largos. \\
+Exp008 & Reset más robusto con target de 2 m. & Persisten timeouts de reset. & La dificultad seguía siendo alta para depurar aprendizaje si el reset fallaba. \\
+Exp008a & Curriculum de 0,5 m y diagnóstico ampliado. & Mejora parcial, pero aparecen bloqueos de reset y accionabilidad. & El cuello de botella pasa de PPO a la interacción reset--controlador--simulador. \\
+Exp009 & Primer gate PPO sobre el stack de reset certificado. & Ejecución de 5102 pasos de monitor, 126 episodios y finalización correcta del proceso. & Se valida la infraestructura de episodio; la tasa de éxito observada, 21/126 episodios, no se interpreta todavía como política robusta. \\
+Exp010 & Recompensa mínima alineada con el tutor, randomización completa e hiperparámetros revisados. & Se registran 12852 pasos y 427 episodios antes del fallo; 359 terminan fuera de límites y 65 por baja altitud. & El diseño de recompensa queda alineado, pero las fronteras no observables y el coste de teleport dominan la experiencia. \\
+Exp011 & Muestreo en área segura y límite de distancia inicio--objetivo para evitar saturación de observaciones. & Se registran 21347 pasos y 637 episodios; 512 terminan fuera de límites, 121 por baja altitud y solo 3 en éxito. & La saturación inicial se corrige parcialmente, pero el problema estructural de terminaciones y reinicios repetidos persiste. \\
+Exp012 & Guard de acción en límites, corredor vertical ampliado, reanudación desde \emph{checkpoint} y supervisor. & Experimento en ejecución durante la redacción de esta versión. & La hipótesis evaluada es reducir reinicios de servicio y aislar mejor el aprendizaje de PPO de los fallos de infraestructura. \\
+\hline
+\end{tabular}
+\caption{Resumen de experimentos principales y su interpretación.}
+\label{tab:resultados:experimentos}
+\end{table}
+
+\section{Resultados de entrenamiento y monitorización} \label{sct:resultados:entrenamiento}
+
+Los experimentos muestran que la infraestructura de entrenamiento produce
+artefactos analizables cuando alcanza suficiente número de pasos: ficheros de
+monitor, eventos de TensorBoard, \emph{checkpoints} y modelos finales en
+pruebas acotadas. En particular, las ejecuciones iniciales permiten comprobar que
+TensorBoard y los monitores de episodio funcionan cuando PPO completa
+\emph{rollouts} suficientes, mientras que Exp009 confirma que el stack de reset
+certificado puede sostener una ejecución PPO completa de 5000 pasos. Sin embargo,
+la presencia de estos artefactos no implica aprendizaje estable: debe analizarse
+junto con las razones de terminación, la longitud de episodio, la distancia
+final, la tasa de éxito y los diagnósticos de reset.
+
+Las métricas agregadas de TensorBoard son especialmente útiles para interpretar
+Exp010 y Exp011, porque permiten observar si la recompensa media, la longitud de
+episodio o la tasa de éxito muestran una tendencia temporal. En las condiciones
+registradas, la evidencia disponible no debe presentarse como una política final
+aprendida, sino como una secuencia de diagnóstico: Exp010 muestra que la
+formulación de recompensa e hiperparámetros ya está alineada con el criterio del
+tutor, pero que la experiencia queda dominada por salidas de límites; Exp011
+reduce la saturación de observaciones mediante un área de muestreo más segura,
+pero no elimina el predominio de terminaciones no deseadas. Por ello, las curvas
+de TensorBoard deben leerse junto con los ficheros de monitor y con la matriz de
+experimentos, no de forma aislada.
+
+La comparación cuantitativa entre Exp010 y Exp011 muestra una mejora parcial,
+pero insuficiente. En Exp010 se registran 427 episodios, con 359 terminaciones
+por salida de límites, 65 por baja altitud insegura y 3 éxitos. La recompensa
+media por episodio es aproximadamente \(-31{,}36\), la longitud media es de
+30,10 pasos y la distancia final media al objetivo es de 5,41 m. En Exp011 se
+registran 637 episodios, con 512 salidas de límites, 121 terminaciones por baja
+altitud, 3 éxitos y un episodio por límite de pasos. La recompensa media mejora
+hasta aproximadamente \(-27{,}34\), la longitud media aumenta a 33,51 pasos y la
+distancia final media baja a 3,71 m. Sin embargo, la tasa de éxito permanece por
+debajo del 1\% en ambos casos y cae a cero en los tramos finales de las curvas de
+TensorBoard. Por tanto, Exp011 no demuestra aprendizaje robusto, sino que reduce
+algunos síntomas de Exp010 sin eliminar la causa principal: la política sigue
+interactuando con límites que no forman parte explícita de la observación.
+
+La evolución de los experimentos no permite afirmar todavía que se haya obtenido
+una política PPO robusta para navegación estable. Sí permite afirmar que se ha
+construido una infraestructura capaz de revelar por qué un entrenamiento no es
+válido. Las ejecuciones detectaron éxitos triviales, episodios contaminados por
+reinicios inválidos, bloqueos del comportamiento \texttt{go\_to}, timeouts de
+reset por velocidad, comandos aceptados que no se traducían en desplazamiento
+físico suficiente y degradación asociada a un número elevado de teleports del
+simulador. Estos resultados desplazan la discusión desde la optimización de PPO
+hacia la validez del entorno de entrenamiento.
+
+\section{Análisis de fallos de integración} \label{sct:resultados:fallos_integracion}
+
+El resultado más relevante desde el punto de vista de ingeniería es la
+identificación del reinicio y de la accionabilidad como cuellos de botella. En
+un entorno de aprendizaje por refuerzo, cada episodio debe comenzar en un estado
+bien definido y cada acción debe modificar el estado de forma coherente. Cuando
+el UAV no regresa a la pose inicial, cuando el controlador no mantiene la pose
+tras el reset o cuando la API acepta comandos que no producen movimiento, el
+entrenamiento deja de generar experiencia válida.
+
+La solución adoptada consiste en hacer visibles esos fallos y detener la
+ejecución antes de acumular datos no representativos. Esta política reduce el
+número de ejecuciones largas aparentemente productivas, pero aumenta la calidad
+de la evidencia experimental. En las condiciones evaluadas, el problema
+principal no se encuentra en la llamada estándar a \texttt{model.learn} de
+Stable-Baselines3, sino en garantizar que el entorno robótico entregue
+transiciones físicamente accionables después de cada reinicio.
+
+La incorporación del servicio de reinicio del simulador resolvió una parte
+fundamental del problema, al permitir teletransportar el UAV a una pose inicial
+controlada y reinicializar estado dinámico, referencias y sincronización de la
+plataforma. Sin embargo, Exp010 y Exp011 muestran que un servicio de reset
+correcto no basta si la tarea genera demasiadas terminaciones en fronteras que la
+política no observa directamente. Esta observación justifica la introducción en
+Exp012 de guards de acción en los límites de la escena: el objetivo no es ocultar
+fallos de seguridad, sino impedir que un agente no entrenado convierta los
+límites invisibles en una fuente dominante de reinicios costosos.
+
+\section{Discusión de limitaciones} \label{sct:resultados:limitaciones}
+
+Los resultados deben interpretarse con varias limitaciones. En primer lugar, las
+ejecuciones disponibles combinan gates de infraestructura y entrenamientos
+parciales, no una campaña final de entrenamiento cerrada. En segundo lugar, la
+comparación con una configuración PID queda planteada como evaluación posterior,
+ya que no sería metodológicamente correcto comparar un controlador de referencia
+contra una política PPO cuyo entrenamiento estable aún depende de reducir
+terminaciones espurias y reinicios costosos. En tercer lugar, los resultados
+dependen del estado del simulador y de la correcta sincronización entre
+plataforma, controlador y servicios de reset.
+
+Estas limitaciones no invalidan el trabajo realizado. Al contrario, delimitan con
+precisión qué parte de la infraestructura está validada y qué parte requiere
+investigación adicional. La contribución experimental del trabajo reside en haber
+construido una base reproducible y en haber identificado condiciones de fallo que
+deben resolverse antes de extraer conclusiones sobre el rendimiento final de PPO.

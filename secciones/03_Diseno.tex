@@ -1,0 +1,608 @@
+% !TEX root = ../tfg_etsiinf_NombreApellidos.tex
+\chapter{Diseño del sistema} \label{chp:diseno}
+
+Este capítulo presenta el diseño del sistema desarrollado para formular y ejecutar
+un entorno de aprendizaje por refuerzo orientado al control de un UAV en
+Aerostack2. La descripción se centra en la arquitectura, en la abstracción del
+problema de control y en las decisiones que permiten integrar Gymnasium con la
+interfaz robótica de ROS 2. No se aborda aquí la programación detallada de los
+módulos, sino las decisiones de diseño que estructuran la solución y delimitan su
+comportamiento.
+
+\section{Arquitectura general} \label{sct:diseno:arquitectura}
+
+La arquitectura se organiza como una cadena de responsabilidades que separa el
+entrenamiento del agente, la definición del entorno y la comunicación con el
+simulador. En el nivel superior se sitúan los scripts de entrenamiento, encargados
+de instanciar el entorno y conectar el algoritmo de aprendizaje por refuerzo con
+la API estándar de Gymnasium. Esta API actúa como frontera entre el agente y el sistema robótico, de modo que
+el agente no opera directamente sobre ROS 2, sino sobre un contrato de
+observaciones, acciones, recompensas y condiciones de finalización.
+
+El componente central de esta frontera es la clase \texttt{AS2TestEnv}, definida
+como una especialización de \texttt{gym.Env} y registrada como
+\texttt{AS2TestEnv-v0}. Su función de diseño consiste en traducir cada paso del
+entorno en órdenes comprensibles por Aerostack2 y, a la inversa, convertir el
+estado relativo del UAV en una observación apta para el agente. La comunicación
+con Aerostack2 se realiza mediante \texttt{as2\_python\_api.DroneInterface},
+mientras que el envío de velocidades se encapsula a través de
+\texttt{SpeedMotion} y del método
+\texttt{send\_speed\_command\_with\_yaw\_speed}. De este modo, el agente queda
+desacoplado de los detalles de bajo nivel de ROS 2 y del simulador multirrotor de
+Aerostack2 \cite{fernandez2023aerostack2}.
+
+\begin{figure}[t]
+\centering
+\shorthandoff{<>}
+\begin{tikzpicture}[
+    node distance=1.25cm,
+    block/.style={
+        rectangle,
+        rounded corners,
+        draw,
+        align=center,
+        minimum width=3.2cm,
+        minimum height=0.9cm,
+        font=\small
+    },
+    arrow/.style={-{Latex[length=2mm]}, thick}
+]
+
+\node[block] (train) {Scripts de\\entrenamiento o prueba};
+\node[block, below=of train] (gym) {API Gymnasium\\\texttt{reset}/\texttt{step}/\texttt{close}};
+\node[block, below=of gym] (env) {\texttt{AS2TestEnv}\\Entorno de adaptación};
+\node[block, below=of env] (as2api) {\texttt{DroneInterface}\\\texttt{SpeedMotion}};
+\node[block, below=of as2api] (ros) {ROS 2\\comunicación};
+\node[block, below=of ros] (sim) {AS2 Multirotor\\Simulator\\y overlay de reset};
+
+\draw[arrow] (train) -- (gym);
+\draw[arrow] (gym) -- (env);
+\draw[arrow] (env) -- (as2api);
+\draw[arrow] (as2api) -- (ros);
+\draw[arrow] (ros) -- (sim);
+
+\node[draw, dashed, rounded corners, fit=(gym)(env), inner sep=0.25cm,
+      label={[font=\small]right:Frontera RL--robótica}] {};
+
+\end{tikzpicture}
+\shorthandon{<>}
+\caption{Arquitectura general del sistema, separando la lógica de aprendizaje,
+la interfaz Gymnasium, la comunicación robótica con Aerostack2 y el simulador
+con servicio de reinicio.}
+\label{fig:diseno:arquitectura_general}
+\end{figure}
+
+La Figura~\ref{fig:diseno:arquitectura_general} resume esta separación por
+capas. La interacción avanza desde los scripts de entrenamiento hacia la API
+Gymnasium, el entorno \texttt{AS2TestEnv}, la interfaz
+\texttt{DroneInterface}/\texttt{SpeedMotion}, ROS 2 y, finalmente, el AS2
+Multirotor Simulator. La última capa incorpora, en la versión final del sistema,
+un overlay con un servicio explícito de reinicio de estado. Esta estructura sigue
+un criterio de aislamiento. El entrenamiento decide acciones en un espacio
+matemático acotado, el entorno aplica las transformaciones necesarias y
+Aerostack2 ejecuta los comandos en el simulador. Además, la inicialización de ROS
+2 se diseña como un recurso único por proceso mediante las variables de control
+\texttt{\_rclpy\_initialized} y \texttt{\_rclpy\_lock}, con el fin de evitar
+inicializaciones repetidas y reducir riesgos de carrera cuando se crean varias
+instancias del entorno.
+
+La incorporación del servicio de reinicio modifica una hipótesis inicial del
+diseño. El reinicio deja de depender únicamente de comandos de velocidad o de
+comportamientos de navegación de Aerostack2, y pasa a contar con una operación
+propia del simulador para restaurar pose, velocidades, referencias internas,
+controlador, odometría e IMU. Esta decisión se introduce porque, en aprendizaje
+por refuerzo, un episodio solo es válido si el estado inicial y la accionabilidad
+posterior al reset son verificables. El entorno decide cuándo reiniciar, el
+simulador aplica la mutación física del estado y el propio entorno vuelve a
+certificar telemetría y movimiento antes de entregar la siguiente transición a
+PPO.
+
+
+
+\section{Formulación del problema de control} \label{sct:diseno:formulacion}
+
+El problema de control se formula como una tarea de navegación local hacia un
+objetivo relativo. En este contexto, navegación local significa que el agente no
+recibe una misión global completa ni una trayectoria predefinida con todos sus
+puntos intermedios, sino la relación geométrica entre el estado actual del UAV y
+un objetivo inmediato. A partir de esa relación, el agente debe emitir comandos
+de velocidad que acerquen el vehículo al objetivo y mantengan una orientación
+coherente con la dirección de desplazamiento.
+
+Antes de definir formalmente las observaciones y acciones, conviene distinguir
+las magnitudes básicas que describen el movimiento de un multirrotor. La posición
+indica dónde se encuentra el UAV en el espacio; la velocidad indica cómo cambia
+esa posición; y la orientación describe la rotación del vehículo respecto a sus
+ejes. En un dron se suelen emplear tres ángulos principales, denominados
+\emph{roll}, \emph{pitch} y \emph{yaw}. El \emph{roll} representa la inclinación lateral,
+el \emph{pitch} la inclinación hacia delante o hacia atrás, y el \emph{yaw} la
+rotación alrededor del eje vertical. La Figura~\ref{fig:diseno:pose_drone}
+resume esta idea de pose del dron mediante una representación conceptual tomada
+de ResearchGate.\footnote{Imagen disponible en ResearchGate:
+\url{https://www.researchgate.net/figure/A-conceptual-representation-of-drone-pose-A-drone-here-represented-by-a-DJI-Mavic-2-is_fig1_356985671}. Según la página consultada, la figura aparece con licencia Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International.}
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.58\textwidth]{images/drone_pose_roll_pitch_yaw.png}
+    \caption{Representación conceptual de la pose de un dron mediante los ángulos
+    de \emph{roll}, \emph{pitch} y \emph{yaw}. Fuente: ResearchGate.}
+    \label{fig:diseno:pose_drone}
+\end{figure}
+
+En el presente trabajo no se controla directamente la actitud completa del dron
+ni las velocidades de giro de cada rotor. La acción se define a un nivel de abstracción superior, en el que el agente
+genera velocidades lineales y una velocidad de guiñada. Esta elección sitúa el
+aprendizaje por refuerzo por encima del control de bajo nivel y delega en
+Aerostack2 la ejecución de los comandos sobre el simulador. Desde el punto de
+vista del diseño, esta separación reduce la
+complejidad del problema aprendido y mantiene la compatibilidad con la interfaz
+de control de velocidad disponible.
+
+La formulación distingue también entre la dirección frontal del UAV y la
+dirección real de avance. Un dron puede desplazarse hacia un objetivo aunque su
+eje frontal no esté alineado con la trayectoria seguida. Por ello, el diseño inicial introduce el criterio de \emph{path-facing}, con el
+que se buscaba que la guiñada fuese coherente con la dirección horizontal del
+movimiento además de reducir la distancia al objetivo. La Figura~\ref{fig:diseno:target_path_facing} ilustra esta relación
+entre posición actual, objetivo, vector relativo, dirección de avance y error de
+orientación.
+
+
+\begin{figure}[t]
+\centering
+\shorthandoff{<>}
+\begin{tikzpicture}[
+    x=1cm,
+    y=1cm,
+    axis/.style={-{Latex[length=2mm]}, thick, gray},
+    rel/.style={-{Latex[length=2.5mm]}, very thick, blue},
+    front/.style={-{Latex[length=2.5mm]}, very thick, green!55!black},
+    path/.style={-{Latex[length=2.5mm]}, very thick, orange!85!black},
+    helper/.style={dashed, gray!65},
+    label/.style={font=\small},
+    smalllabel/.style={font=\scriptsize}
+]
+
+\coordinate (uav) at (0,0);
+\coordinate (target) at (6.2,2.5);
+\coordinate (front) at (2.0,0.35);
+\coordinate (pathvec) at (2.0,0.85);
+
+% Axes
+\draw[axis] (-0.6,0) -- (7.0,0) node[right, label] {$x$};
+\draw[axis] (0,-0.5) -- (0,3.2) node[above, label] {$y$};
+
+% UAV and target
+\begin{scope}[shift={(uav)}, rotate=10]
+    \draw[fill=gray!20, thick] (0.48,0) -- (-0.32,0.22) -- (-0.32,-0.22) -- cycle;
+\end{scope}
+\node[label, below left=0.12cm of uav] {UAV};
+\filldraw[red] (target) circle (2.3pt);
+\node[label, red, above right=0.05cm of target] {objetivo};
+
+% Projection helpers
+\draw[helper] (target) -- (6.2,0);
+\draw[helper] (target) -- (0,2.5);
+
+% Main vectors
+\draw[rel] (uav) -- (target);
+\draw[front] (uav) -- (front);
+\draw[path] (uav) -- (pathvec);
+
+% Angle arcs
+\draw[->, thick, green!55!black] (0.85,0) arc[start angle=0,end angle=10,radius=0.85];
+\draw[->, thick, orange!85!black] (1.2,0) arc[start angle=0,end angle=23,radius=1.2];
+\draw[<->, thick, red!70!black] (1.55,0.27) arc[start angle=10,end angle=23,radius=1.58];
+
+% Compact legend below the plot, outside the geometry
+\begin{scope}[shift={(0,-1.25)}]
+    \draw[rel] (0.0,0.0) -- (0.65,0.0);
+    \node[label, anchor=west] at (0.85,0.0) {vector relativo $(d_x,d_y)$};
+
+    \draw[front] (5.2,0.0) -- (5.85,0.0);
+    \node[label, anchor=west] at (6.05,0.0) {dirección frontal};
+
+    \draw[path] (0.0,-0.55) -- (0.65,-0.55);
+    \node[label, anchor=west] at (0.85,-0.55) {dirección de avance};
+
+    \draw[<->, thick, red!70!black] (5.2,-0.55) -- (5.85,-0.55);
+    \node[label, anchor=west] at (6.05,-0.55) {error $e_{\mathrm{yaw}}$};
+\end{scope}
+
+\end{tikzpicture}
+\shorthandon{<>}
+\caption{Relación geométrica entre el UAV, el objetivo relativo, la dirección de
+avance y la orientación de guiñada utilizada en el criterio de
+\emph{path-facing}.}
+\label{fig:diseno:target_path_facing}
+\end{figure}
+
+La acción se define mediante el vector continuo
+\[
+    a = [v_x, v_y, v_z, v_{\mathrm{yaw}}].
+\]
+Las tres primeras componentes representan velocidades lineales en los ejes
+cartesianos y la cuarta representa la velocidad angular de guiñada. El espacio de
+acciones se acota mediante los parámetros \texttt{max\_vel} y
+\texttt{max\_yaw\_vel}, lo que introduce una restricción explícita de diseño
+sobre la magnitud de las órdenes que el agente puede emitir. Esta acotación es
+necesaria porque una política de aprendizaje por refuerzo puede proponer acciones
+arbitrarias dentro de su espacio de salida, mientras que el sistema físico o
+simulado solo debe recibir comandos dentro de un rango admisible.
+
+La observación se define mediante el vector relativo
+\[
+    o = [d_x, d_y, d_z, d_{\mathrm{yaw}}].
+\]
+Cada componente se normaliza en el intervalo $[-1, 1]$. Las tres primeras
+componentes codifican el desplazamiento relativo hacia el objetivo, y la cuarta
+codifica la diferencia relativa de guiñada. La normalización reduce la dependencia
+respecto a la escala concreta del escenario y proporciona al agente entradas con
+rangos homogéneos, una condición práctica para estabilizar el tratamiento de las
+observaciones por parte del algoritmo de aprendizaje.
+
+\section{Diseño del entorno Gymnasium} \label{sct:diseno:gymnasium}
+
+El entorno Gymnasium se diseña como una adaptación entre el ciclo estándar
+\texttt{reset}-\texttt{step}-\texttt{close} y las operaciones necesarias para
+preparar, gobernar y finalizar el vuelo simulado. Esta decisión permite que el
+agente interactúe con el UAV mediante una interfaz conocida en aprendizaje por
+refuerzo, mientras que la lógica específica de Aerostack2 permanece encapsulada
+dentro del entorno.
+
+El método \texttt{reset} establece el estado inicial de un episodio. Su diseño
+incluye el armado del UAV, la activación del modo \emph{offboard}, el despegue y
+la devolución de la primera observación junto con la información auxiliar del
+episodio. Por tanto, el reinicio no se limita a reinicializar variables internas,
+sino que prepara al sistema simulado para aceptar comandos de velocidad desde el
+agente. Esta preparación es relevante porque el contrato de Gymnasium presupone
+que, tras \texttt{reset}, el entorno está listo para ejecutar \texttt{step} sin
+operaciones adicionales por parte del algoritmo.
+
+El método \texttt{step} constituye el núcleo de la interacción. En cada llamada,
+el entorno recibe la acción continua del agente, la transforma en una orden de
+velocidad enviada mediante \texttt{SpeedMotion}, actualiza la observación relativa
+y calcula la recompensa y los indicadores de fin de episodio. El resultado sigue el contrato de Gymnasium y devuelve observación, recompensa,
+indicador de terminación, indicador de truncamiento e información auxiliar. La
+separación entre \emph{terminación} y \emph{truncamiento} permite distinguir un episodio que acaba
+por alcanzar una condición del problema de otro que finaliza por límite externo de
+pasos.
+
+El método \texttt{close} se diseña como una operación segura de cierre del
+entorno. Su responsabilidad es aterrizar el UAV y liberar o cerrar los recursos
+asociados a la comunicación con Aerostack2. Esta decisión busca reducir el
+riesgo de que el final de un experimento deje el simulador en un estado
+inconsistente y concentra la lógica de apagado en el mismo componente que
+gestiona la interacción durante el episodio.
+
+El entorno contempla también un modo de diseño denominado
+\texttt{randomize\_hover\_start}. Cuando está activo, el inicio, el objetivo y la
+guiñada del episodio se muestrean dentro de límites configurables y se evitan
+casos triviales mediante una separación mínima entre inicio y objetivo. Las
+configuraciones más recientes incorporan además un margen de muestreo respecto a
+las fronteras de la escena y un límite máximo de distancia inicio--objetivo. Esta
+decisión evita que las observaciones relativas se saturen en $[-1,1]$ desde el
+inicio del episodio y reduce la probabilidad de que un agente no entrenado
+genere inmediatamente una terminación fuera de límites.
+
+\begin{figure}[t]
+\centering
+\shorthandoff{<>}
+\begin{tikzpicture}[
+    node distance=1.4cm and 1.7cm,
+    block/.style={
+        rectangle,
+        rounded corners,
+        draw,
+        align=center,
+        minimum width=2.8cm,
+        minimum height=0.85cm,
+        font=\small
+    },
+    arrow/.style={-{Latex[length=2mm]}, thick}
+]
+
+\node[block] (agent) {Agente RL};
+\node[block, right=of agent] (action) {Acción\\$[v_x,v_y,v_z,v_{\mathrm{yaw}}]$};
+\node[block, right=of action] (env) {\texttt{AS2TestEnv}};
+\node[block, below=of env] (sim) {Aerostack2\\Simulador};
+\node[block, left=of sim] (obs) {Observación\\$[d_x,d_y,d_z,d_{\mathrm{yaw}}]$};
+\node[block, left=of obs] (reward) {Recompensa\\y fin de episodio};
+
+\draw[arrow] (agent) -- (action);
+\draw[arrow] (action) -- (env);
+\draw[arrow] (env) -- node[right, font=\scriptsize]{comando de velocidad} (sim);
+\draw[arrow] (sim) -- node[below, align=center, font=\scriptsize]{estado\\del UAV} (obs);
+\draw[arrow] (obs) -- (reward);
+\draw[arrow] (reward) -- (agent);
+
+\node[block, above=of env] (reset) {\texttt{reset()}\\armado, offboard, despegue};
+\node[block, above=of action] (close) {\texttt{close()}\\aterrizaje y cierre};
+
+\draw[arrow, dashed] (reset) -- (env);
+\draw[arrow, dashed] (env) -- (close);
+
+\end{tikzpicture}
+\shorthandon{<>}
+\caption{Ciclo de interacción entre el agente, el entorno Gymnasium y el
+simulador durante un episodio.}
+\label{fig:diseno:ciclo_gymnasium}
+\end{figure}
+
+La Figura~\ref{fig:diseno:ciclo_gymnasium} muestra el ciclo de interacción que
+se repite durante un episodio. A partir de este ciclo, la
+Cuadro~\ref{tab:diseno:contrato_entorno} sintetiza el contrato principal que el
+entorno ofrece al algoritmo de aprendizaje.
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{ll}
+        \hline
+        Elemento & Diseño adoptado \\
+        \hline
+        Observación & Vector relativo normalizado $[d_x,d_y,d_z,d_{\mathrm{yaw}}]$ \\
+        Acción & Velocidades continuas $[v_x,v_y,v_z,v_{\mathrm{yaw}}]$ \\
+        Recompensa & Distancia normalizada al objetivo y bonificación terminal \\
+        Finalización & Éxito, salida de límites, baja altitud insegura o truncamiento temporal \\
+        \hline
+    \end{tabular}
+    \caption{Resumen del contrato principal del entorno Gymnasium.}
+    \label{tab:diseno:contrato_entorno}
+\end{table}
+
+
+
+\section{Diseño del reinicio de episodios y accionabilidad} \label{sct:diseno:reset_accionabilidad}
+
+El reinicio de episodios constituye una decisión de diseño central en un entorno
+de aprendizaje por refuerzo para robótica aérea. En un entorno puramente
+numérico, reiniciar un episodio puede consistir en asignar directamente un nuevo
+estado inicial. En un simulador robótico integrado con ROS 2 y Aerostack2, en
+cambio, el reinicio afecta al estado físico del multirrotor, al controlador, a
+los modos de operación de la plataforma y a la coherencia temporal de las
+lecturas publicadas. Por este motivo, el diseño del entorno no trata el método
+\texttt{reset} como una operación auxiliar, sino como una parte crítica de la
+validez experimental.
+
+El diseño contempla varios niveles de reinicio. El nivel básico corresponde al
+reinicio clásico mediante armado, activación del modo \emph{offboard} y despegue.
+Este procedimiento es suficiente para una primera inicialización, pero resulta
+lento y no siempre adecuado entre episodios de entrenamiento. Para experimentos
+controlados se introduce una pose inicial fija, o \texttt{fixed\_start\_pose},
+que separa explícitamente el punto de arranque del objetivo. Cuando el UAV ya se
+encuentra en vuelo, el retorno a dicha pose se plantea preferentemente mediante
+comandos de velocidad acotados. Esta decisión evita depender de comportamientos
+bloqueantes y mantiene la interacción dentro del mismo tipo de órdenes que usa el
+agente.
+
+También se contempla el reinicio mediante un servicio del simulador. Este
+mecanismo permite restablecer el estado del multirrotor de forma más directa,
+pero se considera una herramienta de recuperación controlada y no una solución
+ciega. Teletransportar un sistema dinámico de un estado terminal a un estado
+inicial puede generar inconsistencias si los estados internos de la dinámica o del
+controlador no quedan sincronizados. Por ello, el servicio de reinicio se acompaña
+de comprobaciones posteriores de pose, modo de operación y capacidad de aceptar
+comandos físicos antes de declarar válido el inicio de un nuevo episodio.
+
+El servicio de reinicio se diseña como una operación propiedad del simulador y
+se invoca bajo el espacio de nombres del vehículo, por ejemplo
+\texttt{/drone0/platform/reset\_simulator\_state}. Su contrato recibe una pose
+objetivo y tolerancias de validación, y debe devolver evidencia inmediata de la
+mutación aplicada mediante errores de posición y guiñada, normas residuales de
+velocidad, aceleración, fuerza y par, y estado de motores. Además, sincroniza la
+capa de plataforma para que Aerostack2 quede conectado, armado, en modo
+\emph{offboard} y en estado de vuelo. La respuesta del servicio no se considera
+por sí sola suficiente para iniciar el siguiente episodio; después del servicio
+se comprueba la telemetría publicada y se ejecuta una prueba de accionabilidad
+con movimiento físico medible.
+
+Una decisión relevante del diseño es que la aceptación de un comando por la API
+robótica no se considera evidencia suficiente de que la acción sea efectiva. El
+entorno debe distinguir entre un comando que ha sido aceptado por la interfaz y un
+comando que produce movimiento físico medible en el simulador. Esta diferencia es crítica para aprendizaje por refuerzo. Si el agente recibe
+observaciones y recompensas mientras sus acciones no modifican realmente el
+estado del UAV, los datos recogidos dejan de representar la tarea que se pretende
+aprender. Por ello, los fallos de accionabilidad se tratan como condiciones de
+rechazo temprano del entrenamiento y no como episodios válidos.
+
+\begin{table}[H]
+\centering
+\small
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{p{0.25\textwidth} p{0.35\textwidth} p{0.30\textwidth}}
+\hline
+\textbf{Estado o fallo} & \textbf{Significado de diseño} & \textbf{Respuesta prevista} \\
+\hline
+\texttt{reset timeout} & El UAV no alcanza la pose inicial dentro del tiempo definido. & Fallo acotado del reinicio y rechazo de continuar el entrenamiento. \\
+\texttt{post\_controller\_reacquire\_timeout} & Tras recrear o estabilizar el controlador, no se recupera la tolerancia de posición. & Diagnóstico específico del acoplamiento entre reset y controlador. \\
+\texttt{post\_controller\_hold\_timeout} & La pose se alcanza de forma transitoria, pero no se mantiene estable. & Rechazo del reset para evitar datos de episodio físicamente inválidos. \\
+Comando aceptado sin movimiento & La interfaz acepta la orden, pero no se observa desplazamiento físico suficiente. & Fallo cerrado de accionabilidad antes de iniciar o continuar el entrenamiento. \\
+Servicio de reset aplicado sin accionabilidad & El simulador informa que la pose se ha restaurado, pero el camino de comandos posterior no produce desplazamiento suficiente. & Reintento completo del servicio y, si persiste, parada explícita del entrenamiento. \\
+\hline
+\end{tabular}
+\caption{Estados y fallos considerados en el diseño del reinicio de episodios.}
+\label{tab:diseno:fallos_reset}
+\end{table}
+
+El Cuadro~\ref{tab:diseno:fallos_reset} resume los principales estados de fallo
+que guían el diseño. En todos los casos se favorece un fallo explícito y
+trazable frente a un bloqueo indefinido o a la continuación de un entrenamiento
+con datos contaminados por un estado físico no válido.
+
+\section{Diseño de la recompensa y condiciones de finalización} \label{sct:diseno:recompensa}
+
+La recompensa final usada en la fase de experimentación principal se diseña para
+mantener una señal mínima e interpretable, alineada con el criterio del tutor. En
+cada paso se penaliza únicamente la distancia normalizada al objetivo. Para ello, si
+$d_t$ representa la distancia euclídea entre el UAV y el objetivo, y
+$d_{\max}$ representa la distancia máxima de normalización. A partir de ambas
+magnitudes se obtiene
+\begin{equation}
+    d_{\mathrm{norm}} = \min\left(\frac{d_t}{d_{\max}}, 1\right),
+    \qquad
+    r_{\mathrm{dist}} = -d_{\mathrm{norm}}.
+\end{equation}
+En el entorno implementado, $d_{\max}$ se calcula a partir del límite espacial de
+posición del escenario, de forma que la distancia normalizada queda acotada en el
+intervalo $[0,1]$.
+
+El entorno conserva la capacidad de calcular términos adicionales, como progreso,
+seguridad vertical o coherencia de guiñada con la dirección de movimiento. Sin
+embargo, esos términos se desactivan en Exp010--Exp012 para evitar que el agente
+optimice una recompensa de shaping distinta de la tarea principal. La guiñada se mantiene como requisito terminal suave. Cuando el UAV alcanza la
+región objetivo, la bonificación de éxito se reduce en función del error de
+guiñada. Si
+$e_{\mathrm{yaw}}$ representa el error angular normalizado, la recompensa terminal
+de éxito se calcula mediante
+\begin{equation}
+    r_{\mathrm{success}} =
+    R_{\mathrm{success}} -
+    w_{\mathrm{yaw}} \frac{|e_{\mathrm{yaw}}|}{\pi}.
+\end{equation}
+
+La expresión final aplicada en las configuraciones Exp010--Exp012 incorpora las
+condiciones terminales del episodio de la forma siguiente.
+\begin{equation}
+    r_t =
+    \begin{cases}
+        -P_{\mathrm{oob}}, & \text{si el UAV sale de los límites del escenario},\\
+        -P_{\mathrm{oob}}, & \text{si el UAV entra en baja altitud insegura},\\
+        r_{\mathrm{success}}, &
+            \text{si } d_t < d_{\mathrm{threshold}},\\
+        -d_{\mathrm{norm}}, & \text{en el resto de pasos}.
+    \end{cases}
+\end{equation}
+El truncamiento por alcanzar \texttt{max\_steps} no introduce una recompensa
+adicional, sino que limita la duración del episodio cuando no se ha alcanzado una
+condición terminal. El Cuadro~\ref{tab:diseno:componentes_recompensa} resume los
+componentes de esta formulación y su efecto esperado.
+
+\begin{table}[t]
+\centering
+\small
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{p{0.24\textwidth} p{0.25\textwidth} p{0.19\textwidth} p{0.22\textwidth}}
+\hline
+\textbf{Componente} & \textbf{Expresión} & \textbf{Condición} & \textbf{Efecto esperado} \\
+\hline
+
+Penalización por distancia &
+$r_{\mathrm{dist}} = -d_{\mathrm{norm}}$ &
+En cada paso &
+Favorece que el UAV reduzca progresivamente la distancia al objetivo. \\
+
+Bonificación por éxito &
+$R_{\mathrm{success}} - w_{\mathrm{yaw}} |e_{\mathrm{yaw}}|/\pi$ &
+Si $d_t < d_{\mathrm{threshold}}$ &
+Premia alcanzar la región objetivo y reduce la bonificación si la guiñada terminal es inadecuada. \\
+
+Penalización por salida de límites &
+$-P_{\mathrm{oob}}$ &
+Si el UAV supera los límites del escenario &
+Desincentiva trayectorias inseguras o alejadas de la zona de entrenamiento. \\
+
+Penalización por baja altitud insegura &
+$-P_{\mathrm{oob}}$ &
+Si el UAV desciende por debajo del umbral inseguro &
+Evita que el aprendizaje explote estados cercanos al suelo o físicamente no válidos. \\
+
+Truncado temporal &
+Sin recompensa adicional &
+Si se alcanza el número máximo de pasos &
+Limita la duración del episodio cuando no se alcanza una condición terminal. \\
+
+\hline
+\end{tabular}
+\caption{Componentes de la función de recompensa y condiciones de finalización del entorno.}
+\label{tab:diseno:componentes_recompensa}
+\end{table}
+
+\section{Diseño de la ejecución vectorizada} \label{sct:diseno:vectorizacion}
+
+La ejecución vectorizada se diseña para permitir varias instancias lógicas del
+entorno sobre un único simulador compartido. El diseño utiliza espacios de nombres
+diferenciados, \texttt{drone0} a \texttt{drone3}, de forma que cada UAV simulado
+pueda ser identificado y gobernado de manera independiente dentro de la misma
+infraestructura ROS 2. Esta organización reduce la necesidad de duplicar toda la
+infraestructura del simulador, pero exige tratar con cuidado la inicialización de
+ROS 2, los nombres de los drones y la sincronización entre episodios.
+
+Desde el punto de vista del diseño de ejecución, \texttt{SyncVectorEnv} ofrece
+un mecanismo directo de ejecución síncrona en el que las instancias avanzan de
+forma coordinada. En el contexto de Stable-Baselines3, el diseño contempla
+\texttt{DummyVecEnv} y \texttt{SubprocVecEnv} como alternativas configurables. La
+opción síncrona, equivalente en este caso a \texttt{DummyVecEnv}, constituye el
+camino prudente cuando se comparte un simulador y se desea minimizar la
+complejidad de concurrencia. \texttt{SubprocVecEnv} puede
+aportar aislamiento por proceso, pero también introduce mayores exigencias sobre
+la inicialización de ROS 2 y la gestión de recursos compartidos.
+
+La decisión principal de diseño consiste, por tanto, en priorizar la corrección de
+la interacción sobre la paralelización agresiva. En un sistema donde varias
+instancias comparten simulador, una vectorización incorrecta puede producir
+interferencias entre drones, bloqueos por inicialización repetida o estados de
+episodio difíciles de atribuir. Por ello, la arquitectura favorece una
+vectorización controlada, con espacios de nombres explícitos y una inicialización
+de ROS 2 protegida por proceso, antes que asumir incrementos de rendimiento no
+verificados.
+
+La Figura~\ref{fig:diseno:vectorizacion} resume esta organización mediante
+varias instancias lógicas conectadas a una infraestructura de simulación
+compartida.
+
+\begin{figure}[t]
+\centering
+\shorthandoff{<>}
+\begin{tikzpicture}[
+    node distance=1.1cm and 1.4cm,
+    block/.style={
+        rectangle,
+        rounded corners,
+        draw,
+        align=center,
+        minimum width=2.8cm,
+        minimum height=0.8cm,
+        font=\small
+    },
+    smallblock/.style={
+        rectangle,
+        rounded corners,
+        draw,
+        align=center,
+        minimum width=2.4cm,
+        minimum height=0.7cm,
+        font=\small
+    },
+    arrow/.style={-{Latex[length=2mm]}, thick}
+]
+
+\node[block] (vec) {Entorno vectorizado\\\texttt{SyncVectorEnv}/\texttt{DummyVecEnv}};
+
+\node[smallblock, below left=of vec] (env0) {Instancia 0\\\texttt{drone0}};
+\node[smallblock, below=of vec] (env1) {Instancia 1\\\texttt{drone1}};
+\node[smallblock, below right=of vec] (env2) {Instancia 2\\\texttt{drone2}};
+
+\node[block, below=2.0cm of env1] (ros) {ROS 2\\espacios de nombres};
+\node[block, below=of ros] (sim) {AS2 Multirotor\\Simulator compartido};
+
+\draw[arrow] (vec) -- (env0);
+\draw[arrow] (vec) -- (env1);
+\draw[arrow] (vec) -- (env2);
+
+\draw[arrow] (env0) -- (ros);
+\draw[arrow] (env1) -- (ros);
+\draw[arrow] (env2) -- (ros);
+
+\draw[arrow] (ros) -- (sim);
+
+\node[draw, dashed, rounded corners, fit=(env0)(env1)(env2), inner sep=0.25cm,
+      label={[font=\small]right:Instancias lógicas del entorno}] {};
+
+\end{tikzpicture}
+\shorthandon{<>}
+\caption{Diseño de la ejecución vectorizada mediante varias instancias lógicas
+asociadas a espacios de nombres diferenciados sobre una infraestructura de
+simulación compartida.}
+\label{fig:diseno:vectorizacion}
+\end{figure}

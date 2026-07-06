@@ -1,7 +1,27 @@
 \babel@toc {spanish}{}\relax 
 \addvspace {10\p@ }
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Comunicaci^^c3^^b3n entre nodos en ROS mediante \emph {topics} y servicios. Fuente: Chollet \blx@tocontentsinit {0}\cite {chollet2021ros}.}}{8}{figure.2.1}%
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Organizaci^^c3^^b3n por capas de los componentes software de Aerostack2. Fuente: Fern^^c3^^a1ndez-Cortizas et al. \blx@tocontentsinit {0}\cite {fernandez2023aerostack2}.}}{9}{figure.2.2}%
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Relaci^^c3^^b3n conceptual entre aprendizaje por refuerzo cl^^c3^^a1sico, aprendizaje profundo supervisado y aprendizaje por refuerzo profundo. Fuente: Objectways \blx@tocontentsinit {0}\cite {objectways2025dl_vs_rl}.}}{12}{figure.2.3}%
+\contentsline {figure}{\numberline {2.4}{\ignorespaces Bucle de interacci^^c3^^b3n entre agente y entorno en aprendizaje por refuerzo. Fuente: AltexSoft \blx@tocontentsinit {0}\cite {altexsoft2021rl}, basado en la formulaci^^c3^^b3n cl^^c3^^a1sica de Sutton y Barto \blx@tocontentsinit {0}\cite {sutton2018reinforcement}.}}{12}{figure.2.4}%
+\contentsline {figure}{\numberline {2.5}{\ignorespaces Arquitectura actor-cr^^c3^^adtico utilizada habitualmente en PPO. Fuente: ResearchGate \blx@tocontentsinit {0}\cite {researchgate2024ppo_architecture}.}}{15}{figure.2.5}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Arquitectura general del sistema, separando la l^^c3^^b3gica de aprendizaje, la interfaz Gymnasium, la comunicaci^^c3^^b3n rob^^c3^^b3tica con Aerostack2 y el simulador con servicio de reinicio.}}{20}{figure.3.1}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Representaci^^c3^^b3n conceptual de la pose de un dron mediante los ^^c3^^a1ngulos de \emph {roll}, \emph {pitch} y \emph {yaw}. Fuente: ResearchGate.}}{21}{figure.3.2}%
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Relaci^^c3^^b3n geom^^c3^^a9trica entre el UAV, el objetivo relativo, la direcci^^c3^^b3n de avance y la orientaci^^c3^^b3n de gui^^c3^^b1ada utilizada en el criterio de \emph {path-facing}.}}{22}{figure.3.3}%
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Ciclo de interacci^^c3^^b3n entre el agente, el entorno Gymnasium y el simulador durante un episodio.}}{23}{figure.3.4}%
+\contentsline {figure}{\numberline {3.5}{\ignorespaces Dise^^c3^^b1o de la ejecuci^^c3^^b3n vectorizada mediante varias instancias l^^c3^^b3gicas asociadas a espacios de nombres diferenciados sobre una infraestructura de simulaci^^c3^^b3n compartida.}}{28}{figure.3.5}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Integraci^^c3^^b3n implementada entre la pol^^c3^^adtica de aprendizaje, la interfaz Gymnasium, Aerostack2 y ROS 2.}}{31}{figure.4.1}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Visualizaci^^c3^^b3n en RViz2 del UAV simulado, la trayectoria reciente y el marcador del objetivo durante una ejecuci^^c3^^b3n con Aerostack2.}}{34}{figure.4.2}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Ciclo implementado de un episodio de aprendizaje por refuerzo sobre \texttt {AS2TestEnv}.}}{36}{figure.4.3}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {A.1}{\ignorespaces M^^c3^^a9tricas de \emph {rollout} de TensorBoard para Exp010. La tasa de ^^c3^^a9xito desciende hasta cero y la recompensa media no muestra una tendencia sostenida de mejora, por lo que la figura debe interpretarse como evidencia de diagn^^c3^^b3stico y no como demostraci^^c3^^b3n de aprendizaje estable.}}{55}{figure.Alph1.1}%
+\contentsline {figure}{\numberline {A.2}{\ignorespaces M^^c3^^a9tricas de \emph {rollout} de TensorBoard para Exp011. Aunque la configuraci^^c3^^b3n reduce la saturaci^^c3^^b3n inicial y mejora parcialmente la recompensa media frente a Exp010, la tasa de ^^c3^^a9xito vuelve a cero y las terminaciones por l^^c3^^admites o baja altitud siguen dominando el entrenamiento.}}{55}{figure.Alph1.2}%
+\contentsline {figure}{\numberline {A.3}{\ignorespaces M^^c3^^a9tricas internas de PPO para Exp010. Los indicadores de entrenamiento se mantienen en rangos razonables para una ejecuci^^c3^^b3n estable de PPO, pero esto no implica ^^c3^^a9xito de la tarea cuando las m^^c3^^a9tricas de episodio muestran predominio de terminaciones no deseadas.}}{56}{figure.Alph1.3}%
+\contentsline {figure}{\numberline {A.4}{\ignorespaces M^^c3^^a9tricas internas de PPO para Exp011. La evoluci^^c3^^b3n de p^^c3^^a9rdidas, entrop^^c3^^ada y varianza explicada se utiliza como apoyo t^^c3^^a9cnico, mientras que la interpretaci^^c3^^b3n principal del experimento se obtiene de las m^^c3^^a9tricas de \emph {rollout} y de los monitores de episodio.}}{56}{figure.Alph1.4}%
