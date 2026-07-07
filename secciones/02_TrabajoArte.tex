@@ -165,6 +165,18 @@ desarrollado. Por tanto, Gymnasium estandariza la interfaz y Stable-Baselines3
 proporciona el algoritmo, pero la validez experimental depende de que la
 adaptación robótica produzca transiciones físicas fiables.
 
+\paragraph{Herramientas de observación y monitorización.}
+En una infraestructura de aprendizaje por refuerzo integrada con ROS 2, la
+observación del sistema no se limita a las métricas internas del algoritmo. RViz2
+proporciona una visualización espacial del estado del UAV, de sus referencias y
+de los marcadores publicados en el grafo ROS 2, por lo que resulta útil para
+validar cualitativamente que la escena simulada y los comandos robóticos son
+coherentes. TensorBoard, por su parte, permite inspeccionar las métricas emitidas
+por Stable-Baselines3 y por los monitores de episodio, como recompensa media,
+longitud de episodio y señales auxiliares registradas durante la ejecución. En
+este trabajo, ambas herramientas se emplean como soporte de validación y
+diagnóstico, no como sustituto de las métricas cuantitativas del entorno.
+
 
 \section{Aprendizaje por refuerzo para el control de UAV}
 
@@ -504,19 +516,6 @@ plantear esquemas asíncronos o afirmaciones de aceleración. Sin métricas de
 rendimiento comparables, la vectorización debe presentarse como capacidad de la
 infraestructura, no como mejora cuantificada del entrenamiento.
 
-
-\paragraph{Herramientas de observación y monitorización.}
-En una infraestructura de aprendizaje por refuerzo integrada con ROS 2, la
-observación del sistema no se limita a las métricas internas del algoritmo. RViz2
-proporciona una visualización espacial del estado del UAV, de sus referencias y
-de los marcadores publicados en el grafo ROS 2, por lo que resulta útil para
-validar cualitativamente que la escena simulada y los comandos robóticos son
-coherentes. TensorBoard, por su parte, permite inspeccionar las métricas emitidas
-por Stable-Baselines3 y por los monitores de episodio, como recompensa media,
-longitud de episodio y señales auxiliares registradas durante la ejecución. En
-este trabajo, ambas herramientas se emplean como soporte de validación y
-diagnóstico, no como sustituto de las métricas cuantitativas del entorno.
-
 \section{Síntesis y posicionamiento del trabajo}
 
 La revisión anterior permite extraer varias conclusiones. En primer lugar, el
@@ -537,7 +536,7 @@ A partir de las fuentes revisadas, puede inferirse una oportunidad de trabajo en
 la construcción de entornos de aprendizaje por refuerzo vectorizables y
 directamente integrados con un \emph{stack} robótico operativo como Aerostack2.
 Esta necesidad es más clara cuando el problema de control no se formula a nivel
-de actuadores, sino a un nivel intermedio próximo a la ejecución de misiones:
+de actuadores, sino a un nivel intermedio próximo a la ejecución de misiones, es decir,
 recibir una referencia relativa al objetivo y generar comandos de velocidad
 compatibles con la arquitectura del dron, incorporando además una restricción de
 \emph{path-facing} para alinear el yaw con la dirección de movimiento.

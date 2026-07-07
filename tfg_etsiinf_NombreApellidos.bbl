@@ -52,6 +52,39 @@
       \verb https://www.altexsoft.com/blog/reinforcement-learning-explained-overview-comparisons-and-applications-in-business/
       \endverb
     \endentry
+    \entry{anthropic2026claudecode}{online}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=f431db65cea024a5f19eab835afefee2}{%
+           family={{Anthropic}},
+           familyi={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{f431db65cea024a5f19eab835afefee2}
+      \strng{fullhash}{f431db65cea024a5f19eab835afefee2}
+      \strng{fullhashraw}{f431db65cea024a5f19eab835afefee2}
+      \strng{bibnamehash}{f431db65cea024a5f19eab835afefee2}
+      \strng{authorbibnamehash}{f431db65cea024a5f19eab835afefee2}
+      \strng{authornamehash}{f431db65cea024a5f19eab835afefee2}
+      \strng{authorfullhash}{f431db65cea024a5f19eab835afefee2}
+      \strng{authorfullhashraw}{f431db65cea024a5f19eab835afefee2}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{{Claude Code}}
+      \field{urlday}{6}
+      \field{urlmonth}{7}
+      \field{urlyear}{2026}
+      \field{year}{2026}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://claude.com/claude-code
+      \endverb
+      \verb{url}
+      \verb https://claude.com/claude-code
+      \endverb
+    \endentry
     \entry{azar2021drone_review}{article}{}{}
       \name{author}{11}{}{%
         {{un=0,uniquepart=base,hash=34ef27303c6e4991e652d4678479feaf}{%
@@ -151,6 +184,53 @@
       \verb{url}
       \verb https://doi.org/10.3390/electronics10090999
       \endverb
+    \endentry
+    \entry{bengio2009curriculum}{inproceedings}{}{}
+      \name{author}{4}{}{%
+        {{un=0,uniquepart=base,hash=40a8e4774982146adc2688546f54efb2}{%
+           family={Bengio},
+           familyi={B\bibinitperiod},
+           given={Yoshua},
+           giveni={Y\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=54e572bf8f9b7a5bfaf172e1600dac8b}{%
+           family={Louradour},
+           familyi={L\bibinitperiod},
+           given={Jérôme},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=133261178beda1dc3991e0e1dfd5a791}{%
+           family={Collobert},
+           familyi={C\bibinitperiod},
+           given={Ronan},
+           giveni={R\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=417a25f3511d7c21e76d4a15e67dd679}{%
+           family={Weston},
+           familyi={W\bibinitperiod},
+           given={Jason},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{058f6aa7282521dda725a309bd2d3fea}
+      \strng{fullhash}{9ba3fef12dbb2a31c664e09902e90cdf}
+      \strng{fullhashraw}{9ba3fef12dbb2a31c664e09902e90cdf}
+      \strng{bibnamehash}{9ba3fef12dbb2a31c664e09902e90cdf}
+      \strng{authorbibnamehash}{9ba3fef12dbb2a31c664e09902e90cdf}
+      \strng{authornamehash}{058f6aa7282521dda725a309bd2d3fea}
+      \strng{authorfullhash}{9ba3fef12dbb2a31c664e09902e90cdf}
+      \strng{authorfullhashraw}{9ba3fef12dbb2a31c664e09902e90cdf}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the 26th International Conference on Machine Learning (ICML)}
+      \field{title}{Curriculum Learning}
+      \field{year}{2009}
+      \field{pages}{41\bibrangedash 48}
+      \range{pages}{8}
     \endentry
     \entry{chan2024drone_simulators}{article}{}{}
       \name{author}{5}{}{%

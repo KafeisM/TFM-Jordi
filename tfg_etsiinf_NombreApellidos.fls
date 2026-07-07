@@ -162,6 +162,10 @@ INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/f
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/footmisc/footmisc.sty
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/parskip/parskip.sty
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/parskip/parskip.sty
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/tools/tabularx.sty
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/tools/tabularx.sty
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/xurl/xurl.sty
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/xurl/xurl.sty
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graphics/lscape.sty
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graphics/lscape.sty
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/pgfgantt/pgfgantt.sty
@@ -611,6 +615,12 @@ INPUT ./secciones/04_Implementacion.tex
 INPUT ./secciones/04_Implementacion.tex
 INPUT ./secciones/04_Implementacion.tex
 INPUT secciones/04_Implementacion.tex
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/adobe/bookman/pbkd8t.tfm
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/adobe/bookman/pbkli8t.tfm
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/vf/adobe/bookman/pbkd8t.vf
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/adobe/bookman/pbkd8r.tfm
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/vf/adobe/bookman/pbkli8t.vf
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/adobe/bookman/pbkli8r.tfm
 INPUT ./images/rviz2_training_view.png
 INPUT ./images/rviz2_training_view.png
 INPUT ./images/rviz2_training_view.png
@@ -637,6 +647,30 @@ INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/vf/ad
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/adobe/courier/pcrr8r.tfm
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/vf/adobe/bookman/pbkli8t.vf
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/adobe/bookman/pbkli8r.tfm
+INPUT ./images/fig_progresion_experimentos.pdf
+INPUT ./images/fig_progresion_experimentos.pdf
+INPUT ./images/fig_progresion_experimentos.pdf
+INPUT ./images/fig_progresion_experimentos.pdf
+INPUT ./images/fig_progresion_experimentos.pdf
+INPUT ./images/fig_progresion_experimentos.pdf
+INPUT ./images/fig_curva_curriculum.pdf
+INPUT ./images/fig_curva_curriculum.pdf
+INPUT ./images/fig_curva_curriculum.pdf
+INPUT ./images/fig_curva_curriculum.pdf
+INPUT ./images/fig_curva_curriculum.pdf
+INPUT ./images/fig_curva_curriculum.pdf
+INPUT ./images/fig_evaluacion_controladores.pdf
+INPUT ./images/fig_evaluacion_controladores.pdf
+INPUT ./images/fig_evaluacion_controladores.pdf
+INPUT ./images/fig_evaluacion_controladores.pdf
+INPUT ./images/fig_evaluacion_controladores.pdf
+INPUT ./images/fig_evaluacion_controladores.pdf
+INPUT ./images/fig_stall_exp016.pdf
+INPUT ./images/fig_stall_exp016.pdf
+INPUT ./images/fig_stall_exp016.pdf
+INPUT ./images/fig_stall_exp016.pdf
+INPUT ./images/fig_stall_exp016.pdf
+INPUT ./images/fig_stall_exp016.pdf
 INPUT ./secciones/07_Impacto.tex
 INPUT ./secciones/07_Impacto.tex
 INPUT ./secciones/07_Impacto.tex
@@ -665,27 +699,6 @@ INPUT ./images/tensorboard_exp010_rollout.png
 INPUT ./images/tensorboard_exp010_rollout.png
 INPUT ./images/tensorboard_exp010_rollout.png
 INPUT ./images/tensorboard_exp010_rollout.png
-INPUT ./images/tensorboard_exp011_rollout.png
-INPUT ./images/tensorboard_exp011_rollout.png
-INPUT ./images/tensorboard_exp011_rollout.png
-INPUT ./images/tensorboard_exp011_rollout.png
-INPUT ./images/tensorboard_exp011_rollout.png
-INPUT ./images/tensorboard_exp011_rollout.png
-INPUT ./images/tensorboard_exp011_rollout.png
-INPUT ./images/tensorboard_exp010_train.png
-INPUT ./images/tensorboard_exp010_train.png
-INPUT ./images/tensorboard_exp010_train.png
-INPUT ./images/tensorboard_exp010_train.png
-INPUT ./images/tensorboard_exp010_train.png
-INPUT ./images/tensorboard_exp010_train.png
-INPUT ./images/tensorboard_exp010_train.png
-INPUT ./images/tensorboard_exp011_train.png
-INPUT ./images/tensorboard_exp011_train.png
-INPUT ./images/tensorboard_exp011_train.png
-INPUT ./images/tensorboard_exp011_train.png
-INPUT ./images/tensorboard_exp011_train.png
-INPUT ./images/tensorboard_exp011_train.png
-INPUT ./images/tensorboard_exp011_train.png
 INPUT tfg_etsiinf_NombreApellidos.aux
 INPUT ./tfg_etsiinf_NombreApellidos.out
 INPUT ./tfg_etsiinf_NombreApellidos.out

@@ -2433,11 +2433,13 @@
     <bcf:citekey order="49" intorder="3">krishnan2021airlearning</bcf:citekey>
     <bcf:citekey order="49" intorder="4">panerati2021pybullet</bcf:citekey>
     <bcf:citekey order="50" intorder="1">fernandez2023aerostack2</bcf:citekey>
-    <bcf:citekey order="51" intorder="1">fernandez2023aerostack2</bcf:citekey>
-    <bcf:citekey order="51" intorder="2">ros2_humble_concepts</bcf:citekey>
+    <bcf:citekey order="51" intorder="1">bengio2009curriculum</bcf:citekey>
     <bcf:citekey order="52" intorder="1">fernandez2023aerostack2</bcf:citekey>
-    <bcf:citekey order="53" intorder="1">openai2026codex</bcf:citekey>
-    <bcf:citekey order="54" intorder="1">openai2026chatgpt</bcf:citekey>
+    <bcf:citekey order="52" intorder="2">ros2_humble_concepts</bcf:citekey>
+    <bcf:citekey order="53" intorder="1">fernandez2023aerostack2</bcf:citekey>
+    <bcf:citekey order="54" intorder="1">openai2026codex</bcf:citekey>
+    <bcf:citekey order="55" intorder="1">openai2026chatgpt</bcf:citekey>
+    <bcf:citekey order="56" intorder="1">anthropic2026claudecode</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="nyt">

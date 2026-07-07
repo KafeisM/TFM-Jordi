@@ -1,12 +1,14 @@
 % !TEX root = ../tfg_etsiinf_NombreApellidos.tex
 \chapter{Anexos} \label{chp:anexo}
 
-Los anexos recogen información complementaria que apoya la reproducibilidad de
-los experimentos sin interrumpir la exposición principal de la memoria. Se
-incluyen configuraciones representativas, comandos de ejecución y una matriz
-extendida de experimentos. Si se dispone de una captura de TensorBoard con
-métricas representativas, debe añadirse en este capítulo y referenciarse desde el
-Capítulo~\ref{chp:resultados}.
+Los anexos recogen información complementaria para facilitar la reproducción y
+la inspección de los experimentos sin interrumpir la discusión principal. No se
+plantean como un registro exhaustivo de todas las ejecuciones, sino como una guía
+de lectura del repositorio: se resumen las configuraciones más relevantes, se
+indican los puntos de entrada de ejecución y se muestra un ejemplo de visualización
+de métricas en TensorBoard. A partir de esas referencias, cualquier ejecución
+puede consultarse directamente en los directorios de configuración, scripts y
+artefactos experimentales del repositorio.
 
 \section{Configuraciones representativas} \label{sct:anexos:configuraciones}
 
@@ -47,119 +49,125 @@ Exp018 & Vectorizado con watchdog. & 200000 pasos acumulados. & 2 drones en para
 \label{tab:anexos:configs_representativas}
 \end{table}
 
+
 \section{Comandos representativos} \label{sct:anexos:comandos}
 
-Los comandos concretos dependen del estado local del entorno y del simulador, por
-lo que deben ejecutarse tras reiniciar de forma limpia la infraestructura AS2. Un
-flujo representativo consiste en lanzar el simulador, activar el entorno Python y
-ejecutar el script de entrenamiento o un validador acotado:
+La reproducción de una ejecución no depende de copiar literalmente un comando
+aislado, sino de combinar tres elementos del repositorio: el script que define el
+punto de entrada, el fichero YAML que fija la configuración del experimento y el
+directorio de salida donde quedan registrados los artefactos. Por este motivo,
+los comandos siguientes se presentan como patrones de uso y no como recetas
+cerradas. Antes de ejecutar pruebas con simulador conviene reiniciar AS2 para
+reducir el efecto de estados residuales del controlador o de la dinámica.
 
-\begin{listing}[style=consola,caption={Ejemplo de ejecución de entrenamiento PPO acotado.},label={lst:anexo:train_ppo}]
+\begin{listing}[style=consola,caption={Patrón general de entrenamiento PPO a partir de una configuración YAML.},label={lst:anexo:train_ppo}]
 python3 scripts/train_ppo.py \
-  --config configs/train_ppo_phase1_exp012.yaml \
-  --num-envs 1 \
-  --total-timesteps 1000
+  --config configs/<configuracion_experimento>.yaml \
+  --num-envs <numero_entornos> \
+  --total-timesteps <pasos_entrenamiento>
 \end{listing}
 
-Para validar accionabilidad con una acción fija antes de un entrenamiento largo,
-se utiliza un smoke test acotado:
+La ejecución supervisada se utiliza en entrenamientos largos, especialmente
+cuando el simulador puede degradarse tras muchos reinicios. En este caso, el
+supervisor reinicia el stack de AS2, valida la disponibilidad del servicio de
+reinicio y permite reanudar desde un \emph{checkpoint} o desde el modelo final de
+una etapa previa del curriculum.
 
-\begin{listing}[style=consola,caption={Ejemplo de validación de accionabilidad con acción fija.},label={lst:anexo:smoke_actionability}]
-python3 scripts/validate_exp008_training_smoke.py \
-  --config configs/train_ppo_phase1_exp008a.yaml \
-  --episodes 3 \
-  --steps 12 \
-  --action 0.5 0.0 0.0 0.0
+\begin{listing}[style=consola,caption={Patrón general de entrenamiento supervisado con reanudación.},label={lst:anexo:supervise_train}]
+RECYCLE_SECONDS=<segundos> \
+DRONE_NAMESPACES=<drone0,drone1> \
+INITIAL_RESUME=runs/ppo/<ejecucion_previa>/model_final.zip \
+bash scripts/supervise_train.sh configs/<configuracion_experimento>.yaml
 \end{listing}
 
-Estos comandos no deben interpretarse como recetas cerradas de entrenamiento,
-sino como ejemplos de ejecución reproducible. Antes de cada prueba con simulador
-conviene partir de un estado limpio de AS2 para evitar que estados residuales del
-controlador o de la dinámica contaminen el diagnóstico.
+La evaluación formal utiliza el mismo punto de entrada para comparar políticas
+aprendidas y controladores de referencia sobre episodios equivalentes. La
+reproducibilidad de la comparación se apoya en mantener constantes la
+configuración, el número de episodios y la semilla inicial.
 
-Para entrenamientos largos con posibilidad de caída del simulador o del proceso
-Python, la configuración más reciente se ejecuta mediante un supervisor que
-reinicia el stack de AS2, valida la disponibilidad del servicio de reinicio y
-reanuda desde el último \emph{checkpoint} disponible:
-
-\begin{listing}[style=consola,caption={Ejemplo de entrenamiento supervisado con reciclado preventivo, dos drones y \emph{warm start} de la etapa anterior del curriculum.},label={lst:anexo:supervise_train}]
-RECYCLE_SECONDS=9000 \
-DRONE_NAMESPACES=drone0,drone1 \
-INITIAL_RESUME=runs/ppo/<run_exp016>/model_final.zip \
-bash scripts/supervise_train.sh configs/train_ppo_phase1_exp018.yaml
-\end{listing}
-
-La evaluación formal y la comparación entre controladores se ejecutan con el
-mismo punto de entrada, variando únicamente el controlador y el modo:
-
-\begin{listing}[style=consola,caption={Evaluación por semillas de la política y del PID de referencia sobre episodios idénticos.},label={lst:anexo:evaluate}]
+\begin{listing}[style=consola,caption={Patrón general de evaluación por semillas.},label={lst:anexo:evaluate}]
 python3 scripts/evaluate_policy.py \
-  --config configs/train_ppo_phase1_exp016.yaml \
-  --model runs/ppo/<run>/model_final.zip \
-  --episodes 100 --seed 1000
+  --config configs/<configuracion_experimento>.yaml \
+  --model runs/ppo/<ejecucion>/model_final.zip \
+  --episodes <n_episodios> --seed <semilla>
 
 python3 scripts/evaluate_policy.py \
-  --config configs/train_ppo_phase1_exp016.yaml \
-  --controller pid --episodes 100 --seed 1000
+  --config configs/<configuracion_experimento>.yaml \
+  --controller pid --episodes <n_episodios> --seed <semilla>
 \end{listing}
+
+La Tabla~\ref{tab:anexos:consulta_repo} resume dónde consultar cada tipo de
+información cuando se quiera revisar una ejecución concreta, más allá de los
+ejemplos incluidos en este anexo.
+
+\begin{table}[H]
+\centering
+\small
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabularx}{\textwidth}{
+>{\raggedright\arraybackslash}p{0.23\textwidth}
+>{\raggedright\arraybackslash}p{0.30\textwidth}
+>{\raggedright\arraybackslash}X
+}
+\hline
+\textbf{Elemento} & \textbf{Ruta principal} & \textbf{Uso dentro del análisis} \\
+\hline
+Configuraciones &
+\texttt{configs/} &
+Define recompensa, límites, curriculum, hiperparámetros y parámetros de ejecución. \\
+
+Scripts de ejecución &
+\texttt{scripts/} &
+Contiene los puntos de entrada para entrenamiento, evaluación, supervisión y validaciones acotadas. \\
+
+Modelos y checkpoints &
+\texttt{runs/ppo/<ejecucion>/} &
+Permite recuperar el modelo final, reanudar entrenamientos y auditar artefactos generados. \\
+
+Monitores de episodio &
+\texttt{runs/ppo/<ejecucion>/monitor/} &
+Fuente principal para tasas de éxito, duración, recompensa, distancias y causas de terminación. \\
+
+TensorBoard &
+\texttt{runs/ppo/<ejecucion>/tensorboard/} &
+Fuente complementaria para inspeccionar escalares de PPO y métricas agregadas durante el entrenamiento. \\
+\hline
+\end{tabularx}
+\caption{Rutas de consulta de configuraciones, scripts y artefactos experimentales en el repositorio.}
+\label{tab:anexos:consulta_repo}
+\end{table}
+
 
 \section{Capturas de TensorBoard} \label{sct:anexos:tensorboard}
 
-TensorBoard resulta útil cuando la ejecución alcanza suficientes pasos para
-registrar escalares de Stable-Baselines3. En este trabajo no debe utilizarse como
-una figura decorativa, sino como apoyo para interpretar la evolución de cada
-experimento: recompensa media, longitud media de episodio, pérdidas de PPO y, si
-están disponibles, métricas derivadas del monitor. Las capturas deben
-relacionarse con la matriz de experimentos del
-Capítulo~\ref{chp:resultados}, porque una curva de recompensa o longitud de
-episodio solo es interpretable si se conocen las razones de terminación y los
-fallos de reset registrados en paralelo.
+TensorBoard se utiliza en este trabajo como herramienta de inspección, no como
+fuente única de evidencia. Las curvas permiten observar la evolución de escalares
+registrados por Stable-Baselines3, como recompensa media, longitud media de
+episodio, tasa de éxito o métricas internas de PPO. Sin embargo, la
+interpretación de un experimento debe contrastarse siempre con los monitores de
+episodio y con las causas de terminación descritas en el
+Capítulo~\ref{chp:resultados}.
 
-Para que la figura sea útil, se recomienda incorporar una captura o exportación
-de TensorBoard por experimento relevante. En particular, Exp010 y Exp011 permiten
-mostrar por qué la alineación de recompensa y la corrección de la saturación de
-observaciones no bastaron para obtener aprendizaje estable. Exp012, cuando
-finalice, permitirá contrastar si la reducción de reinicios de servicio mejora
-la continuidad de los episodios y la tendencia de recompensa.
+La Figura~\ref{fig:anexos:tensorboard_exp010_rollout} muestra un ejemplo de cómo
+se visualizan las métricas de \emph{rollout} en TensorBoard para una ejecución
+concreta. No se incluyen capturas de todos los experimentos para evitar duplicar
+información ya disponible en el repositorio. Cuando se quiera revisar cualquier
+otra ejecución, basta con abrir el directorio de TensorBoard correspondiente al
+experimento deseado:
+
+\begin{listing}[style=consola,caption={Consulta de métricas TensorBoard para una ejecución concreta.},label={lst:anexo:tensorboard}]
+tensorboard --logdir runs/ppo/<ejecucion>/tensorboard
+\end{listing}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.95\textwidth]{images/tensorboard_exp010_rollout.png}
-\caption{Métricas de \emph{rollout} de TensorBoard para Exp010. La tasa de éxito
-desciende hasta cero y la recompensa media no muestra una tendencia sostenida de
-mejora, por lo que la figura debe interpretarse como evidencia de diagnóstico y
-no como demostración de aprendizaje estable.}
+\caption{Ejemplo de métricas de \emph{rollout} de TensorBoard para Exp010. La
+captura ilustra el formato de consulta de los escalares registrados durante el
+entrenamiento; la interpretación del experimento se realiza junto con los
+monitores de episodio y la matriz de resultados.}
 \label{fig:anexos:tensorboard_exp010_rollout}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.95\textwidth]{images/tensorboard_exp011_rollout.png}
-\caption{Métricas de \emph{rollout} de TensorBoard para Exp011. Aunque la
-configuración reduce la saturación inicial y mejora parcialmente la recompensa
-media frente a Exp010, la tasa de éxito vuelve a cero y las terminaciones por
-límites o baja altitud siguen dominando el entrenamiento.}
-\label{fig:anexos:tensorboard_exp011_rollout}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.95\textwidth]{images/tensorboard_exp010_train.png}
-\caption{Métricas internas de PPO para Exp010. Los indicadores de entrenamiento
-se mantienen en rangos razonables para una ejecución estable de PPO, pero esto no
-implica éxito de la tarea cuando las métricas de episodio muestran predominio de
-terminaciones no deseadas.}
-\label{fig:anexos:tensorboard_exp010_train}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.95\textwidth]{images/tensorboard_exp011_train.png}
-\caption{Métricas internas de PPO para Exp011. La evolución de pérdidas,
-entropía y varianza explicada se utiliza como apoyo técnico, mientras que la
-interpretación principal del experimento se obtiene de las métricas de
-\emph{rollout} y de los monitores de episodio.}
-\label{fig:anexos:tensorboard_exp011_train}
 \end{figure}
 
 \section{Declaración de uso de herramientas de inteligencia artificial} \label{sct:anexos:uso_ia}
@@ -173,10 +181,9 @@ errores y apoyo a la edición de la memoria \cite{openai2026codex}. También se 
 utilizado ChatGPT como asistente conversacional para estructurar explicaciones,
 revisar redacción y sintetizar criterios de presentación académica
 \cite{openai2026chatgpt}. Asimismo, se ha utilizado Claude Code como agente de
-desarrollo en la fase final del trabajo, con apoyo a la campaña experimental
-(supervisión de entrenamientos, análisis de registros y diagnóstico de fallos de
-integración), a la implementación asistida de componentes con sus pruebas y a la
-redacción de secciones de la memoria a partir de los datos experimentales
+desarrollo en la fase final del trabajo, con apoyo a la parte experimental
+(supervisión de entrenamientos, análisis de logs y diagnóstico de fallos de
+integración) y a la implementación asistida de componentes con sus pruebas.
 \cite{anthropic2026claudecode}.
 
 El uso de estas herramientas no sustituye la autoría ni la responsabilidad
@@ -199,7 +206,7 @@ código.
 \hline
 OpenAI Codex & Inspección del repositorio, edición de LaTeX, revisión de errores de compilación y apoyo a cambios de código. & Revisión manual de los diffs, compilación de LaTeX y contraste con el repositorio.\\
 ChatGPT & Estructuración de explicaciones, síntesis de resultados y apoyo a redacción académica. & Revisión del texto, eliminación de afirmaciones no respaldadas y contraste con evidencias experimentales. \\
-Claude Code & Apoyo a la campaña experimental, implementación asistida con pruebas automatizadas, generación de figuras desde los datos y redacción de secciones de la memoria. & Pruebas automatizadas en verde, revisión adversarial previa a cada integración, verificación de cifras contra los registros experimentales y revisión manual del texto. \\
+Claude Code & Apoyo a la parte experimental, implementación asistida con pruebas automatizadas,  & Revisión adversarial previa a cada integración, verificación de cifras contra los registros experimentales y revisión manual. \\
 \hline
 \end{tabular}
 \caption{Resumen del uso de herramientas de inteligencia artificial generativa.}

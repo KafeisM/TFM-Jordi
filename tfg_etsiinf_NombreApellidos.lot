@@ -1,24 +1,26 @@
 \babel@toc {spanish}{}\relax 
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {2.1}{\ignorespaces Relaci^^c3^^b3n entre las capas tecnol^^c3^^b3gicas empleadas en el presente trabajo.}}{10}{table.2.1}%
-\contentsline {table}{\numberline {2.2}{\ignorespaces Diferencias principales entre aprendizaje profundo supervisado y aprendizaje por refuerzo.}}{11}{table.2.2}%
+\contentsline {table}{\numberline {2.1}{\ignorespaces Relaci^^c3^^b3n entre las capas tecnol^^c3^^b3gicas empleadas en el presente trabajo.}}{9}{table.2.1}%
+\contentsline {table}{\numberline {2.2}{\ignorespaces Diferencias principales entre aprendizaje profundo supervisado y aprendizaje por refuerzo.}}{10}{table.2.2}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {3.1}{\ignorespaces Resumen del contrato principal del entorno Gymnasium.}}{24}{table.3.1}%
-\contentsline {table}{\numberline {3.2}{\ignorespaces Estados y fallos considerados en el dise^^c3^^b1o del reinicio de episodios.}}{25}{table.3.2}%
-\contentsline {table}{\numberline {3.3}{\ignorespaces Componentes de la funci^^c3^^b3n de recompensa y condiciones de finalizaci^^c3^^b3n del entorno.}}{27}{table.3.3}%
+\contentsline {table}{\numberline {3.1}{\ignorespaces Resumen del contrato principal del entorno Gymnasium.}}{23}{table.3.1}%
+\contentsline {table}{\numberline {3.2}{\ignorespaces Estados y fallos considerados en el dise^^c3^^b1o del reinicio de episodios.}}{24}{table.3.2}%
+\contentsline {table}{\numberline {3.3}{\ignorespaces Componentes de la funci^^c3^^b3n de recompensa y condiciones de finalizaci^^c3^^b3n del entorno.}}{26}{table.3.3}%
 \addvspace {10\p@ }
 \contentsline {table}{\numberline {4.1}{\ignorespaces Organizaci^^c3^^b3n principal del software implementado.}}{30}{table.4.1}%
 \contentsline {table}{\numberline {4.2}{\ignorespaces Principales par^^c3^^a1metros PPO definidos en la configuraci^^c3^^b3n base de entrenamiento.}}{33}{table.4.2}%
 \contentsline {table}{\numberline {4.3}{\ignorespaces Herramientas principales utilizadas durante la implementaci^^c3^^b3n y validaci^^c3^^b3n.}}{35}{table.4.3}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {5.1}{\ignorespaces Niveles de validaci^^c3^^b3n aplicados al entorno desarrollado.}}{39}{table.5.1}%
-\contentsline {table}{\numberline {5.2}{\ignorespaces Validadores representativos utilizados durante el desarrollo.}}{40}{table.5.2}%
-\contentsline {table}{\numberline {5.3}{\ignorespaces Fallos de integraci^^c3^^b3n identificados y mecanismos de control incorporados.}}{41}{table.5.3}%
+\contentsline {table}{\numberline {5.1}{\ignorespaces Niveles de validaci^^c3^^b3n aplicados al entorno desarrollado.}}{40}{table.5.1}%
+\contentsline {table}{\numberline {5.2}{\ignorespaces Validadores representativos utilizados durante el desarrollo.}}{41}{table.5.2}%
+\contentsline {table}{\numberline {5.3}{\ignorespaces Fallos de integraci^^c3^^b3n identificados y mecanismos de control incorporados.}}{43}{table.5.3}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {6.1}{\ignorespaces Resumen de experimentos principales y su interpretaci^^c3^^b3n.}}{44}{table.6.1}%
+\contentsline {table}{\numberline {6.1}{\ignorespaces Resumen de experimentos principales y su interpretaci^^c3^^b3n.}}{46}{table.6.1}%
+\contentsline {table}{\numberline {6.2}{\ignorespaces Comparaci^^c3^^b3n de controladores sobre los mismos 100 episodios sembrados. Pasos y tiempo corresponden a la mediana de los episodios con ^^c3^^a9xito; el error de yaw es la media absoluta en el instante terminal.}}{49}{table.6.2}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {A.1}{\ignorespaces Configuraciones representativas de la fase de estabilizaci^^c3^^b3n.}}{53}{table.Alph1.1}%
-\contentsline {table}{\numberline {A.2}{\ignorespaces Resumen del uso de herramientas de inteligencia artificial generativa.}}{57}{table.Alph1.2}%
+\contentsline {table}{\numberline {A.1}{\ignorespaces Configuraciones representativas de la fase de estabilizaci^^c3^^b3n.}}{62}{table.Alph1.1}%
+\contentsline {table}{\numberline {A.2}{\ignorespaces Rutas de consulta de configuraciones, scripts y artefactos experimentales en el repositorio.}}{63}{table.Alph1.2}%
+\contentsline {table}{\numberline {A.3}{\ignorespaces Resumen del uso de herramientas de inteligencia artificial generativa.}}{65}{table.Alph1.3}%

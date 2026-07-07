@@ -25,7 +25,7 @@ contiene el fork del simulador empleado para añadir el servicio de reinicio
 determinista. Esta separación hace explícito qué parte corresponde al entorno
 Gymnasium y qué parte modifica la capa física de simulación.
 
-La implementación se organiza alrededor de tres puntos de entrada. El módulo
+La implementación se organiza alrededor de tres puntos de entrada. El módulo \\
 \texttt{rl\_uav/envs/as2\_test\_env.py} contiene la clase \texttt{AS2TestEnv}
 y concentra la traducción entre Gymnasium y Aerostack2. El fichero
 \texttt{configs/train\_ppo.yaml} define de forma declarativa los parámetros del
@@ -45,32 +45,60 @@ estado físico del multirrotor durante las campañas experimentales.
 
 \begin{table}[H]
 \centering
-\small
+\footnotesize
 \setlength{\tabcolsep}{4pt}
 \renewcommand{\arraystretch}{1.15}
-\begin{tabular}{p{0.34\textwidth} p{0.56\textwidth}}
+
+\begin{tabularx}{\textwidth}{
+>{\raggedright\arraybackslash}p{0.36\textwidth}
+>{\raggedright\arraybackslash}X
+}
 \hline
 \textbf{Elemento} & \textbf{Responsabilidad principal} \\
 \hline
-\texttt{rl\_uav/envs/as2\_test\_env.py} & Implementación del entorno Gymnasium y puente con Aerostack2. \\
-\texttt{rl\_uav/training/ppo\_setup.py} & Construcción de entorno vectorizado, rutas de ejecución y modelo PPO. \\
-\texttt{configs/train\_ppo.yaml} & Configuración declarativa de entorno, entrenamiento e hiperparámetros. \\
-\texttt{scripts/train\_ppo.py} & Punto de entrada para entrenamiento y comprobación de configuración. \\
-\texttt{scripts/as2\_runtime.py} & Comprobación y relanzamiento controlado del simulador AS2. \\
-\texttt{scripts/supervise\_train.sh} & Supervisor de entrenamientos largos con reinicio del stack AS2 y reanudación desde \emph{checkpoint}. \\
-\texttt{rl\_uav/evaluation/} & Protocolo de evaluación por semillas con controladores enchufables (PPO y PID). \\
-\texttt{scripts/evaluate\_policy.py} & Punto de entrada de la evaluación formal y de la comparación entre controladores. \\
-\texttt{as2\_platform\_multirotor\_simulator} & Fork del simulador con servicio de reinicio determinista del estado del multirrotor. \\
-\texttt{as2\_sim/launch\_sim.bash} & Arranque del simulador monodron o multidron mediante nombres de dron. \\
-\texttt{scripts/test\_*} y \texttt{scripts/validate\_*} & Validaciones locales y reales del entorno, la vectorización y la integración. \\
+
+\path{rl_uav/envs/as2_test_env.py} 
+& Entorno Gymnasium y puente con Aerostack2. \\
+
+\path{rl_uav/training/ppo_setup.py} 
+& Construcción de entorno vectorizado, rutas de ejecución y modelo PPO. \\
+
+\path{configs/train_ppo.yaml} 
+& Configuración declarativa de entorno, entrenamiento e hiperparámetros. \\
+
+\path{scripts/train_ppo.py} 
+& Punto de entrada para entrenamiento y comprobación de configuración. \\
+
+\path{scripts/as2_runtime.py} 
+& Comprobación y relanzamiento controlado del simulador AS2. \\
+
+\path{scripts/supervise_train.sh} 
+& Supervisor de entrenamientos largos con reinicio del stack AS2 y reanudación desde \emph{checkpoint}. \\
+
+\path{rl_uav/evaluation/} 
+& Protocolo de evaluación por semillas con controladores enchufables, PPO y PID. \\
+
+\path{scripts/evaluate_policy.py} 
+& Punto de entrada de la evaluación formal y de la comparación entre controladores. \\
+
+\path{as2_platform_multirotor_simulator} 
+& Fork del simulador con servicio de reinicio determinista del estado del multirrotor. \\
+
+\path{as2_sim/launch_sim.bash} 
+& Arranque del simulador monodron o multidron mediante nombres de dron. \\
+
+\path{scripts/test_*} y \path{scripts/validate_*} 
+& Validaciones locales y reales del entorno, la vectorización y la integración. \\
+
 \hline
-\end{tabular}
+\end{tabularx}
+
 \caption{Organización principal del software implementado.}
 \label{tab:implementacion:organizacion_software}
 \end{table}
 
 El Cuadro~\ref{tab:implementacion:organizacion_software} resume esta división.
-Desde el punto de vista de la memoria, lo relevante no es enumerar todos los
+No se busca enumerar todos los
 ficheros del repositorio, sino mostrar que cada bloque tiene una responsabilidad
 acotada. El entorno define la interacción, la configuración describe el
 experimento, los scripts ejecutan tareas reproducibles y las utilidades de
@@ -161,7 +189,7 @@ criterio de un único simulador compartido con varios espacios de nombres ROS 2,
 en lugar de iniciar varios simuladores independientes. Esta decisión reduce la
 sobrecarga de infraestructura y se alinea con la idea de Aerostack2 como marco
 capaz de operar sistemas aéreos multirrobot \cite{fernandez2023aerostack2}. Para
-hacer más robusta la ejecución, \texttt{scripts/as2\_runtime.py} comprueba la
+hacer más robusta la ejecución, \\ \texttt{scripts/as2\_runtime.py} comprueba la
 existencia de las sesiones del simulador y permite relanzarlas antes de ejecutar
 validaciones que dependen de AS2.
 
@@ -173,9 +201,7 @@ objetivo directamente sobre el estado del simulador. La implementación no se
 limita a cambiar posición y orientación, sino que también pone a cero velocidades,
 aceleraciones, fuerzas, pares y estado de motores, reinicia controlador, IMU y
 odometría, y resincroniza la plataforma de Aerostack2 para dejarla armada, en
-modo \emph{offboard} y en estado de vuelo. Esta funcionalidad es la base que
-permite que Exp009 actúe como gate de certificación del reset antes de lanzar
-experimentos PPO más largos.
+modo \emph{offboard} y en estado de vuelo.
 
 \section{Configuración operativa de PPO} \label{sct:implementacion:ppo}
 
@@ -226,8 +252,7 @@ Los capítulos de pruebas y resultados son los que deben determinar si una
 configuración concreta produce aprendizaje útil, estabilidad suficiente o
 necesidad de ajuste.
 
-A partir de Exp010 se emplea una configuración más cercana a la especificación
-experimental indicada por el tutor, con tasa de aprendizaje \texttt{3.0e-05},
+A partir de Exp010 se emplea una configuración más óptima con tasa de aprendizaje \texttt{3.0e-05},
 \texttt{n\_steps=512}, \texttt{batch\_size=32}, \texttt{n\_epochs=5},
 \texttt{ent\_coef=0.0}, exploración SDE y redes MLP de dos capas de 128 unidades
 por rama. Las configuraciones Exp010, Exp011 y Exp012 mantienen estos
@@ -331,11 +356,7 @@ a fronteras problemáticas o con la observación saturada desde el primer paso.
 Durante \texttt{step}, la acción recibida se recorta mediante \texttt{max\_vel} y
 \texttt{max\_yaw\_vel}, se envía a Aerostack2 con \texttt{SpeedMotion} y se lee el
 estado actualizado del UAV. Con esa información se calcula la recompensa, se
-evalúan las condiciones de terminación y se generan campos de diagnóstico. Las
-configuraciones Exp010--Exp012 usan una recompensa mínima basada en distancia,
-bonificación terminal de éxito y penalización por condiciones de seguridad; los
-términos auxiliares de progreso, \emph{path-facing} y seguridad vertical quedan
-desactivados para no mezclar el análisis de la tarea con shaping adicional.
+evalúan las condiciones de terminación y se generan campos de diagnóstico.
 
 \begin{figure}[t]
 \centering
@@ -385,7 +406,7 @@ acotada, observable y registrable.
 
 \section{Diagnóstico del reinicio y de la accionabilidad} \label{sct:implementacion:diagnostico_reset}
 
-La implementación añade instrumentación específica porque el entrenamiento solo
+La implementación añade un paso específico porque el entrenamiento solo
 es válido si el UAV parte de un estado físico coherente y responde a las acciones
 enviadas. Por este motivo, el entorno registra el método de reinicio, el camino
 seguido, el estado del servicio, los errores residuales de posición y guiñada, el
@@ -394,16 +415,15 @@ altitud mínima. Estos campos permiten distinguir un fallo de aprendizaje de un
 fallo previo de simulación o de accionabilidad.
 
 El parámetro \texttt{reset\_max\_vel} separa la autoridad usada por los comandos
-internos de reinicio de la velocidad máxima permitida a PPO. También se incorpora
-\texttt{reset\_yaw\_required}, que permite tratar la guiñada como requisito
-bloqueante o como diagnóstico según la fase experimental. Cuando la interfaz
-acepta comandos pero el UAV no se desplaza de forma apreciable, el entorno falla
+internos de reinicio de la velocidad máxima permitida a PPO. Por otra parte cabe
+destacar que cuando la interfaz, acepta comandos pero el UAV no se desplaza de forma apreciable, 
+el entorno falla
 de forma cerrada y evita generar experiencia inválida.
 
 El servicio \texttt{ResetSimulatorState}, añadido en el fork del simulador,
 aplica una pose objetivo y reinicia velocidades, aceleraciones, fuerzas, pares,
 motores, controlador, IMU y odometría. Sobre ese servicio se implementan
-reintentos mediante \texttt{reset\_service\_max\_attempts} y
+reintentos mediante \\ \texttt{reset\_service\_max\_attempts} y
 \texttt{reset\_service\_retry\_backoff\_s}. Exp010 mostró que abortar tras un
 fallo transitorio era demasiado frágil; Exp011 añadió reintentos, y Exp012 redujo
 la frecuencia de reinicios forzados mediante un guard de acción en fronteras.
@@ -443,7 +463,7 @@ instancia.
 
 La vectorización se implementa mediante espacios de nombres ROS 2. A partir del
 prefijo \texttt{drone} se generan instancias como \texttt{drone0},
-\texttt{drone1}, \texttt{drone2} y \texttt{drone3}, todas conectadas al mismo
+\texttt{drone1}, \texttt{drone2}, ... , \texttt{droneN}, todas conectadas al mismo
 simulador compartido. Esta solución evita lanzar un simulador por entorno y
 mantiene la correspondencia entre instancia de Gymnasium y UAV simulado. La
 implementación puede usar \texttt{DummyVecEnv} o \texttt{SubprocVecEnv} según la
@@ -463,7 +483,7 @@ El supervisor \texttt{scripts/supervise\_train.sh} automatiza tres mecanismos
 sobre esa base. Ante un fallo del entrenamiento, reinicia el stack AS2 completo,
 espera a que el servicio de reinicio de cada dron esté disponible y reanuda desde
 el último \emph{checkpoint}. Mediante la variable \texttt{RECYCLE\_SECONDS}
-aplica además un reciclado preventivo: interrumpe el entrenamiento a intervalos
+aplica además un reciclado preventivo donde interrumpe el entrenamiento a intervalos
 fijos y lo reanuda sobre un stack recién iniciado, de modo que cada tramo se
 ejecuta sobre un simulador sin degradación acumulada; los reciclados se detectan
 por el tiempo transcurrido, no solo por el código de salida, y no consumen el

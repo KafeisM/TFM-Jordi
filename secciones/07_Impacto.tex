@@ -50,37 +50,4 @@ retardos de comunicación y fallos parciales) que quedan explícitamente fuera d
 alcance. Presentar resultados de simulación como capacidades operativas sería
 una extrapolación injustificada, y la memoria evita deliberadamente ese salto.
 
-\section{Consideraciones éticas y de seguridad} \label{sct:impacto:etica}
 
-El trabajo incorpora la seguridad operacional como criterio de diseño incluso en
-simulación: las terminaciones de seguridad por salida de límites y baja altitud
-se mantienen siempre activas como red final, los guards de acción impiden que la
-política explore estados físicamente peligrosos y el protocolo de evaluación
-registra la altitud mínima y las razones de terminación de cada episodio. Estas
-decisiones reflejan el principio de que un controlador aprendido debe operar
-dentro de envolventes de seguridad verificables, no sustituirlas.
-
-En un eventual despliegue real, la política entrenada debería operar bajo
-supervisión humana y dentro de los mecanismos de seguridad de la plataforma
-(geofencing, limitación de velocidad, parada de emergencia), en conformidad con
-la normativa aplicable a operaciones con UAS. El carácter dual de la tecnología
-de drones autónomos exige además un uso responsable; este trabajo se limita a
-una capacidad básica de navegación en entornos controlados y publica sus
-resultados con fines de investigación y docencia.
-
-\section{Relación con los Objetivos de Desarrollo Sostenible} \label{sct:impacto:ods}
-
-El trabajo se relaciona de forma justificable con tres Objetivos de Desarrollo
-Sostenible de la Agenda 2030. Respecto al ODS 9 (industria, innovación e
-infraestructura), contribuye a la madurez de las herramientas abiertas de
-robótica aérea, base tecnológica de aplicaciones de inspección y logística.
-Respecto al ODS 12 (producción y consumo responsables), el enfoque
-simulación-primero evita el consumo de recursos físicos del entrenamiento con
-vehículos reales, y las técnicas introducidas para aprovechar el simulador
-(vectorización, reciclado preventivo, reanudación desde \emph{checkpoint})
-reducen el cómputo desperdiciado en ejecuciones inválidas, con la consiguiente
-reducción del consumo energético del proceso de investigación. Respecto al ODS 4
-(educación de calidad), el código y la memoria quedan disponibles como material
-de aprendizaje sobre un problema real de integración entre aprendizaje
-automático y robótica, con énfasis en la metodología experimental y en la
-interpretación honesta de resultados, incluidos los negativos.

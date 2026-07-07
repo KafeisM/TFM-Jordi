@@ -86,7 +86,7 @@ Aerostack2 ejecuta los comandos en el simulador. Además, la inicialización de 
 inicializaciones repetidas y reducir riesgos de carrera cuando se crean varias
 instancias del entorno.
 
-La incorporación del servicio de reinicio modifica una hipótesis inicial del
+La incorporación del servicio de reinicio supone una parte crítica del
 diseño. El reinicio deja de depender únicamente de comandos de velocidad o de
 comportamientos de navegación de Aerostack2, y pasa a contar con una operación
 propia del simulador para restaurar pose, velocidades, referencias internas,
@@ -432,7 +432,7 @@ con datos contaminados por un estado físico no válido.
 \section{Diseño de la recompensa y condiciones de finalización} \label{sct:diseno:recompensa}
 
 La recompensa final usada en la fase de experimentación principal se diseña para
-mantener una señal mínima e interpretable, alineada con el criterio del tutor. En
+mantener una señal mínima e interpretable. En
 cada paso se penaliza únicamente la distancia normalizada al objetivo. Para ello, si
 $d_t$ representa la distancia euclídea entre el UAV y el objetivo, y
 $d_{\max}$ representa la distancia máxima de normalización. A partir de ambas
@@ -533,7 +533,7 @@ protección activa: un \emph{guard} de acción que, cerca de los límites, reemp
 la componente de velocidad saliente por un empuje hacia el interior.
 
 El guard se diseña con disparo predictivo. La versión reactiva, que actúa cuando
-la posición cruza una línea de guardia, resultó insuficiente en el eje vertical:
+la posición cruza una línea de guardia, resultó insuficiente en el eje vertical ya que
 la plataforma invierte la velocidad con lentitud y la inercia atraviesa el margen
 antes de que la orden correctora surta efecto. Por ello el disparo evalúa la
 posición \emph{predicha}, calculada como posición actual más velocidad medida por
@@ -558,63 +558,6 @@ etapa se inicializa con el modelo final de la anterior (\emph{warm start}) y
 todas mantienen la separación mínima de 1,0 m, de forma que la distribución de
 episodios de una etapa contiene a la anterior y la política no olvida los
 objetivos cercanos al aprender los lejanos.
-
-\section{Diseño de la ejecución vectorizada} \label{sct:diseno:vectorizacion}
-
-La ejecución vectorizada se diseña para permitir varias instancias lógicas del
-entorno sobre un único simulador compartido. El diseño utiliza espacios de nombres
-diferenciados, \texttt{drone0} a \texttt{drone3}, de forma que cada UAV simulado
-pueda ser identificado y gobernado de manera independiente dentro de la misma
-infraestructura ROS 2. Esta organización reduce la necesidad de duplicar toda la
-infraestructura del simulador, pero exige tratar con cuidado la inicialización de
-ROS 2, los nombres de los drones y la sincronización entre episodios.
-
-La elección del mecanismo de vectorización viene determinada por una propiedad
-del simulador: opera en tiempo de reloj real, de modo que cada paso del entorno
-consume la duración física configurada (0,2 s) con independencia del proceso que
-lo invoque. Esta propiedad invalida en este sistema el razonamiento habitual a
-favor de la vectorización secuencial (\texttt{SyncVectorEnv} en Gymnasium,
-\texttt{DummyVecEnv} en Stable-Baselines3), cuyo beneficio procede de agrupar las
-observaciones para una única inferencia por lotes: con un simulador de reloj
-real, $N$ entornos secuenciales tardan $N$ veces el paso físico en producir $N$
-muestras, es decir, el mismo caudal de muestreo que un solo entorno. Por ello el
-diseño adopta \texttt{SubprocVecEnv}, que ejecuta los pasos de los $N$ entornos
-en paralelo real manteniendo la inferencia por lotes, con la expectativa
-(verificada experimentalmente) de multiplicar el muestreo por el número de
-drones.
-
-El paso vectorizado en paralelo introduce, sin embargo, un modo de fallo propio
-de los simuladores de reloj real: el avance en \emph{lockstep}. Cuando uno de los
-entornos ejecuta su reinicio certificado, operación que tarda decenas de
-segundos, el paso vectorizado queda bloqueado para todos; durante ese intervalo
-los demás drones no reciben órdenes nuevas mientras el mundo sigue avanzando, y
-el controlador de Aerostack2 mantiene la última referencia de velocidad como
-consigna activa. El diseño incorpora por ello un mecanismo de vigilancia
-(\emph{watchdog}) de comandos inactivos: si un entorno en vuelo supera un umbral
-de tiempo sin emitir referencias de movimiento, el mecanismo publica una consigna
-de velocidad nula de forma periódica hasta que el flujo normal de comandos se
-reanuda. El umbral se dimensiona por encima de la duración del paso, de modo que
-el mecanismo permanece inerte durante la operación normal y solo actúa en los
-huecos de \emph{lockstep}; en ejecución monodron queda desactivado y el
-comportamiento del entorno es idéntico al de la fase anterior.
-
-\section{Diseño del protocolo de evaluación} \label{sct:diseno:evaluacion}
-
-La comparación entre la política aprendida y un controlador clásico exige que
-ambos se evalúen exactamente sobre los mismos episodios. El protocolo se diseña
-en torno a dos decisiones. La primera es la reproducibilidad por semillas: el
-episodio $i$ de una evaluación se genera reiniciando el entorno con la semilla
-$s_0 + i$, de modo que la secuencia de pares inicio--objetivo es idéntica entre
-evaluaciones y controladores. La segunda es la abstracción del controlador: el
-protocolo define una interfaz mínima (reiniciar estado interno al comienzo del
-episodio y transformar una observación en una acción) que cumplen tanto la
-política PPO, en modo determinista o estocástico, como un controlador PID por
-ejes que consume la misma observación relativa normalizada y emite acciones en el
-mismo espacio acotado. Cada evaluación registra métricas por episodio (éxito,
-razón de terminación, pasos, distancia final, longitud de trayectoria, error de
-guiñada terminal y normas de acción) y las agrega globalmente y por tramos de
-distancia inicial, lo que permite comparar controladores con evidencia
-cuantitativa homogénea.
 
 La Figura~\ref{fig:diseno:vectorizacion} resume esta organización mediante
 varias instancias lógicas conectadas a una infraestructura de simulación
@@ -675,3 +618,60 @@ asociadas a espacios de nombres diferenciados sobre una infraestructura de
 simulación compartida.}
 \label{fig:diseno:vectorizacion}
 \end{figure}
+
+\section{Diseño de la ejecución vectorizada} \label{sct:diseno:vectorizacion}
+
+La ejecución vectorizada se diseña para permitir varias instancias lógicas del
+entorno sobre un único simulador compartido. El diseño utiliza espacios de nombres
+diferenciados, \texttt{drone0} a \texttt{droneN}, de forma que cada UAV simulado
+pueda ser identificado y gobernado de manera independiente dentro de la misma
+infraestructura ROS 2. Esta organización reduce la necesidad de duplicar toda la
+infraestructura del simulador, pero exige tratar con cuidado la inicialización de
+ROS 2, los nombres de los drones y la sincronización entre episodios.
+
+La elección del mecanismo de vectorización viene determinada por una propiedad
+del simulador: opera en tiempo de reloj real, de modo que cada paso del entorno
+consume la duración física configurada (0,2 s) con independencia del proceso que
+lo invoque. Esta propiedad invalida en este sistema el razonamiento habitual a
+favor de la vectorización secuencial (\texttt{SyncVectorEnv} en Gymnasium,
+\texttt{DummyVecEnv} en Stable-Baselines3), cuyo beneficio procede de agrupar las
+observaciones para una única inferencia por lotes: con un simulador de reloj
+real, $N$ entornos secuenciales tardan $N$ veces el paso físico en producir $N$
+muestras, es decir, el mismo caudal de muestreo que un solo entorno. Por ello el
+diseño adopta \texttt{SubprocVecEnv}, que ejecuta los pasos de los $N$ entornos
+en paralelo real manteniendo la inferencia por lotes, con la expectativa
+(verificada experimentalmente) de multiplicar el muestreo por el número de
+drones.
+
+El paso vectorizado en paralelo introduce, sin embargo, un modo de fallo propio
+de los simuladores de reloj real, el avance en \emph{lockstep}. Cuando uno de los
+entornos ejecuta su reinicio, es una operación que tarda decenas de
+segundos, el paso vectorizado queda bloqueado para todos; durante ese intervalo
+los demás drones no reciben órdenes nuevas mientras el mundo sigue avanzando, y
+el controlador de Aerostack2 mantiene la última referencia de velocidad como
+consigna activa. El diseño incorpora por ello un mecanismo de vigilancia
+(\emph{watchdog}) de comandos inactivos: si un entorno en vuelo supera un umbral
+de tiempo sin emitir referencias de movimiento, el mecanismo publica una consigna
+de velocidad nula de forma periódica hasta que el flujo normal de comandos se
+reanuda. El umbral se dimensiona por encima de la duración del paso, de modo que
+el mecanismo permanece inerte durante la operación normal y solo actúa en los
+huecos de \emph{lockstep}; en ejecución monodron queda desactivado y el
+comportamiento del entorno es idéntico al de la fase anterior.
+
+\section{Diseño del protocolo de evaluación} \label{sct:diseno:evaluacion}
+
+La comparación entre la política aprendida y un controlador clásico exige que
+ambos se evalúen exactamente sobre los mismos episodios. El protocolo se diseña
+en torno a dos decisiones. La primera es la reproducibilidad por semillas: el
+episodio $i$ de una evaluación se genera reiniciando el entorno con la semilla
+$s_0 + i$, de modo que la secuencia de pares inicio--objetivo es idéntica entre
+evaluaciones y controladores. La segunda es la abstracción del controlador: el
+protocolo define una interfaz mínima (reiniciar estado interno al comienzo del
+episodio y transformar una observación en una acción) que cumplen tanto la
+política PPO, en modo determinista o estocástico, como un controlador PID por
+ejes que consume la misma observación relativa normalizada y emite acciones en el
+mismo espacio acotado. Cada evaluación registra métricas por episodio (éxito,
+razón de terminación, pasos, distancia final, longitud de trayectoria, error de
+guiñada terminal y normas de acción) y las agrega globalmente y por tramos de
+distancia inicial, lo que permite comparar controladores con evidencia
+cuantitativa homogénea.

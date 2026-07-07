@@ -1,18 +1,15 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.1) (preloaded format=pdflatex 2026.2.27)  4 JUL 2026 16:30
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.1) (preloaded format=pdflatex 2026.2.27)  7 JUL 2026 18:24
 entering extended mode
  restricted \write18 enabled.
+ file:line:error style messages enabled.
  %&-line parsing enabled.
-**./tfg_etsiinf_NombreApellidos.tex
-(tfg_etsiinf_NombreApellidos.tex
+**/Users/jordi/GitHub/TFM/TFM-Jordi/tfg_etsiinf_NombreApellidos.tex
+(/Users/jordi/GitHub/TFM/TFM-Jordi/tfg_etsiinf_NombreApellidos.tex
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
-(secciones/_DatosTFG.tex) (include/Preambulo.tex
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/base/
-book.cls
+(secciones/_DatosTFG.tex) (include/Preambulo.tex (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/base/book.cls
 Document Class: book 2025/01/22 v1.4n Standard LaTeX document class
-
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/base/
-bk11.clo
+(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/base/bk11.clo
 File: bk11.clo 2025/01/22 v1.4n Standard LaTeX file (size option)
 )
 \c@part=\count275
@@ -27,41 +24,25 @@ File: bk11.clo 2025/01/22 v1.4n Standard LaTeX file (size option)
 \abovecaptionskip=\skip49
 \belowcaptionskip=\skip50
 \bibindent=\dimen148
-)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/base/
-inputenc.sty
+) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/base/inputenc.sty
 Package: inputenc 2024/02/08 v1.3d Input encoding file
 \inpenc@prehook=\toks17
 \inpenc@posthook=\toks18
-)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/base/
-fontenc.sty
+) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/base/fontenc.sty
 Package: fontenc 2025/07/18 v2.1d Standard LaTeX package
-)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/bab
-el/babel.sty
-Package: babel 2026/02/14 v26.3 The multilingual framework for LuaLaTeX, pdfLaT
-eX and XeLaTeX
+) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/babel/babel.sty
+Package: babel 2026/02/14 v26.3 The multilingual framework for LuaLaTeX, pdfLaTeX and XeLaTeX
 \babel@savecnt=\count284
-LaTeX Encoding Info:    Redeclaring text command \ij (encoding OT1) on input li
-ne 2078.
-LaTeX Encoding Info:    Redeclaring text command \IJ (encoding OT1) on input li
-ne 2080.
-LaTeX Encoding Info:    Redeclaring text command \ij (encoding T1) on input lin
-e 2082.
-LaTeX Encoding Info:    Redeclaring text command \IJ (encoding T1) on input lin
-e 2083.
-LaTeX Encoding Info:    Ignoring declaration for text command \ij (encoding ?) 
-on input line 2084.
-LaTeX Encoding Info:    Ignoring declaration for text command \IJ (encoding ?) 
-on input line 2086.
-LaTeX Encoding Info:    Ignoring declaration for text command \SS (encoding ?) 
-on input line 2111.
+LaTeX Encoding Info:    Redeclaring text command \ij (encoding OT1) on input line 2078.
+LaTeX Encoding Info:    Redeclaring text command \IJ (encoding OT1) on input line 2080.
+LaTeX Encoding Info:    Redeclaring text command \ij (encoding T1) on input line 2082.
+LaTeX Encoding Info:    Redeclaring text command \IJ (encoding T1) on input line 2083.
+LaTeX Encoding Info:    Ignoring declaration for text command \ij (encoding ?) on input line 2084.
+LaTeX Encoding Info:    Ignoring declaration for text command \IJ (encoding ?) on input line 2086.
+LaTeX Encoding Info:    Ignoring declaration for text command \SS (encoding ?) on input line 2111.
 \U@D=\dimen149
 \l@unhyphenated=\language79
-
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/bab
-el/txtbabel.def)
+ (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/babel/txtbabel.def)
 \bbl@readstream=\read2
 \bbl@dirlevel=\count285
 Package babel Info: Configuration files are deprecated, as
@@ -71,21 +52,12 @@ Package babel Info: Configuration files are deprecated, as
 *************************************
 * Local config file bblopts.cfg used
 *
-
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/arabi
-/bblopts.cfg
-File: bblopts.cfg 2005/09/08 v0.1 add Arabic and Farsi to "declared" options of
- babel
-)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/bab
-el/locale/en/babel-english.tex)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/bab
-el/locale/es/babel-spanish.tex)
+(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/arabi/bblopts.cfg
+File: bblopts.cfg 2005/09/08 v0.1 add Arabic and Farsi to "declared" options of babel
+) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/babel/locale/en/babel-english.tex) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/babel/locale/es/babel-spanish.tex)
 Package babel Info: Importing font and identification data for english
 (babel)             from babel-en.ini. Reported on input line 4330.
-
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/babel
--english/english.ldf
+ (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/babel-english/english.ldf
 Language: english 2017/06/06 v3.3r English support from the babel system
 Package babel Info: Hyphen rules for 'canadian' set to \l@english
 (babel)             (\language0). Reported on input line 102.
@@ -96,9 +68,7 @@ Package babel Info: Hyphen rules for 'newzealand' set to \l@ukenglish
 )
 Package babel Info: Importing font and identification data for spanish
 (babel)             from babel-es.ini. Reported on input line 4330.
-
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/babel
--spanish/spanish.ldf
+ (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/babel-spanish/spanish.ldf
 Language: spanish.ldf 2021/05/27 v5.0q Spanish support from the babel system
 \es@quottoks=\toks19
 \es@quotdepth=\count286
@@ -107,47 +77,29 @@ Package babel Info: Making . an active character on input line 675.
 Package babel Info: Making < an active character on input line 722.
 Package babel Info: Making > an active character on input line 722.
 ))
-LaTeX Encoding Info:    Redeclaring text command \guillemotleft (encoding OT1) 
-on input line 7.
-LaTeX Encoding Info:    Redeclaring text command \guillemotright (encoding OT1)
- on input line 7.
-
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/psnfs
-s/bookman.sty
+LaTeX Encoding Info:    Redeclaring text command \guillemotleft (encoding OT1) on input line 7.
+LaTeX Encoding Info:    Redeclaring text command \guillemotright (encoding OT1) on input line 7.
+ (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/psnfss/bookman.sty
 Package: bookman 2020/03/25 PSNFSS-v9.3 (SPQR) 
-)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graph
-ics/graphicx.sty
+) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graphics/graphicx.sty
 Package: graphicx 2024/12/31 v1.2e Enhanced LaTeX Graphics (DPC,SPQR)
-
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graph
-ics/keyval.sty
+ (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graphics/keyval.sty
 Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
 \KV@toks@=\toks20
-)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graph
-ics/graphics.sty
+) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graphics/graphics.sty
 Package: graphics 2024/08/06 v1.4g Standard LaTeX Graphics (DPC,SPQR)
-
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graph
-ics/trig.sty
+ (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graphics/trig.sty
 Package: trig 2023/12/02 v1.11 sin cos tan (DPC)
-)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graph
-ics-cfg/graphics.cfg
+) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graphics-cfg/graphics.cfg
 File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
 Package graphics Info: Driver file: pdftex.def on input line 106.
-
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graph
-ics-def/pdftex.def
+ (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graphics-def/pdftex.def
 File: pdftex.def 2025/09/29 v1.2d Graphics/color driver for pdftex
 ))
 \Gin@req@height=\dimen150
 \Gin@req@width=\dimen151
-)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/amsfo
-nts/amsfonts.sty
+) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/amsfonts/amsfonts.sty
 Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 \@emptytoks=\toks21
 \symAMSa=\mathgroup4
@@ -155,31 +107,21 @@ Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
-)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/amsma
-th/amsgen.sty
+) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/amsmath/amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0 generic functions
 \@emptytoks=\toks22
 \ex@=\dimen152
-)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/amsma
-th/amsmath.sty
+) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/amsmath/amsmath.sty
 Package: amsmath 2025/07/09 v2.17z AMS math features
 \@mathmargin=\skip51
 
 For additional information on amsmath, use the `?' option.
-
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/amsma
-th/amstext.sty
+(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/amsmath/amstext.sty
 Package: amstext 2024/11/17 v2.01 AMS text
-)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/amsma
-th/amsbsy.sty
+) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/amsmath/amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d Bold Symbols
 \pmbraise@=\dimen153
-)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/amsma
-th/amsopn.sty
+) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/amsmath/amsopn.sty
 Package: amsopn 2022/04/08 v2.04 operator names
 )
 \inf@bad=\count287
@@ -229,21 +171,13 @@ LaTeX Info: Redefining \Relbar on input line 970.
 \mathdisplay@stack=\toks26
 LaTeX Info: Redefining \[ on input line 2950.
 LaTeX Info: Redefining \] on input line 2951.
-)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/amsfo
-nts/amssymb.sty
+) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/amsfonts/amssymb.sty
 Package: amssymb 2013/01/14 v3.01 AMS font symbols
-)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/geome
-try/geometry.sty
+) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/geometry/geometry.sty
 Package: geometry 2020/01/02 v5.9 Page Geometry
-
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/ift
-ex/ifvtex.sty
+ (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/iftex/ifvtex.sty
 Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
-
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/ift
-ex/iftex.sty
+ (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/iftex/iftex.sty
 Package: iftex 2024/12/12 v1.0g TeX engine tests
 ))
 \Gm@cnth=\count299
@@ -258,22 +192,14 @@ Package: iftex 2024/12/12 v1.0g TeX engine tests
 \Gm@layouthoffset=\dimen167
 \Gm@layoutvoffset=\dimen168
 \Gm@dimlist=\toks27
-
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/geome
-try/geometry.cfg))
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/tools
-/afterpage.sty
+ (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/geometry/geometry.cfg)) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/tools/afterpage.sty
 Package: afterpage 2023/07/04 v1.08 After-Page Package (DPC)
 \AP@output=\toks28
 \AP@partial=\box55
 \AP@footins=\box56
-)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/color
-tbl/colortbl.sty
+) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/colortbl/colortbl.sty
 Package: colortbl 2024/10/29 v1.0k Color table columns (DPC)
-
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/tools
-/array.sty
+ (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/tools/array.sty
 Package: array 2025/09/25 v2.6n Tabular extension package (FMi)
 \col@sep=\dimen169
 \ar@mcellbox=\box57
@@ -282,25 +208,17 @@ Package: array 2025/09/25 v2.6n Tabular extension package (FMi)
 \extratabsurround=\skip54
 \backup@length=\skip55
 \ar@cellbox=\box58
-)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graph
-ics/color.sty
+) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graphics/color.sty
 Package: color 2025/01/14 v1.3e Standard LaTeX Color (DPC)
-
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graph
-ics-cfg/color.cfg
+ (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graphics-cfg/color.cfg
 File: color.cfg 2016/01/02 v1.6 sample color configuration
 )
 Package color Info: Driver file: pdftex.def on input line 149.
-
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graph
-ics/mathcolor.ltx))
+ (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graphics/mathcolor.ltx))
 \everycr=\toks30
 \minrowclearance=\skip56
 \rownum=\count302
-)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/tools
-/longtable.sty
+) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/tools/longtable.sty
 Package: longtable 2025-10-13 v4.24 Multi-page Table package (DPC)
 \LTleft=\skip57
 \LTright=\skip58
@@ -318,90 +236,54 @@ Package: longtable 2025-10-13 v4.24 Multi-page Table package (DPC)
 \c@LT@tables=\count306
 \c@LT@chunks=\count307
 \LT@p@ftn=\toks31
-)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/hyper
-ref/hyperref.sty
+) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/hyperref/hyperref.sty
 Package: hyperref 2026-01-29 v7.01p Hypertext links for LaTeX
-
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/kvset
-keys/kvsetkeys.sty
+ (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/kvsetkeys/kvsetkeys.sty
 Package: kvsetkeys 2022-10-05 v1.19 Key value parser (HO)
-)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/kvd
-efinekeys/kvdefinekeys.sty
+) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/kvdefinekeys/kvdefinekeys.sty
 Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
-)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pdf
-escape/pdfescape.sty
+) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pdfescape/pdfescape.sty
 Package: pdfescape 2019/12/09 v1.15 Implements pdfTeX's escape features (HO)
-
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/ltx
-cmds/ltxcmds.sty
+ (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/ltxcmds/ltxcmds.sty
 Package: ltxcmds 2023-12-04 v1.26 LaTeX kernel commands for general use (HO)
-)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pdf
-texcmds/pdftexcmds.sty
-Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO
-)
-
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/inf
-warerr/infwarerr.sty
+) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pdftexcmds/pdftexcmds.sty
+Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO)
+ (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/infwarerr/infwarerr.sty
 Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
 )
 Package pdftexcmds Info: \pdf@primitive is available.
 Package pdftexcmds Info: \pdf@ifprimitive is available.
 Package pdftexcmds Info: \pdfdraftmode found.
-))
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/hycol
-or/hycolor.sty
+)) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/hycolor/hycolor.sty
 Package: hycolor 2020-01-27 v1.10 Color options for hyperref/bookmark (HO)
-)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/hyper
-ref/nameref.sty
+) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/hyperref/nameref.sty
 Package: nameref 2026-01-29 v2.58 Cross-referencing by name of section
-
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/refco
-unt/refcount.sty
+ (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/refcount/refcount.sty
 Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
-)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/get
-titlestring/gettitlestring.sty
+) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/gettitlestring/gettitlestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
-
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/kvopt
-ions/kvoptions.sty
+ (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/kvoptions/kvoptions.sty
 Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
 ))
 \c@section@level=\count308
-)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/etool
-box/etoolbox.sty
+) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/etoolbox/etoolbox.sty
 Package: etoolbox 2025/10/02 v2.5m e-TeX tools for LaTeX (JAW)
 \etb@tempcnta=\count309
-)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/str
-ingenc/stringenc.sty
-Package: stringenc 2019/11/29 v1.12 Convert strings between diff. encodings (HO
-)
+) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/stringenc/stringenc.sty
+Package: stringenc 2019/11/29 v1.12 Convert strings between diff. encodings (HO)
 )
 \@linkdim=\dimen172
 \Hy@linkcounter=\count310
 \Hy@pagecounter=\count311
-
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/hyper
-ref/pd1enc.def
+ (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/hyperref/pd1enc.def
 File: pd1enc.def 2026-01-29 v7.01p Hyperref: PDFDocEncoding definition (HO)
 Now handling font encoding PD1 ...
 ... no UTF-8 mapping file for font encoding PD1
-)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/int
-calc/intcalc.sty
+) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/intcalc/intcalc.sty
 Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
 )
 \Hy@SavedSpaceFactor=\count312
-
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/hyper
-ref/puenc.def
+ (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/hyperref/puenc.def
 File: puenc.def 2026-01-29 v7.01p Hyperref: PDF Unicode definition (HO)
 Now handling font encoding PU ...
 ... no UTF-8 mapping file for font encoding PU
@@ -414,23 +296,16 @@ Package hyperref Info: Backreferencing OFF on input line 4221.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
 Package hyperref Info: Bookmarks ON on input line 4468.
 \c@Hy@tempcnt=\count313
-
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/url/u
-rl.sty
+ (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/url/url.sty
 \Urlmuskip=\muskip18
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
 LaTeX Info: Redefining \url on input line 4807.
 \XeTeXLinkMargin=\dimen173
-
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/bit
-set/bitset.sty
+ (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/bitset/bitset.sty
 Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
-
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/big
-intcalc/bigintcalc.sty
-Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
-)
+ (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/bigintcalc/bigintcalc.sty
+Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO)
 ))
 \Fld@menulength=\count314
 \Field@Width=\dimen174
@@ -447,36 +322,23 @@ Package hyperref Info: PDF/A mode OFF on input line 6114.
 \c@Hfootnote=\count317
 )
 Package hyperref Info: Driver: hpdftex.
-
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/hyper
-ref/hpdftex.def
+ (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/hyperref/hpdftex.def
 File: hpdftex.def 2026-01-29 v7.01p Hyperref driver for pdfTeX
 \Fld@listcount=\count318
 \c@bookmark@seq@number=\count319
-
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/rerun
-filecheck/rerunfilecheck.sty
+ (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/rerunfilecheck/rerunfilecheck.sty
 Package: rerunfilecheck 2025-06-21 v1.11 Rerun checks for auxiliary files (HO)
-
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/uni
-quecounter/uniquecounter.sty
+ (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/uniquecounter/uniquecounter.sty
 Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
 )
-Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
-84.
+Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 284.
 )
 \Hy@SectionHShift=\skip61
-)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/pdfpa
-ges/pdfpages.sty
+) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/pdfpages/pdfpages.sty
 Package: pdfpages 2025/07/23 v0.6g Insert pages of external PDF documents (AM)
-
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/base/
-ifthen.sty
+ (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/base/ifthen.sty
 Package: ifthen 2024/03/16 v1.1e Standard LaTeX ifthen package (DPC)
-)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/tools
-/calc.sty
+) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/tools/calc.sty
 Package: calc 2025/03/01 v4.3b Infix arithmetic (KKT,FJ)
 \calc@Acount=\count320
 \calc@Bcount=\count321
@@ -488,9 +350,7 @@ LaTeX Info: Redefining \setlength on input line 86.
 LaTeX Info: Redefining \addtolength on input line 87.
 \calc@Ccount=\count322
 \calc@Cskip=\skip64
-)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/eso-p
-ic/eso-pic.sty
+) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/eso-pic/eso-pic.sty
 Package: eso-pic 2025/12/10 v3.0d eso-pic (RN)
 \ESO@tempdima=\dimen178
 \ESO@tempdimb=\dimen179
@@ -498,9 +358,7 @@ Package: eso-pic 2025/12/10 v3.0d eso-pic (RN)
 \AM@pagewidth=\dimen180
 \AM@pageheight=\dimen181
 \AM@fboxrule=\dimen182
-
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/pdfpa
-ges/pppdftex.def
+ (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/pdfpages/pppdftex.def
 File: pppdftex.def 2025/07/23 v0.6g Pdfpages driver for pdfTeX (AM)
 )
 \pdfpages@includegraphics@status=\count323
@@ -511,9 +369,7 @@ File: pppdftex.def 2025/07/23 v0.6g Pdfpages driver for pdfTeX (AM)
 \AM@lof@heading=\toks34
 \c@AM@survey=\count325
 \AM@templatesizebox=\box65
-)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/footm
-isc/footmisc.sty
+) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/footmisc/footmisc.sty
 Package: footmisc 2025/05/09 v7.0b a miscellany of footnote facilities
 \FN@temptoken=\toks35
 \footnotemargin=\dimen183
@@ -521,122 +377,85 @@ Package footmisc Info: Declaring symbol style bringhurst on input line 549.
 Package footmisc Info: Declaring symbol style chicago on input line 557.
 Package footmisc Info: Declaring symbol style wiley on input line 566.
 Package footmisc Info: Declaring symbol style lamport-robust on input line 577.
-
 Package footmisc Info: Declaring symbol style lamport* on input line 597.
-Package footmisc Info: Declaring symbol style lamport*-robust on input line 618
-.
-)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/parsk
-ip/parskip.sty
+Package footmisc Info: Declaring symbol style lamport*-robust on input line 618.
+) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/parskip/parskip.sty
 Package: parskip 2021-03-14 v2.0h non-zero parskip adjustments
-)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graph
-ics/lscape.sty
+) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/tools/tabularx.sty
+Package: tabularx 2023/12/11 v2.12a `tabularx' package (DPC)
+\TX@col@width=\dimen184
+\TX@old@table=\dimen185
+\TX@old@col=\dimen186
+\TX@target=\dimen187
+\TX@delta=\dimen188
+\TX@cols=\count326
+\TX@ftn=\toks36
+) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/xurl/xurl.sty
+Package: xurl 2022/01/09 v 0.10 modify URL breaks
+) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graphics/lscape.sty
 Package: lscape 2020/05/28 v3.02 Landscape Pages (DPC)
-)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/pgfga
-ntt/pgfgantt.sty
+) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/pgfgantt/pgfgantt.sty
 Package: pgfgantt 2024/06/19 v5.0a Draw Gantt diagrams with TikZ
-
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/pgf/f
-rontendlayer/tikz.sty
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/pgf/b
-asiclayer/pgf.sty
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/pgf/u
-tilities/pgfrcs.sty
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf
-/utilities/pgfutil-common.tex
-\pgfutil@everybye=\toks36
-\pgfutil@tempdima=\dimen184
-\pgfutil@tempdimb=\dimen185
-)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf
-/utilities/pgfutil-latex.def
+ (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/pgf/frontendlayer/tikz.sty (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/pgf/basiclayer/pgf.sty (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/pgf/utilities/pgfrcs.sty (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/utilities/pgfutil-common.tex
+\pgfutil@everybye=\toks37
+\pgfutil@tempdima=\dimen189
+\pgfutil@tempdimb=\dimen190
+) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/utilities/pgfutil-latex.def
 \pgfutil@abb=\box66
-)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf
-/utilities/pgfrcs.code.tex
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf
-/pgf.revision.tex)
+) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/utilities/pgfrcs.code.tex (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/pgf.revision.tex)
 Package: pgfrcs 2025-08-29 v3.1.11a (3.1.11a)
 ))
 Package: pgf 2025-08-29 v3.1.11a (3.1.11a)
-
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/pgf/b
-asiclayer/pgfcore.sty
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/pgf/s
-ystemlayer/pgfsys.sty
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf
-/systemlayer/pgfsys.code.tex
+ (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/pgf/basiclayer/pgfcore.sty (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/pgf/systemlayer/pgfsys.sty (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/systemlayer/pgfsys.code.tex
 Package: pgfsys 2025-08-29 v3.1.11a (3.1.11a)
-
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf
-/utilities/pgfkeys.code.tex
-\pgfkeys@pathtoks=\toks37
-\pgfkeys@temptoks=\toks38
-
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf
-/utilities/pgfkeyslibraryfiltered.code.tex
-\pgfkeys@tmptoks=\toks39
+ (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/utilities/pgfkeys.code.tex
+\pgfkeys@pathtoks=\toks38
+\pgfkeys@temptoks=\toks39
+ (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/utilities/pgfkeyslibraryfiltered.code.tex
+\pgfkeys@tmptoks=\toks40
 ))
-\pgf@x=\dimen186
-\pgf@y=\dimen187
-\pgf@xa=\dimen188
-\pgf@ya=\dimen189
-\pgf@xb=\dimen190
-\pgf@yb=\dimen191
-\pgf@xc=\dimen192
-\pgf@yc=\dimen193
-\pgf@xd=\dimen194
-\pgf@yd=\dimen195
+\pgf@x=\dimen191
+\pgf@y=\dimen192
+\pgf@xa=\dimen193
+\pgf@ya=\dimen194
+\pgf@xb=\dimen195
+\pgf@yb=\dimen196
+\pgf@xc=\dimen197
+\pgf@yc=\dimen198
+\pgf@xd=\dimen199
+\pgf@yd=\dimen256
 \w@pgf@writea=\write3
 \r@pgf@reada=\read3
-\c@pgf@counta=\count326
-\c@pgf@countb=\count327
-\c@pgf@countc=\count328
-\c@pgf@countd=\count329
-\t@pgf@toka=\toks40
-\t@pgf@tokb=\toks41
-\t@pgf@tokc=\toks42
-\pgf@sys@id@count=\count330
-
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf
-/systemlayer/pgf.cfg
+\c@pgf@counta=\count327
+\c@pgf@countb=\count328
+\c@pgf@countc=\count329
+\c@pgf@countd=\count330
+\t@pgf@toka=\toks41
+\t@pgf@tokb=\toks42
+\t@pgf@tokc=\toks43
+\pgf@sys@id@count=\count331
+ (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/systemlayer/pgf.cfg
 File: pgf.cfg 2025-08-29 v3.1.11a (3.1.11a)
 )
 Driver file for pgf: pgfsys-pdftex.def
-
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf
-/systemlayer/pgfsys-pdftex.def
+ (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/systemlayer/pgfsys-pdftex.def
 File: pgfsys-pdftex.def 2025-08-29 v3.1.11a (3.1.11a)
-
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf
-/systemlayer/pgfsys-common-pdf.def
+ (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/systemlayer/pgfsys-common-pdf.def
 File: pgfsys-common-pdf.def 2025-08-29 v3.1.11a (3.1.11a)
-)))
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf
-/systemlayer/pgfsyssoftpath.code.tex
+))) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/systemlayer/pgfsyssoftpath.code.tex
 File: pgfsyssoftpath.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-\pgfsyssoftpath@smallbuffer@items=\count331
-\pgfsyssoftpath@bigbuffer@items=\count332
-)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf
-/systemlayer/pgfsysprotocol.code.tex
+\pgfsyssoftpath@smallbuffer@items=\count332
+\pgfsyssoftpath@bigbuffer@items=\count333
+) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/systemlayer/pgfsysprotocol.code.tex
 File: pgfsysprotocol.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-))
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/xcolo
-r/xcolor.sty
+)) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/xcolor/xcolor.sty
 Package: xcolor 2024/09/29 v3.02 LaTeX color extensions (UK)
-
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graph
-ics-cfg/color.cfg
+ (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graphics-cfg/color.cfg
 File: color.cfg 2016/01/02 v1.6 sample color configuration
 )
 Package xcolor Info: Driver file: pdftex.def on input line 274.
 LaTeX Info: Redefining \color on input line 762.
-
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graph
-ics/mathcolor.ltx)
+ (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/graphics/mathcolor.ltx)
 Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1349.
 Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1353.
 Package xcolor Info: Model `RGB' extended on input line 1365.
@@ -646,367 +465,242 @@ Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1369.
 Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1370.
 Package xcolor Info: Model `Gray' substituted by `gray' on input line 1371.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1372.
-)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf
-/basiclayer/pgfcore.code.tex
+) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/basiclayer/pgfcore.code.tex
 Package: pgfcore 2025-08-29 v3.1.11a (3.1.11a)
-
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf
-/math/pgfmath.code.tex
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf
-/math/pgfmathutil.code.tex)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf
-/math/pgfmathparser.code.tex
-\pgfmath@dimen=\dimen196
-\pgfmath@count=\count333
+ (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/math/pgfmath.code.tex (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/math/pgfmathutil.code.tex) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/math/pgfmathparser.code.tex
+\pgfmath@dimen=\dimen257
+\pgfmath@count=\count334
 \pgfmath@box=\box67
-\pgfmath@toks=\toks43
-\pgfmath@stack@operand=\toks44
-\pgfmath@stack@operation=\toks45
-)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf
-/math/pgfmathfunctions.code.tex)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf
-/math/pgfmathfunctions.basic.code.tex)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf
-/math/pgfmathfunctions.trigonometric.code.tex)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf
-/math/pgfmathfunctions.random.code.tex)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf
-/math/pgfmathfunctions.comparison.code.tex)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf
-/math/pgfmathfunctions.base.code.tex)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf
-/math/pgfmathfunctions.round.code.tex)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf
-/math/pgfmathfunctions.misc.code.tex)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf
-/math/pgfmathfunctions.integerarithmetics.code.tex)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf
-/math/pgfmathcalc.code.tex)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf
-/math/pgfmathfloat.code.tex
-\c@pgfmathroundto@lastzeros=\count334
-))
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf
-/math/pgfint.code.tex)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf
-/basiclayer/pgfcorepoints.code.tex
+\pgfmath@toks=\toks44
+\pgfmath@stack@operand=\toks45
+\pgfmath@stack@operation=\toks46
+) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/math/pgfmathfunctions.code.tex) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/math/pgfmathfunctions.basic.code.tex) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/math/pgfmathfunctions.trigonometric.code.tex) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/math/pgfmathfunctions.random.code.tex) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/math/pgfmathfunctions.comparison.code.tex) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/math/pgfmathfunctions.base.code.tex) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/math/pgfmathfunctions.round.code.tex) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/math/pgfmathfunctions.misc.code.tex) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/math/pgfmathfunctions.integerarithmetics.code.tex) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/math/pgfmathcalc.code.tex) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/math/pgfmathfloat.code.tex
+\c@pgfmathroundto@lastzeros=\count335
+)) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/math/pgfint.code.tex) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/basiclayer/pgfcorepoints.code.tex
 File: pgfcorepoints.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-\pgf@picminx=\dimen197
-\pgf@picmaxx=\dimen198
-\pgf@picminy=\dimen199
-\pgf@picmaxy=\dimen256
-\pgf@pathminx=\dimen257
-\pgf@pathmaxx=\dimen258
-\pgf@pathminy=\dimen259
-\pgf@pathmaxy=\dimen260
-\pgf@xx=\dimen261
-\pgf@xy=\dimen262
-\pgf@yx=\dimen263
-\pgf@yy=\dimen264
-\pgf@zx=\dimen265
-\pgf@zy=\dimen266
-)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf
-/basiclayer/pgfcorepathconstruct.code.tex
+\pgf@picminx=\dimen258
+\pgf@picmaxx=\dimen259
+\pgf@picminy=\dimen260
+\pgf@picmaxy=\dimen261
+\pgf@pathminx=\dimen262
+\pgf@pathmaxx=\dimen263
+\pgf@pathminy=\dimen264
+\pgf@pathmaxy=\dimen265
+\pgf@xx=\dimen266
+\pgf@xy=\dimen267
+\pgf@yx=\dimen268
+\pgf@yy=\dimen269
+\pgf@zx=\dimen270
+\pgf@zy=\dimen271
+) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/basiclayer/pgfcorepathconstruct.code.tex
 File: pgfcorepathconstruct.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-\pgf@path@lastx=\dimen267
-\pgf@path@lasty=\dimen268
-)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf
-/basiclayer/pgfcorepathusage.code.tex
+\pgf@path@lastx=\dimen272
+\pgf@path@lasty=\dimen273
+) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/basiclayer/pgfcorepathusage.code.tex
 File: pgfcorepathusage.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-\pgf@shorten@end@additional=\dimen269
-\pgf@shorten@start@additional=\dimen270
-)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf
-/basiclayer/pgfcorescopes.code.tex
+\pgf@shorten@end@additional=\dimen274
+\pgf@shorten@start@additional=\dimen275
+) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/basiclayer/pgfcorescopes.code.tex
 File: pgfcorescopes.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 \pgfpic=\box68
 \pgf@hbox=\box69
 \pgf@layerbox@main=\box70
-\pgf@picture@serial@count=\count335
-)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf
-/basiclayer/pgfcoregraphicstate.code.tex
+\pgf@picture@serial@count=\count336
+) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/basiclayer/pgfcoregraphicstate.code.tex
 File: pgfcoregraphicstate.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-\pgflinewidth=\dimen271
-)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf
-/basiclayer/pgfcoretransformations.code.tex
+\pgflinewidth=\dimen276
+) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/basiclayer/pgfcoretransformations.code.tex
 File: pgfcoretransformations.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-\pgf@pt@x=\dimen272
-\pgf@pt@y=\dimen273
-\pgf@pt@temp=\dimen274
-)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf
-/basiclayer/pgfcorequick.code.tex
+\pgf@pt@x=\dimen277
+\pgf@pt@y=\dimen278
+\pgf@pt@temp=\dimen279
+) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/basiclayer/pgfcorequick.code.tex
 File: pgfcorequick.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf
-/basiclayer/pgfcoreobjects.code.tex
+) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/basiclayer/pgfcoreobjects.code.tex
 File: pgfcoreobjects.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf
-/basiclayer/pgfcorepathprocessing.code.tex
+) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/basiclayer/pgfcorepathprocessing.code.tex
 File: pgfcorepathprocessing.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf
-/basiclayer/pgfcorearrows.code.tex
+) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/basiclayer/pgfcorearrows.code.tex
 File: pgfcorearrows.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-\pgfarrowsep=\dimen275
-)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf
-/basiclayer/pgfcoreshade.code.tex
+\pgfarrowsep=\dimen280
+) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/basiclayer/pgfcoreshade.code.tex
 File: pgfcoreshade.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-\pgf@max=\dimen276
-\pgf@sys@shading@range@num=\count336
-\pgf@shadingcount=\count337
+\pgf@max=\dimen281
+\pgf@sys@shading@range@num=\count337
+\pgf@shadingcount=\count338
 )
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf
-/basiclayer/pgfcoreimage.code.tex
+(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/basiclayer/pgfcoreimage.code.tex
 File: pgfcoreimage.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf
-/basiclayer/pgfcoreexternal.code.tex
+) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/basiclayer/pgfcoreexternal.code.tex
 File: pgfcoreexternal.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 \pgfexternal@startupbox=\box71
-)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf
-/basiclayer/pgfcorelayers.code.tex
+) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/basiclayer/pgfcorelayers.code.tex
 File: pgfcorelayers.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf
-/basiclayer/pgfcoretransparency.code.tex
+) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/basiclayer/pgfcoretransparency.code.tex
 File: pgfcoretransparency.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf
-/basiclayer/pgfcorepatterns.code.tex
+) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/basiclayer/pgfcorepatterns.code.tex
 File: pgfcorepatterns.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf
-/basiclayer/pgfcorerdf.code.tex
+) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/basiclayer/pgfcorerdf.code.tex
 File: pgfcorerdf.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-)))
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf
-/modules/pgfmoduleshapes.code.tex
+))) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/modules/pgfmoduleshapes.code.tex
 File: pgfmoduleshapes.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 \pgfnodeparttextbox=\box72
-)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf
-/modules/pgfmoduleplot.code.tex
+) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/modules/pgfmoduleplot.code.tex
 File: pgfmoduleplot.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/pgf/c
-ompatibility/pgfcomp-version-0-65.sty
+) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/pgf/compatibility/pgfcomp-version-0-65.sty
 Package: pgfcomp-version-0-65 2025-08-29 v3.1.11a (3.1.11a)
-\pgf@nodesepstart=\dimen277
-\pgf@nodesepend=\dimen278
-)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/pgf/c
-ompatibility/pgfcomp-version-1-18.sty
+\pgf@nodesepstart=\dimen282
+\pgf@nodesepend=\dimen283
+) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/pgf/compatibility/pgfcomp-version-1-18.sty
 Package: pgfcomp-version-1-18 2025-08-29 v3.1.11a (3.1.11a)
-))
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/pgf/u
-tilities/pgffor.sty
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/pgf/u
-tilities/pgfkeys.sty
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf
-/utilities/pgfkeys.code.tex))
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/pgf/m
-ath/pgfmath.sty
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf
-/math/pgfmath.code.tex))
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf
-/utilities/pgffor.code.tex
+)) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/pgf/utilities/pgffor.sty (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/pgf/utilities/pgfkeys.sty (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/utilities/pgfkeys.code.tex)) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/pgf/math/pgfmath.sty (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/math/pgfmath.code.tex)) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/utilities/pgffor.code.tex
 Package: pgffor 2025-08-29 v3.1.11a (3.1.11a)
-\pgffor@iter=\dimen279
-\pgffor@skip=\dimen280
-\pgffor@stack=\toks46
-\pgffor@toks=\toks47
-))
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf
-/frontendlayer/tikz/tikz.code.tex
+\pgffor@iter=\dimen284
+\pgffor@skip=\dimen285
+\pgffor@stack=\toks47
+\pgffor@toks=\toks48
+)) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/frontendlayer/tikz/tikz.code.tex
 Package: tikz 2025-08-29 v3.1.11a (3.1.11a)
-
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf
-/libraries/pgflibraryplothandlers.code.tex
+ (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/libraries/pgflibraryplothandlers.code.tex
 File: pgflibraryplothandlers.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-\pgf@plot@mark@count=\count338
-\pgfplotmarksize=\dimen281
+\pgf@plot@mark@count=\count339
+\pgfplotmarksize=\dimen286
 )
-\tikz@lastx=\dimen282
-\tikz@lasty=\dimen283
-\tikz@lastxsaved=\dimen284
-\tikz@lastysaved=\dimen285
-\tikz@lastmovetox=\dimen286
-\tikz@lastmovetoy=\dimen287
-\tikzleveldistance=\dimen288
-\tikzsiblingdistance=\dimen289
+\tikz@lastx=\dimen287
+\tikz@lasty=\dimen288
+\tikz@lastxsaved=\dimen289
+\tikz@lastysaved=\dimen290
+\tikz@lastmovetox=\dimen291
+\tikz@lastmovetoy=\dimen292
+\tikzleveldistance=\dimen293
+\tikzsiblingdistance=\dimen294
 \tikz@figbox=\box73
 \tikz@figbox@bg=\box74
 \tikz@tempbox=\box75
 \tikz@tempbox@bg=\box76
-\tikztreelevel=\count339
-\tikznumberofchildren=\count340
-\tikznumberofcurrentchild=\count341
-\tikz@fig@count=\count342
-
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf
-/modules/pgfmodulematrix.code.tex
+\tikztreelevel=\count340
+\tikznumberofchildren=\count341
+\tikznumberofcurrentchild=\count342
+\tikz@fig@count=\count343
+ (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/modules/pgfmodulematrix.code.tex
 File: pgfmodulematrix.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-\pgfmatrixcurrentrow=\count343
-\pgfmatrixcurrentcolumn=\count344
-\pgf@matrix@numberofcolumns=\count345
+\pgfmatrixcurrentrow=\count344
+\pgfmatrixcurrentcolumn=\count345
+\pgf@matrix@numberofcolumns=\count346
 )
-\tikz@expandcount=\count346
-
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf
-/frontendlayer/tikz/libraries/tikzlibrarytopaths.code.tex
+\tikz@expandcount=\count347
+ (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarytopaths.code.tex
 File: tikzlibrarytopaths.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-)))
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf
-/frontendlayer/tikz/libraries/tikzlibraryarrows.code.tex
+))) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryarrows.code.tex
 File: tikzlibraryarrows.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf
-/libraries/pgflibraryarrows.code.tex
+ (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/libraries/pgflibraryarrows.code.tex
 File: pgflibraryarrows.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-\arrowsize=\dimen290
-))
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf
-/frontendlayer/tikz/libraries/tikzlibrarybackgrounds.code.tex
+\arrowsize=\dimen295
+)) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarybackgrounds.code.tex
 File: tikzlibrarybackgrounds.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 \pgf@layerbox@background=\box77
 \pgf@layerboxsaved@background=\box78
-)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf
-/frontendlayer/tikz/libraries/tikzlibrarycalc.code.tex
+) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarycalc.code.tex
 File: tikzlibrarycalc.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf
-/frontendlayer/tikz/libraries/tikzlibrarypatterns.code.tex
+) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarypatterns.code.tex
 File: tikzlibrarypatterns.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf
-/libraries/pgflibrarypatterns.code.tex
+ (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/libraries/pgflibrarypatterns.code.tex
 File: pgflibrarypatterns.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-))
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf
-/frontendlayer/tikz/libraries/tikzlibrarypositioning.code.tex
+)) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarypositioning.code.tex
 File: tikzlibrarypositioning.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf
-/frontendlayer/tikz/libraries/tikzlibraryshapes.geometric.code.tex
+) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryshapes.geometric.code.tex
 File: tikzlibraryshapes.geometric.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf
-/libraries/shapes/pgflibraryshapes.geometric.code.tex
+ (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/libraries/shapes/pgflibraryshapes.geometric.code.tex
 File: pgflibraryshapes.geometric.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-))
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/pgf/u
-tilities/pgfcalendar.sty
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf
-/utilities/pgfcalendar.code.tex
+)) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/pgf/utilities/pgfcalendar.sty (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/utilities/pgfcalendar.code.tex
 File: pgfcalendar.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-\pgfcalendarcurrentjulian=\count347
-\pgf@cal@easter@Y=\count348
-\pgf@cal@easter@G=\count349
-\pgf@cal@easter@C=\count350
-\pgf@cal@easter@X=\count351
-\pgf@cal@easter@Z=\count352
-\pgf@cal@easter@D=\count353
-\pgf@cal@easter@E=\count354
-\pgf@cal@easter@N=\count355
-\pgf@cal@easter@M=\count356
-\pgf@cal@easter@julianday=\count357
+\pgfcalendarcurrentjulian=\count348
+\pgf@cal@easter@Y=\count349
+\pgf@cal@easter@G=\count350
+\pgf@cal@easter@C=\count351
+\pgf@cal@easter@X=\count352
+\pgf@cal@easter@Z=\count353
+\pgf@cal@easter@D=\count354
+\pgf@cal@easter@E=\count355
+\pgf@cal@easter@N=\count356
+\pgf@cal@easter@M=\count357
+\pgf@cal@easter@julianday=\count358
 ))
-\gtt@currentline=\count358
-\gtt@lasttitleline=\count359
-\gtt@currgrid=\count360
-\gtt@chartwidth=\count361
-\gtt@lasttitleslot=\count362
-\gtt@elementid=\count363
-\gtt@today@slot=\count364
-\gtt@startjulian=\count365
-\gtt@endjulian=\count366
-\gtt@chartid=\count367
-\gtt@vrule@slot=\count368
-\gtt@calendar@slots=\count369
-\gtt@calendar@weeknumber=\count370
-\gtt@calendar@startofweek=\count371
-\gtt@left@slot=\count372
-\gtt@right@slot=\count373
-)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf
-/libraries/pgflibraryarrows.meta.code.tex
+\gtt@currentline=\count359
+\gtt@lasttitleline=\count360
+\gtt@currgrid=\count361
+\gtt@chartwidth=\count362
+\gtt@lasttitleslot=\count363
+\gtt@elementid=\count364
+\gtt@today@slot=\count365
+\gtt@startjulian=\count366
+\gtt@endjulian=\count367
+\gtt@chartid=\count368
+\gtt@vrule@slot=\count369
+\gtt@calendar@slots=\count370
+\gtt@calendar@weeknumber=\count371
+\gtt@calendar@startofweek=\count372
+\gtt@left@slot=\count373
+\gtt@right@slot=\count374
+) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/libraries/pgflibraryarrows.meta.code.tex
 File: pgflibraryarrows.meta.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-\pgfarrowinset=\dimen291
-\pgfarrowlength=\dimen292
-\pgfarrowwidth=\dimen293
-\pgfarrowlinewidth=\dimen294
-)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf
-/frontendlayer/tikz/libraries/tikzlibraryfit.code.tex
+\pgfarrowinset=\dimen296
+\pgfarrowlength=\dimen297
+\pgfarrowwidth=\dimen298
+\pgfarrowlinewidth=\dimen299
+) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryfit.code.tex
 File: tikzlibraryfit.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/bibla
-tex/biblatex.sty
+) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/biblatex/biblatex.sty
 Package: biblatex 2025/07/10 v3.21 programmable bibliographies (PK/MW)
-
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/logre
-q/logreq.sty
+ (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/logreq/logreq.sty
 Package: logreq 2010/08/04 v1.0 xml request logger
-\lrq@indent=\count374
-
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/logre
-q/logreq.def
+\lrq@indent=\count375
+ (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/logreq/logreq.def
 File: logreq.def 2010/08/04 v1.0 logreq spec v1.0
 ))
-\c@tabx@nest=\count375
-\c@listtotal=\count376
-\c@listcount=\count377
-\c@liststart=\count378
-\c@liststop=\count379
-\c@citecount=\count380
-\c@citetotal=\count381
-\c@multicitecount=\count382
-\c@multicitetotal=\count383
-\c@instcount=\count384
-\c@maxnames=\count385
-\c@minnames=\count386
-\c@maxitems=\count387
-\c@minitems=\count388
-\c@citecounter=\count389
-\c@maxcitecounter=\count390
-\c@savedcitecounter=\count391
-\c@uniquelist=\count392
-\c@uniquename=\count393
-\c@refsection=\count394
-\c@refsegment=\count395
-\c@maxextratitle=\count396
-\c@maxextratitleyear=\count397
-\c@maxextraname=\count398
-\c@maxextradate=\count399
-\c@maxextraalpha=\count400
-\c@abbrvpenalty=\count401
-\c@highnamepenalty=\count402
-\c@lownamepenalty=\count403
-\c@maxparens=\count404
-\c@parenlevel=\count405
-\blx@tempcnta=\count406
-\blx@tempcntb=\count407
-\blx@tempcntc=\count408
-\c@blx@maxsection=\count409
-\blx@maxsegment@0=\count410
-\blx@notetype=\count411
-\blx@parenlevel@text=\count412
-\blx@parenlevel@foot=\count413
-\blx@sectionciteorder@0=\count414
-\blx@sectionciteorderinternal@0=\count415
-\blx@entrysetcounter=\count416
-\blx@biblioinstance=\count417
+\c@tabx@nest=\count376
+\c@listtotal=\count377
+\c@listcount=\count378
+\c@liststart=\count379
+\c@liststop=\count380
+\c@citecount=\count381
+\c@citetotal=\count382
+\c@multicitecount=\count383
+\c@multicitetotal=\count384
+\c@instcount=\count385
+\c@maxnames=\count386
+\c@minnames=\count387
+\c@maxitems=\count388
+\c@minitems=\count389
+\c@citecounter=\count390
+\c@maxcitecounter=\count391
+\c@savedcitecounter=\count392
+\c@uniquelist=\count393
+\c@uniquename=\count394
+\c@refsection=\count395
+\c@refsegment=\count396
+\c@maxextratitle=\count397
+\c@maxextratitleyear=\count398
+\c@maxextraname=\count399
+\c@maxextradate=\count400
+\c@maxextraalpha=\count401
+\c@abbrvpenalty=\count402
+\c@highnamepenalty=\count403
+\c@lownamepenalty=\count404
+\c@maxparens=\count405
+\c@parenlevel=\count406
+\blx@tempcnta=\count407
+\blx@tempcntb=\count408
+\blx@tempcntc=\count409
+\c@blx@maxsection=\count410
+\blx@maxsegment@0=\count411
+\blx@notetype=\count412
+\blx@parenlevel@text=\count413
+\blx@parenlevel@foot=\count414
+\blx@sectionciteorder@0=\count415
+\blx@sectionciteorderinternal@0=\count416
+\blx@entrysetcounter=\count417
+\blx@biblioinstance=\count418
 \labelnumberwidth=\skip65
 \labelalphawidth=\skip66
 \biblabelsep=\skip67
@@ -1018,88 +712,86 @@ File: logreq.def 2010/08/04 v1.0 logreq spec v1.0
 \blx@bcfin=\read4
 \blx@bcfout=\write4
 \blx@langwohyphens=\language80
-\c@mincomprange=\count418
-\c@maxcomprange=\count419
-\c@mincompwidth=\count420
+\c@mincomprange=\count419
+\c@maxcomprange=\count420
+\c@mincompwidth=\count421
 Package biblatex Info: Trying to load biblatex default data model...
 Package biblatex Info: ... file 'blx-dm.def' found.
-
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/bibla
-tex/blx-dm.def
+ (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/biblatex/blx-dm.def
 File: blx-dm.def 2025/07/10 v3.21 biblatex datamodel (PK/MW)
 )
 Package biblatex Info: Trying to load biblatex style data model...
 Package biblatex Info: ... file 'authoryear.dbx' not found.
 Package biblatex Info: Trying to load biblatex custom data model...
 Package biblatex Info: ... file 'biblatex-dm.cfg' not found.
-\c@afterword=\count421
-\c@savedafterword=\count422
-\c@annotator=\count423
-\c@savedannotator=\count424
-\c@author=\count425
-\c@savedauthor=\count426
-\c@bookauthor=\count427
-\c@savedbookauthor=\count428
-\c@commentator=\count429
-\c@savedcommentator=\count430
-\c@editor=\count431
-\c@savededitor=\count432
-\c@editora=\count433
-\c@savededitora=\count434
-\c@editorb=\count435
-\c@savededitorb=\count436
-\c@editorc=\count437
-\c@savededitorc=\count438
-\c@foreword=\count439
-\c@savedforeword=\count440
-\c@holder=\count441
-\c@savedholder=\count442
-\c@introduction=\count443
-\c@savedintroduction=\count444
-\c@namea=\count445
-\c@savednamea=\count446
-\c@nameb=\count447
-\c@savednameb=\count448
-\c@namec=\count449
-\c@savednamec=\count450
-\c@translator=\count451
-\c@savedtranslator=\count452
-\c@shortauthor=\count453
-\c@savedshortauthor=\count454
-\c@shorteditor=\count455
-\c@savedshorteditor=\count456
-\c@labelname=\count457
-\c@savedlabelname=\count458
-\c@institution=\count459
-\c@savedinstitution=\count460
-\c@lista=\count461
-\c@savedlista=\count462
-\c@listb=\count463
-\c@savedlistb=\count464
-\c@listc=\count465
-\c@savedlistc=\count466
-\c@listd=\count467
-\c@savedlistd=\count468
-\c@liste=\count469
-\c@savedliste=\count470
-\c@listf=\count471
-\c@savedlistf=\count472
-\c@location=\count473
-\c@savedlocation=\count474
-\c@organization=\count475
-\c@savedorganization=\count476
-\c@origlocation=\count477
-\c@savedoriglocation=\count478
-\c@origpublisher=\count479
-\c@savedorigpublisher=\count480
-\c@publisher=\count481
-\c@savedpublisher=\count482
-\c@language=\count483
-\c@savedlanguage=\count484
-\c@origlanguage=\count485
-\c@savedoriglanguage=\count486
-\c@pageref=\count487
-\c@savedpageref=\count488
+\c@afterword=\count422
+\c@savedafterword=\count423
+\c@annotator=\count424
+\c@savedannotator=\count425
+\c@author=\count426
+\c@savedauthor=\count427
+\c@bookauthor=\count428
+\c@savedbookauthor=\count429
+\c@commentator=\count430
+\c@savedcommentator=\count431
+\c@editor=\count432
+\c@savededitor=\count433
+\c@editora=\count434
+\c@savededitora=\count435
+\c@editorb=\count436
+\c@savededitorb=\count437
+\c@editorc=\count438
+\c@savededitorc=\count439
+\c@foreword=\count440
+\c@savedforeword=\count441
+\c@holder=\count442
+\c@savedholder=\count443
+\c@introduction=\count444
+\c@savedintroduction=\count445
+\c@namea=\count446
+\c@savednamea=\count447
+\c@nameb=\count448
+\c@savednameb=\count449
+\c@namec=\count450
+\c@savednamec=\count451
+\c@translator=\count452
+\c@savedtranslator=\count453
+\c@shortauthor=\count454
+\c@savedshortauthor=\count455
+\c@shorteditor=\count456
+\c@savedshorteditor=\count457
+\c@labelname=\count458
+\c@savedlabelname=\count459
+\c@institution=\count460
+\c@savedinstitution=\count461
+\c@lista=\count462
+\c@savedlista=\count463
+\c@listb=\count464
+\c@savedlistb=\count465
+\c@listc=\count466
+\c@savedlistc=\count467
+\c@listd=\count468
+\c@savedlistd=\count469
+\c@liste=\count470
+\c@savedliste=\count471
+\c@listf=\count472
+\c@savedlistf=\count473
+\c@location=\count474
+\c@savedlocation=\count475
+\c@organization=\count476
+\c@savedorganization=\count477
+\c@origlocation=\count478
+\c@savedoriglocation=\count479
+\c@origpublisher=\count480
+\c@savedorigpublisher=\count481
+\c@publisher=\count482
+\c@savedpublisher=\count483
+\c@language=\count484
+\c@savedlanguage=\count485
+\c@origlanguage=\count486
+\c@savedoriglanguage=\count487
+\c@pageref=\count488
+\c@savedpageref=\count489
 \shorthandwidth=\skip73
 \shortjournalwidth=\skip74
 \shortserieswidth=\skip75
@@ -1116,51 +808,41 @@ Package biblatex Info: ... file 'biblatex-dm.cfg' not found.
 \localshorteditorwidth=\skip86
 Package biblatex Info: Trying to load compatibility code...
 Package biblatex Info: ... file 'blx-compat.def' found.
-
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/bibla
-tex/blx-compat.def
+ (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/biblatex/blx-compat.def
 File: blx-compat.def 2025/07/10 v3.21 biblatex compatibility (PK/MW)
 )
 Package biblatex Info: Trying to load generic definitions...
 Package biblatex Info: ... file 'biblatex.def' found.
-
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/bibla
-tex/biblatex.def
+ (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/biblatex/biblatex.def
 File: biblatex.def 2025/07/10 v3.21 biblatex compatibility (PK/MW)
-\c@textcitecount=\count489
-\c@textcitetotal=\count490
-\c@textcitemaxnames=\count491
-\c@biburlbigbreakpenalty=\count492
-\c@biburlbreakpenalty=\count493
-\c@biburlnumpenalty=\count494
-\c@biburlucpenalty=\count495
-\c@biburllcpenalty=\count496
+\c@textcitecount=\count490
+\c@textcitetotal=\count491
+\c@textcitemaxnames=\count492
+\c@biburlbigbreakpenalty=\count493
+\c@biburlbreakpenalty=\count494
+\c@biburlnumpenalty=\count495
+\c@biburlucpenalty=\count496
+\c@biburllcpenalty=\count497
 \biburlbigskip=\muskip19
 \biburlnumskip=\muskip20
 \biburlucskip=\muskip21
 \biburllcskip=\muskip22
-\c@smartand=\count497
+\c@smartand=\count498
 )
 Package biblatex Info: Trying to load bibliography style 'authoryear'...
 Package biblatex Info: ... file 'authoryear.bbx' found.
-
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/bibla
-tex/bbx/authoryear.bbx
+ (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/biblatex/bbx/authoryear.bbx
 File: authoryear.bbx 2025/07/10 v3.21 biblatex bibliography style (PK/MW)
 Package biblatex Info: Trying to load bibliography style 'standard'...
 Package biblatex Info: ... file 'standard.bbx' found.
-
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/bibla
-tex/bbx/standard.bbx
+ (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/biblatex/bbx/standard.bbx
 File: standard.bbx 2025/07/10 v3.21 biblatex bibliography style (PK/MW)
-\c@bbx:relatedcount=\count498
-\c@bbx:relatedtotal=\count499
+\c@bbx:relatedcount=\count499
+\c@bbx:relatedtotal=\count500
 ))
 Package biblatex Info: Trying to load citation style 'authoryear'...
 Package biblatex Info: ... file 'authoryear.cbx' found.
-
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/bibla
-tex/cbx/authoryear.cbx
+ (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/biblatex/cbx/authoryear.cbx
 File: authoryear.cbx 2025/07/10 v3.21 biblatex citation style (PK/MW)
 Package biblatex Info: Redefining '\cite'.
 Package biblatex Info: Redefining '\parencite'.
@@ -1172,99 +854,73 @@ Package biblatex Info: Redefining '\textcites'.
 )
 Package biblatex Info: Trying to load configuration file...
 Package biblatex Info: ... file 'biblatex.cfg' found.
-
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/bibla
-tex/biblatex.cfg
+ (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/biblatex/biblatex.cfg
 File: biblatex.cfg 
 )
 Package biblatex Info: Input encoding 'utf8' detected.
 Package biblatex Info: Document encoding is UTF8 ....
-
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/l3ker
-nel/expl3.sty
+ (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/l3kernel/expl3.sty
 Package: expl3 2026-01-19 L3 programming layer (loader) 
-
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/l3bac
-kend/l3backend-pdftex.def
+ (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2025-10-09 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count500
+\l__color_backend_stack_int=\count501
 ))
 Package biblatex Info: ... and expl3
 (biblatex)             2026-01-19 L3 programming layer (loader) 
 (biblatex)             is new enough (at least 2020/04/06),
 (biblatex)             setting 'casechanger=expl3'.
-
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/bibla
-tex/blx-case-expl3.sty
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/l3pac
-kages/xparse/xparse.sty
+ (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/biblatex/blx-case-expl3.sty (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/l3packages/xparse/xparse.sty
 Package: xparse 2025-10-09 L3 Experimental document command parser
 )
 Package: blx-case-expl3 2025/07/10 v3.21 expl3 case changing code for biblatex
 ))
-Package biblatex Info: Delimiter 'nameyeardelim' in context '' already defined,
- overwriting on input line 42.
-Package biblatex Info: Redefining '\cite' on input line 43.
-Package biblatex Info: Redefining '\parencite' on input line 48.
-
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/csquo
-tes/csquotes.sty
+Package biblatex Info: Delimiter 'nameyeardelim' in context '' already defined, overwriting on input line 47.
+Package biblatex Info: Redefining '\cite' on input line 48.
+Package biblatex Info: Redefining '\parencite' on input line 53.
+ (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/csquotes/csquotes.sty
 Package: csquotes 2024-04-04 v5.2o context-sensitive quotations (JAW)
-\csq@reset=\count501
-\csq@gtype=\count502
-\csq@glevel=\count503
-\csq@qlevel=\count504
-\csq@maxlvl=\count505
-\csq@tshold=\count506
-\csq@ltx@everypar=\toks48
-
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/csquo
-tes/csquotes.def
+\csq@reset=\count502
+\csq@gtype=\count503
+\csq@glevel=\count504
+\csq@qlevel=\count505
+\csq@maxlvl=\count506
+\csq@tshold=\count507
+\csq@ltx@everypar=\toks49
+ (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/csquotes/csquotes.def
 File: csquotes.def 2024-04-04 v5.2o csquotes generic definitions (JAW)
 )
 Package csquotes Info: Trying to load configuration file 'csquotes.cfg'...
 Package csquotes Info: ... configuration file loaded successfully.
-
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/csquo
-tes/csquotes.cfg
+ (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/csquotes/csquotes.cfg
 File: csquotes.cfg 
-))
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/float
-/float.sty
+)) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/float/float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
-\c@float@type=\count507
-\float@exts=\toks49
+\c@float@type=\count508
+\float@exts=\toks50
 \float@box=\box79
-\@float@everytoks=\toks50
+\@float@everytoks=\toks51
 \@floatcapt=\box80
-)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/subfi
-gure/subfigure.sty
+) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/subfigure/subfigure.sty
 Package: subfigure 2002/07/30 v2.1.4 subfigure package
 \subfigtopskip=\skip87
 \subfigcapskip=\skip88
-\subfigcaptopadj=\dimen295
+\subfigcaptopadj=\dimen300
 \subfigbottomskip=\skip89
-\subfigcapmargin=\dimen296
+\subfigcapmargin=\dimen301
 \subfiglabelskip=\skip90
-\c@subfigure=\count508
-\c@lofdepth=\count509
-\c@subtable=\count510
-\c@lotdepth=\count511
+\c@subfigure=\count509
+\c@lofdepth=\count510
+\c@subtable=\count511
+\c@lotdepth=\count512
 
 ****************************************
 * Local config file subfigure.cfg used *
 ****************************************
-
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/subfi
-gure/subfigure.cfg)
+(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/subfigure/subfigure.cfg)
 \subfig@top=\skip91
 \subfig@bottom=\skip92
-)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/fancy
-hdr/fancyhdr.sty
+) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/fancyhdr/fancyhdr.sty
 Package: fancyhdr 2025/02/07 v5.2 Extensive control of page headers and footers
-
 \f@nch@headwidth=\skip93
 \f@nch@offset@elh=\skip94
 \f@nch@offset@erh=\skip95
@@ -1279,47 +935,35 @@ Package: fancyhdr 2025/02/07 v5.2 Extensive control of page headers and footers
 \f@nch@widthL=\skip104
 \f@nch@widthC=\skip105
 \f@nch@widthR=\skip106
-\@temptokenb=\toks51
-)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/appen
-dix/appendix.sty
+\@temptokenb=\toks52
+) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/appendix/appendix.sty
 Package: appendix 2020/02/08 v1.2c extra appendix facilities
-\c@@pps=\count512
-\c@@ppsavesec=\count513
-\c@@ppsaveapp=\count514
-)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/tools
-/dcolumn.sty
+\c@@pps=\count513
+\c@@ppsavesec=\count514
+\c@@ppsaveapp=\count515
+) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/tools/dcolumn.sty
 Package: dcolumn 2025/10/21 v1.06 decimal alignment package (DPC)
-)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/listi
-ngs/listings.sty
-\lst@mode=\count515
+) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/listings/listings.sty
+\lst@mode=\count516
 \lst@gtempboxa=\box81
-\lst@token=\toks52
-\lst@length=\count516
-\lst@currlwidth=\dimen297
-\lst@column=\count517
-\lst@pos=\count518
-\lst@lostspace=\dimen298
-\lst@width=\dimen299
-\lst@newlines=\count519
-\lst@lineno=\count520
-\lst@maxwidth=\dimen300
-
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/listi
-ngs/lstpatch.sty
+\lst@token=\toks53
+\lst@length=\count517
+\lst@currlwidth=\dimen302
+\lst@column=\count518
+\lst@pos=\count519
+\lst@lostspace=\dimen303
+\lst@width=\dimen304
+\lst@newlines=\count520
+\lst@lineno=\count521
+\lst@maxwidth=\dimen305
+ (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/listings/lstpatch.sty
 File: lstpatch.sty 2025/11/14 1.11b (Carsten Heinz)
-)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/listi
-ngs/lstmisc.sty
+) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/listings/lstmisc.sty
 File: lstmisc.sty 2025/11/14 1.11b (Carsten Heinz)
-\c@lstnumber=\count521
-\lst@skipnumbers=\count522
+\c@lstnumber=\count522
+\lst@skipnumbers=\count523
 \lst@framebox=\box82
-)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/listi
-ngs/listings.cfg
+) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/listings/listings.cfg
 File: listings.cfg 2025/11/14 1.11b listings configuration
 ))
 Package: listings 2025/11/14 1.11b (Carsten Heinz)
@@ -1335,11 +979,8 @@ Package csquotes Info: Checking for multilingual support...
 Package csquotes Info: ... found 'babel' package.
 Package csquotes Info: Adjusting default style.
 Package csquotes Info: Redefining alias 'default' -> 'spanish'.
-LaTeX Font Info:    Trying to load font information for T1+pbk on input line 12
-.
-
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/psnfs
-s/t1pbk.fd
+LaTeX Font Info:    Trying to load font information for T1+pbk on input line 12.
+ (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/psnfss/t1pbk.fd
 File: t1pbk.fd 2001/06/04 font definitions for T1/pbk.
 )
 LaTeX Font Info:    Font shape `T1/pbk/m/n' in size <10.95> not available
@@ -1372,30 +1013,23 @@ LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 12.
 LaTeX Font Info:    ... okay on input line 12.
 LaTeX Info: Redefining \. on input line 12.
 LaTeX Info: Redefining \% on input line 12.
-
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/context/bas
-e/mkii/supp-pdf.mkii
+ (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count523
-\scratchdimen=\dimen301
+\scratchcounter=\count524
+\scratchdimen=\dimen306
 \scratchbox=\box83
-\nofMPsegments=\count524
-\nofMParguments=\count525
-\everyMPshowfont=\toks53
-\MPscratchCnt=\count526
-\MPscratchDim=\dimen302
-\MPnumerator=\count527
-\makeMPintoPDFobject=\count528
-\everyMPtoPDFconversion=\toks54
-)
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/epsto
-pdf-pkg/epstopdf-base.sty
+\nofMPsegments=\count525
+\nofMParguments=\count526
+\everyMPshowfont=\toks54
+\MPscratchCnt=\count527
+\MPscratchDim=\dimen307
+\MPnumerator=\count528
+\makeMPintoPDFobject=\count529
+\everyMPtoPDFconversion=\toks55
+) (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
-Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
-85.
-
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/00mik
-tex/epstopdf-sys.cfg
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
+ (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/00miktex/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 ))
 *geometry* driver: auto-detecting
@@ -1437,29 +1071,20 @@ Package hyperref Info: Link coloring OFF on input line 12.
 \@outlinefile=\write5
 \openout5 = `tfg_etsiinf_NombreApellidos.out'.
 
-
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/pdfls
-cape/pdflscape.sty
+ (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/pdflscape/pdflscape.sty
 Package: pdflscape 2022-10-27 v0.13 Display of landscape pages in PDF
-
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/pdfls
-cape/pdflscape-nometadata.sty
-Package: pdflscape-nometadata 2022-10-28 v0.13 Display of landscape pages in PD
-F (HO)
+ (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/pdflscape/pdflscape-nometadata.sty
+Package: pdflscape-nometadata 2022-10-28 v0.13 Display of landscape pages in PDF (HO)
 Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
 ))
 Package biblatex Info: Trying to load language 'spanish'...
 Package biblatex Info: ... file 'spanish.lbx' found.
-
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/bibla
-tex/lbx/spanish.lbx
+ (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/biblatex/lbx/spanish.lbx
 File: spanish.lbx 2025/07/10 v3.21 biblatex localization (PK/MW)
 )
 Package biblatex Info: Trying to load language 'english'...
 Package biblatex Info: ... file 'english.lbx' found.
-
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/bibla
-tex/lbx/english.lbx
+ (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/biblatex/lbx/english.lbx
 File: english.lbx 2025/07/10 v3.21 biblatex localization (PK/MW)
 )
 Package biblatex Info: Input encoding 'utf8' detected.
@@ -1472,9 +1097,9 @@ Package biblatex Info: ... file 'tfg_etsiinf_NombreApellidos.bbl' found.
  (tfg_etsiinf_NombreApellidos.bbl)
 Package biblatex Info: Reference section=0 on input line 12.
 Package biblatex Info: Reference segment=0 on input line 12.
-\c@lstlisting=\count529
+\c@lstlisting=\count530
  (include/Portada.tex
-<./include/EscUpm.png, id=230, 245.91875pt x 200.75pt>
+<./include/EscUpm.png, id=242, 245.91875pt x 200.75pt>
 File: ./include/EscUpm.png Graphic file (type png)
 <use ./include/EscUpm.png>
 Package pdftex.def Info: ./include/EscUpm.png  used on input line 7.
@@ -1490,15 +1115,11 @@ Underfull \hbox (badness 10000) in paragraph at lines 5--8
  []
 
 LaTeX Font Info:    Trying to load font information for U+msa on input line 8.
-
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/amsfo
-nts/umsa.fd
+(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
 LaTeX Font Info:    Trying to load font information for U+msb on input line 8.
-
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/amsfo
-nts/umsb.fd
+ (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Font shape `T1/pbk/m/n' in size <20.74> not available
@@ -1507,7 +1128,7 @@ LaTeX Font Info:    Font shape `T1/pbk/m/n' in size <14.4> not available
 (Font)              Font shape `T1/pbk/l/n' tried instead on input line 13.
 LaTeX Font Info:    Font shape `T1/pbk/b/n' in size <14.4> not available
 (Font)              Font shape `T1/pbk/db/n' tried instead on input line 13.
-<./include/FacInformatica.png, id=232, 160.6pt x 170.6375pt>
+<./include/FacInformatica.png, id=244, 160.6pt x 170.6375pt>
 File: ./include/FacInformatica.png Graphic file (type png)
 <use ./include/FacInformatica.png>
 Package pdftex.def Info: ./include/FacInformatica.png  used on input line 17.
@@ -1526,8 +1147,7 @@ LaTeX Font Info:    Font shape `T1/pbk/m/n' in size <12> not available
 [1
 
 
-{/Users/jordi/Library/Application Support/MiKTeX/texmfs/data/fonts/map/pdftex/p
-dftex.map} <./include/EscUpm.png> <./include/FacInformatica.png>]
+{/Users/jordi/Library/Application Support/MiKTeX/texmfs/data/fonts/map/pdftex/pdftex.map} <./include/EscUpm.png> <./include/FacInformatica.png>]
 LaTeX Font Info:    Font shape `T1/pbk/m/it' in size <12> not available
 (Font)              Font shape `T1/pbk/l/it' tried instead on input line 56.
 
@@ -1564,11 +1184,8 @@ LaTeX Info: Redefining \. on input line 1.
 LaTeX Info: Redefining \% on input line 1.
 LaTeX Font Info:    Font shape `T1/pbk/m/it' in size <10.95> not available
 (Font)              Font shape `T1/pbk/l/it' tried instead on input line 4.
-LaTeX Font Info:    Trying to load font information for T1+pcr on input line 18
-.
-
-(/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/psnfs
-s/t1pcr.fd
+LaTeX Font Info:    Trying to load font information for T1+pcr on input line 18.
+ (/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/psnfss/t1pcr.fd
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
 )
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -1608,19 +1225,17 @@ LaTeX Info: Redefining \% on input line 1.
 ] (secciones/00_Resumen.tex
 
 
-pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has 
-been already used, duplicate ignored
+pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.10 \newpage
+l.48 \newpage
               [1
 
 
 ]) (secciones/01_Introduccion.tex
 
 
-pdfTeX warning (ext4): destination with the same identifier (name{page.2}) has 
-been already used, duplicate ignored
+pdfTeX warning (ext4): destination with the same identifier (name{page.2}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
 l.2 \chapter
@@ -1633,54 +1248,44 @@ Cap\'{\i }tulo 1.
 [3
 
 ]
-Overfull \hbox (2.45149pt too wide) in paragraph at lines 95--105
-\T1/pbk/l/n/10.95 Stable-Baselines3, in-clu-yen-do el ar-chi-vo de con-fi-gu-ra
--ci^^f3n \T1/pcr/m/n/10.95 configs/train_ppo.yaml\T1/pbk/l/n/10.95 ,
- []
+Underfull \vbox (badness 6691) has occurred while \output is active []
 
 
 
-LaTeX Info: Redefining \. on input line 105.
-LaTeX Info: Redefining \% on input line 105.
-[4]
-
-LaTeX Info: Redefining \. on input line 174.
-LaTeX Info: Redefining \% on input line 174.
-[5]) (secciones/02_TrabajoArte.tex
+LaTeX Info: Redefining \. on input line 111.
+LaTeX Info: Redefining \% on input line 111.
+[4]) (secciones/02_TrabajoArte.tex
 
 LaTeX Info: Redefining \. on input line 2.
 LaTeX Info: Redefining \% on input line 2.
-[6]
+[5]
 Cap\'{\i }tulo 2.
 LaTeX Font Info:    Font shape `T1/pbk/b/n' in size <12> not available
 (Font)              Font shape `T1/pbk/db/n' tried instead on input line 35.
 
 
-[7
+[6
 
 ]
-<images/ros_nodes_topics_services.png, id=482, 857.2025pt x 481.8pt>
+<images/ros_nodes_topics_services.png, id=505, 857.2025pt x 481.8pt>
 File: images/ros_nodes_topics_services.png Graphic file (type png)
 <use images/ros_nodes_topics_services.png>
-Package pdftex.def Info: images/ros_nodes_topics_services.png  used on input li
-ne 58.
+Package pdftex.def Info: images/ros_nodes_topics_services.png  used on input line 58.
 (pdftex.def)             Requested size: 389.55298pt x 218.95468pt.
 
 
 LaTeX Info: Redefining \. on input line 91.
 LaTeX Info: Redefining \% on input line 91.
-[8
-pdfTeX warning (ext4): destination with the same identifier (name{figure.2.1}) 
-has been already used, duplicate ignored
+[7
+pdfTeX warning (ext4): destination with the same identifier (name{figure.2.1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
 l.91 
       <./images/ros_nodes_topics_services.png>]
-<images/aerostack2_layered_architecture.png, id=495, 1254.6875pt x 652.4375pt>
+<images/aerostack2_layered_architecture.png, id=518, 1254.6875pt x 652.4375pt>
 File: images/aerostack2_layered_architecture.png Graphic file (type png)
 <use images/aerostack2_layered_architecture.png>
-Package pdftex.def Info: images/aerostack2_layered_architecture.png  used on in
-put line 104.
+Package pdftex.def Info: images/aerostack2_layered_architecture.png  used on input line 104.
 (pdftex.def)             Requested size: 430.31847pt x 223.7671pt.
 LaTeX Font Info:    Font shape `T1/pbk/m/n' in size <10> not available
 (Font)              Font shape `T1/pbk/l/n' tried instead on input line 122.
@@ -1705,99 +1310,98 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 LaTeX Info: Redefining \. on input line 138.
 LaTeX Info: Redefining \% on input line 138.
-[9
-pdfTeX warning (ext4): destination with the same identifier (name{figure.2.2}) 
-has been already used, duplicate ignored
+[8
+pdfTeX warning (ext4): destination with the same identifier (name{figure.2.2}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
 l.138 
        <./images/aerostack2_layered_architecture.png (PNG copy)>]
 
-LaTeX Info: Redefining \. on input line 180.
-LaTeX Info: Redefining \% on input line 180.
-[10
-pdfTeX warning (ext4): destination with the same identifier (name{table.2.1}) h
-as been already used, duplicate ignored
+Package hyperref Warning: Difference (2) between bookmark levels is greater 
+(hyperref)                than one, level fixed on input line 169.
+
+
+
+LaTeX Info: Redefining \. on input line 179.
+LaTeX Info: Redefining \% on input line 179.
+[9
+pdfTeX warning (ext4): destination with the same identifier (name{table.2.1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.180 
+l.179 
       ]
-Underfull \hbox (badness 1881) in paragraph at lines 200--200
+Underfull \hbox (badness 1881) in paragraph at lines 212--212
 []|\T1/pbk/l/n/10 Predicci^^f3n, cla-si-fi-ca-ci^^f3n o
  []
 
-<images/deep_rl_conceptual_comparison.png, id=517, 659.46375pt x 362.35374pt>
+<images/deep_rl_conceptual_comparison.png, id=540, 659.46375pt x 362.35374pt>
 File: images/deep_rl_conceptual_comparison.png Graphic file (type png)
 <use images/deep_rl_conceptual_comparison.png>
-Package pdftex.def Info: images/deep_rl_conceptual_comparison.png  used on inpu
-t line 222.
+Package pdftex.def Info: images/deep_rl_conceptual_comparison.png  used on input line 234.
 (pdftex.def)             Requested size: 389.55298pt x 214.05225pt.
 
+
+LaTeX Info: Redefining \. on input line 240.
+LaTeX Info: Redefining \% on input line 240.
+[10
+pdfTeX warning (ext4): destination with the same identifier (name{table.2.2}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.240 
+      ]
+<images/rl_agent_environment_loop.png, id=550, 1028.84375pt x 416.55624pt>
+File: images/rl_agent_environment_loop.png Graphic file (type png)
+<use images/rl_agent_environment_loop.png>
+Package pdftex.def Info: images/rl_agent_environment_loop.png  used on input line 252.
+(pdftex.def)             Requested size: 344.25339pt x 139.38353pt.
+
+
+LaTeX Info: Redefining \. on input line 267.
+LaTeX Info: Redefining \% on input line 267.
+[11
+pdfTeX warning (ext4): destination with the same identifier (name{figure.2.3}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.267 
+      
+pdfTeX warning (ext4): destination with the same identifier (name{figure.2.4}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.267 
+       <./images/deep_rl_conceptual_comparison.png> <./images/rl_agent_environment_loop.png>]
+
+LaTeX Info: Redefining \. on input line 325.
+LaTeX Info: Redefining \% on input line 325.
+[12]
+<images/ppo_actor_critic_architecture.png, id=585, 853.1875pt x 357.335pt>
+File: images/ppo_actor_critic_architecture.png Graphic file (type png)
+<use images/ppo_actor_critic_architecture.png>
+Package pdftex.def Info: images/ppo_actor_critic_architecture.png  used on input line 372.
+(pdftex.def)             Requested size: 371.43729pt x 155.57033pt.
+
+
+LaTeX Info: Redefining \. on input line 377.
+LaTeX Info: Redefining \% on input line 377.
+[13]
+
+LaTeX Info: Redefining \. on input line 420.
+LaTeX Info: Redefining \% on input line 420.
+[14
+pdfTeX warning (ext4): destination with the same identifier (name{figure.2.5}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.420 
+       <./images/ppo_actor_critic_architecture.png>]
+
+LaTeX Info: Redefining \. on input line 471.
+LaTeX Info: Redefining \% on input line 471.
+[15]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-LaTeX Info: Redefining \. on input line 228.
-LaTeX Info: Redefining \% on input line 228.
-[11
-pdfTeX warning (ext4): destination with the same identifier (name{table.2.2}) h
-as been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.228 
-      ]
-<images/rl_agent_environment_loop.png, id=528, 1028.84375pt x 416.55624pt>
-File: images/rl_agent_environment_loop.png Graphic file (type png)
-<use images/rl_agent_environment_loop.png>
-Package pdftex.def Info: images/rl_agent_environment_loop.png  used on input li
-ne 240.
-(pdftex.def)             Requested size: 344.25339pt x 139.38353pt.
-
-
-LaTeX Info: Redefining \. on input line 255.
-LaTeX Info: Redefining \% on input line 255.
-[12
-pdfTeX warning (ext4): destination with the same identifier (name{figure.2.3}) 
-has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.255 
-      
-pdfTeX warning (ext4): destination with the same identifier (name{figure.2.4}) 
-has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.255 
-       <./images/deep_rl_conceptual_comparison.png> <./images/rl_agent_environm
-ent_loop.png>]
-
-LaTeX Info: Redefining \. on input line 313.
-LaTeX Info: Redefining \% on input line 313.
-[13]
-<images/ppo_actor_critic_architecture.png, id=562, 853.1875pt x 357.335pt>
-File: images/ppo_actor_critic_architecture.png Graphic file (type png)
-<use images/ppo_actor_critic_architecture.png>
-Package pdftex.def Info: images/ppo_actor_critic_architecture.png  used on inpu
-t line 360.
-(pdftex.def)             Requested size: 371.43729pt x 155.57033pt.
-
-
-LaTeX Info: Redefining \. on input line 365.
-LaTeX Info: Redefining \% on input line 365.
-[14]
-
-LaTeX Info: Redefining \. on input line 408.
-LaTeX Info: Redefining \% on input line 408.
-[15
-pdfTeX warning (ext4): destination with the same identifier (name{figure.2.5}) 
-has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.408 
-       <./images/ppo_actor_critic_architecture.png>]
-
-LaTeX Info: Redefining \. on input line 459.
-LaTeX Info: Redefining \% on input line 459.
+LaTeX Info: Redefining \. on input line 534.
+LaTeX Info: Redefining \% on input line 534.
 
 Package fancyhdr Warning: \headheight is too small (18.0pt): 
 (fancyhdr)                Make it at least 25.49829pt, for example:
@@ -1805,38 +1409,27 @@ Package fancyhdr Warning: \headheight is too small (18.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-7.49829pt}.
 
-[16]
-
-Package hyperref Warning: Difference (3) between bookmark levels is greater 
-(hyperref)                than one, level fixed on input line 509.
-
-
-
-LaTeX Info: Redefining \. on input line 519.
-LaTeX Info: Redefining \% on input line 519.
-[17]) (secciones/03_Diseno.tex
+[16]) (secciones/03_Diseno.tex
 
 LaTeX Info: Redefining \. on input line 2.
 LaTeX Info: Redefining \% on input line 2.
-[18]
+[17]
 Cap\'{\i }tulo 3.
 
 Overfull \hbox (63.07451pt too wide) in paragraph at lines 22--33
-\T1/pbk/l/n/10.95 agen-te. La co-mu-ni-ca-ci^^f3n con Ae-ros-tack2 se rea-li-za
- me-dian-te \T1/pcr/m/n/10.95 as2_python_api.DroneInterface\T1/pbk/l/n/10.95 ,
+\T1/pbk/l/n/10.95 agen-te. La co-mu-ni-ca-ci^^f3n con Ae-ros-tack2 se rea-li-za me-dian-te \T1/pcr/m/n/10.95 as2_python_api.DroneInterface\T1/pbk/l/n/10.95 ,
  []
 
 
 
-[19
+[18
 
 ]
 
 LaTeX Info: Redefining \. on input line 111.
 LaTeX Info: Redefining \% on input line 111.
-[20
-pdfTeX warning (ext4): destination with the same identifier (name{figure.3.1}) 
-has been already used, duplicate ignored
+[19
+pdfTeX warning (ext4): destination with the same identifier (name{figure.3.1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
 l.111 
@@ -1847,31 +1440,17 @@ LaTeX Font Info:    Font shape `T1/pbk/m/n' in size <9> not available
 (Font)              Font shape `T1/pbk/l/n' tried instead on input line 122.
 LaTeX Font Info:    Font shape `T1/pbk/m/n' in size <6> not available
 (Font)              Font shape `T1/pbk/l/n' tried instead on input line 122.
-
-Underfull \hbox (badness 10000) in paragraph at lines 122--122
-[][][]\T1/pbk/l/n/9 Imagen dis-po-ni-ble en Re-search-Ga-te: []$\T1/pcr/m/n/9 h
-ttps : / / www . researchgate . net / figure /
- []
-
-
-Overfull \hbox (24.3312pt too wide) in paragraph at lines 122--122
-\T1/pcr/m/n/9 A-[]conceptual-[]representation-[]of-[]drone-[]pose-[]A-[]drone-[
-]here-[]represented-[]by-[]a-[]DJI-[]Mavic-[]2-[]is _
- []
-
-<images/drone_pose_roll_pitch_yaw.png, id=636, 465.74pt x 432.61626pt>
+<images/drone_pose_roll_pitch_yaw.png, id=659, 465.74pt x 432.61626pt>
 File: images/drone_pose_roll_pitch_yaw.png Graphic file (type png)
 <use images/drone_pose_roll_pitch_yaw.png>
-Package pdftex.def Info: images/drone_pose_roll_pitch_yaw.png  used on input li
-ne 126.
+Package pdftex.def Info: images/drone_pose_roll_pitch_yaw.png  used on input line 126.
 (pdftex.def)             Requested size: 262.72241pt x 244.04578pt.
 
 
 LaTeX Info: Redefining \. on input line 148.
 LaTeX Info: Redefining \% on input line 148.
-[21
-pdfTeX warning (ext4): destination with the same identifier (name{figure.3.2}) 
-has been already used, duplicate ignored
+[20
+pdfTeX warning (ext4): destination with the same identifier (name{figure.3.2}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
 l.148 
@@ -1879,25 +1458,22 @@ l.148
 
 LaTeX Info: Redefining \. on input line 260.
 LaTeX Info: Redefining \% on input line 260.
-[22
-pdfTeX warning (ext4): destination with the same identifier (name{figure.3.3}) 
-has been already used, duplicate ignored
+[21
+pdfTeX warning (ext4): destination with the same identifier (name{figure.3.3}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
 l.260 
       ]
 Overfull \hbox (22.11716pt too wide) in paragraph at lines 277--286
-[]\T1/pbk/l/n/10.95 El en-torno con-tem-pla tam-bi^^e9n un mo-do de di-se-^^f1o
- de-no-mi-na-do \T1/pcr/m/n/10.95 randomize_hover_start\T1/pbk/l/n/10.95 .
+[]\T1/pbk/l/n/10.95 El en-torno con-tem-pla tam-bi^^e9n un mo-do de di-se-^^f1o de-no-mi-na-do \T1/pcr/m/n/10.95 randomize_hover_start\T1/pbk/l/n/10.95 .
  []
 
 
 
 LaTeX Info: Redefining \. on input line 335.
 LaTeX Info: Redefining \% on input line 335.
-[23
-pdfTeX warning (ext4): destination with the same identifier (name{figure.3.4}) 
-has been already used, duplicate ignored
+[22
+pdfTeX warning (ext4): destination with the same identifier (name{figure.3.4}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
 l.335 
@@ -1908,18 +1484,15 @@ Overfull \hbox (15.37788pt too wide) in paragraph at lines 338--348
 
 
 Overfull \hbox (103.80502pt too wide) in paragraph at lines 386--397
-\T1/pbk/l/n/10.95 vo-ca ba-jo el es-pa-cio de nom-bres del veh^^edcu-lo, por ej
-em-plo \T1/pcr/m/n/10.95 /drone0/platform/reset_simulator_state\T1/pbk/l/n/10.9
-5 .
+\T1/pbk/l/n/10.95 vo-ca ba-jo el es-pa-cio de nom-bres del veh^^edcu-lo, por ejem-plo \T1/pcr/m/n/10.95 /drone0/platform/reset_simulator_state\T1/pbk/l/n/10.95 .
  []
 
 
 
 LaTeX Info: Redefining \. on input line 397.
 LaTeX Info: Redefining \% on input line 397.
-[24
-pdfTeX warning (ext4): destination with the same identifier (name{table.3.1}) h
-as been already used, duplicate ignored
+[23
+pdfTeX warning (ext4): destination with the same identifier (name{table.3.1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
 l.397 
@@ -1952,763 +1525,756 @@ Underfull \hbox (badness 1406) in paragraph at lines 420--420
 
 LaTeX Info: Redefining \. on input line 449.
 LaTeX Info: Redefining \% on input line 449.
-[25
-pdfTeX warning (ext4): destination with the same identifier (name{table.3.2}) h
-as been already used, duplicate ignored
+[24
+pdfTeX warning (ext4): destination with the same identifier (name{table.3.2}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
 l.449 E
-       l entorno conserva la capacidad de calcular t^^c3^^a9rminos adicional...
-]
-Underfull \hbox (badness 1584) in paragraph at lines 493--494
+       l entorno conserva la capacidad de calcular t^^c3^^a9rminos adicional...]
+Underfull \hbox (badness 1584) in paragraph at lines 494--495
 \T1/pbk/l/n/10 men-te la dis-tan-cia
  []
 
 
-Underfull \hbox (badness 1275) in paragraph at lines 498--499
+Underfull \hbox (badness 1275) in paragraph at lines 499--500
 []|\T1/pbk/l/n/10 Premia al-can-zar la
  []
 
 
-Underfull \hbox (badness 3240) in paragraph at lines 503--504
+Underfull \hbox (badness 3240) in paragraph at lines 504--505
 \T1/pbk/l/n/10 to-rias in-se-gu-ras o
  []
 
 
-Underfull \hbox (badness 2582) in paragraph at lines 507--507
+Underfull \hbox (badness 2582) in paragraph at lines 508--508
 []|\T1/pbk/l/n/10 Si el UAV des-
  []
 
 
-Underfull \hbox (badness 3019) in paragraph at lines 512--512
+Underfull \hbox (badness 3019) in paragraph at lines 513--513
 \T1/pbk/l/n/10 n^^fa-me-ro m^^e1-xi-mo
  []
 
 
-Underfull \hbox (badness 1688) in paragraph at lines 513--514
+Underfull \hbox (badness 1688) in paragraph at lines 514--515
 []|\T1/pbk/l/n/10 Limita la du-ra-ci^^f3n
  []
 
 
 
-LaTeX Info: Redefining \. on input line 553.
-LaTeX Info: Redefining \% on input line 553.
-[26]
-Overfull \hbox (89.80507pt too wide) in paragraph at lines 602--606
+LaTeX Info: Redefining \. on input line 561.
+LaTeX Info: Redefining \% on input line 561.
+[25]
+Overfull \hbox (89.80507pt too wide) in paragraph at lines 614--618
  [][] 
  []
 
-) (secciones/04_Implementacion.tex
+
+
+LaTeX Info: Redefining \. on input line 631.
+LaTeX Info: Redefining \% on input line 631.
+[26
+pdfTeX warning (ext4): destination with the same identifier (name{table.3.3}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.631 
+      ]
+
+LaTeX Info: Redefining \. on input line 660.
+LaTeX Info: Redefining \% on input line 660.
+[27
+pdfTeX warning (ext4): destination with the same identifier (name{figure.3.5}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.660 
+      ]) (secciones/04_Implementacion.tex
 
 LaTeX Info: Redefining \. on input line 2.
 LaTeX Info: Redefining \% on input line 2.
-[27
-pdfTeX warning (ext4): destination with the same identifier (name{table.3.3}) h
-as been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.2 \chapter
-            {Implementaci^^c3^^b3n} \label{chp:implementacion}]
-
-[28
-pdfTeX warning (ext4): destination with the same identifier (name{figure.3.5}) 
-has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.2 \chapter
-            {Implementaci^^c3^^b3n} \label{chp:implementacion}]
+[28]
 Cap\'{\i }tulo 4.
-
-Overfull \hbox (140.9395pt too wide) in paragraph at lines 28--37
-[]\T1/pbk/l/n/10.95 La im-ple-men-ta-ci^^f3n se or-ga-ni-za al-re-de-dor de tre
-s pun-tos de en-tra-da. El m^^f3-du-lo \T1/pcr/m/n/10.95 rl_uav/envs/as2_test_e
-nv.py
- []
-
 
 
 [29
 
 ]
-Overfull \hbox (7.99246pt too wide) in paragraph at lines 55--55
-[]|\T1/pcr/m/n/10 rl_uav/envs/as2_test_env.py| 
- []
 
-
-Overfull \hbox (13.99246pt too wide) in paragraph at lines 56--56
-[]|\T1/pcr/m/n/10 rl_uav/training/ppo_setup.py| 
- []
-
-
-Overfull \hbox (1.99246pt too wide) in paragraph at lines 60--60
-[]|\T1/pcr/m/n/10 scripts/supervise_train.sh| 
- []
-
-
-Overfull \hbox (43.99246pt too wide) in paragraph at lines 61--61
-[]|\T1/pcr/m/n/10 as2_platform_multirotor_simulator| 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 63--63
-[]|\T1/pcr/m/n/10 scripts/test_* \T1/pbk/l/n/10 y
- []
-
-
-
-LaTeX Info: Redefining \. on input line 142.
-LaTeX Info: Redefining \% on input line 142.
+LaTeX Info: Redefining \. on input line 172.
+LaTeX Info: Redefining \% on input line 172.
 [30
-pdfTeX warning (ext4): destination with the same identifier (name{table.4.1}) h
-as been already used, duplicate ignored
+pdfTeX warning (ext4): destination with the same identifier (name{table.4.1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.142 
+l.172 
       ]
-Overfull \hbox (67.80766pt too wide) in paragraph at lines 155--165
-\T1/pbk/l/n/10.95 [[]Fern^^e1ndez-Cortizas et al., []2023[]]. Pa-ra ha-cer m^^e
-1s ro-bus-ta la eje-cu-ci^^f3n, \T1/pcr/m/n/10.95 scripts/as2_runtime.py
- []
 
-
-
-LaTeX Info: Redefining \. on input line 165.
-LaTeX Info: Redefining \% on input line 165.
+LaTeX Info: Redefining \. on input line 195.
+LaTeX Info: Redefining \% on input line 195.
 [31
-pdfTeX warning (ext4): destination with the same identifier (name{figure.4.1}) 
-has been already used, duplicate ignored
+pdfTeX warning (ext4): destination with the same identifier (name{figure.4.1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.165 
+l.195 
       ]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-LaTeX Info: Redefining \. on input line 218.
-LaTeX Info: Redefining \% on input line 218.
+LaTeX Info: Redefining \. on input line 246.
+LaTeX Info: Redefining \% on input line 246.
 [32]
 
-LaTeX Info: Redefining \. on input line 256.
-LaTeX Info: Redefining \% on input line 256.
+LaTeX Info: Redefining \. on input line 284.
+LaTeX Info: Redefining \% on input line 284.
 [33
-pdfTeX warning (ext4): destination with the same identifier (name{table.4.2}) h
-as been already used, duplicate ignored
+pdfTeX warning (ext4): destination with the same identifier (name{table.4.2}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.256 
-      ]
-<images/rviz2_training_view.png, id=719, 702.05142pt x 753.67285pt>
+l.284 R
+       Viz2 se utiliza como herramienta de inspecci^^c3^^b3n cualitativa del...]
+<images/rviz2_training_view.png, id=748, 702.05142pt x 753.67285pt>
 File: images/rviz2_training_view.png Graphic file (type png)
 <use images/rviz2_training_view.png>
-Package pdftex.def Info: images/rviz2_training_view.png  used on input line 267
-.
+Package pdftex.def Info: images/rviz2_training_view.png  used on input line 294.
 (pdftex.def)             Requested size: 371.43729pt x 398.7547pt.
 
 
-LaTeX Info: Redefining \. on input line 288.
-LaTeX Info: Redefining \% on input line 288.
+LaTeX Info: Redefining \. on input line 315.
+LaTeX Info: Redefining \% on input line 315.
 [34
-pdfTeX warning (ext4): destination with the same identifier (name{figure.4.2}) 
-has been already used, duplicate ignored
+pdfTeX warning (ext4): destination with the same identifier (name{figure.4.2}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.288 
+l.315 
        <./images/rviz2_training_view.png (PNG copy)>]
+Underfull \vbox (badness 1817) has occurred while \output is active []
 
-LaTeX Info: Redefining \. on input line 382.
-LaTeX Info: Redefining \% on input line 382.
+
+
+LaTeX Info: Redefining \. on input line 416.
+LaTeX Info: Redefining \% on input line 416.
 [35
-pdfTeX warning (ext4): destination with the same identifier (name{table.4.3}) h
-as been already used, duplicate ignored
+pdfTeX warning (ext4): destination with the same identifier (name{table.4.3}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.382 
+l.416 
       ]
-Overfull \hbox (60.61661pt too wide) in paragraph at lines 394--400
-\T1/pbk/l/n/10.95 de re-ini-cio de la ve-lo-ci-dad m^^e1-xi-ma per-mi-ti-da a P
-PO. Tam-bi^^e9n se in-cor-po-ra \T1/pcr/m/n/10.95 reset_yaw_required\T1/pbk/l/n
-/10.95 ,
- []
 
-
-Overfull \hbox (103.44588pt too wide) in paragraph at lines 401--408
-\T1/pbk/l/n/10.95 IMU y odo-me-tr^^eda. So-bre ese ser-vi-cio se im-ple-men-tan
- re-in-ten-tos me-dian-te \T1/pcr/m/n/10.95 reset_service_max_attempts
- []
-
-
-
-LaTeX Info: Redefining \. on input line 408.
-LaTeX Info: Redefining \% on input line 408.
+LaTeX Info: Redefining \. on input line 442.
+LaTeX Info: Redefining \% on input line 442.
 [36
-pdfTeX warning (ext4): destination with the same identifier (name{figure.4.3}) 
-has been already used, duplicate ignored
+pdfTeX warning (ext4): destination with the same identifier (name{figure.4.3}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.408 
+l.442 
       ]
-Overfull \hbox (17.49059pt too wide) in paragraph at lines 433--441
-\T1/pbk/l/n/10.95 con-fi-gu-ra-ci^^f3n se-lec-cio-na-da. Pa-ra cam-pa-^^f1as la
-r-gas, \T1/pcr/m/n/10.95 train_ppo.py \T1/pbk/l/n/10.95 acep-ta \T1/pcr/m/n/10.
-95 --resume-from
+Overfull \hbox (20.99452pt too wide) in paragraph at lines 473--481
+\T1/pbk/l/n/10.95 con-fi-gu-ra-ci^^f3n se-lec-cio-na-da. Pa-ra cam-pa-^^f1as lar-gas, \T1/pcr/m/n/10.95 train_ppo.py \T1/pbk/l/n/10.95 acep-ta \T1/pcr/m/n/10.95 --resume-from\T1/pbk/l/n/10.95 ,
  []
 
-) (secciones/05_Pruebas.tex
+
+
+LaTeX Info: Redefining \. on input line 495.
+LaTeX Info: Redefining \% on input line 495.
+[37]) (secciones/05_Pruebas.tex
 
 LaTeX Info: Redefining \. on input line 2.
 LaTeX Info: Redefining \% on input line 2.
-[37]
+[38]
 Cap\'{\i }tulo 5.
 
-Underfull \hbox (badness 1221) in paragraph at lines 42--42
+Underfull \hbox (badness 1221) in paragraph at lines 47--47
 []|\T1/pbk/l/n/10 Validar la se-m^^e1n-ti-ca del en-
  []
 
 
-Underfull \hbox (badness 6380) in paragraph at lines 43--44
+Underfull \hbox (badness 6380) in paragraph at lines 48--49
 []|\T1/pbk/l/n/10 Movimiento f^^ed-si-co me-di-ble,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 44--44
+Underfull \hbox (badness 10000) in paragraph at lines 49--49
 []|\T1/pbk/l/n/10 Ejecuciones PPO
  []
 
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Underfull \vbox (badness 5288) has occurred while \output is active []
 
 
 
-[38
+[39
 
 ]
-Overfull \hbox (38.10815pt too wide) in paragraph at lines 88--88
-[]|\T1/pcr/m/n/10 scripts/test_vectorization.py| 
- []
-
-
-Underfull \hbox (badness 3219) in paragraph at lines 88--88
-[]|\T1/pbk/l/n/10 Comprobar con-tra-to del en-
- []
-
-
-Underfull \hbox (badness 3590) in paragraph at lines 88--88
-\T1/pbk/l/n/10 torno, vec-to-ri-za-ci^^f3n, re-set y
- []
-
-
-Underfull \hbox (badness 6876) in paragraph at lines 88--88
-\T1/pbk/l/n/10 diag-n^^f3s-ti-cos con do-bles de
- []
-
-
-Underfull \hbox (badness 2512) in paragraph at lines 88--89
-\T1/pbk/l/n/10 nes de-ter-mi-nis-tas pa-
- []
-
-
-Overfull \hbox (92.10815pt too wide) in paragraph at lines 89--89
-[]|\T1/pcr/m/n/10 scripts/test_ppo_config_propagation.py| 
- []
-
-
-Underfull \hbox (badness 2326) in paragraph at lines 89--89
-[]|\T1/pbk/l/n/10 Verificar que los pa-r^^e1-me-tros
- []
-
-
-Overfull \hbox (92.10815pt too wide) in paragraph at lines 90--90
-[]|\T1/pcr/m/n/10 scripts/test_exp010_reward_contract.py| 
- []
-
-
-Underfull \hbox (badness 3439) in paragraph at lines 90--91
-[]|\T1/pbk/l/n/10 La re-com-pen-sa con-ti-
- []
-
-
-Overfull \hbox (134.10815pt too wide) in paragraph at lines 91--91
-[]|\T1/pcr/m/n/10 scripts/test_exp011_randomization_contract.py| 
- []
-
-
-Overfull \hbox (104.10815pt too wide) in paragraph at lines 92--92
-[]|\T1/pcr/m/n/10 scripts/test_exp012_training_contract.py| 
- []
-
-
-Underfull \hbox (badness 1533) in paragraph at lines 92--92
-[]|\T1/pbk/l/n/10 Verificar la con-fi-gu-ra-ci^^f3n del
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 92--93
-[]|\T1/pbk/l/n/10 La con-fi-gu-ra-ci^^f3n de
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 92--93
-\T1/pbk/l/n/10 Exp012 con-ser-va la
- []
-
-
-Overfull \hbox (62.10815pt too wide) in paragraph at lines 93--93
-[]|\T1/pcr/m/n/10 scripts/test_resume_checkpoint.py| 
- []
-
-
-Underfull \hbox (badness 4341) in paragraph at lines 93--93
-\T1/pbk/l/it/10 points \T1/pbk/l/n/10 pa-ra reanu-da-ci^^f3n de
- []
-
-
-Underfull \hbox (badness 1082) in paragraph at lines 93--94
-\T1/pbk/l/n/10 reanu-dar-se des-de una
- []
-
-
-Overfull \hbox (98.10815pt too wide) in paragraph at lines 94--94
-[]|\T1/pcr/m/n/10 scripts/validate_deterministic_reset.py| 
- []
-
-
-Overfull \hbox (110.10815pt too wide) in paragraph at lines 95--95
-[]|\T1/pcr/m/n/10 scripts/validate_exp008_training_smoke.py| 
- []
-
-
-Underfull \hbox (badness 8019) in paragraph at lines 95--96
-[]|\T1/pbk/l/n/10 Las ac-cio-nes acep-ta-
- []
-
-
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-LaTeX Info: Redefining \. on input line 101.
-LaTeX Info: Redefining \% on input line 101.
-[39
-pdfTeX warning (ext4): destination with the same identifier (name{table.5.1}) h
-as been already used, duplicate ignored
+LaTeX Info: Redefining \. on input line 158.
+LaTeX Info: Redefining \% on input line 158.
+[40
+pdfTeX warning (ext4): destination with the same identifier (name{table.5.1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.101 
+l.158 
       ]
 
-LaTeX Info: Redefining \. on input line 128.
-LaTeX Info: Redefining \% on input line 128.
-[40
-pdfTeX warning (ext4): destination with the same identifier (name{table.5.2}) h
-as been already used, duplicate ignored
+LaTeX Info: Redefining \. on input line 164.
+LaTeX Info: Redefining \% on input line 164.
+[41
+pdfTeX warning (ext4): destination with the same identifier (name{table.5.2}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.128 
-      ]
-Underfull \hbox (badness 2119) in paragraph at lines 146--146
+l.164 \section
+              {Pruebas con Aerostack2 y reinicio de episodios} \label{sct:pr...]
+Underfull \hbox (badness 2119) in paragraph at lines 207--207
 []|\T1/pbk/l/n/10 Objetivos des-pla-za-dos y
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 146--147
+Underfull \hbox (badness 10000) in paragraph at lines 207--208
 []|\T1/pbk/l/n/10 Exp001--
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 147--147
+Underfull \hbox (badness 10000) in paragraph at lines 208--208
 []|\T1/pbk/l/n/10 Bucle de epi-so-dios
  []
 
 
-Underfull \hbox (badness 4024) in paragraph at lines 147--147
+Underfull \hbox (badness 4024) in paragraph at lines 208--208
 []|\T1/pbk/l/n/10 Reset fi-jo in-su-fi-cien-te
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 147--148
+Underfull \hbox (badness 10000) in paragraph at lines 208--209
 []|\T1/pbk/l/n/10 Exp002--
  []
 
 
-Underfull \hbox (badness 8038) in paragraph at lines 148--148
+Underfull \hbox (badness 8038) in paragraph at lines 209--209
 \T1/pbk/l/n/10 ros-tack2 eje-cu-t^^e1n-do-se
  []
 
 
-Underfull \hbox (badness 1389) in paragraph at lines 148--148
+Underfull \hbox (badness 1389) in paragraph at lines 209--209
 []|\T1/pbk/l/n/10 Eliminaci^^f3n del fall-back
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 148--149
+Underfull \hbox (badness 10000) in paragraph at lines 209--210
 []|\T1/pbk/l/n/10 Exp006--
  []
 
 
-Underfull \hbox (badness 1226) in paragraph at lines 149--149
+Underfull \hbox (badness 1226) in paragraph at lines 210--210
 []|\T1/pbk/l/n/10 Derivas gran-des o re-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 149--149
+Underfull \hbox (badness 10000) in paragraph at lines 210--210
 []|\T1/pbk/l/n/10 Diagn^^f3sticos de re-set,
  []
 
 
-Underfull \hbox (badness 3386) in paragraph at lines 149--149
+Underfull \hbox (badness 3386) in paragraph at lines 210--210
 \T1/pcr/m/n/10 reset_max_vel \T1/pbk/l/n/10 y fa-ses
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 149--150
+Underfull \hbox (badness 10000) in paragraph at lines 210--211
 []|\T1/pbk/l/n/10 Exp007--
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 150--150
+Underfull \hbox (badness 10000) in paragraph at lines 211--211
 []|\T1/pbk/l/n/10 Comando acep-ta-do
  []
 
 
-Underfull \hbox (badness 2608) in paragraph at lines 150--150
+Underfull \hbox (badness 2608) in paragraph at lines 211--211
 []|\T1/pbk/l/n/10 Desacoplamiento en-tre
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 150--151
+Underfull \hbox (badness 10000) in paragraph at lines 211--212
 []|\T1/pbk/l/n/10 Smokes
  []
 
 
-Underfull \hbox (badness 1496) in paragraph at lines 151--151
+Underfull \hbox (badness 1496) in paragraph at lines 212--212
 []|\T1/pbk/l/n/10 Muchos epi-so-dios ter-
  []
 
 
-Underfull \hbox (badness 3019) in paragraph at lines 151--151
+Underfull \hbox (badness 3019) in paragraph at lines 212--212
 \T1/pbk/l/n/10 ob-ser-va-bles y fuer-zan
  []
 
 
-Underfull \hbox (badness 2229) in paragraph at lines 151--151
+Underfull \hbox (badness 2229) in paragraph at lines 212--212
 \T1/pbk/l/n/10 en l^^ed-mi-tes y su-per-vi-sor
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 151--152
+Underfull \hbox (badness 10000) in paragraph at lines 212--213
 []|\T1/pbk/l/n/10 Exp010--
  []
 
 
+Underfull \hbox (badness 1394) in paragraph at lines 213--213
+[]|\T1/pbk/l/n/10 Inercia ver-ti-cal atra-
+ []
+
+
+Underfull \hbox (badness 1688) in paragraph at lines 213--213
+[]|\T1/pbk/l/n/10 La pla-ta-for-ma in-vier-te
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 213--214
+[]|\T1/pbk/l/n/10 Exp012--
+ []
+
+
+Underfull \hbox (badness 2961) in paragraph at lines 214--214
+[]|\T1/pbk/l/n/10 Watchdog de co-man-dos
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 214--215
+[]|\T1/pbk/l/n/10 Exp017--
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 214--215
+\T1/pbk/l/n/10 Exp018,
+ []
+
+
+Underfull \hbox (badness 2837) in paragraph at lines 215--215
+[]|\T1/pbk/l/n/10 Escalado a ter-mi-na-ci^^f3n
+ []
+
+
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-LaTeX Info: Redefining \. on input line 178.
-LaTeX Info: Redefining \% on input line 178.
-[41
-pdfTeX warning (ext4): destination with the same identifier (name{table.5.3}) h
-as been already used, duplicate ignored
+LaTeX Info: Redefining \. on input line 221.
+LaTeX Info: Redefining \% on input line 221.
+[42]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+LaTeX Info: Redefining \. on input line 242.
+LaTeX Info: Redefining \% on input line 242.
+[43
+pdfTeX warning (ext4): destination with the same identifier (name{table.5.3}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.178 
+l.242 
       ]) (secciones/06_Resultados.tex
 
 LaTeX Info: Redefining \. on input line 2.
 LaTeX Info: Redefining \% on input line 2.
-[42]
+[44]
 Cap\'{\i }tulo 6.
-LaTeX Font Info:    Font shape `T1/pbk/b/n' in size <8> not available
-(Font)              Font shape `T1/pbk/db/n' tried instead on input line 46.
 
-Overfull \hbox (8.30002pt too wide) in paragraph at lines 46--46
+
+[45
+
+]
+LaTeX Font Info:    Font shape `T1/pbk/b/n' in size <8> not available
+(Font)              Font shape `T1/pbk/db/n' tried instead on input line 49.
+
+Overfull \hbox (8.30002pt too wide) in paragraph at lines 49--49
 []|\T1/pbk/db/n/8 Experimento| 
  []
 
 
-Underfull \hbox (badness 3965) in paragraph at lines 49--49
+Underfull \hbox (badness 1009) in paragraph at lines 51--51
+[]|\T1/pbk/l/n/8 PPO con con-fi-gu-ra-ci^^f3n
+ []
+
+
+Underfull \hbox (badness 3965) in paragraph at lines 52--52
 []|\T1/pbk/l/n/8 Objetivo des-pla-za-do y
  []
 
 
-Underfull \hbox (badness 7595) in paragraph at lines 49--49
+Underfull \hbox (badness 7595) in paragraph at lines 52--52
 []|\T1/pbk/l/n/8 Primeros epi-so-dios ^^fati-les,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 50--50
+Underfull \hbox (badness 10000) in paragraph at lines 53--53
 []|\T1/pbk/l/n/8 Introducir
  []
 
 LaTeX Font Info:    Font shape `T1/pbk/m/it' in size <8> not available
-(Font)              Font shape `T1/pbk/l/it' tried instead on input line 50.
+(Font)              Font shape `T1/pbk/l/it' tried instead on input line 53.
 
-Underfull \hbox (badness 1466) in paragraph at lines 50--50
+Underfull \hbox (badness 1466) in paragraph at lines 53--53
 \T1/pbk/l/n/8 ta-do con mo-ni-tor, Ten-sor-
  []
 
 
-Underfull \hbox (badness 6675) in paragraph at lines 51--51
-[]|\T1/pbk/l/n/8 Target m^^e1s le-jano y
+Underfull \hbox (badness 10000) in paragraph at lines 54--54
+[]|\T1/pbk/l/n/8 Exp004--
  []
 
 
-Underfull \hbox (badness 7362) in paragraph at lines 53--53
-[]|\T1/pbk/l/n/8 Mejorar es-ta-bi-li-dad y
+Underfull \hbox (badness 10000) in paragraph at lines 54--54
+[]|\T1/pbk/l/n/8 Estabilizaci^^f3n in-cre-
  []
 
 
-Underfull \hbox (badness 3068) in paragraph at lines 53--53
-\T1/pbk/l/n/8 evi-tar fall-back pro-ble-
+Underfull \hbox (badness 2503) in paragraph at lines 56--56
+[]|\T1/pbk/l/n/8 Modif^^edcacion a re-com-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 58--58
-[]|\T1/pbk/l/n/8 Recompensa m^^ed-ni-ma
- []
-
-
-Underfull \hbox (badness 1867) in paragraph at lines 58--58
-\T1/pbk/l/n/8 ali-nea-da con el tu-tor,
- []
-
-
-Underfull \hbox (badness 1881) in paragraph at lines 58--58
-\T1/pbk/l/n/8 ran-do-mi-za-ci^^f3n com-ple-
- []
-
-
-Underfull \hbox (badness 7814) in paragraph at lines 58--58
-\T1/pbk/l/n/8 ta e hi-per-pa-r^^e1-me-tros
- []
-
-
-Underfull \hbox (badness 3417) in paragraph at lines 60--60
+Underfull \hbox (badness 3417) in paragraph at lines 58--58
 \T1/pbk/l/n/8 am-plia-do, reanu-da-ci^^f3n
  []
 
 
-Underfull \hbox (badness 6380) in paragraph at lines 60--60
-[]|\T1/pbk/l/n/8 Experimento en eje-cu-ci^^f3n
+Underfull \hbox (badness 2368) in paragraph at lines 58--58
+\T1/pbk/l/n/8 di-za-je real, con pi-cos del
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 59--59
+[]|\T1/pbk/l/n/8 Primer en-tre-na-mien-to de
+ []
+
+
+Underfull \hbox (badness 2903) in paragraph at lines 59--60
+\T1/pbk/l/n/8 com-ple-to; el apren-di-za-je per-ma-ne-ce
+ []
+
+
+Underfull \hbox (badness 1281) in paragraph at lines 60--60
+\T1/pbk/l/n/8 den-cia cre-cien-te (pi-cos del
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 62--62
+[]|\T1/pbk/l/n/8 Curriculum eta-pa 3:
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 63--63
+[]|\T1/pbk/l/n/8 Primer en-tre-na-mien-to
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 63--63
+[]|\T1/pbk/l/n/8 Colapso in-me-dia-to:
+ []
+
+
+Underfull \hbox (badness 2318) in paragraph at lines 63--63
+\T1/pbk/l/n/8 1184/1189 epi-so-dios OOB
  []
 
 
 
-[43
-
-]
-
-LaTeX Info: Redefining \. on input line 91.
-LaTeX Info: Redefining \% on input line 91.
-[44
-pdfTeX warning (ext4): destination with the same identifier (name{table.6.1}) h
-as been already used, duplicate ignored
+LaTeX Info: Redefining \. on input line 78.
+LaTeX Info: Redefining \% on input line 78.
+[46
+pdfTeX warning (ext4): destination with the same identifier (name{table.6.1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.91 
+l.78 
      ]
+<images/fig_progresion_experimentos.pdf, id=814, 534.79799pt x 263.78549pt>
+File: images/fig_progresion_experimentos.pdf Graphic file (type pdf)
+<use images/fig_progresion_experimentos.pdf>
+Package pdftex.def Info: images/fig_progresion_experimentos.pdf  used on input line 81.
+(pdftex.def)             Requested size: 416.72997pt x 205.55461pt.
 
-LaTeX Info: Redefining \. on input line 133.
-LaTeX Info: Redefining \% on input line 133.
-[45]) (secciones/07_Impacto.tex
+Overfull \hbox (4.03563pt too wide) in paragraph at lines 90--98
+[]\T1/pbk/l/n/10.95 Los ex-pe-ri-men-tos Exp010--Exp013 de-mues-tran que, con la re-com-pen-sa m^^ed-ni-ma $\OMS/cmsy/m/n/10.95 ^^@\OML/cmm/m/it/10.95 d[]$
+ []
+
+<images/fig_curva_curriculum.pdf, id=815, 469.26128pt x 236.17625pt>
+File: images/fig_curva_curriculum.pdf Graphic file (type pdf)
+<use images/fig_curva_curriculum.pdf>
+Package pdftex.def Info: images/fig_curva_curriculum.pdf  used on input line 109.
+(pdftex.def)             Requested size: 430.31847pt x 216.57843pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+LaTeX Info: Redefining \. on input line 116.
+LaTeX Info: Redefining \% on input line 116.
+[47
+pdfTeX warning (ext4): destination with the same identifier (name{figure.6.1}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.116 
+       <./images/fig_progresion_experimentos.pdf>]
+Overfull \hbox (54.31674pt too wide) in paragraph at lines 153--166
+ [][] 
+ []
+
+
+
+LaTeX Info: Redefining \. on input line 169.
+LaTeX Info: Redefining \% on input line 169.
+[48
+pdfTeX warning (ext4): destination with the same identifier (name{figure.6.2}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.169 
+       <./images/fig_curva_curriculum.pdf>]
+<images/fig_evaluacion_controladores.pdf, id=873, 469.58435pt x 224.16399pt>
+File: images/fig_evaluacion_controladores.pdf Graphic file (type pdf)
+<use images/fig_evaluacion_controladores.pdf>
+Package pdftex.def Info: images/fig_evaluacion_controladores.pdf  used on input line 176.
+(pdftex.def)             Requested size: 407.66867pt x 194.61404pt.
+<images/fig_stall_exp016.pdf, id=875, 469.76566pt x 224.18129pt>
+File: images/fig_stall_exp016.pdf Graphic file (type pdf)
+<use images/fig_stall_exp016.pdf>
+Package pdftex.def Info: images/fig_stall_exp016.pdf  used on input line 193.
+(pdftex.def)             Requested size: 407.66867pt x 194.55038pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+LaTeX Info: Redefining \. on input line 201.
+LaTeX Info: Redefining \% on input line 201.
+[49
+pdfTeX warning (ext4): destination with the same identifier (name{table.6.2}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.201 
+      
+pdfTeX warning (ext4): destination with the same identifier (name{figure.6.3}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.201 
+       <./images/fig_evaluacion_controladores.pdf>]
+
+LaTeX Info: Redefining \. on input line 236.
+LaTeX Info: Redefining \% on input line 236.
+[50
+pdfTeX warning (ext4): destination with the same identifier (name{figure.6.4}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.236 
+       <./images/fig_stall_exp016.pdf>]
+
+LaTeX Info: Redefining \. on input line 290.
+LaTeX Info: Redefining \% on input line 290.
+[51]) (secciones/07_Impacto.tex
 
 LaTeX Info: Redefining \. on input line 2.
 LaTeX Info: Redefining \% on input line 2.
-[46]
+[52]
 Cap\'{\i }tulo 7.
-) (secciones/08_Conclusiones.tex
-
-[47
-
-]
-Cap\'{\i }tulo 8.
-
-
-[48
-
-])
-
-LaTeX Info: Redefining \. on input line 51.
-LaTeX Info: Redefining \% on input line 51.
-[49]
-LaTeX Font Info:    Font shape `T1/pbk/m/sc' in size <10.95> not available
-(Font)              Font shape `T1/pbk/l/sc' tried instead on input line 51.
-
-Overfull \hbox (14.74907pt too wide) in paragraph at lines 51--51
-\T1/pcr/m/n/10.95 learning -[] explained -[] overview -[] comparisons -[] and -
-[] applications -[] in -[] business/$[]
- []
-
-
-Overfull \hbox (12.9762pt too wide) in paragraph at lines 51--51
-\T1/pbk/l/n/10.95 ning: A Re-view^^T. En: \T1/pbk/l/it/10.95 Elec-tro-nics \T1/
-pbk/l/n/10.95 10.9, p^^e1g. 999. \T1/pbk/l/sc/10.95 doi\T1/pbk/l/n/10.95 : []$\
-T1/pcr/m/n/10.95 10 . 3390 / electronics10090999$[]\T1/pbk/l/n/10.95 .
- []
-
-
-Overfull \hbox (6.35515pt too wide) in paragraph at lines 51--51
-[][]\T1/pbk/l/n/10.95 Chollet, Ga-briel (2021). \T1/pbk/l/it/10.95 What is ROS\
-T1/pbk/l/n/10.95 . \T1/pbk/l/sc/10.95 url\T1/pbk/l/n/10.95 : []$\T1/pcr/m/n/10.
-95 https : / / medium . com / @Gabriel _ Chollet /
- []
-
-
-Overfull \hbox (10.79813pt too wide) in paragraph at lines 51--51
-[]$\T1/pcr/m/n/10.95 10 . 1109 / ICRA46639 . 2022 . 9811564$[]\T1/pbk/l/n/10.95
- . \T1/pbk/l/sc/10.95 url\T1/pbk/l/n/10.95 : []$\T1/pcr/m/n/10.95 https : / / d
-oi . org / 10 . 1109 / ICRA46639 .
- []
-
-
-
-[50
-
-]
-Overfull \hbox (7.17908pt too wide) in paragraph at lines 51--51
-[]$\T1/pcr/m/n/10.95 https : / / objectways . com / blog / deep -[] learning -[
-] vs -[] reinforcement -[] learning -[]
- []
-
-
-Overfull \hbox (1.16208pt too wide) in paragraph at lines 51--51
-\T1/pcr/m/n/10.95 scirobotics . adg1462$[]\T1/pbk/l/n/10.95 . \T1/pbk/l/sc/10.9
-5 url\T1/pbk/l/n/10.95 : []$\T1/pcr/m/n/10.95 https : / / doi . org / 10 . 1126
- / scirobotics . adg1462$[]\T1/pbk/l/n/10.95 . 
- []
-
-
-
-LaTeX Info: Redefining \. on input line 51.
-LaTeX Info: Redefining \% on input line 51.
-[51]
-
-LaTeX Info: Redefining \. on input line 56.
-LaTeX Info: Redefining \% on input line 56.
-[52] (secciones/09_Anexos.tex
-Ap\'{e}ndice A.
-
-Underfull \hbox (badness 10000) in paragraph at lines 31--32
-[]|\T1/pbk/l/n/10 Curriculum ini-cial,
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 31--32
-\T1/pbk/l/n/10 yaw diag-n^^f3s-ti-co y
- []
-
-
-Underfull \hbox (badness 1924) in paragraph at lines 34--34
-[]|\T1/pbk/l/n/10 ^^c1rea se-gu-ra y anti-
- []
-
-
-Underfull \hbox (badness 1215) in paragraph at lines 35--35
-[]|\T1/pbk/l/n/10 Guards de l^^ed-mi-tes y
- []
-
-
-Underfull \hbox (badness 1014) in paragraph at lines 35--36
-[]|\T1/pbk/l/n/10 Guard de ac-ci^^f3n, co-rre-dor
- []
-
 
 
 [53
 
+]) (secciones/08_Conclusiones.tex
 
-
-pdfTeX warning (ext4): destination with the same identifier (name{table.Alph1.1
-}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.48 
-     ]
-Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
-nput line 49.
-
-
-LaTeX Info: Redefining \. on input line 99.
-LaTeX Info: Redefining \% on input line 99.
+LaTeX Info: Redefining \. on input line 2.
+LaTeX Info: Redefining \% on input line 2.
 [54]
-<images/tensorboard_exp010_rollout.png, id=886, 1077.02374pt x 482.80376pt>
-File: images/tensorboard_exp010_rollout.png Graphic file (type png)
-<use images/tensorboard_exp010_rollout.png>
-Package pdftex.def Info: images/tensorboard_exp010_rollout.png  used on input l
-ine 102.
-(pdftex.def)             Requested size: 430.31847pt x 192.90443pt.
-<images/tensorboard_exp011_rollout.png, id=887, 1075.01625pt x 482.80376pt>
-File: images/tensorboard_exp011_rollout.png Graphic file (type png)
-<use images/tensorboard_exp011_rollout.png>
-Package pdftex.def Info: images/tensorboard_exp011_rollout.png  used on input l
-ine 112.
-(pdftex.def)             Requested size: 430.31847pt x 193.25806pt.
-<images/tensorboard_exp010_train.png, id=888, 1796.7125pt x 912.40875pt>
-File: images/tensorboard_exp010_train.png Graphic file (type png)
-<use images/tensorboard_exp010_train.png>
-Package pdftex.def Info: images/tensorboard_exp010_train.png  used on input lin
-e 122.
-(pdftex.def)             Requested size: 430.31847pt x 218.52313pt.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Cap\'{\i }tulo 8.
 
 
-
-LaTeX Info: Redefining \. on input line 129.
-LaTeX Info: Redefining \% on input line 129.
 [55
-pdfTeX warning (ext4): destination with the same identifier (name{figure.Alph1.
-1}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.129 
-      
-pdfTeX warning (ext4): destination with the same identifier (name{figure.Alph1.
-2}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.129 
-       <./images/tensorboard_exp010_rollout.png> <./images/tensorboard_exp011_r
-ollout.png>]
-<images/tensorboard_exp011_train.png, id=895, 1800.7275pt x 916.42375pt>
-File: images/tensorboard_exp011_train.png Graphic file (type png)
-<use images/tensorboard_exp011_train.png>
-Package pdftex.def Info: images/tensorboard_exp011_train.png  used on input lin
-e 132.
-(pdftex.def)             Requested size: 430.31847pt x 218.99532pt.
+
+]
+
+LaTeX Info: Redefining \. on input line 102.
+LaTeX Info: Redefining \% on input line 102.
+[56])
+
+LaTeX Info: Redefining \. on input line 51.
+LaTeX Info: Redefining \% on input line 51.
+[57]
+LaTeX Font Info:    Font shape `T1/pbk/m/sc' in size <10.95> not available
+(Font)              Font shape `T1/pbk/l/sc' tried instead on input line 51.
+
+Overfull \hbox (14.74907pt too wide) in paragraph at lines 51--51
+\T1/pcr/m/n/10.95 learning -[] explained -[] overview -[] comparisons -[] and -[] applications -[] in -[] business/$[]
+ []
+
+
+Overfull \hbox (12.9762pt too wide) in paragraph at lines 51--51
+\T1/pbk/l/n/10.95 ning: A Re-view^^T. En: \T1/pbk/l/it/10.95 Elec-tro-nics \T1/pbk/l/n/10.95 10.9, p^^e1g. 999. \T1/pbk/l/sc/10.95 doi\T1/pbk/l/n/10.95 : []$\T1/pcr/m/n/10.95 10 . 3390 / electronics10090999$[]\T1/pbk/l/n/10.95 .
+ []
+
+
+Overfull \hbox (6.35515pt too wide) in paragraph at lines 51--51
+[][]\T1/pbk/l/n/10.95 Chollet, Ga-briel (2021). \T1/pbk/l/it/10.95 What is ROS\T1/pbk/l/n/10.95 . \T1/pbk/l/sc/10.95 url\T1/pbk/l/n/10.95 : []$\T1/pcr/m/n/10.95 https : / / medium . com / @Gabriel _ Chollet /
+ []
+
+
+Overfull \hbox (10.79813pt too wide) in paragraph at lines 51--51
+[]$\T1/pcr/m/n/10.95 10 . 1109 / ICRA46639 . 2022 . 9811564$[]\T1/pbk/l/n/10.95 . \T1/pbk/l/sc/10.95 url\T1/pbk/l/n/10.95 : []$\T1/pcr/m/n/10.95 https : / / doi . org / 10 . 1109 / ICRA46639 .
+ []
+
+
+
+[58
+
+]
+Overfull \hbox (7.17908pt too wide) in paragraph at lines 51--51
+[]$\T1/pcr/m/n/10.95 https : / / objectways . com / blog / deep -[] learning -[] vs -[] reinforcement -[] learning -[]
+ []
+
+
+Overfull \hbox (1.16208pt too wide) in paragraph at lines 51--51
+\T1/pcr/m/n/10.95 scirobotics . adg1462$[]\T1/pbk/l/n/10.95 . \T1/pbk/l/sc/10.95 url\T1/pbk/l/n/10.95 : []$\T1/pcr/m/n/10.95 https : / / doi . org / 10 . 1126 / scirobotics . adg1462$[]\T1/pbk/l/n/10.95 . 
+ []
+
+
+
+LaTeX Info: Redefining \. on input line 51.
+LaTeX Info: Redefining \% on input line 51.
+[59]
+
+LaTeX Info: Redefining \. on input line 56.
+LaTeX Info: Redefining \% on input line 56.
+[60] (secciones/09_Anexos.tex
+Ap\'{e}ndice A.
+
+Underfull \hbox (badness 10000) in paragraph at lines 35--36
+[]|\T1/pbk/l/n/10 Curriculum ini-cial,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 35--36
+\T1/pbk/l/n/10 yaw diag-n^^f3s-ti-co y
+ []
+
+
+Underfull \hbox (badness 1924) in paragraph at lines 38--38
+[]|\T1/pbk/l/n/10 ^^c1rea se-gu-ra y anti-
+ []
+
+
+Underfull \hbox (badness 1215) in paragraph at lines 39--39
+[]|\T1/pbk/l/n/10 Guards de l^^ed-mi-tes y
+ []
+
+
+Underfull \hbox (badness 1014) in paragraph at lines 39--40
+[]|\T1/pbk/l/n/10 Guard de ac-ci^^f3n, co-rre-dor
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 42--42
+[]|\T1/pbk/l/n/10 100000 pa-sos
+ []
+
+
+Underfull \hbox (badness 1622) in paragraph at lines 42--43
+[]|\T1/pbk/l/n/10 Objetivos a $\OMS/cmsy/m/n/10 ^^T \OT1/cmr/m/n/10 3[]5$ \T1/pbk/l/n/10 m con
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 43--43
+[]|\T1/pbk/l/n/10 150000 pa-sos
+ []
+
+
+Underfull \hbox (badness 1048) in paragraph at lines 44--45
+\T1/pbk/l/it/10 tep\T1/pbk/l/n/10 ; ori-gen del diag-n^^f3s-ti-co
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 45--45
+[]|\T1/pbk/l/n/10 Vectorizado con
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 45--45
+[]|\T1/pbk/l/n/10 200000 pa-sos
+ []
+
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+[61
+
+
+]
+Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 63.
+
+
+LaTeX Info: Redefining \. on input line 68.
+LaTeX Info: Redefining \% on input line 68.
+[62
+pdfTeX warning (ext4): destination with the same identifier (name{table.Alph1.1}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.68 \end{listing}
+                  ]
+Overfull \hbox (38.10815pt too wide) in paragraph at lines 136--136
+[]|\T1/pcr/m/n/10 runs/ppo/<ejecucion>/monitor/|  
+ []
+
+
+Overfull \hbox (62.10815pt too wide) in paragraph at lines 136--136
+[]|\T1/pcr/m/n/10 runs/ppo/<ejecucion>/tensorboard/|  
+ []
 
 
 
 LaTeX Info: Redefining \. on input line 151.
 LaTeX Info: Redefining \% on input line 151.
-[56
-pdfTeX warning (ext4): destination with the same identifier (name{figure.Alph1.
-3}) has been already used, duplicate ignored
+[63
+pdfTeX warning (ext4): destination with the same identifier (name{table.Alph1.2}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
 l.151 
-      
-pdfTeX warning (ext4): destination with the same identifier (name{figure.Alph1.
-4}) has been already used, duplicate ignored
+      ]
+<images/tensorboard_exp010_rollout.png, id=1111, 1077.02374pt x 482.80376pt>
+File: images/tensorboard_exp010_rollout.png Graphic file (type png)
+<use images/tensorboard_exp010_rollout.png>
+Package pdftex.def Info: images/tensorboard_exp010_rollout.png  used on input line 165.
+(pdftex.def)             Requested size: 430.31847pt x 192.90443pt.
+
+
+LaTeX Info: Redefining \. on input line 188.
+LaTeX Info: Redefining \% on input line 188.
+[64
+pdfTeX warning (ext4): destination with the same identifier (name{figure.Alph1.1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.151 
-       <./images/tensorboard_exp010_train.png> <./images/tensorboard_exp011_tra
-in.png>]
-Underfull \hbox (badness 8189) in paragraph at lines 170--170
+l.188 
+       <./images/tensorboard_exp010_rollout.png>]
+Underfull \hbox (badness 8189) in paragraph at lines 207--207
 []|\T1/pbk/l/n/10 Inspecci^^f3n del re-po-si-to-rio,
+ []
+
+
+Underfull \hbox (badness 1354) in paragraph at lines 209--210
+[]|\T1/pbk/l/n/10 Revisi^^f3n ad-ver-sa-rial pre-via a
+ []
+
+
+Underfull \hbox (badness 2617) in paragraph at lines 209--210
+\T1/pbk/l/n/10 ca-da in-te-gra-ci^^f3n, ve-ri-fi-ca-ci^^f3n
  []
 
 )
 
 LaTeX Info: Redefining \. on input line 60.
 LaTeX Info: Redefining \% on input line 60.
-[57
-pdfTeX warning (ext4): destination with the same identifier (name{table.Alph1.2
-}) has been already used, duplicate ignored
+[65
+pdfTeX warning (ext4): destination with the same identifier (name{table.Alph1.3}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
 l.60 \end{document}
@@ -2721,48 +2287,24 @@ LaTeX Info: Redefining \% on input line 12.
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
  ***********
-Package rerunfilecheck Info: File `tfg_etsiinf_NombreApellidos.out' has not cha
-nged.
-(rerunfilecheck)             Checksum: E5699B73CC39AAA26FBA5E0EEC02BB0B;12572.
+Package rerunfilecheck Info: File `tfg_etsiinf_NombreApellidos.out' has not changed.
+(rerunfilecheck)             Checksum: 40AB2D915E045367186C38FE2C414C22;13345.
 Package logreq Info: Writing requests to 'tfg_etsiinf_NombreApellidos.run.xml'.
-
 \openout1 = `tfg_etsiinf_NombreApellidos.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 37494 strings out of 467870
- 728274 string characters out of 5409725
- 1621941 words of memory out of 5000000
- 65528 multiletter control sequences out of 15000+600000
- 672498 words of font info for 130 fonts, out of 8000000 for 9000
+ 37636 strings out of 467870
+ 731301 string characters out of 5409725
+ 1651384 words of memory out of 5000000
+ 65636 multiletter control sequences out of 15000+600000
+ 675568 words of font info for 134 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 104i,14n,121p,718b,3401s stack positions out of 10000i,1000n,20000p,200000b,200000s
-{/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/enc/dvi
-ps/base/8r.enc}</Users/jordi/Library/Application Support/MiKTeX/texmfs/install/
-fonts/type1/public/amsfonts/cm/cmex10.pfb></Users/jordi/Library/Application Sup
-port/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/cm/cmmi10.pfb></Users/jo
-rdi/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/amsfon
-ts/cm/cmmi6.pfb></Users/jordi/Library/Application Support/MiKTeX/texmfs/install
-/fonts/type1/public/amsfonts/cm/cmmi7.pfb></Users/jordi/Library/Application Sup
-port/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/cm/cmmi8.pfb></Users/jor
-di/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/amsfont
-s/cm/cmr10.pfb></Users/jordi/Library/Application Support/MiKTeX/texmfs/install/
-fonts/type1/public/amsfonts/cm/cmr7.pfb></Users/jordi/Library/Application Suppo
-rt/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/cm/cmr8.pfb></Users/jordi/
-Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/c
-m/cmsy10.pfb></Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fo
-nts/type1/public/amsfonts/cm/cmsy8.pfb></Users/jordi/Library/Application Suppor
-t/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/symbols/msbm10.pfb></Users/
-jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/urw/bookman
-/ubkd8a.pfb></Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fon
-ts/type1/urw/bookman/ubkl8a.pfb></Users/jordi/Library/Application Support/MiKTe
-X/texmfs/install/fonts/type1/urw/bookman/ubkli8a.pfb></Users/jordi/Library/Appl
-ication Support/MiKTeX/texmfs/install/fonts/type1/urw/courier/ucrb8a.pfb></User
-s/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/urw/couri
-er/ucrr8a.pfb>
-Output written on tfg_etsiinf_NombreApellidos.pdf (65 pages, 1682070 bytes).
+ 104i,16n,121p,1238b,3401s stack positions out of 10000i,1000n,20000p,200000b,200000s
+{/Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/enc/dvips/base/8r.enc}</Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/cm/cmex10.pfb></Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/cm/cmmi10.pfb></Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/cm/cmmi6.pfb></Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/cm/cmmi7.pfb></Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/cm/cmmi8.pfb></Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/cm/cmr10.pfb></Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/cm/cmr7.pfb></Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/cm/cmr8.pfb></Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/cm/cmsy10.pfb></Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/cm/cmsy8.pfb></Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/symbols/msbm10.pfb></Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/urw/bookman/ubkd8a.pfb></Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/urw/bookman/ubkl8a.pfb></Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/urw/bookman/ubkli8a.pfb></Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/urw/courier/ucrb8a.pfb></Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/urw/courier/ucrr8a.pfb>
+Output written on tfg_etsiinf_NombreApellidos.pdf (73 pages, 1512320 bytes).
 PDF statistics:
- 1020 PDF objects out of 1200 (max. 8388607)
- 204 named destinations out of 1000 (max. 500000)
- 526 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1247 PDF objects out of 1440 (max. 8388607)
+ 229 named destinations out of 1000 (max. 500000)
+ 555 words of extra memory for PDF output out of 10000 (max. 10000000)
 

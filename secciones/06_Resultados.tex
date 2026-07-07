@@ -12,14 +12,14 @@ drones sobre un mismo simulador.
 
 \section{Validación funcional de la infraestructura} \label{sct:resultados:validacion}
 
-Las primeras pruebas confirman que la infraestructura básica es operativa. El
+Las primeras pruebas confirmaron que la infraestructura básica era operativa. El
 entorno puede instanciarse como entorno Gymnasium, conectarse con Aerostack2,
 armar el UAV, activar el modo \emph{offboard}, ejecutar despegue, enviar comandos
 de velocidad y registrar métricas mediante los mecanismos de monitorización. Esta
 validación funcional demuestra que la integración entre Gymnasium,
 Stable-Baselines3, ROS 2 y Aerostack2 es viable.
 
-No obstante, los resultados también muestran que la validez de un entrenamiento
+No obstante, los resultados también mostraron que la validez de un entrenamiento
 depende de condiciones adicionales. En las primeras ejecuciones se observaron
 éxitos triviales cuando el objetivo estaba demasiado cerca de la pose de
 despegue, ausencia de escalares de TensorBoard cuando PPO no alcanzaba suficientes
@@ -48,12 +48,12 @@ siguiente cambio de diseño.
 \hline
 \textbf{Experimento} & \textbf{Objetivo} & \textbf{Resultado observado} & \textbf{Interpretación técnica} \\
 \hline
-Exp001 & Smoke PPO con configuración inicial. & Episodios de éxito en un paso y métricas insuficientes. & El objetivo estaba demasiado cerca del estado inicial; no era una tarea de navegación útil. \\
-Exp002 & Objetivo desplazado y TensorBoard en prueba corta. & Primeros episodios útiles, después bucles de salida de límites. & El pipeline generaba artefactos, pero el reset no garantizaba inicio seguro tras OOB. \\
+Exp001 & PPO con configuración inicial. & Episodios de éxito en un paso y métricas insuficientes. & El objetivo estaba demasiado cerca del estado inicial; no era una tarea de navegación útil. \\
+Exp002 & Objetivo desplazado y TensorBoard en prueba corta. & Primeros episodios útiles, después bucles de salida de límites. & El pipeline generaba artefactos, pero el reset no garantizaba inicio seguro tras OOB\footnotemark. \\
 Exp003 & Introducir \texttt{fixed\_start\_pose}. & Entrenamiento corto completado con monitor, TensorBoard y \emph{checkpoints}. & El reset determinista resolvió el bucle inmediato de OOB en una prueba acotada. \\
 Exp004--Exp008a & Estabilización incremental del reset. & Bloqueos de \texttt{go\_to}, timeouts de reset y comandos aceptados sin movimiento. & El cuello de botella pasa de PPO a la interacción reset--controlador--simulador. \\
 Exp009 & Primer gate PPO sobre el stack de reset certificado. & 5000 pasos y 126 episodios sin fallos de reset. & Se valida la infraestructura de episodio; el aprendizaje aún no es interpretable. \\
-Exp010 & Recompensa mínima del tutor, randomización completa e hiperparámetros revisados. & 12\,852 pasos y 427 episodios antes del fallo; 359 OOB, 65 baja altitud, 3 éxitos. & Las fronteras no observables y el coste del teleport dominan la experiencia; el simulador se bloquea tras cientos de reinicios de servicio. \\
+Exp010 & Modifícacion a recompensa mas sencilla, randomización completa e hiperparámetros revisados. & 12\,852 pasos y 427 episodios antes del fallo; 359 OOB, 65 baja altitud, 3 éxitos. & Las fronteras no observables y el coste del teleport dominan la experiencia; el simulador se bloquea tras cientos de reinicios de servicio. \\
 Exp011 & Área segura de muestreo y límite de distancia inicio--objetivo. & 21\,347 pasos y 637 episodios; 512 OOB, 121 baja altitud, 3 éxitos. & La saturación de observaciones se corrige, pero una política sin entrenar deriva igualmente hasta las fronteras invisibles. \\
 Exp012 & Guard de acción en límites, corredor vertical ampliado, reanudación y supervisor. & 704 episodios; primer aprendizaje real, con picos del 24\,\% de éxito en simulador recién reiniciado. & El guard XY funciona (24 muertes frente a 512), pero la inercia vertical atraviesa el guard reactivo (404 muertes por techo y suelo) y la degradación del simulador es gradual: la misma política pasa del 9\,\% al 1\,\% según envejece el proceso. \\
 Exp013 & Guards predictivos (posición + velocidad $\times$ 1 s) y empuje vertical con autoridad completa. & Primer entrenamiento de 50\,000 pasos completado sin ningún fallo; 0 teleports en los primeros 24\,000 pasos. & La infraestructura queda validada por completo; el aprendizaje permanece plano ($\sim$11\,\%), lo que identifica la densidad de la señal de éxito como cuello de botella. \\
@@ -67,6 +67,7 @@ Exp018 & Vectorizado con watchdog de comandos inactivos. & 96\,\% de éxito glob
 \caption{Resumen de experimentos principales y su interpretación.}
 \label{tab:resultados:experimentos}
 \end{table}
+\footnotetext{OOB corresponde a \emph{out of bounds}, es decir, una terminación por salida de los límites físicos definidos para el episodio.}
 
 La Figura~\ref{fig:resultados:progresion} sintetiza esta evolución en términos de
 tasa de éxito por experimento. Los tres primeros experimentos de la fase
@@ -135,6 +136,15 @@ ambas en modo determinista y estocástico, y el controlador PID de referencia
 que consume la misma observación relativa normalizada y emite acciones en el
 mismo espacio acotado.
 
+La distinción entre modo determinista y estocástico es relevante porque PPO
+aprende una distribución de acciones, no solo una acción fija. En modo
+determinista se aplica la media de esa distribución y, por tanto, se evalúa el
+comportamiento más estable de la política aprendida. En modo estocástico se
+muestrea una acción de la distribución, conservando parte de la variabilidad
+usada durante el entrenamiento. Comparar ambos modos permite distinguir si la
+política ya ha aprendido una acción media suficiente o si todavía depende del
+ruido de exploración para alcanzar el objetivo.
+
 \begin{table}[H]
 \centering
 \small
@@ -169,7 +179,7 @@ episodios sembrados.}
 \label{fig:resultados:evaluacion}
 \end{figure}
 
-En primer lugar, el entrenamiento vectorizado mejora materialmente la política.
+En primer lugar, el entrenamiento vectorizado mejora la política.
 El modelo de Exp016 alcanza un 78\,\% en modo determinista, con un modo de fallo
 característico: los 22 episodios fallidos terminan todos por límite de pasos con
 el UAV detenido entre 0,42 y 1,12 m del objetivo, sin ninguna terminación de
@@ -182,9 +192,10 @@ los 100 episodios.
 \centering
 \includegraphics[width=0.9\textwidth]{images/fig_stall_exp016.pdf}
 \caption{Distribución de la distancia final al objetivo en la evaluación
-determinista del modelo Exp016. Todos los fallos son truncamientos por límite de
-pasos con el UAV estancado justo fuera de la esfera de éxito; no se produce
-ninguna terminación de seguridad.}
+determinista del modelo Exp016. La línea discontinua indica el umbral de éxito
+de 0,4 m. Todos los fallos corresponden a truncamientos por límite de pasos,
+sin terminaciones de seguridad; una parte de ellos queda próxima al umbral,
+aunque existen episodios con distancias finales superiores.}
 \label{fig:resultados:stall}
 \end{figure}
 
@@ -200,9 +211,7 @@ ha internalizado.
 En tercer lugar, el controlador PID gana la comparación en la tarea nominal: con
 la misma tasa de éxito que la mejor política, resuelve los episodios un 16\,\%
 más rápido, con trayectorias prácticamente rectas y con un error de yaw terminal
-de 0,01 rad frente a 0,44 rad. Este resultado es esperable y debe presentarse
-sin ambages: el control de velocidad hacia un objetivo estático con observación
-relativa es precisamente el caso ideal de una ley proporcional. La contribución
+de 0,01 rad frente a 0,44 rad. Este resultado es esperable, la contribución
 del aprendizaje por refuerzo en este trabajo no consiste en superar al PID en su
 terreno, sino en alcanzar la paridad de éxito con el óptimo clásico mediante una
 política aprendida de extremo a extremo, sobre una infraestructura que permite
@@ -217,11 +226,13 @@ sin refinar la orientación final.
 La validación de la ejecución vectorizada aporta dos resultados: una medición y
 un diagnóstico. La medición confirma que, con \texttt{SubprocVecEnv} y dos
 drones en el mismo simulador, cada paso vectorizado se completa en 0,20 s, el
-mismo tiempo que un paso individual, lo que duplica de forma efectiva el
-muestreo. La alternativa secuencial no aporta aceleración en este sistema: al
-ser el simulador de reloj real, $N$ entornos secuenciales tardan $N \times 0{,}2$ s
-en producir $N$ muestras, exactamente el mismo caudal que un único entorno,
-independientemente del beneficio de la inferencia por lotes.
+mismo tiempo que un paso individual. En ese paso se obtiene una transición de
+cada dron, por lo que el caudal efectivo de muestras se duplica respecto a la
+ejecución con un único entorno. La alternativa secuencial no aporta aceleración
+en este sistema al ser el simulador de reloj real, $N$ entornos secuenciales
+tardan $N \times 0{,}2$ s en producir $N$ muestras, exactamente el mismo caudal
+que un único entorno, independientemente del beneficio de la inferencia por
+lotes.
 
 El diagnóstico corresponde al fallo de Exp017. El primer entrenamiento
 vectorizado colapsó de inmediato (1184 de 1189 episodios fuera de límites, con
@@ -236,20 +247,32 @@ el reinicio certificado de un entorno (10--25 s) bloquea el paso vectorizado y
 deja al otro dron volando su última velocidad durante todo ese tiempo, lo que
 encadena salidas de límites en espiral.
 
-La solución, un watchdog de comandos inactivos que publica una consigna de
+La solución ya comentada anteriormente, un watchdog de comandos inactivos que publica una consigna de
 hover cuando el entorno lleva más de 0,5 s sin emitir referencias, reduce la
-deriva medida de 8,05 m a 0,27 m y transforma el resultado: Exp018 completa
-50\,000 pasos vectorizados con un 96\,\% de éxito global y un 100\,\% en su tramo
-final, sin ningún fallo real de ejecución. Estos resultados validan el
-entrenamiento vectorizado con dos drones y acotan las condiciones para escalar:
-el número de entornos queda limitado por el coste de los reinicios bloqueantes en
+deriva medida de 8,05 m a 0,27 m. Con esta corrección se ejecuta Exp018: se parte
+del modelo final de Exp016, se mantiene la misma tarea de rango completo y se
+reanuda el entrenamiento con dos instancias del entorno, asociadas a los drones
+\texttt{drone0} y \texttt{drone1}, dentro de un \texttt{SubprocVecEnv}. Cada
+instancia ejecuta episodios independientes con sus propias semillas y reinicios,
+pero el algoritmo PPO recibe las muestras de ambas en el mismo proceso de
+aprendizaje.
+
+De este modo, Exp018 no es una evaluación aislada de la política anterior, sino
+un entrenamiento adicional sobre la política ya obtenida en Exp016. La diferencia
+respecto a Exp017 es que, durante los reinicios bloqueantes de un entorno, el
+watchdog mantiene al otro dron en hover en lugar de dejarlo continuar con la
+última referencia de velocidad. Con esta condición, Exp018 completa 50\,000 pasos
+adicionales con un 96\,\% de éxito global y un 100\,\% en su tramo final, sin
+ningún fallo real de ejecución. Estos resultados validan el entrenamiento
+vectorizado con dos drones y acotan las condiciones para escalar: el número de
+entornos queda limitado por el coste de los reinicios bloqueantes en
 \emph{lockstep} y por la capacidad de CPU para integrar varias dinámicas en
 tiempo real, restricciones que desaparecerían con un simulador pausable accesible
 mediante \emph{bindings} directos.
 
 \section{Hallazgos sobre el simulador} \label{sct:resultados:hallazgos_simulador}
 
-La campaña experimental produjo dos hallazgos de ingeniería sobre el fork del
+La sección experimental de este trabajo produjo dos hallazgos sobre el fork del
 simulador que condicionan cualquier trabajo futuro sobre esta plataforma.
 
 El primero es la degradación acumulativa asociada al servicio de reinicio. Los
@@ -266,7 +289,7 @@ reinicia stack y proceso cada 2,5 horas para que cada tramo de entrenamiento se
 ejecute sobre un simulador sano.
 
 El segundo es el comportamiento de la referencia de velocidad descrito en la
-sección anterior: el controlador mantiene la última consigna indefinidamente en
+sección anterior, el controlador mantiene la última consigna indefinidamente en
 ausencia de nuevas órdenes. Este comportamiento es razonable para teleoperación,
 pero resulta peligroso en entrenamiento vectorizado y debe tenerse en cuenta en
 cualquier integración de aprendizaje por refuerzo sobre Aerostack2.
@@ -288,7 +311,7 @@ simplificada; la transferencia a plataformas reales queda fuera del alcance de
 este trabajo.
 
 Estas limitaciones no invalidan las conclusiones principales: la tarea propuesta
-queda resuelta con la formulación indicada por el tutor, la comparación con el
+queda resuelta con la formulación original del problema de control, la comparación con el
 controlador clásico se realiza sobre episodios idénticos y reproducibles, y los
 fallos encontrados están diagnosticados con causa raíz identificada y evidencia
 cuantitativa.

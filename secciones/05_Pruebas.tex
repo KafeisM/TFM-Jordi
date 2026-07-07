@@ -31,7 +31,9 @@ simulador se encuentre en un estado limpio y que los reinicios de episodio sean
 físicamente válidos. Esta decisión evita confundir un problema de aprendizaje con
 un problema de infraestructura. Los experimentos que terminan en fallo se
 mantienen como evidencia útil cuando permiten identificar una condición de diseño
-o de integración que debe corregirse antes de continuar.
+o de integración que debe corregirse antes de continuar. El
+Cuadro~\ref{tab:pruebas:niveles_validacion} resume los niveles de validación
+aplicados y la evidencia esperada en cada uno de ellos.
 
 \begin{table}[H]
 \centering
@@ -53,7 +55,8 @@ Ejecuciones PPO acotadas & Comprobar que la infraestructura de entrenamiento pro
 
 \section{Entorno experimental} \label{sct:pruebas:entorno}
 
-Las pruebas se realizan sobre el repositorio \texttt{rl\_uav\_aerostack2}, que
+Las pruebas se realizan sobre el repositorio \texttt{rl\_uav\_aerostack2} mencionado 
+anteriormente en este trabajo, el cual
 contiene el entorno \texttt{AS2TestEnv-v0}, las configuraciones PPO, los scripts
 de entrenamiento y las utilidades de validación. La ejecución con simulador se
 apoya en ROS 2 Humble, Aerostack2 y el AS2 Multirotor Simulator. La ejecución de
@@ -81,28 +84,74 @@ simulador físico.
 
 \begin{table}[H]
 \centering
-\small
+\footnotesize
 \setlength{\tabcolsep}{3pt}
 \renewcommand{\arraystretch}{1.12}
-\begin{tabular}{p{0.30\textwidth} p{0.34\textwidth} p{0.26\textwidth}}
+
+\begin{tabularx}{\textwidth}{
+>{\raggedright\arraybackslash}p{0.30\textwidth}
+>{\raggedright\arraybackslash}X
+>{\raggedright\arraybackslash}p{0.27\textwidth}
+}
 \hline
 \textbf{Validador} & \textbf{Propósito} & \textbf{Criterio de aceptación} \\
 \hline
-\texttt{scripts/test\_vectorization.py} & Comprobar contrato del entorno, vectorización, reset y diagnósticos con dobles de prueba. & Todas las comprobaciones deterministas pasan. \\
-\texttt{scripts/test\_ppo\_config\_propagation.py} & Verificar que los parámetros YAML llegan al entorno y al modelo PPO. & Los parámetros críticos aparecen en la instancia final. \\
-\texttt{scripts/test\_exp010\_reward\_contract.py} & Comprobar la recompensa mínima usada en la configuración alineada con el tutor. & La recompensa continua depende de la distancia normalizada y el éxito aplica la penalización terminal de guiñada. \\
-\texttt{scripts/test\_exp011\_randomization\_contract.py} & Validar muestreo aleatorio de inicio, objetivo y guiñada con margen de seguridad y límite de distancia. & Las muestras respetan separación mínima, distancia máxima y márgenes de escena. \\
-\texttt{scripts/test\_exp012\_training\_contract.py} & Verificar la configuración del guard de límites, el corredor vertical y las claves de monitorización. & La configuración de Exp012 conserva la recompensa del tutor y activa las protecciones de frontera. \\
-\texttt{scripts/test\_resume\_checkpoint.py} & Validar la resolución de \emph{checkpoints} para reanudación de PPO. & El entrenamiento puede reanudarse desde una ruta explícita o desde el último \emph{checkpoint}. \\
-\texttt{scripts/test\_bounds\_action\_guard.py} y \texttt{test\_predictive\_guard.py} & Verificar los guards de acción reactivos y predictivos en fronteras y techo. & Los comandos salientes se sustituyen por empuje interior en las condiciones geométricas especificadas. \\
-\texttt{scripts/test\_idle\_watchdog.py} & Validar el mecanismo de vigilancia de comandos inactivos. & Publica hover tras el umbral de inactividad, no interfiere con la operación normal y se desactiva por defecto. \\
-\texttt{scripts/test\_evaluation\_harness.py} & Verificar el protocolo de evaluación por semillas y sus métricas. & Dos evaluaciones con la misma semilla producen episodios idénticos y los artefactos CSV/JSON son coherentes. \\
-\texttt{scripts/test\_pid\_controller.py} & Validar el controlador PID de referencia. & Signos, saturación, anti-\emph{windup} y convergencia en lazo cerrado cinemático. \\
-\texttt{scripts/test\_exp01*\_training\_contract.py} & Fijar el contrato de cada configuración experimental (Exp013--Exp018). & Geometría de guards, curriculum e hiperparámetros del tutor invariantes entre etapas. \\
-\texttt{scripts/validate\_deterministic\_reset.py} & Validar reinicios controlados y coherencia de pose inicial. & El UAV o doble de prueba alcanza el estado inicial esperado. \\
-\texttt{scripts/validate\_exp008\_training\_smoke.py} & Ejecutar una prueba corta con acción fija o PPO y analizar movimiento físico. & Las acciones aceptadas producen desplazamiento suficiente y métricas coherentes. \\
+
+\path{scripts/test_vectorization.py}
+& Comprobar contrato del entorno, vectorización, reset y diagnósticos con dobles de prueba.
+& Todas las comprobaciones deterministas pasan. \\
+
+\path{scripts/test_ppo_config_propagation.py}
+& Verificar que los parámetros YAML llegan al entorno y al modelo PPO.
+& Los parámetros críticos aparecen en la instancia final. \\
+
+\path{scripts/test_exp010_reward_contract.py}
+& Comprobar la recompensa mínima usada en la configuración alineada con el tutor.
+& La recompensa continua depende de la distancia normalizada y el éxito aplica la penalización terminal de guiñada. \\
+
+\path{scripts/test_exp011_randomization_contract.py}
+& Validar muestreo aleatorio de inicio, objetivo y guiñada con margen de seguridad y límite de distancia.
+& Las muestras respetan separación mínima, distancia máxima y márgenes de escena. \\
+
+\path{scripts/test_exp012_training_contract.py}
+& Verificar la configuración del guard de límites, el corredor vertical y las claves de monitorización.
+& La configuración de Exp012 conserva la recompensa del tutor y activa las protecciones de frontera. \\
+
+\path{scripts/test_resume_checkpoint.py}
+& Validar la resolución de \emph{checkpoints} para reanudación de PPO.
+& El entrenamiento puede reanudarse desde una ruta explícita o desde el último \emph{checkpoint}. \\
+
+\path{scripts/test_bounds_action_guard.py} y \path{scripts/test_predictive_guard.py}
+& Verificar los guards de acción reactivos y predictivos en fronteras y techo.
+& Los comandos salientes se sustituyen por empuje interior en las condiciones geométricas especificadas. \\
+
+\path{scripts/test_idle_watchdog.py}
+& Validar el mecanismo de vigilancia de comandos inactivos.
+& Publica hover tras el umbral de inactividad, no interfiere con la operación normal y se desactiva por defecto. \\
+
+\path{scripts/test_evaluation_harness.py}
+& Verificar el protocolo de evaluación por semillas y sus métricas.
+& Dos evaluaciones con la misma semilla producen episodios idénticos y los artefactos CSV/JSON son coherentes. \\
+
+\path{scripts/test_pid_controller.py}
+& Validar el controlador PID de referencia.
+& Signos, saturación, anti-\emph{windup} y convergencia en lazo cerrado cinemático. \\
+
+\path{scripts/test_exp01*_training_contract.py}
+& Fijar el contrato de cada configuración experimental, Exp013--Exp018.
+& Geometría de guards, curriculum e hiperparámetros del tutor invariantes entre etapas. \\
+
+\path{scripts/validate_deterministic_reset.py}
+& Validar reinicios controlados y coherencia de pose inicial.
+& El UAV o doble de prueba alcanza el estado inicial esperado. \\
+
+\path{scripts/validate_exp008_training_smoke.py}
+& Ejecutar una prueba corta con acción fija o PPO y analizar movimiento físico.
+& Las acciones aceptadas producen desplazamiento suficiente y métricas coherentes. \\
+
 \hline
-\end{tabular}
+\end{tabularx}
+
 \caption{Validadores representativos utilizados durante el desarrollo.}
 \label{tab:pruebas:validadores}
 \end{table}
@@ -124,12 +173,12 @@ comportamientos bloqueantes de retorno a pose inicial, pérdidas de estabilidad
 tras recrear el controlador y comandos aceptados sin movimiento físico medible.
 
 Como consecuencia de estos fallos, el reinicio de episodios se trasladó
-parcialmente al simulador mediante un servicio específico del fork del AS2
-Multirotor Simulator. Este servicio recibe la pose objetivo del UAV, muta el
+parcialmente al simulador mediante el servicio específico del fork del AS2
+Multirotor Simulator que se ha comentado durante la implementación. Este servicio recibe la pose objetivo del UAV, muta el
 estado interno de la dinámica, limpia velocidades, aceleraciones, referencias y
 estado de actuadores, y sincroniza la capa de plataforma de Aerostack2 para que
 el vehículo quede armado, en modo \emph{offboard} y en estado de vuelo. La
-validación del servicio distingue entre dos fronteras de prueba: la respuesta
+validación de dicho servicio distingue entre dos fronteras de prueba: la respuesta
 inmediata del servicio, que informa errores de posición, guiñada y normas
 dinámicas residuales, y la telemetría posterior publicada por ROS 2, que debe
 confirmar que no aparecen picos transitorios tras el reinicio.
@@ -140,7 +189,11 @@ pose inicial dentro del tiempo configurado, si no se mantiene estable tras el
 reset o si una acción aceptada no produce movimiento observable, la ejecución se
 rechaza como evidencia de entrenamiento válido. Este criterio es más estricto que
 permitir que PPO continúe acumulando pasos, pero resulta necesario para mantener
-la validez de los datos.
+la validez de los datos. El Cuadro~\ref{tab:pruebas:fallos_control} se incluye
+en esta sección para vincular cada fallo de integración observado con su causa
+probable, la mitigación incorporada y la evidencia experimental que justificó el
+cambio; de este modo, la evolución del entorno queda presentada como un proceso
+de validación técnica y no como una simple sucesión de intentos de entrenamiento.
 
 \begin{table}[H]
 \centering
