@@ -1,5 +1,5 @@
 % !TEX root = ../tfg_etsiinf_NombreApellidos.tex
-\chapter{Implementación} \label{chp:implementacion}
+\chapter{Implementación de la arquitectura} \label{chp:implementacion}
 
 Este capítulo describe cómo se materializa en el repositorio el diseño definido
 en el capítulo anterior. La atención se desplaza desde la formulación del
@@ -7,23 +7,25 @@ problema hacia la organización del software, la integración efectiva con ROS 2
 Aerostack2, la configuración de PPO y los mecanismos de diagnóstico necesarios
 para ejecutar experimentos reproducibles.
 
-La implementación no constituye un controlador de referencia clásico. El sistema
-construye una infraestructura de entrenamiento en la que Aerostack2 conserva el
-control de bajo nivel, el armado, el despegue y la ejecución simulada, mientras
-que la política aprendida actúa mediante comandos de velocidad compatibles con la
-plataforma. Esta distinción evita atribuir a la política responsabilidades que,
-en la solución desarrollada, pertenecen al \emph{stack} robótico.
+La implementación construye una infraestructura de entrenamiento en la que
+Aerostack2 conserva el control de bajo nivel, el armado, el despegue y la
+ejecución simulada, mientras que la política aprendida actúa mediante comandos
+de velocidad compatibles con la plataforma. Esta separación evita atribuir a la
+política responsabilidades que, en la solución desarrollada, pertenecen al
+\emph{stack} robótico.
 
 \section{Organización del software} \label{sct:implementacion:organizacion}
 
 El código desarrollado se distribuye en dos repositorios públicos. El repositorio
 principal \texttt{rl\_uav\_aerostack2}\footnote{\url{https://github.com/KafeisM/rl_uav_aerostack2}}
-contiene el entorno de aprendizaje, las configuraciones de entrenamiento, los
+contiene los componentes de la arquitectura de entrenamiento, incluida la
+interfaz Gymnasium, las configuraciones de entrenamiento, los
 scripts de ejecución y las utilidades de validación. El repositorio
 \texttt{as2\_platform\_multirotor\_simulator}\footnote{\url{https://github.com/KafeisM/as2_platform_multirotor_simulator}}
 contiene el fork del simulador empleado para añadir el servicio de reinicio
-determinista. Esta separación hace explícito qué parte corresponde al entorno
-Gymnasium y qué parte modifica la capa física de simulación.
+determinista. Esta separación hace explícito qué parte de la arquitectura
+corresponde a la interfaz Gymnasium y qué parte modifica la capa física de
+simulación.
 
 La implementación se organiza alrededor de tres puntos de entrada. El módulo \\
 \texttt{rl\_uav/envs/as2\_test\_env.py} contiene la clase \texttt{AS2TestEnv}
@@ -32,7 +34,7 @@ y concentra la traducción entre Gymnasium y Aerostack2. El fichero
 entorno, la vectorización, las rutas de salida y los hiperparámetros de PPO. Por
 último, \texttt{scripts/train\_ppo.py} lanza el entrenamiento o valida la
 configuración mediante un modo \emph{dry-run}. Esta división permite cambiar una
-configuración experimental sin modificar la lógica del entorno ni los scripts de
+configuración experimental sin modificar la lógica de la interfaz Gymnasium ni los scripts de
 ejecución.
 
 El repositorio incluye además utilidades de validación para comprobar la conexión
@@ -76,10 +78,10 @@ estado físico del multirrotor durante las campañas experimentales.
 & Supervisor de entrenamientos largos con reinicio del stack AS2 y reanudación desde \emph{checkpoint}. \\
 
 \path{rl_uav/evaluation/} 
-& Protocolo de evaluación por semillas con controladores enchufables, PPO y PID. \\
+& Protocolo de evaluación por semillas para políticas PPO en modos determinista y estocástico. \\
 
 \path{scripts/evaluate_policy.py} 
-& Punto de entrada de la evaluación formal y de la comparación entre controladores. \\
+& Punto de entrada de la evaluación formal de políticas entrenadas. \\
 
 \path{as2_platform_multirotor_simulator} 
 & Fork del simulador con servicio de reinicio determinista del estado del multirrotor. \\
@@ -88,7 +90,7 @@ estado físico del multirrotor durante las campañas experimentales.
 & Arranque del simulador monodron o multidron mediante nombres de dron. \\
 
 \path{scripts/test_*} y \path{scripts/validate_*} 
-& Validaciones locales y reales del entorno, la vectorización y la integración. \\
+& Validaciones locales y reales de la interfaz Gymnasium, la vectorización y la integración. \\
 
 \hline
 \end{tabularx}
@@ -100,7 +102,7 @@ estado físico del multirrotor durante las campañas experimentales.
 El Cuadro~\ref{tab:implementacion:organizacion_software} resume esta división.
 No se busca enumerar todos los
 ficheros del repositorio, sino mostrar que cada bloque tiene una responsabilidad
-acotada. El entorno define la interacción, la configuración describe el
+acotada. La interfaz Gymnasium define la interacción, la configuración describe el
 experimento, los scripts ejecutan tareas reproducibles y las utilidades de
 validación reducen el riesgo de confundir un fallo de simulación con un fallo del
 algoritmo.
@@ -112,7 +114,7 @@ presentada en el Capítulo~\ref{chp:state-of-the-art}. ROS 2 aporta el grafo de
 comunicación robótica y Aerostack2 proporciona la capa aérea que encapsula
 operaciones como armado, modo \emph{offboard}, despegue, aterrizaje y envío de
 velocidades \cite{fernandez2023aerostack2, ros2_humble_concepts}. En este
-capítulo no se repite su fundamento tecnológico; se describe cómo el entorno
+capítulo no se repite su fundamento tecnológico; se describe cómo la interfaz
 \texttt{AS2TestEnv} utiliza esas interfaces para convertir acciones de PPO en
 órdenes ejecutables por el simulador.
 
@@ -193,83 +195,6 @@ hacer más robusta la ejecución, \\ \texttt{scripts/as2\_runtime.py} comprueba 
 existencia de las sesiones del simulador y permite relanzarlas antes de ejecutar
 validaciones que dependen de AS2.
 
-Para los experimentos con reinicio certificado se utiliza un overlay del AS2
-Multirotor Simulator. El servicio añadido se expone bajo el espacio de nombres
-del vehículo, por ejemplo
-\texttt{/drone0/platform/reset\_simulator\_state}, y permite aplicar una pose
-objetivo directamente sobre el estado del simulador. La implementación no se
-limita a cambiar posición y orientación, sino que también pone a cero velocidades,
-aceleraciones, fuerzas, pares y estado de motores, reinicia controlador, IMU y
-odometría, y resincroniza la plataforma de Aerostack2 para dejarla armada, en
-modo \emph{offboard} y en estado de vuelo.
-
-\section{Configuración operativa de PPO} \label{sct:implementacion:ppo}
-
-La configuración de PPO se materializa en
-\texttt{configs/train\_ppo.yaml}. El Capítulo~\ref{chp:state-of-the-art}
-justifica la elección del algoritmo; esta sección se limita a documentar cómo se
-parametriza su uso dentro del sistema implementado y cómo se preserva la
-trazabilidad de cada ejecución.
-
-La configuración se divide en tres bloques principales. El bloque
-\texttt{experiment} define el nombre del experimento, la semilla y el directorio
-raíz de salida. El bloque \texttt{environment} agrupa los parámetros del entorno,
-incluyendo el identificador \texttt{AS2TestEnv-v0}, el número de instancias
-vectorizadas, el prefijo de espacio de nombres, los límites de posición y
-velocidad, la duración de cada paso, el objetivo, las condiciones de éxito y las
-penalizaciones de seguridad. El bloque \texttt{ppo} contiene los hiperparámetros
-del algoritmo, como la tasa de aprendizaje, el número de pasos por actualización,
-el tamaño de lote, el factor de descuento, el rango de \emph{clipping} y la
-arquitectura de las redes de política y valor.
-
-\begin{table}[H]
-\centering
-\small
-\setlength{\tabcolsep}{4pt}
-\renewcommand{\arraystretch}{1.15}
-\begin{tabular}{p{0.28\textwidth} p{0.22\textwidth} p{0.40\textwidth}}
-\hline
-\textbf{Parámetro} & \textbf{Valor base} & \textbf{Función} \\
-\hline
-\texttt{total\_timesteps} & \texttt{1000000} & Duración máxima de la campaña de entrenamiento. \\
-\texttt{learning\_rate} & \texttt{3.0e-05} & Tamaño de actualización de los parámetros de PPO. \\
-\texttt{n\_steps} & \texttt{512} & Número de pasos recogidos antes de cada actualización. \\
-\texttt{batch\_size} & \texttt{32} & Tamaño de lote usado durante la optimización. \\
-\texttt{clip\_range} & \texttt{0.2} & Límite de variación entre política antigua y política nueva. \\
-\texttt{use\_sde} & \texttt{true} & Activación de exploración dependiente del estado. \\
-\texttt{net\_arch} & \texttt{[128, 128]} & Capas ocultas de las redes de política y valor. \\
-\hline
-\end{tabular}
-\caption{Principales parámetros PPO definidos en la configuración base de entrenamiento.}
-\label{tab:implementacion:parametros_ppo}
-\end{table}
-
-El Cuadro~\ref{tab:implementacion:parametros_ppo} recoge los parámetros más
-representativos de la configuración base. Estos valores no deben interpretarse
-como una optimización definitiva del algoritmo, sino como una configuración
-inicial trazable y reproducible para validar la infraestructura de entrenamiento.
-Los capítulos de pruebas y resultados son los que deben determinar si una
-configuración concreta produce aprendizaje útil, estabilidad suficiente o
-necesidad de ajuste.
-
-A partir de Exp010 se emplea una configuración más óptima con tasa de aprendizaje \texttt{3.0e-05},
-\texttt{n\_steps=512}, \texttt{batch\_size=32}, \texttt{n\_epochs=5},
-\texttt{ent\_coef=0.0}, exploración SDE y redes MLP de dos capas de 128 unidades
-por rama. Las configuraciones Exp010, Exp011 y Exp012 mantienen estos
-hiperparámetros y modifican principalmente propiedades del entorno y de la tarea,
-como la recompensa mínima, la randomización completa, los márgenes de muestreo,
-el límite de distancia inicio--objetivo, los guards de acción y la reanudación de
-entrenamiento. Esta separación evita mezclar ajustes del algoritmo con cambios en
-las condiciones de interacción del UAV.
-
-La configuración también explicita decisiones de ingeniería que afectan a la
-reproducibilidad. El entrenamiento se fija inicialmente en CPU, coherente con el
-uso de políticas MLP y con la recomendación habitual de Stable-Baselines3 para
-evitar sobrecostes de GPU en redes no convolucionales. Además, se separan los
-directorios de \emph{logs}, monitorización y \emph{checkpoints}, lo que permite
-analizar una ejecución sin depender únicamente de la salida estándar del proceso.
-Esta estructura facilita repetir experimentos, comparar configuraciones y aislar
-fallos entre simulación, entorno y algoritmo.
 
 
 \section{Herramientas de visualización y monitorización} \label{sct:implementacion:herramientas_monitorizacion}
@@ -300,7 +225,7 @@ marcador del objetivo durante una ejecución con Aerostack2.}
 La Figura~\ref{fig:implementacion:rviz2_training_view} muestra un ejemplo de la
 visualización empleada durante las pruebas. El marcador verde representa el
 objetivo de navegación y el modelo del UAV permite comprobar de forma cualitativa
-si el movimiento observado es coherente con las acciones enviadas por el entorno.
+si el movimiento observado es coherente con las acciones enviadas por la interfaz.
 
 TensorBoard se emplea como herramienta de monitorización de las métricas emitidas
 por Stable-Baselines3 y por los monitores vectorizados. En las ejecuciones en las
@@ -308,48 +233,26 @@ que PPO alcanza suficientes pasos para completar una primera actualización, est
 herramienta permite inspeccionar magnitudes como recompensa media por episodio,
 longitud media de episodio y otros escalares registrados. Sin embargo, la
 interpretación de TensorBoard debe realizarse junto con los ficheros de monitor y
-los diagnósticos del entorno. Una curva ausente o congelada puede indicar que el
+los diagnósticos de la interfaz. Una curva ausente o congelada puede indicar que el
 entrenamiento no ha alcanzado un \emph{rollout} completo, que el proceso se ha
 bloqueado durante un reset o que el simulador ha dejado de producir transiciones
 válidas.
 
-\begin{table}[H]
-\centering
-\small
-\setlength{\tabcolsep}{4pt}
-\renewcommand{\arraystretch}{1.15}
-\begin{tabular}{p{0.25\textwidth} p{0.62\textwidth}}
-\hline
-\textbf{Herramienta} & \textbf{Uso en el trabajo} \\
-\hline
-ROS 2 & Comunicación entre nodos, servicios, acciones y flujos de datos del sistema robótico. \\
-Aerostack2 & Capa aérea reutilizada para armado, modos de vuelo, control y simulación. \\
-AS2 Multirotor Simulator & Simulación dinámica del multirrotor usado como fuente de experiencia. \\
-Gymnasium & Interfaz estándar del entorno de aprendizaje por refuerzo. \\
-Stable-Baselines3 & Implementación de PPO y utilidades de entrenamiento. \\
-TensorBoard & Monitorización de escalares y evolución de métricas durante ejecuciones PPO. \\
-RViz2 & Visualización cualitativa del UAV, el objetivo y la trayectoria en el espacio simulado. \\
-\hline
-\end{tabular}
-\caption{Herramientas principales utilizadas durante la implementación y validación.}
-\label{tab:implementacion:herramientas}
-\end{table}
 
-
-\section{Implementación del entorno de aprendizaje} \label{sct:implementacion:entorno}
+\section{Implementación de la interfaz Gymnasium} \label{sct:implementacion:entorno}
 
 La clase \texttt{AS2TestEnv} materializa el diseño del
 Capítulo~\ref{chp:diseno}. En lugar de volver a justificar los espacios de
 observación y acción, esta sección se centra en cómo se ejecuta el contrato en el
-código. El entorno registra \texttt{AS2TestEnv-v0}, define los espacios
+código. La interfaz registra \texttt{AS2TestEnv-v0}, define los espacios
 \texttt{Box} correspondientes, aplica los límites configurados y encapsula las
 operaciones de ciclo de vida que requiere Aerostack2.
 
-Durante \texttt{reset}, el entorno prepara la interfaz robótica, arma el UAV,
+Durante \texttt{reset}, la interfaz prepara la conexión robótica, arma el UAV,
 activa el modo \emph{offboard}, ejecuta el despegue y devuelve la primera
 observación normalizada. Cuando se habilita \texttt{randomize\_hover\_start}, la
 posición inicial, la guiñada y el objetivo se muestrean dentro de los límites
-configurados. Exp011 añade márgenes en XY y altura, junto con
+configurados. También se aplican márgenes en XY y altura, junto con
 \texttt{max\_start\_target\_distance}, para evitar episodios que comiencen junto
 a fronteras problemáticas o con la observación saturada desde el primer paso.
 
@@ -399,57 +302,69 @@ evalúan las condiciones de terminación y se generan campos de diagnóstico.
 \end{figure}
 
 La Figura~\ref{fig:implementacion:ciclo_entorno} resume el flujo implementado.
-La responsabilidad principal del entorno no es definir de nuevo el problema de
+La responsabilidad principal de la interfaz no es definir de nuevo el problema de
 aprendizaje, sino convertir cada interacción de PPO en una operación robótica
 acotada, observable y registrable.
 
 
-\section{Diagnóstico del reinicio y de la accionabilidad} \label{sct:implementacion:diagnostico_reset}
+\section{Reinicio determinista del simulador y validación de la accionabilidad}
+\label{sct:implementacion:diagnostico_reset}
 
-La implementación añade un paso específico porque el entrenamiento solo
-es válido si el UAV parte de un estado físico coherente y responde a las acciones
-enviadas. Por este motivo, el entorno registra el método de reinicio, el camino
-seguido, el estado del servicio, los errores residuales de posición y guiñada, el
-desplazamiento físico, la longitud de trayectoria, la aceptación de comandos y la
-altitud mínima. Estos campos permiten distinguir un fallo de aprendizaje de un
-fallo previo de simulación o de accionabilidad.
+El mecanismo de reinicio constituye la parte más delicada de la integración. El
+reinicio habitual de Aerostack2 permite preparar el vehículo para el vuelo, pero
+no proporciona una operación atómica que restaure simultáneamente la dinámica
+del simulador, los estados auxiliares y la capa de plataforma tras el final de
+un episodio. En particular, restituir únicamente la pose puede conservar
+velocidades, referencias, estados del controlador o una máquina de estados de
+la plataforma que ya no reenvía las órdenes de movimiento. El resultado es un
+UAV aparentemente situado en el punto inicial, pero que no representa un
+estado inicial válido para la arquitectura de entrenamiento.
 
-El parámetro \texttt{reset\_max\_vel} separa la autoridad usada por los comandos
-internos de reinicio de la velocidad máxima permitida a PPO. Por otra parte cabe
-destacar que cuando la interfaz, acepta comandos pero el UAV no se desplaza de forma apreciable, 
-el entorno falla
-de forma cerrada y evita generar experiencia inválida.
+Para resolver esta limitación se extiende el simulador mediante el servicio ROS~2
+\texttt{ResetSimulatorState}, expuesto bajo el espacio de nombres de cada
+vehículo, por ejemplo,
+\texttt{/drone0/platform/reset\_simulator\_state}. El servicio recibe la pose
+inicial y las tolerancias de posición, guiñada y velocidad que definen un
+reinicio aceptable. Su implementación valida la petición y sustituye el estado
+cinemático del multirrotor por la pose solicitada con velocidades, aceleraciones,
+fuerzas, pares y estados de los motores nulos. A continuación reinicializa el
+controlador, elimina las referencias pendientes
+de posición, velocidad, trayectoria y guiñada, y vuelve a establecer la base
+temporal de los bucles del simulador. Esta última operación evita que el primer
+paso posterior acumule el intervalo transcurrido durante el reinicio.
 
-El servicio \texttt{ResetSimulatorState}, añadido en el fork del simulador,
-aplica una pose objetivo y reinicia velocidades, aceleraciones, fuerzas, pares,
-motores, controlador, IMU y odometría. Sobre ese servicio se implementan
-reintentos mediante \\ \texttt{reset\_service\_max\_attempts} y
-\texttt{reset\_service\_retry\_backoff\_s}. Exp010 mostró que abortar tras un
-fallo transitorio era demasiado frágil; Exp011 añadió reintentos, y Exp012 redujo
-la frecuencia de reinicios forzados mediante un guard de acción en fronteras.
+La extensión también sincroniza explícitamente la plataforma Aerostack2 con el
+estado físico restaurado. Tras reinicializar la plataforma, la deja conectada,
+armada, en modo \emph{offboard} y en estado de vuelo, y actualiza el modo de
+control publicado para que la siguiente solicitud de control de velocidad no se
+descarte como si ya estuviera aplicada. Esta sincronización es necesaria porque
+la aceptación de una orden por ROS~2 no implica que la referencia alcance el
+simulador: la máquina de estados de la plataforma puede bloquear su reenvío aun
+cuando la dinámica ya se haya restaurado.
 
-El guard de Exp012 modifica las acciones que empujan al UAV hacia fuera cuando se
-aproxima a los límites XY o al techo de la escena. Las terminaciones por salida
-de límites y baja altitud se mantienen como red de seguridad, pero dejan de ser
-el mecanismo habitual para corregir a un agente aún no entrenado. A partir de
-Exp013 el disparo de ambos guards es predictivo: se evalúa la posición estimada
-como posición actual más velocidad medida por un horizonte configurable
-(\texttt{bounds\_guard\_lookahead\_s},
-\texttt{low\_altitude\_guard\_lookahead\_s}), y el empuje vertical dispone de
-autoridad completa (\texttt{bounds\_guard\_vertical\_push\_speed}), porque los
-datos de Exp012 mostraron que la inercia vertical atravesaba un guard puramente
-reactivo (404 de 428 salidas de límites se produjeron por techo o suelo).
+En \texttt{AS2TestEnv}, el cliente del servicio se crea con el mismo espacio de
+nombres que la interfaz. El retorno a la pose inicial se realiza normalmente con
+comandos de velocidad acotados, cuya autoridad se configura de forma
+independiente mediante \texttt{reset\_max\_vel}, así se mantiene un reinicio
+eficiente cuando el vehículo ya está en vuelo y el canal de control está sano.
+El servicio se emplea como vía de recuperación cuando el estado terminal impide
+esa maniobra o cuando el retorno por velocidad no converge dentro de los límites
+establecidos. Antes de intentar este retorno, un vehículo que permanece a baja
+altitud se eleva hasta una altura de seguridad configurada, sin ejecutar un
+ciclo interno de aterrizaje y despegue que pudiera dejar la plataforma en un
+estado incompatible con el control \emph{offboard}.
 
-Para la ejecución vectorizada se implementa además el mecanismo de vigilancia de
-comandos inactivos descrito en el diseño. Un hilo de fondo comprueba el tiempo
-transcurrido desde la última referencia de movimiento enviada por cualquier vía
-(pasos del agente, comandos de reinicio o sondas de accionabilidad); si el
-vehículo está en vuelo y ese tiempo supera \texttt{idle\_command\_watchdog\_s},
-publica referencias de velocidad nula a la cadencia de publicación configurada
-hasta que el flujo normal se reanuda. La validación en vivo del mecanismo redujo
-la deriva por referencias persistentes de 8,05 m a 0,27 m en una ventana de 20 s
-sin comandos. El parámetro vale cero por defecto, de modo que la ejecución
-monodron no crea el hilo ni altera su comportamiento.
+La respuesta del servicio no cierra por sí sola el reinicio. La interfaz comprueba
+los errores residuales y las marcas de restauración de la dinámica, del
+controlador, de la odometría y de la plataforma; después confirma la pose y
+verifica el canal de movimiento mediante una sonda de accionabilidad. Los
+reintentos se acotan mediante \texttt{reset\_service\_max\_attempts} y
+\texttt{reset\_service\_retry\_backoff\_s}. Si alguna de estas comprobaciones
+falla, \texttt{reset()} termina con un diagnóstico explícito en lugar de iniciar
+un episodio cuyas acciones no puedan modificar el estado del UAV. De este modo,
+la capa añadida transforma el reinicio del simulador en una precondición
+verificable del contrato Gymnasium, no en una mera recolocación visual del
+vehículo.
 
 
 \section{Infraestructura de entrenamiento y vectorización} \label{sct:implementacion:infraestructura_entrenamiento}
@@ -498,3 +413,173 @@ conectarse con AS2, enviar comandos de velocidad y generar trazas
 monitorizables. Esta evidencia prueba la infraestructura de entrenamiento, no el
 rendimiento final de la política; esa interpretación corresponde a los capítulos
 de pruebas y resultados.
+
+\section{Verificación técnica de la implementación}
+\label{sct:pruebas:estrategia}
+
+Las comprobaciones de esta sección verifican que los componentes desarrollados
+materializan correctamente los contratos definidos en los capítulos anteriores.
+Su objeto es comprobar la calidad de la implementación, que la interfaz Gymnasium conserva
+su semántica, que la configuración se propaga sin ambigüedades, que la integración
+robótica mantiene un ciclo de episodio válido y que la infraestructura deja
+artefactos diagnósticos. No se pretende determinar si una política aprende a
+resolver la tarea de navegación; esa validación aplicada se presenta en el
+Capítulo~\ref{chp:pruebas}.
+
+La verificación se estructura en tres niveles complementarios. Las pruebas de
+encapsulamiento aíslan la lógica de la interfaz Gymnasium y de la configuración mediante dobles
+de prueba. Las comprobaciones de integración ejercitan las interfaces con ROS~2,
+Aerostack2 y el simulador. Por último, las ejecuciones de humo verifican que el
+proceso de entrenamiento puede instanciar sus componentes y producir los
+artefactos previstos, sin interpretar sus métricas como rendimiento de la
+política. El Cuadro~\ref{tab:pruebas:niveles_validacion} resume la finalidad de
+cada nivel.
+
+\begin{table}[H]
+\centering
+\small
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{p{0.22\textwidth} p{0.34\textwidth} p{0.32\textwidth}}
+\hline
+\textbf{Nivel} & \textbf{Contrato verificado} & \textbf{Evidencia esperada} \\
+\hline
+Pruebas de encapsulamiento & Semántica de la API Gymnasium, configuración y mecanismos de protección. & Propiedades reproducibles comprobadas sin depender del simulador. \\
+Comprobaciones de integración & Ciclo de vida del UAV, reinicio y transmisión de comandos de velocidad. & Estado físico consistente, movimiento medible y diagnósticos acotados. \\
+Ejecuciones de humo & Cableado del proceso de entrenamiento, monitorización y persistencia. & Directorios de salida, ficheros de monitor, \emph{checkpoints} y errores clasificables. \\
+\hline
+\end{tabular}
+\caption{Niveles de verificación técnica aplicados a la implementación.}
+\label{tab:pruebas:niveles_validacion}
+\end{table}
+
+\subsection{Pruebas de encapsulamiento y configuración}
+\label{sct:pruebas:encapsulamiento}
+
+Las pruebas de encapsulamiento cubren las propiedades que deben mantenerse con
+independencia del estado de los procesos externos. Se ejecutan con dobles de
+prueba y validan la API Gymnasium, la configuración declarativa y los mecanismos
+de seguridad que modifican las acciones. De este modo, un cambio en la lógica
+de la interfaz Gymnasium puede aislarse antes de atribuir una incidencia a ROS~2, a
+Aerostack2 o al algoritmo de aprendizaje.
+
+\begin{table}[H]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.12}
+
+\begin{tabularx}{\textwidth}{
+>{\raggedright\arraybackslash}p{0.30\textwidth}
+>{\raggedright\arraybackslash}X
+>{\raggedright\arraybackslash}p{0.27\textwidth}
+}
+\hline
+\textbf{Validador} & \textbf{Propósito} & \textbf{Criterio de aceptación} \\
+\hline
+
+\path{scripts/test_vectorization.py}
+& Comprobar el contrato de la interfaz Gymnasium, la vectorización, el reinicio y los diagnósticos mediante dobles de prueba.
+& La API, los espacios y los campos de diagnóstico conservan la semántica esperada. \\
+
+\path{scripts/test_ppo_config_propagation.py}
+& Verificar que los parámetros YAML llegan a la interfaz Gymnasium y al modelo PPO.
+& Los parámetros críticos aparecen en las instancias finales sin valores implícitos no trazables. \\
+
+\path{scripts/test_resume_checkpoint.py}
+& Validar la resolución de \emph{checkpoints} para reanudación de PPO.
+& Se resuelve una ruta explícita o el último \emph{checkpoint} disponible de forma predecible. \\
+
+\path{scripts/test_bounds_action_guard.py} y \path{scripts/test_predictive_guard.py}
+& Verificar los guards de acción reactivos y predictivos en fronteras y techo.
+& Los comandos salientes se sustituyen por empuje interior en las condiciones geométricas especificadas. \\
+
+\path{scripts/test_idle_watchdog.py}
+& Validar el mecanismo de vigilancia de comandos inactivos.
+& Publica hover tras el umbral de inactividad, no interfiere con la operación normal y se desactiva por defecto. \\
+
+\hline
+\end{tabularx}
+
+\caption{Pruebas de encapsulamiento representativas de la implementación.}
+\label{tab:pruebas:validadores}
+\end{table}
+
+El Cuadro~\ref{tab:pruebas:validadores} recoge los comprobadores que preservan
+los invariantes de implementación más relevantes. Los contratos asociados a una
+campaña concreta de entrenamiento se mantienen fuera de esta sección, pues su
+objeto es validar una aplicación de la infraestructura y no sus componentes
+generales.
+
+\subsection{Comprobaciones de integración con Aerostack2}
+\label{sct:pruebas:as2_reset}
+
+Las comprobaciones de integración verifican que el contrato de Gymnasium se
+mantiene al atravesar la frontera entre la interfaz Python y el sistema robótico
+simulado. Se ejercitan los métodos \texttt{reset}, \texttt{step} y
+\texttt{close} sobre Aerostack2 para comprobar, respectivamente, la preparación
+del estado inicial, la transmisión de referencias de velocidad y la liberación
+segura de recursos. El objetivo no es medir la calidad de una trayectoria
+aprendida, sino asegurar que las transiciones que recibiría una política son
+físicamente coherentes y observables.
+
+El reinicio se verifica en dos fronteras. La primera corresponde a la respuesta
+del servicio del simulador, descrito en la
+Sección~\ref{sct:implementacion:diagnostico_reset}, que acredita la restauración
+inmediata del estado. La segunda corresponde a la telemetría posterior de
+ROS~2 y al canal de movimiento, que confirma que la plataforma permanece
+preparada para aplicar la siguiente referencia. Esta separación evita aceptar
+como válido un reinicio que solo ha modificado la pose visible del UAV.
+
+El Cuadro~\ref{tab:pruebas:fallos_control} resume los contratos de integración
+que se comprueban y la respuesta de la implementación cuando alguno de ellos no
+se satisface.
+
+\begin{table}[H]
+\centering
+\small
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{p{0.25\textwidth} p{0.31\textwidth} p{0.31\textwidth}}
+\hline
+\textbf{Contrato de integración} & \textbf{Comprobación} & \textbf{Respuesta ante incumplimiento} \\
+\hline
+Estado inicial & La pose, el modo de operación y la estabilidad se contrastan tras \texttt{reset()}. & Se rechaza el episodio y se emite un diagnóstico acotado. \\
+Estado del simulador & La respuesta del servicio y la telemetría posterior confirman la restauración y la ausencia de artefactos transitorios. & Se reintenta la recuperación dentro de los límites configurados o se detiene el ciclo. \\
+Accionabilidad & Una referencia enviada mediante \texttt{step()} debe producir desplazamiento físico medible. & Se clasifica el canal como no operativo y no se generan transiciones válidas. \\
+Cierre del episodio & \texttt{close()} debe cancelar referencias activas y liberar los recursos creados por la interfaz. & Se informa el fallo de cierre para impedir que afecte a la siguiente ejecución. \\
+\hline
+\end{tabular}
+\caption{Contratos verificados en la integración con Aerostack2.}
+\label{tab:pruebas:fallos_control}
+\end{table}
+
+El repositorio incorpora además comprobaciones específicas para el servicio de
+reinicio. Estas verifican la disponibilidad de la interfaz, el rechazo de
+peticiones no válidas y la coherencia del estado que queda preparado para el
+siguiente comando de velocidad. En conjunto, estas pruebas establecen que la
+integración está en condiciones de proporcionar episodios válidos; la aplicación
+de dichos episodios a una tarea de control se reserva para el
+Capítulo~\ref{chp:pruebas}.
+
+\section{Alcance de la verificación de implementación}
+\label{sct:resultados:validacion}
+
+Las comprobaciones anteriores establecen tres propiedades de la implementación.
+En primer lugar, la interfaz Gymnasium conserva su contrato y recibe una
+configuración trazable. En segundo lugar, la integración con Aerostack2 permite
+inicializar el vehículo, aplicar comandos de velocidad, recuperar un estado
+inicial verificable y cerrar el ciclo de episodio sin dejar referencias activas.
+Por último, la infraestructura de entrenamiento puede crear sus directorios de
+salida, registrar diagnósticos y conservar \emph{checkpoints}. Estas propiedades
+demuestran que los componentes de la arquitectura están conectados y se comportan de
+forma controlada.
+
+Este alcance no equivale a demostrar que PPO resuelva la tarea de navegación ni
+a valorar la calidad de las trayectorias generadas. La verificación de
+implementación responde a la pregunta de si la arquitectura puede producir
+transiciones físicas válidas y trazables. El Capítulo~\ref{chp:pruebas} utiliza
+esa infraestructura en un entrenamiento de control de velocidad para evaluar el
+comportamiento de la política sobre un problema concreto. Así, la evidencia de
+correctitud de implementación queda separada de la evidencia de utilidad del
+control aprendido.

@@ -1,8 +1,8 @@
 % !TEX root = ../tfg_etsiinf_NombreApellidos.tex
 \chapter{Fundamentos técnicos y trabajo relacionado} \label{chp:state-of-the-art}
 
-Este capítulo introduce los fundamentos técnicos necesarios para comprender el
-entorno desarrollado y revisa los trabajos relacionados con aprendizaje por
+Este capítulo introduce los fundamentos técnicos necesarios para comprender la arquitectura desarrollada
+y revisa los trabajos relacionados con aprendizaje por
 refuerzo aplicado a vehículos aéreos no tripulados. No se pretende
 realizar una revisión exhaustiva de todos los conceptos de robótica o aprendizaje
 automático, sino seleccionar aquellos elementos que condicionan directamente el
@@ -62,7 +62,7 @@ preparación o control sobre la plataforma simulada.
 \end{figure}
 
 Desde el punto de vista de este trabajo, ROS 2 se usa como la capa que permite 
-comunicar el entorno de aprendizaje con el sistema robótico simulado. 
+comunicar la interfaz de aprendizaje de la arquitectura con el sistema robótico simulado. 
 La política de aprendizaje por
 refuerzo no publica directamente en todos los \emph{topics} ni gestiona todos los
 servicios disponibles; esa responsabilidad queda encapsulada en las capas de
@@ -108,8 +108,8 @@ concretos.
 \end{figure}
 
 Esta organización por capas ayuda a explicar por qué Aerostack2 resulta
-especialmente útil para el presente trabajo. El entorno de aprendizaje por
-refuerzo no sustituye a los controladores, estimadores o comportamientos de
+especialmente útil para el presente trabajo. La interfaz de aprendizaje por
+refuerzo de la arquitectura no sustituye a los controladores, estimadores o comportamientos de
 Aerostack2, sino que se conecta por encima de ellos para emitir consignas de
 velocidad dentro de una infraestructura robótica ya existente. Así, el problema
 de aprendizaje se mantiene centrado en decidir acciones de alto nivel, mientras
@@ -127,7 +127,7 @@ que la ejecución robótica queda delegada en componentes especializados del
 \textbf{Nivel} & \textbf{Función principal} & \textbf{Papel en este trabajo} \\
 \hline
 ROS 2 & Comunicación entre nodos mediante \emph{topics}, servicios y acciones. & Transporte de órdenes, estados y operaciones de ciclo de vida. \\
-Aerostack2 & Arquitectura aérea sobre ROS 2 con interfaces y comportamientos reutilizables. & Sustrato robótico usado por el entorno de aprendizaje. \\
+Aerostack2 & Arquitectura aérea sobre ROS 2 con interfaces y comportamientos reutilizables. & Sustrato robótico usado por la arquitectura de entrenamiento. \\
 Simulador AS2 & Ejecución simulada del multirrotor y de sus interfaces robóticas. & Fuente de experiencia para entrenamiento y validación funcional. \\
 Gymnasium/SB3 & Interfaz estándar de aprendizaje por refuerzo y entrenamiento PPO. & Capa de interacción del agente con observaciones, acciones y recompensas. \\
 \hline
@@ -138,11 +138,11 @@ Gymnasium/SB3 & Interfaz estándar de aprendizaje por refuerzo y entrenamiento P
 
 El Cuadro~\ref{tab:estadoarte:capas_tecnologicas} resume la función de cada capa.
 Esta separación ayuda a delimitar la contribución del trabajo. No se propone un
-nuevo middleware robótico ni una nueva arquitectura aérea, sino una interfaz
-reproducible entre un entorno de aprendizaje por refuerzo y una plataforma aérea
+nuevo middleware robótico ni una nueva arquitectura aérea, sino una arquitectura
+software reproducible que integra una interfaz Gymnasium con una plataforma aérea
 basada en ROS 2 y Aerostack2. Por ello, los capítulos posteriores distinguen
 entre la infraestructura robótica reutilizada, el diseño del problema de
-aprendizaje y la implementación del entorno Gymnasium.
+aprendizaje y la implementación de la interfaz Gymnasium.
 
 \subsection{Gymnasium y Stable-Baselines3 en el flujo de aprendizaje}
 
@@ -160,12 +160,12 @@ por refuerzo profundo y utilidades de entrenamiento compatibles con este tipo de
 entornos, incluida la implementación de PPO utilizada más adelante
 \cite{stablebaselines3_ppo}. En el presente trabajo se emplea como capa de
 entrenamiento y monitorización, mientras que la definición del problema, la
-recompensa, los reinicios y las condiciones de seguridad permanecen en el entorno
-desarrollado. Por tanto, Gymnasium estandariza la interfaz y Stable-Baselines3
+recompensa, los reinicios y las condiciones de seguridad permanecen en la interfaz
+desarrollada dentro de la arquitectura. Por tanto, Gymnasium estandariza la interfaz y Stable-Baselines3
 proporciona el algoritmo, pero la validez experimental depende de que la
 adaptación robótica produzca transiciones físicas fiables.
 
-\paragraph{Herramientas de observación y monitorización.}
+\subsection{Herramientas de visualización y monitorización.}
 En una infraestructura de aprendizaje por refuerzo integrada con ROS 2, la
 observación del sistema no se limita a las métricas internas del algoritmo. RViz2
 proporciona una visualización espacial del estado del UAV, de sus referencias y
@@ -175,7 +175,7 @@ coherentes. TensorBoard, por su parte, permite inspeccionar las métricas emitid
 por Stable-Baselines3 y por los monitores de episodio, como recompensa media,
 longitud de episodio y señales auxiliares registradas durante la ejecución. En
 este trabajo, ambas herramientas se emplean como soporte de validación y
-diagnóstico, no como sustituto de las métricas cuantitativas del entorno.
+diagnóstico, no como sustituto de las métricas cuantitativas de la arquitectura.
 
 
 \section{Aprendizaje por refuerzo para el control de UAV}
@@ -307,8 +307,8 @@ físicas \cite{pi2021lowlevel}. En una línea relacionada, Yoo et al. combinaron
 controladores deterministas clásicos con una política aprendida, mostrando que una
 aproximación híbrida puede mejorar la convergencia y el seguimiento de trayectorias
 mediante control en velocidad \cite{yoo2021hybrid}. Estos trabajos son relevantes
-para una posible extensión jerárquica del presente trabajo, aunque el entorno
-desarrollado se sitúa actualmente en un nivel de control más alto: la política genera
+para una posible extensión jerárquica del presente trabajo, aunque la arquitectura
+desarrollada se sitúa actualmente en un nivel de control más alto: la política genera
 comandos de velocidad lineal y velocidad angular en yaw, no señales de motor ni
 tasas angulares completas.
 
@@ -334,7 +334,7 @@ refuerzo puede superar al control óptimo cuando el objetivo se formula directam
 a nivel de tarea y se entrena con suficiente robustez frente a incertidumbres del
 modelo \cite{song2023racing}. Este resultado es pertinente para el contexto de A2RL
 que motiva el trabajo, aunque debe interpretarse como antecedente de la literatura y
-no como evidencia del rendimiento del entorno aquí desarrollado.
+no como evidencia del rendimiento de la arquitectura aquí desarrollada.
 
 La literatura revisada revela, por tanto, una diversidad de formulaciones. Muchos
 trabajos se centran en estabilización de actitud, control a nivel de actuadores, vuelo
@@ -458,7 +458,7 @@ usa PPO, sino que describen explícitamente el contrato Gymnasium, la formulaci�
 observaciones y acciones, la recompensa, las condiciones de finalización y la
 infraestructura de validación.
 
-\section{Trabajo relacionado: Simuladores y entornos de entrenamiento para RL en drones}
+\section{Simuladores y entornos de entrenamiento para RL en drones}
 
 El entrenamiento mediante aprendizaje por refuerzo en robótica aérea depende
 fuertemente del simulador empleado. Un simulador adecuado debe ofrecer fidelidad
@@ -485,10 +485,10 @@ restricciones computacionales del sistema final.
 
 En una dirección más ligera y abierta, Panerati et al. propusieron un entorno
 Gym basado en PyBullet para cuadricópteros individuales y multiagente,
-explícitamente orientado a facilitar la comparación entre enfoques de control
-clásico y de aprendizaje \cite{panerati2021pybullet}. Su aportación es
+explícitamente orientado a facilitar el estudio de enfoques de control y de
+aprendizaje \cite{panerati2021pybullet}. Su aportación es
 especialmente interesante para trabajos académicos porque reduce la fricción de
-entrada, ofrece portabilidad y proporciona ejemplos tanto de control PID como de
+entrada, ofrece portabilidad y proporciona ejemplos de control convencional y de
 tareas de aprendizaje por refuerzo. Finalmente, \emph{Learning to Fly in
 Seconds} plantea un simulador extremadamente optimizado para entrenamiento de
 controladores de bajo nivel, subrayando que la eficiencia computacional puede
@@ -518,42 +518,44 @@ infraestructura, no como mejora cuantificada del entrenamiento.
 
 \section{Síntesis y posicionamiento del trabajo}
 
-La revisión anterior permite extraer varias conclusiones. En primer lugar, el
-aprendizaje por refuerzo ha demostrado ser una herramienta válida en la
-literatura para distintos problemas de control de drones, incluyendo
-estabilización, seguimiento, navegación y vuelo agresivo
+La revisión anterior muestra que el aprendizaje por refuerzo se ha aplicado a
+problemas diversos de robótica aérea, desde la estabilización hasta la
+navegación y el vuelo de altas prestaciones
 \cite{kaufmann2020acrobatics, pi2021lowlevel, yoo2021hybrid, song2023racing}.
-En segundo lugar, el rendimiento final depende de forma decisiva del nivel de
-abstracción de la acción, del diseño de la recompensa y de la calidad del
-simulador empleado \cite{kaufmann2022benchmark, chan2024drone_simulators}. En
-tercer lugar, muchos trabajos priorizan simuladores especializados o entornos
-Gym independientes, mientras que la integración reproducible con un ecosistema
-robótico basado en ROS 2 introduce problemas de ingeniería que también son
-relevantes para la investigación aplicada \cite{fernandez2023aerostack2,
+No obstante, la utilidad de estos métodos en un sistema robótico depende de que
+el entorno de entrenamiento represente de manera consistente el ciclo de
+interacción con el vehículo. La abstracción de las acciones, la definición de
+las observaciones y la calidad del simulador condicionan la validez de las
+trayectorias con las que se entrena y evalúa una política
+\cite{kaufmann2022benchmark, chan2024drone_simulators}.
+
+La literatura también evidencia que la integración entre un entorno de
+aprendizaje y un \emph{stack} robótico introduce requisitos que no quedan
+resueltos al disponer únicamente de un simulador o de una interfaz Gym
+independiente. En particular, deben garantizarse la inicialización de los
+episodios, la recepción efectiva de los comandos, la comunicación con el
+\emph{middleware} y el registro de información suficiente para diagnosticar el
+comportamiento observado. Estas cuestiones resultan especialmente relevantes en
+entornos basados en ROS~2 y Aerostack2, donde el agente interacciona con una
+arquitectura robótica distribuida \cite{fernandez2023aerostack2,
 song2021flightmare, krishnan2021airlearning, panerati2021pybullet}.
 
-A partir de las fuentes revisadas, puede inferirse una oportunidad de trabajo en
-la construcción de entornos de aprendizaje por refuerzo vectorizables y
-directamente integrados con un \emph{stack} robótico operativo como Aerostack2.
-Esta necesidad es más clara cuando el problema de control no se formula a nivel
-de actuadores, sino a un nivel intermedio próximo a la ejecución de misiones, es decir,
-recibir una referencia relativa al objetivo y generar comandos de velocidad
-compatibles con la arquitectura del dron, incorporando además una restricción de
-\emph{path-facing} para alinear el yaw con la dirección de movimiento.
+En este contexto se sitúa el presente Trabajo Fin de Máster. Su contribución
+principal consiste en el diseño e implementación de una arquitectura software
+reproducible para el entrenamiento mediante aprendizaje por refuerzo de robots
+aéreos autónomos, integrada con el simulador y con Aerostack2. La arquitectura
+incorpora una interfaz Gymnasium que formula una tarea de navegación mediante
+observaciones relativas al objetivo y comandos continuos de velocidad, y
+proporciona los mecanismos necesarios para reiniciar episodios, aplicar
+acciones, establecer condiciones de terminación y registrar diagnósticos de la
+ejecución.
 
-En este punto se sitúa el presente Trabajo Fin de Máster. La contribución se
-articula en dos planos. El primero es una integración reproducible entre
-Gymnasium, Stable-Baselines3, ROS 2 y Aerostack2: el entorno
-\texttt{AS2TestEnv-v0}, las configuraciones experimentales, la supervisión de
-campañas largas y la validación de la vectorización. El segundo es la resolución
-de la tarea de navegación propuesta mediante un curriculum de distancia, con una
-evaluación final sobre episodios reproducibles que incluye la comparación
-directa con un controlador PID de referencia sobre los mismos episodios.
-
-Desde esta perspectiva, el trabajo se alinea con la literatura reciente sobre
-control aprendido para cuadricópteros, pero mantiene el rigor de la
-infraestructura experimental como condición previa de cualquier afirmación de
-rendimiento. Esta decisión es importante porque, sin una interfaz estable, una
-formulación clara de observaciones y acciones, una recompensa trazable y una
-estrategia de evaluación reproducible, la comparación entre aprendizaje por
-refuerzo y control clásico carecería de una base experimental sólida.
+El entrenamiento de una política PPO se emplea como una validación integrada de
+esta arquitectura. Su finalidad es comprobar que el ciclo completo entre
+agente, interfaz Gymnasium, simulador y \emph{middleware} permite generar episodios
+interpretables y sostener el aprendizaje en escenarios con estados iniciales y
+objetivos variables. Asimismo, la ejecución vectorizada se incorpora como una
+capacidad de la arquitectura cuya viabilidad se verifica dentro de las limitaciones de
+hardware disponibles. De este modo, el trabajo prioriza la construcción y la
+validación técnica de la arquitectura, mientras que los resultados de entrenamiento se
+interpretan como evidencia de que dicha infraestructura cumple su propósito.

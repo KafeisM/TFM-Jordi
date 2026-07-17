@@ -40,7 +40,7 @@ Exp012 & Guards de límites y reanudación. & 50000 pasos planificados. & Guard 
 Exp013 & Guards predictivos. & 50000 pasos. & Disparo por posición + velocidad $\times$ 1 s y empuje vertical con autoridad completa. \\
 Exp014 & Curriculum etapa 1. & 50000 pasos. & Objetivos a $\leq 2{,}5$ m; primer aprendizaje sostenido. \\
 Exp015 & Curriculum etapa 2. & 100000 pasos acumulados. & Objetivos a $\leq 3{,}5$ m con \emph{warm start} de Exp014. \\
-Exp016 & Curriculum etapa 3. & 150000 pasos acumulados. & Rango completo de 5 m; tarea original resuelta. \\
+Exp016 & Curriculum etapa 3. & 150000 pasos acumulados. & Rango completo de 5 m; validación en la etapa final del curriculum. \\
 Exp017 & Primer vectorizado (2 drones). & Detenido. & Colapso por deriva en \emph{lockstep}; origen del diagnóstico del watchdog. \\
 Exp018 & Vectorizado con watchdog. & 200000 pasos acumulados. & 2 drones en paralelo, reciclado preventivo y modelo final. \\
 \hline
@@ -80,20 +80,15 @@ INITIAL_RESUME=runs/ppo/<ejecucion_previa>/model_final.zip \
 bash scripts/supervise_train.sh configs/<configuracion_experimento>.yaml
 \end{listing}
 
-La evaluación formal utiliza el mismo punto de entrada para comparar políticas
-aprendidas y controladores de referencia sobre episodios equivalentes. La
-reproducibilidad de la comparación se apoya en mantener constantes la
-configuración, el número de episodios y la semilla inicial.
+La evaluación formal permite ejecutar una política entrenada sobre episodios
+reproducibles. La configuración, el número de episodios y la semilla inicial se
+mantienen constantes para facilitar el análisis de los resultados.
 
 \begin{listing}[style=consola,caption={Patrón general de evaluación por semillas.},label={lst:anexo:evaluate}]
 python3 scripts/evaluate_policy.py \
   --config configs/<configuracion_experimento>.yaml \
   --model runs/ppo/<ejecucion>/model_final.zip \
   --episodes <n_episodios> --seed <semilla>
-
-python3 scripts/evaluate_policy.py \
-  --config configs/<configuracion_experimento>.yaml \
-  --controller pid --episodes <n_episodios> --seed <semilla>
 \end{listing}
 
 La Tabla~\ref{tab:anexos:consulta_repo} resume dónde consultar cada tipo de
@@ -174,16 +169,17 @@ monitores de episodio y la matriz de resultados.}
 
 Durante la realización del presente trabajo se han empleado herramientas de
 inteligencia artificial generativa como apoyo a tareas de programación,
-diagnóstico, organización de resultados y organización en la redacción. En particular, se ha
-utilizado OpenAI Codex en el entorno de desarrollo para asistencia sobre código,
-inspección del repositorio, generación de propuestas de modificación, revisión de
-errores y apoyo a la edición de la memoria \cite{openai2026codex}. También se ha
-utilizado ChatGPT como asistente conversacional para estructurar explicaciones,
-revisar redacción y sintetizar criterios de presentación académica
-\cite{openai2026chatgpt}. Asimismo, se ha utilizado Claude Code como agente de
-desarrollo en la fase final del trabajo, con apoyo a la parte experimental
-(supervisión de entrenamientos, análisis de logs y diagnóstico de fallos de
-integración) y a la implementación asistida de componentes con sus pruebas.
+diagnóstico, organización de resultados y redacción de la memoria. En
+particular, se ha utilizado OpenAI Codex en el entorno de desarrollo para
+asistencia sobre código, inspección del repositorio, generación de propuestas de
+modificación, revisión de errores y edición de la memoria
+\cite{openai2026codex}. También se ha utilizado ChatGPT como asistente
+conversacional para estructurar explicaciones, revisar la redacción y sintetizar
+criterios de presentación académica \cite{openai2026chatgpt}. Asimismo, se ha
+utilizado Claude Code como agente de desarrollo en la fase final del trabajo,
+con apoyo a la parte experimental, incluyendo la supervisión de entrenamientos,
+el análisis de registros y el diagnóstico de fallos de integración, así como a
+la implementación asistida de componentes y sus pruebas
 \cite{anthropic2026claudecode}.
 
 El uso de estas herramientas no sustituye la autoría ni la responsabilidad
@@ -206,18 +202,17 @@ código.
 \hline
 OpenAI Codex & Inspección del repositorio, edición de LaTeX, revisión de errores de compilación y apoyo a cambios de código. & Revisión manual de los diffs, compilación de LaTeX y contraste con el repositorio.\\
 ChatGPT & Estructuración de explicaciones, síntesis de resultados y apoyo a redacción académica. & Revisión del texto, eliminación de afirmaciones no respaldadas y contraste con evidencias experimentales. \\
-Claude Code & Apoyo a la parte experimental, implementación asistida con pruebas automatizadas,  & Revisión adversarial previa a cada integración, verificación de cifras contra los registros experimentales y revisión manual. \\
+Claude Code & Apoyo a la parte experimental e implementación asistida de componentes y pruebas automatizadas. & Verificación de cifras contra los registros experimentales y revisión manual de los cambios. \\
 \hline
 \end{tabular}
 \caption{Resumen del uso de herramientas de inteligencia artificial generativa.}
 \label{tab:anexos:uso_ia}
 \end{table}
 
-Entre los prompts más relevantes se encuentran los dirigidos a analizar 
-el estado real del repositorio y del registro experimental, a
-identificar diferencias entre resultados de entrenamiento y resultados de
-infraestructura. Por otra parte para revisar la compilación LaTeX y para organizar la 
-incorporación de figuras y tablas. 
+Los prompts más relevantes se orientaron a contrastar el estado del repositorio
+con el registro experimental, identificar diferencias entre indicadores de
+entrenamiento y de infraestructura, revisar incidencias de compilación de LaTeX
+y organizar la incorporación de figuras y tablas.
 
 No se han utilizado las herramientas de inteligencia artificial como fuente
 bibliográfica primaria sobre aprendizaje por refuerzo, ROS 2, Aerostack2 o

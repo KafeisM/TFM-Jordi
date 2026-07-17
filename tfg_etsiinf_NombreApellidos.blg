@@ -1,14 +1,14 @@
 [0] Config.pm:328> INFO - This is Biber 2.21
 [0] Config.pm:331> INFO - Logfile is 'tfg_etsiinf_NombreApellidos.blg'
-[59] biber-darwin:342> INFO - === Tue Jul  7, 2026, 18:13:58
-[73] Biber.pm:421> INFO - Reading 'tfg_etsiinf_NombreApellidos.bcf'
-[147] Biber.pm:1002> INFO - Found 30 citekeys in bib section 0
-[159] Biber.pm:4487> INFO - Processing section 0
-[166] Biber.pm:4678> INFO - Looking for bibtex file 'bibliography.bib' for section 0
-[167] bibtex.pm:1713> INFO - LaTeX decoding ...
-[187] bibtex.pm:1519> INFO - Found BibTeX data source 'bibliography.bib'
-[345] UCollate.pm:68> INFO - Overriding locale 'es-ES' defaults 'variable = shifted' with 'variable = non-ignorable'
-[345] UCollate.pm:68> INFO - Overriding locale 'es-ES' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[345] Biber.pm:4307> INFO - Sorting list 'nyt/global//global/global/global' of type 'entry' with template 'nyt' and locale 'es-ES'
-[377] bbl.pm:676> INFO - Writing 'tfg_etsiinf_NombreApellidos.bbl' with encoding 'UTF-8'
-[392] bbl.pm:779> INFO - Output to tfg_etsiinf_NombreApellidos.bbl
+[56] biber-darwin:342> INFO - === Fri Jul 17, 2026, 00:01:31
+[68] Biber.pm:421> INFO - Reading 'tfg_etsiinf_NombreApellidos.bcf'
+[143] Biber.pm:1002> INFO - Found 30 citekeys in bib section 0
+[153] Biber.pm:4487> INFO - Processing section 0
+[161] Biber.pm:4678> INFO - Looking for bibtex file 'bibliography.bib' for section 0
+[162] bibtex.pm:1713> INFO - LaTeX decoding ...
+[183] bibtex.pm:1519> INFO - Found BibTeX data source 'bibliography.bib'
+[342] UCollate.pm:68> INFO - Overriding locale 'es-ES' defaults 'variable = shifted' with 'variable = non-ignorable'
+[342] UCollate.pm:68> INFO - Overriding locale 'es-ES' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[342] Biber.pm:4307> INFO - Sorting list 'nyt/global//global/global/global' of type 'entry' with template 'nyt' and locale 'es-ES'
+[373] bbl.pm:676> INFO - Writing 'tfg_etsiinf_NombreApellidos.bbl' with encoding 'UTF-8'
+[390] bbl.pm:779> INFO - Output to tfg_etsiinf_NombreApellidos.bbl

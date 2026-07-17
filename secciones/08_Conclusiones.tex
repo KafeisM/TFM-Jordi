@@ -1,108 +1,125 @@
 % !TEX root = ../tfg_etsiinf_NombreApellidos.tex
 \chapter{Conclusiones y líneas futuras} \label{chp:conclusiones}
 
-Este capítulo valora el grado de cumplimiento de los objetivos planteados en el
-Capítulo~\ref{chp:intro} y resume las conclusiones técnicas y metodológicas del
-trabajo. La discusión se apoya en la evidencia cuantitativa presentada en el
-Capítulo~\ref{chp:resultados}.
+Este capítulo revisa los objetivos definidos en el
+Capítulo~\ref{chp:intro} a partir de la evidencia de diseño, implementación y
+validación presentada en los capítulos anteriores. La contribución principal del
+trabajo es la construcción de una arquitectura software reproducible para el
+entrenamiento mediante aprendizaje por refuerzo de robots aéreos sobre un
+simulador integrado con Aerostack2 y ROS 2.
+El entrenamiento de políticas PPO se utiliza como una aplicación de validación
+de la arquitectura.
 
 \section{Conclusiones} \label{sct:conclusiones:conclusiones}
 
-El objetivo general del trabajo, desarrollar un entorno de aprendizaje por
-refuerzo sobre el simulador de multirrotores de Aerostack2 y utilizarlo para
-entrenar y evaluar un controlador de velocidad, se ha alcanzado de forma
-satisfactoria. La política final resuelve el 100\,\% de los 100 episodios del
-protocolo de evaluación determinista sobre la tarea completa (objetivos
-aleatorios a hasta 5 m con orientación final), con una distancia final media de
-0,32 m.
+El objetivo general de desarrollar una arquitectura software para el
+entrenamiento mediante aprendizaje por refuerzo de robots aéreos autónomos en un
+simulador integrado con un \emph{stack} robótico se ha alcanzado en el alcance
+definido. La arquitectura implementa el contrato de interacción necesario para PPO,
+con observaciones relativas, acciones continuas de velocidad y guiñada,
+recompensa, condiciones de terminación, reinicio y monitorización por episodio.
+Su integración con Aerostack2 permite que cada acción se traduzca en una
+referencia para el UAV simulado y que la transición devuelta al agente incorpore
+el estado físico resultante.
 
-El primer objetivo específico, la familiarización con Aerostack2 y su simulador,
-se alcanzó de forma natural durante las primeras fases y quedó reflejado en la
-identificación de los componentes de control, estimación y comportamiento
-relevantes para el problema. El segundo, la construcción de la interfaz
-Gymnasium sobre el simulador, se cumplió con un matiz importante que constituye
-una de las lecciones del trabajo: la interfaz mínima fue rápida de construir,
-pero convertirla en un entorno \emph{válido} para aprendizaje por refuerzo exigió
-un esfuerzo muy superior al previsto, concentrado en el reinicio certificado de
-episodios y en la verificación de accionabilidad.
+El primer objetivo específico consistía en analizar el problema de navegación
+en simulación y definir los requisitos funcionales de la arquitectura y de su
+interfaz de aprendizaje por refuerzo. Este objetivo se materializó en una tarea
+de navegación local hacia objetivos relativos, con distancias iniciales y
+objetivos variables. La formulación hace explícitos los espacios de observación
+y acción, el umbral de éxito de 0,4 m, las condiciones de seguridad y el límite
+temporal. El análisis también permitió identificar un requisito que no era
+puramente algorítmico y es que para que el entrenamiento sea interpretable, los
+episodios deben comenzar en estados verificables y los comandos aceptados deben
+producir desplazamiento físico medible.
 
-El tercer objetivo, la validación experimental del ciclo de interacción, se
-alcanzó mediante una estrategia de tres niveles (pruebas deterministas,
-integración con el simulador y ejecuciones PPO acotadas) que acabó articulada en
-una veintena de suites de validación automatizadas. La consecución del cuarto
-objetivo, el entorno vectorizado, resultó la más difícil: el primer
-entrenamiento con dos drones colapsó por una interacción no documentada entre el
-paso vectorizado en \emph{lockstep} y la persistencia de referencias de velocidad
-del controlador, y solo un diagnóstico sistemático con pruebas discriminatorias
-permitió identificar la causa raíz (8,05 m de deriva en 20 s sin comandos) y
-corregirla con un mecanismo de vigilancia de comandos inactivos. Tras la
-corrección, el entrenamiento vectorizado duplica el muestreo efectivo y mejoró
-la política final del 78\,\% al 100\,\% de éxito determinista.
+El segundo objetivo específico era diseñar e implementar una arquitectura que
+integrase el simulador dinámico y el \emph{middleware} robótico para ejecutar el
+ciclo de interacción de forma reproducible. Se desarrolló una capa Gymnasium
+sobre Aerostack2, configuraciones declarativas de entrenamiento, monitorización
+por episodio, mecanismos de supervisión y comprobaciones de encapsulamiento e
+integración. La principal conclusión es que la interfaz de
+aprendizaje no basta por sí sola ya que la fiabilidad del reinicio y la accionabilidad
+del canal de comandos condicionan la validez de todos los datos recogidos. La
+solución incorpora verificaciones del estado posterior al reinicio, protección
+predictiva de fronteras y trazas que permiten distinguir un fallo de la política
+de un fallo de la infraestructura.
 
-El quinto objetivo, la definición de un problema de control progresivo, resultó
-ser la clave del aprendizaje. Con la recompensa mínima y la tarea completa, la
-exploración no encontraba señal de éxito suficiente (tasas planas del 11\,\% aun
-con la infraestructura ya libre de fallos); el curriculum de distancia en tres
-etapas con reutilización del modelo anterior elevó la tasa de éxito del 27\,\% al
-65\,\% y finalmente al 91--99\,\% sobre la tarea original. El sexto objetivo, el
-entrenamiento, la evaluación y la comparación con un controlador PID, se cumplió
-mediante un protocolo de episodios sembrados idénticos para todos los
-controladores. La comparación es honesta: el PID gana la tarea nominal en tiempo
-y precisión de orientación, la política alcanza la paridad en tasa de éxito, y
-la diferencia queda explicada y cuantificada. La extensión jerárquica planteada
-como séptimo objetivo opcional no se abordó y se recoge como línea futura.
+El tercer objetivo específico consistía en validar la arquitectura mediante políticas
+de navegación con estados iniciales y objetivos variables, prestando atención al
+reinicio, la accionabilidad y la reproducibilidad. Esta validación se realizó de
+forma progresiva. Exp013 completó 50\,000 pasos sin fallos de reinicio y sin
+\emph{teleports} en sus primeros 24\,000 pasos, lo que permitió separar los
+problemas de integración de los problemas de aprendizaje. Sobre esa base, el
+curriculum de distancia elevó la tasa de éxito global del 27\,\% en Exp014 al
+65\,\% en Exp015 y al 91\,\% en Exp016, ya sobre el rango completo de 5 m. La
+evaluación posterior de la política de Exp018 en 100 episodios con semillas
+fijas alcanzó 100 éxitos en modo determinista, con una distancia final media de
+0,32 m. Estos resultados validan que la arquitectura permite entrenar y evaluar una
+política en la tarea propuesta, sin pretender generalizar el comportamiento de
+PPO a otras configuraciones o problemas de control.
 
-Más allá de los objetivos, el trabajo deja dos conclusiones metodológicas. La
-primera es que en aprendizaje por refuerzo sobre simuladores robóticos reales la
-validez física del episodio es la condición que gobierna todo lo demás: la mayor
-parte del esfuerzo de ingeniería se invirtió en garantizar que cada transición
-entregada al algoritmo representara de verdad la tarea, y los mecanismos
-resultantes (reinicio certificado con verificación de accionabilidad, guards de
-acción predictivos, supervisión con reanudación y reciclado preventivo) son
-aportaciones reutilizables independientes de la política entrenada. La segunda
-es el valor de los resultados negativos tratados como evidencia: los fallos de
-Exp010, Exp011 y Exp017 produjeron los tres hallazgos más importantes del
-trabajo (la degradación acumulativa del simulador con los reinicios de servicio,
-la insuficiencia de los guards reactivos frente a la inercia, y la persistencia
-indefinida de las referencias de velocidad), todos ellos diagnosticados con
-causa raíz y cuantificación.
+La extensión vectorizada aporta una validación adicional de la infraestructura.
+La configuración se limitó a dos drones y dos procesos de trabajo por las
+restricciones de recursos del equipo de experimentación y del simulador en tiempo
+real. En estas condiciones, dos instancias mediante \texttt{SubprocVecEnv}
+mantuvieron un tiempo de paso de 0,20 s y duplicaron el caudal de muestras
+respecto a la ejecución monodron. El fallo inicial de Exp017 reveló que la
+retención de la última referencia de velocidad durante un reinicio bloqueante
+podía producir 8,05 m de deriva en 20 s. El mecanismo de vigilancia de comandos
+inactivos redujo esa deriva a 0,27 m y permitió completar Exp018 con dos drones.
+La política continuó mejorando durante esta ejecución, hasta un 96\,\% de éxito
+global y un 100\,\% (244/244) en su tramo final. La conclusión no es que dos
+instancias sean un límite de escalabilidad ni que la vectorización sea la única
+causa de la mejora, sino que la arquitectura puede sostener entrenamiento vectorizado
+en una configuración acotada y diagnosticable.
 
-El código desarrollado queda publicado en los dos repositorios indicados en el
-Capítulo~\ref{chp:implementacion}, con configuraciones, pruebas automatizadas y
-artefactos de evaluación reproducibles mediante semillas.
+Los resultados negativos también constituyen una aportación relevante. Las
+ejecuciones Exp010, Exp011, Exp012 y Exp017 permitieron identificar tres límites
+de integración: la degradación acumulativa asociada a reinicios de servicio, la
+insuficiencia de las protecciones reactivas frente a la inercia vertical y la
+persistencia de referencias de velocidad cuando una instancia deja de recibir
+comandos. Documentar estos comportamientos y las mitigaciones aplicadas evita
+interpretar como aprendizaje resultados que, en realidad, dependen de la
+plataforma de simulación.
+
+El código queda organizado en los repositorios públicos descritos en el
+Capítulo~\ref{chp:implementacion}, junto con la configuración de las ejecuciones,
+las comprobaciones automatizadas y los mecanismos de monitorización. De este
+modo, el resultado del trabajo no se limita a una política concreta, sino a una
+base técnica reutilizable para formular y validar nuevas tareas de aprendizaje
+por refuerzo sobre robots aéreos simulados.
 
 \section{Líneas futuras} \label{sct:conclusiones:futuro}
 
-La línea futura principal, 
-motivada cuantitativamente por tres hallazgos independientes, es sustituir ROS 2
-en el bucle de entrenamiento por \emph{bindings} directos sobre la dinámica del
-simulador, con llamadas explícitas de la forma estado--acción--paso temporal. Un
-simulador pausable eliminaría de raíz la degradación por teleports (el estado se
-asignaría directamente), la deriva por referencias persistentes (no habría
-tiempo real entre pasos) y el coste del \emph{lockstep} vectorizado (los
-reinicios serían instantáneos), y permitiría escalar la vectorización a decenas
-de agentes aprovechando la inferencia por lotes. ROS 2 quedaría reservado para el
-despliegue de la política entrenada a la frecuencia correspondiente al paso
-temporal usado en entrenamiento.
+Una primera línea de trabajo consiste en corregir la degradación del simulador
+ante reinicios de servicio repetidos o, alternativamente, incorporar una interfaz
+directa con la dinámica del simulador que permita controlar explícitamente el
+avance temporal. Un simulador pausable reduciría el coste de los reinicios y
+evitaría que el tiempo físico continuase avanzando durante operaciones de reinicio
+bloqueantes en el simulador. Esta mejora atacaría las limitaciones observadas en las campañas
+largas y facilitaría aumentar el número de instancias sin depender de la
+coordinación en tiempo real de ROS 2.
 
-Una segunda línea es corregir en su raíz la degradación del nodo de plataforma
-del fork ante reinicios de servicio repetidos, cuyo síntoma quedó cuantificado en
-este trabajo pero cuya causa interna no se investigó. Esta corrección
-beneficiaría a cualquier uso intensivo del servicio de reinicio, no solo al
-aprendizaje por refuerzo.
+La segunda línea es estudiar el escalado de la vectorización. El resultado con
+dos drones demuestra la viabilidad de la integración, pero no determina cómo se
+comporta la arquitectura con más procesos, vehículos o recursos de cómputo. Sería
+necesario medir de forma sistemática el uso de CPU y memoria, el tiempo de paso,
+la frecuencia de reinicios y la estabilidad de la simulación para identificar un
+compromiso reproducible entre paralelismo y coste computacional.
 
-En el plano del aprendizaje, los resultados sugieren dos refinamientos: revisar
-la bonificación terminal para que la orientación final deficiente no resulte
-rentable (el error de yaw residual de 0,44 rad frente a los 0,01 rad del PID
-tiene origen en el diseño de la recompensa), y estudiar el escalado del
-curriculum hacia trayectorias con múltiples puntos de paso y referencias
-dinámicas. Sobre esa base, la extensión jerárquica planteada en los objetivos
-(un segundo controlador que transforme velocidades deseadas en tasas angulares)
-seguiría siendo la continuación natural hacia el control de bajo nivel.
+En relación con la tarea de aprendizaje, resulta de interés extender la
+formulación a objetivos dinámicos, trayectorias con puntos intermedios,
+perturbaciones y observaciones de mayor complejidad. También puede revisarse la
+recompensa terminal para otorgar mayor importancia a la orientación final, que
+en la formulación actual solo modula la bonificación de éxito. Estas extensiones
+permitirían comprobar si la arquitectura conserva su utilidad cuando la tarea
+deja de ser una navegación local hacia un único objetivo.
 
-Finalmente, la comparación con el controlador PID puede ampliarse en dos
-direcciones que delimitarían mejor el espacio donde el aprendizaje aporta
-ventaja: escenarios con perturbaciones (viento, ruido de estimación, retardos) y
-tareas sin ley de control evidente, donde el enfoque clásico requiere diseño
-manual específico y la política puede aprenderse con la misma infraestructura sin
-cambios.
+Por último, la transferencia a una plataforma física requeriría incorporar
+modelos de sensores, perturbaciones y retardos más representativos, así como un
+protocolo de seguridad para ejecutar políticas entrenadas en simulación. Antes de
+esa transferencia conviene emplear la infraestructura construida para evaluar la
+robustez de las políticas ante variaciones de la dinámica y de la estimación de
+estado. Este paso delimita una continuación realista del trabajo sin atribuir al
+entorno simulado garantías que solo pueden comprobarse sobre un vehículo real.

@@ -1,19 +1,10 @@
 % !TEX root = ../tfg_etsiinf_NombreApellidos.tex
 \chapter{Introducción} \label{chp:intro}
 
-Este capítulo presenta el marco general del Trabajo Fin de Máster, centrado en
-la aplicación de aprendizaje por refuerzo al control de vehículos aéreos no
-tripulados dentro del ecosistema Aerostack2. En primer lugar se expone la
-motivación del trabajo y su relevancia en el contexto actual de la robótica
-aérea autónoma. A continuación se describe el contexto técnico y de
-investigación en el que se enmarca el desarrollo realizado. Posteriormente se
-definen el objetivo general y los objetivos específicos. Por último, se resume
-la organización de la memoria.
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Motivación del proyecto} \label{sct:intro:motivacion}
+\section{Motivación y contexto del proyecto} \label{sct:intro:motivacion}
 
 Los vehículos aéreos no tripulados han pasado en pocos años de ser una
 tecnología principalmente experimental a convertirse en una herramienta útil en
@@ -23,80 +14,24 @@ críticos, especialmente cuando el dron debe seguir referencias espaciales,
 reaccionar ante cambios del entorno o mantener un comportamiento estable en
 maniobras rápidas.
 
-Dentro de este contexto, el control clásico basado en reguladores PID sigue
-siendo una solución ampliamente utilizada por su simplicidad, interpretabilidad
-y robustez. Sin embargo, cuando la dinámica del sistema es no lineal, el régimen
-de operación es exigente o se desea adaptar el comportamiento a criterios de
-tarea más amplios, el ajuste manual de estos controladores puede resultar
-costoso y difícil de generalizar. Frente a ello, el aprendizaje por refuerzo
-ofrece una alternativa de interés, permite que una política de control aprenda a
-actuar a partir de la interacción con un entorno, optimizando un criterio de
-comportamiento definido mediante recompensas.
+El aprendizaje por refuerzo permite abordar parte de estos problemas mediante
+políticas que se obtienen a partir de la interacción con un entorno. Sin
+embargo, su aplicación a sistemas robóticos no depende únicamente del algoritmo
+de aprendizaje, también requiere una formulación consistente de la tarea y una
+infraestructura que conecte el simulador, el \emph{middleware} robótico y el
+ciclo de episodios. Si las observaciones, los comandos o los reinicios no
+representan de forma fiable el comportamiento del vehículo, los datos obtenidos
+durante el entrenamiento dejan de ser válidos para evaluar una política.
 
 La motivación de este trabajo surge en la intersección entre robótica aérea e
 inteligencia artificial. En el grupo CVAR (\emph{Computer Vision and Aerial
-Robotics}) existe interés en desarrollar soluciones de control cada vez más
-ágiles para drones, en particular en el marco de la competición A2RL, donde el
-rendimiento del vehículo depende de su capacidad para ejecutar maniobras rápidas
-y precisas. Para que una aproximación basada en aprendizaje por refuerzo sea
-viable, no basta con seleccionar un algoritmo de entrenamiento sino que resulta
-imprescindible disponer de una infraestructura experimental que conecte de forma
-correcta el simulador, el \emph{middleware} robótico y las herramientas de
-aprendizaje automático.
-
-Este Trabajo Fin de Máster responde a esa necesidad mediante la construcción de
-un entorno reproducible que integra Gymnasium, Stable-Baselines3, ROS 2 y
-Aerostack2. La aportación principal no se formula todavía como una demostración
-de superioridad del aprendizaje por refuerzo frente a un controlador clásico,
-sino como la base técnica necesaria para entrenar, diagnosticar y evaluar
-políticas de control en condiciones controladas y extensibles. En consecuencia,
-el alcance del trabajo prioriza la reproducibilidad de la infraestructura, la
-validez del ciclo de episodio y la disponibilidad de diagnósticos verificables
-frente a afirmaciones de aprendizaje robusto que no estén respaldadas por
-experimentos completos.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\section{Contexto del proyecto} \label{sct:intro:contexto}
-
-El trabajo se desarrolla sobre Aerostack2, un \emph{framework} para robótica
-aérea basado en ROS 2 que proporciona componentes reutilizables para control,
-estimación, comportamientos de vuelo e integración con diferentes plataformas y
-simuladores. En particular, se utiliza el simulador dinámico de multirrotores de
-Aerostack2, una herramienta sin interfaz gráfica que modela la dinámica del
-vehículo y que puede visualizarse mediante RViz2. Al no requerir interfaz
-gráfica, resulta adecuado para plantear experimentos con varios drones dentro de
-un mismo simulador compartido, posibilidad que este trabajo valida
-experimentalmente con dos drones entrenando en paralelo.
-
-El repositorio \texttt{rl\_uav\_aerostack2} contiene el entorno
-\texttt{AS2TestEnv-v0}, registrado en \texttt{rl\_uav/\_\_init\_\_.py} e
-implementado en \texttt{rl\_uav/envs/as2\_test\_env.py}. Este entorno encapsula
-el ciclo básico de Gymnasium, inicializa la interfaz \texttt{DroneInterface} de
-Aerostack2, arma el dron, activa el modo \emph{offboard}, ejecuta el despegue y
-envía comandos de velocidad mediante Aerostack2 y ROS 2. La acción del agente es
-un vector $[v_x, v_y, v_z, v_{\mathrm{yaw}}]$, compuesto por
-velocidades lineales y una velocidad angular en yaw.
-
-La observación principal del entorno no está formada por posición y velocidad
-absolutas, sino por el vector normalizado
-$[dx, dy, dz, d_{\mathrm{yaw}}]$, que representa la diferencia de posición y
-orientación respecto al objetivo. La recompensa empleada en la campaña principal
-es deliberadamente mínima: una penalización continua por distancia al objetivo y
-una bonificación terminal de éxito reducida según el error de orientación final.
-La finalización del episodio contempla el éxito al alcanzar una distancia
-inferior al umbral definido, las terminaciones de seguridad por salida de límites
-o baja altitud, y el truncado por superar el número máximo de pasos.
-
-Sobre esta base se ha construido la infraestructura completa de entrenamiento y
-evaluación con PPO mediante Stable-Baselines3: configuraciones declarativas por
-experimento, registro de métricas y \emph{checkpoints}, supervisión de campañas
-largas con reanudación automática, entrenamiento vectorizado con varios drones
-sobre un mismo simulador y un protocolo de evaluación reproducible por semillas.
-Con esa infraestructura, la política final resuelve la tarea completa con un
-100\,\% de éxito en evaluación determinista y se compara, sobre episodios
-idénticos, con un controlador PID de referencia.
+Robotics}) se trabaja con Aerostack2 y ROS 2 como base para el desarrollo y la
+experimentación con vehículos aéreos. En este contexto, el presente trabajo se
+centra en construir una arquitectura software para el entrenamiento de robots aéreos autónomos mediante
+aprendizaje por refuerzo. La aportación se orienta a disponer de
+una base técnica que permita formular tareas, ejecutar episodios, registrar
+diagnósticos y validar la interacción entre los componentes antes de extraer
+conclusiones sobre el aprendizaje.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -104,41 +39,28 @@ idénticos, con un controlador PID de referencia.
 
 \section{Objetivos} \label{sct:intro:objetivos}
 
-El objetivo general de este Trabajo Fin de Máster es desarrollar una
-infraestructura reproducible para formular, entrenar y evaluar controladores de
-alto nivel para drones mediante aprendizaje por refuerzo en un entorno de
-simulación integrado con un \emph{stack} robótico.
+El objetivo general de este Trabajo Fin de Máster es desarrollar una arquitectura
+para el entrenamiento mediante aprendizaje por refuerzo de robots aéreos
+autónomos en un sistema de simulación integrado con un \emph{stack} robótico.
 
 Para alcanzar este objetivo general, el trabajo se organiza en los siguientes
 objetivos específicos:
 
 \begin{itemize}
 
-    \item Analizar el problema de control de alto nivel de un dron en
-    simulación, identificando las variables de observación, las acciones de
-    velocidad y las condiciones de terminación necesarias para formularlo como
-    un entorno de aprendizaje por refuerzo.
+    \item Analizar el problema de navegación de un robot aéreo en simulación y
+    definir los requisitos funcionales necesarios para la arquitectura y su
+    interfaz de aprendizaje por refuerzo.
 
-    \item Diseñar e implementar un entorno de aprendizaje que integre el
+    \item Diseñar e implementar una arquitectura que integre el
     simulador dinámico con el \emph{middleware} robótico y permita ejecutar el
     ciclo de interacción entre agente y dron de forma reproducible.
 
-    \item Incorporar una función de recompensa coherente con el seguimiento de
-    objetivos espaciales y la orientación final del vehículo, manteniendo
-    información de diagnóstico suficiente para analizar el comportamiento del
-    entorno.
-
-    \item Entrenar una política capaz de resolver la tarea de navegación con
-    inicio, objetivo y orientación aleatorios, empleando la infraestructura
-    de entrenamiento con PPO y la vectorización de múltiples drones dentro de
-    un simulador compartido.
-
-    \item Analizar las limitaciones de integración observadas durante los
-    experimentos, especialmente las asociadas al reinicio de episodios, la
-    accionabilidad de los comandos y la reproducibilidad física del simulador.
-
-    \item Evaluar el controlador aprendido con un protocolo reproducible y
-    compararlo con un controlador PID de referencia sobre episodios idénticos.
+    \item Validar la arquitectura mediante el entrenamiento de políticas de
+    navegación en escenarios con estados iniciales y objetivos variables,
+    analizando las limitaciones de integración asociadas al reinicio de
+    episodios, la accionabilidad de los comandos y la reproducibilidad de la
+    simulación.
 
 \end{itemize}
 
@@ -147,24 +69,25 @@ objetivos específicos:
 
 \section{Estructura del documento} \label{sct:intro_estructura}
 
-La memoria se organiza siguiendo una progresión desde el contexto técnico hasta
-la evaluación del sistema construido. Tras esta introducción, el Capítulo 2
-presenta el estado del arte y el trabajo relacionado sobre marcos software para
-robótica aérea, aprendizaje por refuerzo aplicado a UAV y simuladores de
-entrenamiento. El Capítulo 3 desarrolla el diseño de la solución, incluyendo la
-formulación del entorno, las decisiones de observación, acción, recompensa y
-terminación, y la estrategia de integración con Aerostack2.
+La memoria se organiza como una progresión desde los fundamentos y el diseño de la arquitectura
+hasta su implementación y validación. Tras esta introducción, el
+Capítulo 2 presenta los fundamentos técnicos y el trabajo relacionado sobre
+robótica aérea, aprendizaje por refuerzo y simuladores empleados para el
+entrenamiento de UAV. El Capítulo 3 define el diseño de la arquitectura, su
+contrato de interacción y las decisiones de diseño relativas a observaciones,
+acciones, recompensa, terminación e integración con Aerostack2.
 
-El Capítulo 4 describe la implementación realizada, con atención a la estructura
-del repositorio, la conexión con ROS 2, la infraestructura PPO y el soporte de
-vectorización. El Capítulo 5 recoge las pruebas de validación funcional de la
-infraestructura y los criterios usados para comprobar que el entorno se comporta
-de forma consistente. El Capítulo 6 presenta los resultados disponibles y su
-discusión, distinguiendo entre validaciones de infraestructura y resultados de
-aprendizaje que requieran experimentación posterior. El Capítulo 7 analiza el
-impacto del trabajo desde una perspectiva técnica y académica. Finalmente, el
-Capítulo 8 expone las conclusiones, revisa el grado de cumplimiento de los
-objetivos y plantea líneas futuras de desarrollo.
+El Capítulo 4 describe la materialización de esta arquitectura en la
+implementación, incluyendo la conexión con ROS~2, la gestión del ciclo de
+episodios, los mecanismos de diagnóstico y el soporte para ejecución
+vectorizada. El Capítulo 5 presenta la aplicación de entrenamiento de una tarea
+de navegación, empleada para validar de manera integrada la arquitectura construida.
+El Capítulo 6 expone y analiza los resultados de dicha aplicación, así como las
+limitaciones de integración identificadas durante la validación. Finalmente, el
+Capítulo 7 recoge las conclusiones, revisa el cumplimiento de los objetivos y
+plantea las líneas futuras de trabajo. Los anexos complementan la memoria con la
+información necesaria para consultar las configuraciones, los registros y los
+artefactos asociados al proyecto.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

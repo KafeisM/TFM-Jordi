@@ -1,60 +1,57 @@
 \babel@toc {spanish}{}\relax 
-\contentsline {chapter}{\numberline {1}Introducci^^c3^^b3n}{3}{chapter.1}%
-\contentsline {section}{\numberline {1.1}Motivaci^^c3^^b3n del proyecto}{3}{section.1.1}%
-\contentsline {section}{\numberline {1.2}Contexto del proyecto}{4}{section.1.2}%
-\contentsline {section}{\numberline {1.3}Objetivos}{5}{section.1.3}%
-\contentsline {section}{\numberline {1.4}Estructura del documento}{5}{section.1.4}%
+\contentsline {chapter}{Agradecimientos}{1}{chapter*.5}%
+\contentsline {chapter}{\numberline {1}Introducci^^c3^^b3n}{4}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Motivaci^^c3^^b3n y contexto del proyecto}{4}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Objetivos}{4}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Estructura del documento}{5}{section.1.3}%
 \contentsline {chapter}{\numberline {2}Fundamentos t^^c3^^a9cnicos y trabajo relacionado}{6}{chapter.2}%
 \contentsline {section}{\numberline {2.1}Infraestructura rob^^c3^^b3tica: ROS 2 y Aerostack2}{6}{section.2.1}%
 \contentsline {subsection}{\numberline {2.1.1}ROS 2 como middleware rob^^c3^^b3tico}{6}{subsection.2.1.1}%
 \contentsline {subsection}{\numberline {2.1.2}Aerostack2}{7}{subsection.2.1.2}%
 \contentsline {subsection}{\numberline {2.1.3}Gymnasium y Stable-Baselines3 en el flujo de aprendizaje}{9}{subsection.2.1.3}%
-\contentsline {paragraph}{\numberline {2.1.3.0.1}Herramientas de observaci^^c3^^b3n y monitorizaci^^c3^^b3n.}{9}{paragraph.2.1.3.0.1}%
+\contentsline {subsection}{\numberline {2.1.4}Herramientas de visualizaci^^c3^^b3n y monitorizaci^^c3^^b3n.}{9}{subsection.2.1.4}%
 \contentsline {section}{\numberline {2.2}Aprendizaje por refuerzo para el control de UAV}{10}{section.2.2}%
 \contentsline {subsection}{\numberline {2.2.1}PPO como algoritmo de entrenamiento}{13}{subsection.2.2.1}%
-\contentsline {section}{\numberline {2.3}Trabajo relacionado: Simuladores y entornos de entrenamiento para RL en drones}{15}{section.2.3}%
+\contentsline {section}{\numberline {2.3}Simuladores y entornos de entrenamiento para RL en drones}{15}{section.2.3}%
 \contentsline {section}{\numberline {2.4}S^^c3^^adntesis y posicionamiento del trabajo}{17}{section.2.4}%
-\contentsline {chapter}{\numberline {3}Dise^^c3^^b1o del sistema}{18}{chapter.3}%
+\contentsline {chapter}{\numberline {3}Dise^^c3^^b1o de la arquitectura}{18}{chapter.3}%
 \contentsline {section}{\numberline {3.1}Arquitectura general}{18}{section.3.1}%
-\contentsline {section}{\numberline {3.2}Formulaci^^c3^^b3n del problema de control}{19}{section.3.2}%
-\contentsline {section}{\numberline {3.3}Dise^^c3^^b1o del entorno Gymnasium}{21}{section.3.3}%
-\contentsline {section}{\numberline {3.4}Dise^^c3^^b1o del reinicio de episodios y accionabilidad}{23}{section.3.4}%
-\contentsline {section}{\numberline {3.5}Dise^^c3^^b1o de la recompensa y condiciones de finalizaci^^c3^^b3n}{24}{section.3.5}%
-\contentsline {section}{\numberline {3.6}Guards de acci^^c3^^b3n y protecci^^c3^^b3n de fronteras}{25}{section.3.6}%
-\contentsline {section}{\numberline {3.7}Dise^^c3^^b1o del curriculum de distancia}{26}{section.3.7}%
-\contentsline {section}{\numberline {3.8}Dise^^c3^^b1o de la ejecuci^^c3^^b3n vectorizada}{26}{section.3.8}%
-\contentsline {section}{\numberline {3.9}Dise^^c3^^b1o del protocolo de evaluaci^^c3^^b3n}{28}{section.3.9}%
-\contentsline {chapter}{\numberline {4}Implementaci^^c3^^b3n}{29}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Organizaci^^c3^^b3n del software}{29}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Integraci^^c3^^b3n con Aerostack2 y ROS 2}{30}{section.4.2}%
-\contentsline {section}{\numberline {4.3}Configuraci^^c3^^b3n operativa de PPO}{32}{section.4.3}%
-\contentsline {section}{\numberline {4.4}Herramientas de visualizaci^^c3^^b3n y monitorizaci^^c3^^b3n}{33}{section.4.4}%
-\contentsline {section}{\numberline {4.5}Implementaci^^c3^^b3n del entorno de aprendizaje}{35}{section.4.5}%
-\contentsline {section}{\numberline {4.6}Diagn^^c3^^b3stico del reinicio y de la accionabilidad}{36}{section.4.6}%
-\contentsline {section}{\numberline {4.7}Infraestructura de entrenamiento y vectorizaci^^c3^^b3n}{37}{section.4.7}%
-\contentsline {chapter}{\numberline {5}Pruebas y evaluaci^^c3^^b3n}{39}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Estrategia de validaci^^c3^^b3n}{39}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Entorno experimental}{40}{section.5.2}%
-\contentsline {section}{\numberline {5.3}Pruebas deterministas y de configuraci^^c3^^b3n}{40}{section.5.3}%
-\contentsline {section}{\numberline {5.4}Pruebas con Aerostack2 y reinicio de episodios}{42}{section.5.4}%
-\contentsline {section}{\numberline {5.5}M^^c3^^a9tricas y criterios de aceptaci^^c3^^b3n}{44}{section.5.5}%
-\contentsline {chapter}{\numberline {6}Resultados}{45}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Validaci^^c3^^b3n funcional de la infraestructura}{45}{section.6.1}%
-\contentsline {section}{\numberline {6.2}Matriz de experimentos PPO}{45}{section.6.2}%
-\contentsline {section}{\numberline {6.3}Aprendizaje mediante curriculum de distancia}{47}{section.6.3}%
-\contentsline {section}{\numberline {6.4}Evaluaci^^c3^^b3n formal y comparaci^^c3^^b3n con un controlador PID}{48}{section.6.4}%
-\contentsline {section}{\numberline {6.5}Validaci^^c3^^b3n del entrenamiento vectorizado}{50}{section.6.5}%
-\contentsline {section}{\numberline {6.6}Hallazgos sobre el simulador}{51}{section.6.6}%
-\contentsline {section}{\numberline {6.7}Discusi^^c3^^b3n de limitaciones}{52}{section.6.7}%
-\contentsline {chapter}{\numberline {7}Impacto del trabajo}{53}{chapter.7}%
-\contentsline {section}{\numberline {7.1}Impacto t^^c3^^a9cnico y acad^^c3^^a9mico}{53}{section.7.1}%
-\contentsline {section}{\numberline {7.2}Impacto social e industrial}{53}{section.7.2}%
-\contentsline {chapter}{\numberline {8}Conclusiones y l^^c3^^adneas futuras}{55}{chapter.8}%
-\contentsline {section}{\numberline {8.1}Conclusiones}{55}{section.8.1}%
-\contentsline {section}{\numberline {8.2}L^^c3^^adneas futuras}{56}{section.8.2}%
-\contentsline {chapter}{Bibliograf\'{\i }a}{58}{chapter*.7}%
-\contentsline {chapter}{\numberline {A}Anexos}{61}{appendix.Alph1}%
-\contentsline {section}{\numberline {A.1}Configuraciones representativas}{61}{section.Alph1.1}%
-\contentsline {section}{\numberline {A.2}Comandos representativos}{62}{section.Alph1.2}%
-\contentsline {section}{\numberline {A.3}Capturas de TensorBoard}{64}{section.Alph1.3}%
-\contentsline {section}{\numberline {A.4}Declaraci^^c3^^b3n de uso de herramientas de inteligencia artificial}{64}{section.Alph1.4}%
+\contentsline {section}{\numberline {3.2}Dise^^c3^^b1o de la interfaz Gymnasium}{19}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Dise^^c3^^b1o del reinicio de episodios y accionabilidad}{21}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Dise^^c3^^b1o del protocolo de evaluaci^^c3^^b3n de pol^^c3^^adticas}{22}{section.3.4}%
+\contentsline {chapter}{\numberline {4}Implementaci^^c3^^b3n de la arquitectura}{23}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Organizaci^^c3^^b3n del software}{23}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Integraci^^c3^^b3n con Aerostack2 y ROS 2}{24}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Herramientas de visualizaci^^c3^^b3n y monitorizaci^^c3^^b3n}{26}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Implementaci^^c3^^b3n de la interfaz Gymnasium}{28}{section.4.4}%
+\contentsline {section}{\numberline {4.5}Reinicio determinista del simulador y validaci^^c3^^b3n de la accionabilidad}{29}{section.4.5}%
+\contentsline {section}{\numberline {4.6}Infraestructura de entrenamiento y vectorizaci^^c3^^b3n}{30}{section.4.6}%
+\contentsline {section}{\numberline {4.7}Verificaci^^c3^^b3n t^^c3^^a9cnica de la implementaci^^c3^^b3n}{30}{section.4.7}%
+\contentsline {subsection}{\numberline {4.7.1}Pruebas de encapsulamiento y configuraci^^c3^^b3n}{31}{subsection.4.7.1}%
+\contentsline {subsection}{\numberline {4.7.2}Comprobaciones de integraci^^c3^^b3n con Aerostack2}{32}{subsection.4.7.2}%
+\contentsline {section}{\numberline {4.8}Alcance de la verificaci^^c3^^b3n de implementaci^^c3^^b3n}{33}{section.4.8}%
+\contentsline {chapter}{\numberline {5}Aplicaci^^c3^^b3n y validaci^^c3^^b3n de la arquitectura}{34}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Prop^^c3^^b3sito y alcance de la aplicaci^^c3^^b3n}{34}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Formulaci^^c3^^b3n de la tarea de control}{35}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Recompensa y condiciones de finalizaci^^c3^^b3n}{37}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Curriculum de distancia}{37}{section.5.4}%
+\contentsline {section}{\numberline {5.5}Protecciones de frontera}{38}{section.5.5}%
+\contentsline {section}{\numberline {5.6}Extensi^^c3^^b3n a ejecuci^^c3^^b3n vectorizada}{39}{section.5.6}%
+\contentsline {section}{\numberline {5.7}Configuraci^^c3^^b3n del entrenamiento PPO}{40}{section.5.7}%
+\contentsline {section}{\numberline {5.8}M^^c3^^a9tricas y criterios de interpretaci^^c3^^b3n}{41}{section.5.8}%
+\contentsline {chapter}{\numberline {6}Resultados de la aplicaci^^c3^^b3n y validaci^^c3^^b3n de la arquitectura}{42}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Evoluci^^c3^^b3n de la aplicaci^^c3^^b3n de entrenamiento}{42}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Evidencia de aprendizaje mediante curriculum de distancia}{44}{section.6.2}%
+\contentsline {section}{\numberline {6.3}Evaluaci^^c3^^b3n de las pol^^c3^^adticas PPO}{45}{section.6.3}%
+\contentsline {section}{\numberline {6.4}Extensi^^c3^^b3n a entrenamiento vectorizado}{46}{section.6.4}%
+\contentsline {section}{\numberline {6.5}Hallazgos de integraci^^c3^^b3n en el simulador}{47}{section.6.5}%
+\contentsline {section}{\numberline {6.6}Limitaciones}{48}{section.6.6}%
+\contentsline {chapter}{\numberline {7}Conclusiones y l^^c3^^adneas futuras}{49}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Conclusiones}{49}{section.7.1}%
+\contentsline {section}{\numberline {7.2}L^^c3^^adneas futuras}{50}{section.7.2}%
+\contentsline {chapter}{Bibliograf\'{\i }a}{52}{chapter*.36}%
+\contentsline {chapter}{\numberline {A}Anexos}{55}{appendix.Alph1}%
+\contentsline {section}{\numberline {A.1}Configuraciones representativas}{55}{section.Alph1.1}%
+\contentsline {section}{\numberline {A.2}Comandos representativos}{56}{section.Alph1.2}%
+\contentsline {section}{\numberline {A.3}Capturas de TensorBoard}{57}{section.Alph1.3}%
+\contentsline {section}{\numberline {A.4}Declaraci^^c3^^b3n de uso de herramientas de inteligencia artificial}{58}{section.Alph1.4}%

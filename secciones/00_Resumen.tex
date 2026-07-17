@@ -1,47 +1,34 @@
 % !TEX root = ../tfg_etsiinf_NombreApellidos.tex
 \chapter*{Resumen} \label{chp:abstract}
 
-Este trabajo desarrolla un entorno de aprendizaje por refuerzo para drones
-sobre el simulador dinámico de multirrotores de Aerostack2, un \emph{framework}
-de robótica aérea basado en ROS 2. Sobre este entorno se entrena y evalúa un
-controlador de velocidad de alto nivel. La tarea consiste en alcanzar objetivos
-con posición y orientación aleatorias desde estados iniciales también
-aleatorios, mediante observaciones relativas normalizadas y comandos continuos
-de velocidad lineal y de guiñada.
+Este trabajo desarrolla una arquitectura software para el entrenamiento mediante
+aprendizaje por refuerzo de robots aéreos autónomos en un simulador de
+multirrotores integrado con Aerostack2 y ROS~2. La arquitectura se valida formulando una tarea de
+navegación local hacia objetivos relativos con estados iniciales y objetivos
+variables. Para ello, define observaciones relativas normalizadas, acciones
+continuas de velocidad lineal y de guiñada, recompensa, terminación, reinicio y
+monitorización compatibles con Gymnasium.
 
-La primera contribución es la infraestructura experimental. Se implementa un
-entorno Gymnasium integrado con Aerostack2, un reinicio determinista del
-simulador con certificación de accionabilidad, guards predictivos de acción, un
-supervisor para campañas largas con reanudación desde \emph{checkpoint} y
-reciclado preventivo, y ejecución vectorizada de dos drones en un mismo
-simulador. En conjunto, estos componentes permiten iniciar episodios solo cuando
-el vehículo responde físicamente a los comandos, corregir aproximaciones a
-fronteras no observables y duplicar el muestreo efectivo.
+La contribución principal es la infraestructura que hace operativa esta
+formulación sobre un sistema robótico simulado. La arquitectura se integra con
+Aerostack2 y Stable-Baselines3 e incorpora mecanismos para verificar el estado
+inicial, comprobar la accionabilidad de los comandos, registrar diagnósticos y
+proteger el vuelo cerca de los límites de seguridad. También permite una
+ejecución vectorizada acotada con dos drones mediante procesos independientes
+sobre un simulador compartido.
 
-La segunda contribución es la resolución de la tarea de navegación. Con una
-recompensa mínima basada en distancia y un curriculum de tres etapas que amplía
-progresivamente el rango de distancias, la tasa de éxito pasa de valores
-inferiores al 1\,\% al 100\,\% en una evaluación determinista de 100 episodios
-reproducibles por semillas.
-
-La evaluación final compara la política aprendida con un controlador PID de
-referencia sobre los mismos episodios. Ambos alcanzan el 100\,\% de éxito, pero
-el PID resuelve la tarea nominal con mayor rapidez y mejor precisión de
-orientación. Este resultado es coherente con la naturaleza del problema: el
-control de velocidad hacia un objetivo estático favorece a una ley proporcional.
-Por ello, el valor del enfoque aprendido no reside en superar al PID en este
-caso concreto, sino en alcanzar una paridad funcional y en proporcionar una
-infraestructura aplicable a tareas sin una ley de control evidente.
-
-El trabajo también identifica dos limitaciones de ingeniería del simulador: la
-degradación acumulativa asociada a los reinicios de servicio y la persistencia
-indefinida de las referencias de velocidad. Estos hallazgos motivan, como línea
-futura principal, el entrenamiento sobre \emph{bindings} directos de la dinámica
-sin ROS 2 en el bucle.
+La validación combina pruebas de encapsulamiento, pruebas de integración con
+Aerostack2 y entrenamiento PPO en escenarios con estados iniciales y objetivos
+variables. Las ejecuciones permitieron identificar y mitigar limitaciones del
+simulador relacionadas con reinicios repetidos y con la persistencia de
+referencias de velocidad durante operaciones bloqueantes. El entrenamiento se
+emplea así como una prueba integrada de que la arquitectura genera episodios
+interpretables, sostiene el ciclo de aprendizaje y se extiende a dos instancias
+vectorizadas.
 
 \textbf{Palabras Clave}: aprendizaje por refuerzo, vehículos aéreos no
-tripulados, Aerostack2, ROS 2, PPO, curriculum, simulación, control de
-velocidad.
+tripulados, Aerostack2, ROS 2, Gymnasium, PPO, simulación, validación de
+arquitecturas software.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -51,40 +38,29 @@ velocidad.
 
 \chapter*{Abstract}
 
-This work develops a reinforcement learning environment for drones on top of
-the Aerostack2 multirotor dynamics simulator, a ROS 2 based aerial robotics
-framework. The environment is used to train and evaluate a high-level velocity
-controller. The task consists of reaching targets with random positions and
-headings from random initial states, using normalized relative observations and
-continuous linear and yaw velocity commands.
+This thesis develops a software architecture for training autonomous aerial
+robots through reinforcement learning in a multirotor simulation environment integrated
+ with Aerostack2 and ROS 2. The proposed architecture is validated by formulating 
+ a local navigation task in which the robot must reach relative target positions 
+ from variable initial states. To achieve this, the Gymnasium interface defines normalized 
+ relative observations, continuous linear velocity and yaw rate actions, reward 
+ functions, episode termination and reset conditions, and monitoring mechanisms 
+ compatible with Gymnasium.
 
-The first contribution is the experimental infrastructure. The work implements
-a Gymnasium environment integrated with Aerostack2, a deterministic simulator
-reset with actionability certification, predictive action guards, a supervisor
-for long training campaigns with checkpoint resumption and preventive
-recycling, and vectorized execution of two drones in a single simulator.
-Together, these components make it possible to start episodes only when the
-vehicle physically responds to commands, correct approaches to unobservable
-boundaries, and double the effective sampling rate.
+The main contribution of this work is the infrastructure that enables this 
+formulation to operate on a simulated robotic system. The architecture is integrated 
+with Aerostack2 and Stable-Baselines3 and incorporates mechanisms to verify the initial 
+state, ensure the executability of control commands, record diagnostic information, 
+and safeguard flight operations near safety boundaries. It also supports bounded vectorized
+ execution with two drones running as independent processes within a shared simulation.
 
-The second contribution is solving the navigation task. With a minimal
-distance-based reward and a three-stage curriculum that progressively expands
-the distance range, the success rate increases from below 1\,\% to 100\,\% in
-a deterministic evaluation of 100 seed-reproducible episodes.
-
-The final evaluation compares the learned policy with a reference PID
-controller on the same episodes. Both reach 100\,\% success, but the PID solves
-the nominal task faster and with better final heading accuracy. This result is
-consistent with the nature of the problem: velocity control towards a static
-target favors a proportional law. Therefore, the value of the learned approach
-does not lie in outperforming the PID in this specific case, but in achieving
-functional parity and providing an infrastructure that can be applied to tasks
-without an obvious control law.
-
-The work also identifies two engineering limitations of the simulator:
-cumulative degradation associated with reset service calls and the indefinite
-persistence of velocity references. These findings motivate, as the main future
-line, training over direct dynamics bindings without ROS 2 in the loop.
+The validation combines architecture-level encapsulation tests, integration tests with Aerostack2,
+ and PPO training in scenarios with variable initial states and target positions. 
+ The experiments made it possible to identify and mitigate simulator limitations related 
+ to repeated episode resets and the persistence of velocity references during blocking
+  operations. Consequently, the training process serves as an integrated demonstration 
+  that the architecture produces interpretable episodes, sustains the reinforcement 
+  learning cycle, and successfully scales to two vectorized simulation instances.
 
 \textbf{Keywords}: reinforcement learning, unmanned aerial vehicles,
-Aerostack2, ROS 2, PPO, curriculum learning, simulation, velocity control.
+Aerostack2, ROS 2, Gymnasium, PPO, simulation, software architecture validation.

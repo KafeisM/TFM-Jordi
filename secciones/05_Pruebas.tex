@@ -1,235 +1,486 @@
 % !TEX root = ../tfg_etsiinf_NombreApellidos.tex
-\chapter{Pruebas y evaluación} \label{chp:pruebas}
+\chapter{Aplicación y validación de la arquitectura} \label{chp:pruebas}
 
-Este capítulo define la estrategia de validación del sistema desarrollado. Las
-pruebas no se limitan a comprobar que el software se ejecuta, sino que permiten
-valorar si la interfaz entre simulación, \emph{middleware} robótico y entorno de
-aprendizaje proporciona observaciones, acciones, recompensas y condiciones de
-reinicio coherentes. En un sistema de aprendizaje por refuerzo para UAV, esta
-validación previa es imprescindible: si el episodio no se reinicia correctamente
-o si una acción aceptada por la interfaz no produce movimiento físico, los datos
-de entrenamiento dejan de representar la tarea que se pretende aprender.
+Este capítulo aplica la infraestructura desarrollada a una tarea concreta de
+control de velocidad para un UAV simulado. Mientras que el
+Capítulo~\ref{chp:implementacion} verifica que los componentes están correctamente
+implementados y pueden producir transiciones físicas válidas, aquí se analiza si
+la arquitectura permite entrenar una política PPO para alcanzar un objetivo
+relativo mediante comandos continuos de velocidad y guiñada. Esta aplicación
+convierte la arquitectura en una infraestructura de experimentación: las observaciones, las
+acciones, la recompensa, el reinicio y la monitorización se ejercitan de forma
+conjunta bajo una misma tarea de control.
 
-\section{Estrategia de validación} \label{sct:pruebas:estrategia}
+La validación distingue la disponibilidad de la infraestructura del
+comportamiento de la política. Un entrenamiento solo es interpretable si cada
+episodio comienza en un estado verificable y las acciones modifican físicamente
+el estado del vehículo; sobre esa condición se pueden evaluar la aproximación al
+objetivo, las terminaciones y las métricas de aprendizaje. Las secciones
+siguientes presentan la formulación de la tarea, las salvaguardas y la
+configuración empleada, así como los criterios con los que se analizan las
+ejecuciones.
 
-La estrategia de pruebas se organiza en cuatro niveles. El primer nivel agrupa
-pruebas deterministas del entorno ejecutadas sin depender del simulador real.
-Estas pruebas verifican cálculo de observaciones, recompensas, terminaciones,
-recorte de acciones y propagación de configuración. El segundo nivel reúne
-validaciones de integración con Aerostack2 y ROS 2, cuyo objetivo es comprobar
-que el entorno puede iniciar el UAV, enviar comandos y recibir estado físico del
-simulador. El tercer nivel corresponde a ejecuciones PPO acotadas, utilizadas
-para comprobar que la infraestructura de entrenamiento genera métricas,
-\emph{checkpoints} y diagnósticos interpretables. El cuarto nivel es la
-evaluación formal: campañas de 100 episodios generados por semillas fijas,
-idénticos entre controladores, que producen las métricas comparativas del
-Capítulo~\ref{chp:resultados}.
+\section{Propósito y alcance de la aplicación} \label{sct:aplicacion:alcance}
 
-La validación se plantea de forma incremental. Antes de lanzar entrenamientos de
-mayor duración se exige que el entorno pase pruebas de configuración, que el
-simulador se encuentre en un estado limpio y que los reinicios de episodio sean
-físicamente válidos. Esta decisión evita confundir un problema de aprendizaje con
-un problema de infraestructura. Los experimentos que terminan en fallo se
-mantienen como evidencia útil cuando permiten identificar una condición de diseño
-o de integración que debe corregirse antes de continuar. El
-Cuadro~\ref{tab:pruebas:niveles_validacion} resume los niveles de validación
-aplicados y la evidencia esperada en cada uno de ellos.
+La aplicación de validación consiste en entrenar una política PPO que recibe el
+estado relativo del UAV respecto de un objetivo y emite velocidades lineales y
+de guiñada. El entrenamiento se ejecuta sobre \texttt{AS2TestEnv}, que traduce
+cada acción de la política en una referencia para Aerostack2 y devuelve la
+observación, la recompensa y el estado de terminación correspondientes. De este
+modo, la tarea exige simultáneamente que el canal de control sea accionable, que
+el ciclo de reinicio sea fiable y que la formulación de aprendizaje proporcione
+una señal útil para la navegación local.
+
+Esta aplicación no se plantea como una demostración aislada de que el proceso de
+entrenamiento se inicia, sino como una validación integrada del objetivo del
+trabajo. Una ejecución adecuada debe generar episodios trazables, conservar las
+condiciones de seguridad y permitir evaluar si la política reduce la distancia
+al objetivo y alcanza la región de éxito. Los apartados posteriores concretan
+esta tarea mediante la formulación de control, la recompensa, el curriculum, las
+protecciones de frontera, la configuración de PPO y las métricas de aceptación.
+
+\section{Formulación de la tarea de control} \label{sct:aplicacion:formulacion}
+
+El problema de control se formula como una tarea de navegación local hacia un
+objetivo relativo. En este contexto, navegación local significa que el agente no
+recibe una misión global completa ni una trayectoria predefinida con todos sus
+puntos intermedios, sino la relación geométrica entre el estado actual del UAV y
+un objetivo inmediato. A partir de esa relación, el agente debe emitir comandos
+de velocidad que acerquen el vehículo al objetivo y mantengan una orientación
+coherente con la dirección de desplazamiento.
+
+Antes de definir formalmente las observaciones y acciones, conviene distinguir
+las magnitudes básicas que describen el movimiento de un multirrotor. La posición
+indica dónde se encuentra el UAV en el espacio; la velocidad indica cómo cambia
+esa posición; y la orientación describe la rotación del vehículo respecto a sus
+ejes. En un dron se suelen emplear tres ángulos principales, denominados
+\emph{roll}, \emph{pitch} y \emph{yaw}. El \emph{roll} representa la inclinación lateral,
+el \emph{pitch} la inclinación hacia delante o hacia atrás, y el \emph{yaw} la
+rotación alrededor del eje vertical. La Figura~\ref{fig:diseno:pose_drone}
+resume esta idea de pose del dron mediante una representación conceptual tomada
+de ResearchGate.\footnote{Imagen disponible en ResearchGate:
+\url{https://www.researchgate.net/figure/A-conceptual-representation-of-drone-pose-A-drone-here-represented-by-a-DJI-Mavic-2-is_fig1_356985671}. Según la página consultada, la figura aparece con licencia Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International.}
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.58\textwidth]{images/drone_pose_roll_pitch_yaw.png}
+    \caption{Representación conceptual de la pose de un dron mediante los ángulos
+    de \emph{roll}, \emph{pitch} y \emph{yaw}. Fuente: ResearchGate.}
+    \label{fig:diseno:pose_drone}
+\end{figure}
+
+En el presente trabajo no se controla directamente la actitud completa del dron
+ni las velocidades de giro de cada rotor. La acción se define a un nivel de abstracción superior, en el que el agente
+genera velocidades lineales y una velocidad de guiñada. Esta elección sitúa el
+aprendizaje por refuerzo por encima del control de bajo nivel y delega en
+Aerostack2 la ejecución de los comandos sobre el simulador. Desde el punto de
+vista del diseño, esta separación reduce la
+complejidad del problema aprendido y mantiene la compatibilidad con la interfaz
+de control de velocidad disponible.
+
+La formulación distingue también entre la dirección frontal del UAV y la
+dirección real de avance. Un dron puede desplazarse hacia un objetivo aunque su
+eje frontal no esté alineado con la trayectoria seguida. El criterio de
+\emph{path-facing}, ilustra la
+diferencia entre ambas magnitudes y la relación con el error de guiñada. En la
+formulación final de la solución no se exige el seguimiento de una trayectoria: la guiñada se
+considera únicamente al evaluar el éxito terminal. La
+Figura~\ref{fig:aplicacion:target_path_facing} representa esta relación
+geométrica.
+
+
+\begin{figure}[t]
+\centering
+\shorthandoff{<>}
+\begin{tikzpicture}[
+    x=1cm,
+    y=1cm,
+    axis/.style={-{Latex[length=2mm]}, thick, gray},
+    rel/.style={-{Latex[length=2.5mm]}, very thick, blue},
+    front/.style={-{Latex[length=2.5mm]}, very thick, green!55!black},
+    path/.style={-{Latex[length=2.5mm]}, very thick, orange!85!black},
+    helper/.style={dashed, gray!65},
+    label/.style={font=\small},
+    smalllabel/.style={font=\scriptsize}
+]
+
+\coordinate (uav) at (0,0);
+\coordinate (target) at (6.2,2.5);
+\coordinate (front) at (2.0,0.35);
+\coordinate (pathvec) at (2.0,0.85);
+
+% Axes
+\draw[axis] (-0.6,0) -- (7.0,0) node[right, label] {$x$};
+\draw[axis] (0,-0.5) -- (0,3.2) node[above, label] {$y$};
+
+% UAV and target
+\begin{scope}[shift={(uav)}, rotate=10]
+    \draw[fill=gray!20, thick] (0.48,0) -- (-0.32,0.22) -- (-0.32,-0.22) -- cycle;
+\end{scope}
+\node[label, below left=0.12cm of uav] {UAV};
+\filldraw[red] (target) circle (2.3pt);
+\node[label, red, above right=0.05cm of target] {objetivo};
+
+% Projection helpers
+\draw[helper] (target) -- (6.2,0);
+\draw[helper] (target) -- (0,2.5);
+
+% Main vectors
+\draw[rel] (uav) -- (target);
+\draw[front] (uav) -- (front);
+\draw[path] (uav) -- (pathvec);
+
+% Angle arcs
+\draw[->, thick, green!55!black] (0.85,0) arc[start angle=0,end angle=10,radius=0.85];
+\draw[->, thick, orange!85!black] (1.2,0) arc[start angle=0,end angle=23,radius=1.2];
+\draw[<->, thick, red!70!black] (1.55,0.27) arc[start angle=10,end angle=23,radius=1.58];
+
+% Compact legend below the plot, outside the geometry
+\begin{scope}[shift={(0,-1.25)}]
+    \draw[rel] (0.0,0.0) -- (0.65,0.0);
+    \node[label, anchor=west] at (0.85,0.0) {vector relativo $(d_x,d_y)$};
+
+    \draw[front] (5.2,0.0) -- (5.85,0.0);
+    \node[label, anchor=west] at (6.05,0.0) {dirección frontal};
+
+    \draw[path] (0.0,-0.55) -- (0.65,-0.55);
+    \node[label, anchor=west] at (0.85,-0.55) {dirección de avance};
+
+    \draw[<->, thick, red!70!black] (5.2,-0.55) -- (5.85,-0.55);
+    \node[label, anchor=west] at (6.05,-0.55) {error $e_{\mathrm{yaw}}$};
+\end{scope}
+
+\end{tikzpicture}
+\shorthandon{<>}
+\caption{Relación geométrica entre el UAV, el objetivo relativo, la dirección de
+avance y la orientación de guiñada utilizada en el criterio de
+\emph{path-facing}.}
+\label{fig:aplicacion:target_path_facing}
+\end{figure}
+
+La acción se define mediante el vector continuo
+\[
+    a = [v_x, v_y, v_z, v_{\mathrm{yaw}}].
+\]
+Las tres primeras componentes representan velocidades lineales en los ejes
+cartesianos y la cuarta representa la velocidad angular de guiñada. El espacio de
+acciones se acota mediante los parámetros \texttt{max\_vel} y
+\texttt{max\_yaw\_vel}, lo que introduce una restricción explícita de diseño
+sobre la magnitud de las órdenes que el agente puede emitir. Esta acotación es
+necesaria porque una política de aprendizaje por refuerzo puede proponer acciones
+arbitrarias dentro de su espacio de salida, mientras que el sistema físico o
+simulado solo debe recibir comandos dentro de un rango admisible.
+
+La observación se define mediante el vector relativo
+\[
+    o = [d_x, d_y, d_z, d_{\mathrm{yaw}}].
+\]
+Cada componente se normaliza en el intervalo $[-1, 1]$. Las tres primeras
+componentes codifican el desplazamiento relativo hacia el objetivo, y la cuarta
+codifica la diferencia relativa de guiñada. La normalización reduce la dependencia
+respecto a la escala concreta del escenario y proporciona al agente entradas con
+rangos homogéneos, una condición práctica para estabilizar el tratamiento de las
+observaciones por parte del algoritmo de aprendizaje.
+
+\section{Recompensa y condiciones de finalización} \label{sct:aplicacion:recompensa}
+
+La recompensa final usada en la fase de experimentación principal se diseña para
+mantener una señal mínima e interpretable. En
+cada paso se penaliza únicamente la distancia normalizada al objetivo. Para ello, si
+$d_t$ representa la distancia euclídea entre el UAV y el objetivo, y
+$d_{\max}$ representa la distancia máxima de normalización. A partir de ambas
+magnitudes se obtiene
+\begin{equation}
+    d_{\mathrm{norm}} = \min\left(\frac{d_t}{d_{\max}}, 1\right),
+    \qquad
+    r_{\mathrm{dist}} = -d_{\mathrm{norm}}.
+\end{equation}
+En la interfaz Gymnasium implementada, $d_{\max}$ se calcula a partir del límite espacial de
+posición del escenario, de forma que la distancia normalizada queda acotada en el
+intervalo $[0,1]$.
+
+La interfaz Gymnasium conserva la capacidad de calcular términos adicionales, como progreso,
+seguridad vertical o coherencia de guiñada con la dirección de movimiento. Sin
+embargo, esos términos se desactivan a partir de Exp010 y en toda la campaña
+principal para evitar que el agente optimice una recompensa de shaping distinta
+de la tarea principal. La guiñada se mantiene como requisito terminal suave. Cuando el UAV alcanza la
+región objetivo, la bonificación de éxito se reduce en función del error de
+guiñada. Si
+$e_{\mathrm{yaw}}$ representa el error angular normalizado, la recompensa terminal
+de éxito se calcula mediante
+\begin{equation}
+    r_{\mathrm{success}} =
+    R_{\mathrm{success}} -
+    w_{\mathrm{yaw}} \frac{|e_{\mathrm{yaw}}|}{\pi}.
+\end{equation}
+
+La expresión final aplicada desde Exp010 en adelante incorpora las
+condiciones terminales del episodio de la forma siguiente.
+\begin{equation}
+    r_t =
+    \begin{cases}
+        -P_{\mathrm{oob}}, & \text{si el UAV sale de los límites del escenario},\\
+        -P_{\mathrm{oob}}, & \text{si el UAV entra en baja altitud insegura},\\
+        r_{\mathrm{success}}, &
+            \text{si } d_t < d_{\mathrm{threshold}},\\
+        -d_{\mathrm{norm}}, & \text{en el resto de pasos}.
+    \end{cases}
+\end{equation}
+El truncamiento por alcanzar \texttt{max\_steps} no introduce una recompensa
+adicional, sino que limita la duración del episodio cuando no se ha alcanzado una
+condición terminal. El Cuadro~\ref{tab:aplicacion:componentes_recompensa} resume los
+componentes de esta formulación y su efecto esperado.
+
+\begin{table}[t]
+\centering
+\small
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{p{0.24\textwidth} p{0.25\textwidth} p{0.19\textwidth} p{0.22\textwidth}}
+\hline
+\textbf{Componente} & \textbf{Expresión} & \textbf{Condición} & \textbf{Efecto esperado} \\
+\hline
+
+Penalización por distancia &
+$r_{\mathrm{dist}} = -d_{\mathrm{norm}}$ &
+En cada paso &
+Favorece que el UAV reduzca progresivamente la distancia al objetivo. \\
+
+Bonificación por éxito &
+$R_{\mathrm{success}} - w_{\mathrm{yaw}} |e_{\mathrm{yaw}}|/\pi$ &
+Si $d_t < d_{\mathrm{threshold}}$ &
+Premia alcanzar la región objetivo y reduce la bonificación si la guiñada terminal es inadecuada. \\
+
+Penalización por salida de límites &
+$-P_{\mathrm{oob}}$ &
+Si el UAV supera los límites del escenario &
+Desincentiva trayectorias inseguras o alejadas de la zona de entrenamiento. \\
+
+Penalización por baja altitud insegura &
+$-P_{\mathrm{oob}}$ &
+Si el UAV desciende por debajo del umbral inseguro &
+Evita que el aprendizaje explote estados cercanos al suelo o físicamente no válidos. \\
+
+Truncado temporal &
+Sin recompensa adicional &
+Si se alcanza el número máximo de pasos &
+Limita la duración del episodio cuando no se alcanza una condición terminal. \\
+
+\hline
+\end{tabular}
+\caption{Componentes de la función de recompensa y condiciones de finalización de la interfaz Gymnasium.}
+\label{tab:aplicacion:componentes_recompensa}
+\end{table}
+
+\section{Curriculum de distancia} \label{sct:aplicacion:curriculum}
+
+Con la recompensa mínima $-d_{\mathrm{norm}}$, la única señal positiva del
+problema es la bonificación terminal, y su densidad depende de la probabilidad de
+que la exploración alcance la esfera de éxito de 0,4 m. Con separaciones
+inicio--objetivo de hasta 5 m esa probabilidad es demasiado baja para arrancar el
+gradiente con la tasa de aprendizaje configurada. El diseño adopta por ello un
+curriculum de distancia \cite{bengio2009curriculum} en tres etapas: la primera acota la separación máxima a
+2,5 m, de modo que un vuelo directo requiere del orden de 25 pasos; las dos
+siguientes amplían el límite a 3,5 m y finalmente a 5,0 m. Cada
+etapa se inicializa con el modelo final de la anterior (\emph{warm start}) y
+todas mantienen la separación mínima de 1,0 m, de forma que la distribución de
+episodios de una etapa contiene a la anterior y la política no olvida los
+objetivos cercanos al aprender los lejanos.
+
+\section{Protecciones de frontera} \label{sct:aplicacion:guards}
+
+La observación relativa tiene una consecuencia de diseño que los primeros
+experimentos hicieron explícita y es que el agente no puede percibir los límites del
+escenario. Una terminación por salida de límites es, desde el punto de vista de
+la política, un castigo imprevisible aplicado en estados que no se distinguen de
+los estados seguros, por lo que la función de valor no puede anticiparla. Además,
+cada una de estas terminaciones obliga a un reinicio mediante el servicio del
+simulador, con un coste de decenas de segundos y efectos acumulativos sobre la
+plataforma. Por ambos motivos, el diseño sustituye la muerte en frontera por una
+protección activa: un \emph{guard} de acción que, cerca de los límites, reemplaza
+la componente de velocidad saliente por un empuje hacia el interior.
+
+El guard se diseña con disparo predictivo. La versión reactiva, que actúa cuando
+la posición cruza una línea de guardia, resultó insuficiente en el eje vertical ya que
+la plataforma invierte la velocidad con lentitud y la inercia atraviesa el margen
+antes de que la orden correctora surta efecto. Por ello el disparo evalúa la
+posición \emph{predicha}, calculada como posición actual más velocidad medida por
+un horizonte de anticipación, y el empuje vertical utiliza la autoridad completa
+de velocidad disponible. Las terminaciones por salida de límites y por baja
+altitud se conservan intactas como red de seguridad final, pero con el guard
+activo pasan de ser el desenlace dominante (80--93\,\% de los episodios en
+Exp010--Exp011) a ser residuales, lo que elimina a la vez el ruido inaprendible
+de la recompensa y la mayor parte de los reinicios costosos.
+
+\section{Extensión a ejecución vectorizada} \label{sct:aplicacion:vectorizacion}
+
+La ejecución vectorizada se diseña para permitir varias instancias lógicas del
+entorno sobre un único simulador compartido. El diseño utiliza espacios de nombres
+diferenciados, \texttt{drone0} a \texttt{droneN}, de forma que cada UAV simulado
+pueda ser identificado y gobernado de manera independiente dentro de la misma
+infraestructura ROS 2. Esta organización reduce la necesidad de duplicar toda la
+infraestructura del simulador, pero exige tratar con cuidado la inicialización de
+ROS 2, los nombres de los drones y la sincronización entre episodios.
+
+La Figura~\ref{fig:aplicacion:vectorizacion} resume esta organización. Cada
+instancia lógica mantiene su propio espacio de nombres, pero todas comparten la
+infraestructura física de simulación, por lo que sus reinicios y sus tiempos de
+paso deben coordinarse.
+
+\begin{figure}[t]
+\centering
+\shorthandoff{<>}
+\begin{tikzpicture}[
+    node distance=1.1cm and 1.4cm,
+    block/.style={
+        rectangle,
+        rounded corners,
+        draw,
+        align=center,
+        minimum width=2.8cm,
+        minimum height=0.8cm,
+        font=\small
+    },
+    smallblock/.style={
+        rectangle,
+        rounded corners,
+        draw,
+        align=center,
+        minimum width=2.4cm,
+        minimum height=0.7cm,
+        font=\small
+    },
+    arrow/.style={-{Latex[length=2mm]}, thick}
+]
+
+\node[block] (vec) {Entorno vectorizado\\\texttt{SyncVectorEnv}/\texttt{DummyVecEnv}};
+
+\node[smallblock, below left=of vec] (env0) {Instancia 0\\\texttt{drone0}};
+\node[smallblock, below=of vec] (env1) {Instancia 1\\\texttt{drone1}};
+\node[smallblock, below right=of vec] (env2) {Instancia 2\\\texttt{drone2}};
+
+\node[block, below=2.0cm of env1] (ros) {ROS 2\\espacios de nombres};
+\node[block, below=of ros] (sim) {AS2 Multirotor\\Simulator compartido};
+
+\draw[arrow] (vec) -- (env0);
+\draw[arrow] (vec) -- (env1);
+\draw[arrow] (vec) -- (env2);
+
+\draw[arrow] (env0) -- (ros);
+\draw[arrow] (env1) -- (ros);
+\draw[arrow] (env2) -- (ros);
+
+\draw[arrow] (ros) -- (sim);
+
+\node[draw, dashed, rounded corners, fit=(env0)(env1)(env2), inner sep=0.25cm,
+      label={[font=\small]right:Instancias lógicas del entorno}] {};
+
+\end{tikzpicture}
+\shorthandon{<>}
+\caption{Extensión vectorizada mediante instancias lógicas asociadas a espacios
+de nombres diferenciados sobre una infraestructura de simulación compartida.}
+\label{fig:aplicacion:vectorizacion}
+\end{figure}
+
+La elección del mecanismo de vectorización viene determinada por una propiedad
+del simulador: opera en tiempo de reloj real, de modo que cada paso del entorno
+consume la duración física configurada (0,2 s) con independencia del proceso que
+lo invoque. Esta propiedad invalida en este sistema el razonamiento habitual a
+favor de la vectorización secuencial (\texttt{SyncVectorEnv} en Gymnasium,
+\texttt{DummyVecEnv} en Stable-Baselines3), cuyo beneficio procede de agrupar las
+observaciones para una única inferencia por lotes: con un simulador de reloj
+real, $N$ entornos secuenciales tardan $N$ veces el paso físico en producir $N$
+muestras, es decir, el mismo caudal de muestreo que un solo entorno. Por ello el
+diseño adopta \texttt{SubprocVecEnv}, que ejecuta los pasos de los $N$ entornos
+en paralelo real manteniendo la inferencia por lotes, con la expectativa
+(verificada experimentalmente) de multiplicar el muestreo por el número de
+drones.
+
+El paso vectorizado en paralelo introduce, sin embargo, un modo de fallo propio
+de los simuladores de reloj real, el avance en \emph{lockstep}. Cuando uno de los
+entornos ejecuta su reinicio, es una operación que tarda decenas de
+segundos, el paso vectorizado queda bloqueado para todos; durante ese intervalo
+los demás drones no reciben órdenes nuevas mientras el mundo sigue avanzando, y
+el controlador de Aerostack2 mantiene la última referencia de velocidad como
+consigna activa. El diseño incorpora por ello un mecanismo de vigilancia
+(\emph{watchdog}) de comandos inactivos, es decir,si un entorno en vuelo supera un umbral
+de tiempo sin emitir referencias de movimiento, el mecanismo publica una consigna
+de velocidad nula de forma periódica hasta que el flujo normal de comandos se
+reanuda. El umbral se dimensiona por encima de la duración del paso, de modo que
+el mecanismo permanece inerte durante la operación normal y solo actúa en los
+huecos de \emph{lockstep}; en ejecución monodron queda desactivado y el
+comportamiento del entorno es idéntico al de la fase anterior.
+
+\section{Configuración del entrenamiento PPO} \label{sct:aplicacion:ppo}
+
+La configuración de PPO se materializa en
+\texttt{configs/train\_ppo.yaml}. El Capítulo~\ref{chp:state-of-the-art}
+justifica la elección del algoritmo; esta sección se limita a documentar cómo se
+parametriza su uso dentro de la arquitectura implementada y cómo se preserva la
+trazabilidad de cada ejecución.
+
+La configuración se divide en tres bloques principales. El bloque
+\texttt{experiment} define el nombre del experimento, la semilla y el directorio
+raíz de salida. El bloque \texttt{environment} agrupa los parámetros del entorno,
+incluyendo el identificador \texttt{AS2TestEnv-v0}, el número de instancias
+vectorizadas, el prefijo de espacio de nombres, los límites de posición y
+velocidad, la duración de cada paso, el objetivo, las condiciones de éxito y las
+penalizaciones de seguridad. El bloque \texttt{ppo} contiene los hiperparámetros
+del algoritmo, como la tasa de aprendizaje, el número de pasos por actualización,
+el tamaño de lote, el factor de descuento, el rango de \emph{clipping} y la
+arquitectura de las redes de política y valor.
 
 \begin{table}[H]
 \centering
 \small
 \setlength{\tabcolsep}{4pt}
 \renewcommand{\arraystretch}{1.15}
-\begin{tabular}{p{0.22\textwidth} p{0.34\textwidth} p{0.32\textwidth}}
+\begin{tabular}{p{0.28\textwidth} p{0.22\textwidth} p{0.40\textwidth}}
 \hline
-\textbf{Nivel} & \textbf{Objetivo} & \textbf{Evidencia esperada} \\
+\textbf{Parámetro} & \textbf{Valor base} & \textbf{Función} \\
 \hline
-Pruebas deterministas & Validar la semántica del entorno sin depender del estado del simulador. & Observaciones, recompensas, terminaciones y parámetros reproducibles. \\
-Pruebas de integración AS2 & Verificar conexión, ciclo de vida del UAV, reinicio y comandos de velocidad. & Movimiento físico medible, diagnósticos de reset, servicio de reinicio disponible y ausencia de bloqueos indefinidos. \\
-Ejecuciones PPO acotadas & Comprobar que la infraestructura de entrenamiento produce métricas y artefactos. & Ficheros de monitor, TensorBoard, \emph{checkpoints} y clasificación de fallos. \\
-\hline
-\end{tabular}
-\caption{Niveles de validación aplicados al entorno desarrollado.}
-\label{tab:pruebas:niveles_validacion}
-\end{table}
-
-\section{Entorno experimental} \label{sct:pruebas:entorno}
-
-Las pruebas se realizan sobre el repositorio \texttt{rl\_uav\_aerostack2} mencionado 
-anteriormente en este trabajo, el cual
-contiene el entorno \texttt{AS2TestEnv-v0}, las configuraciones PPO, los scripts
-de entrenamiento y las utilidades de validación. La ejecución con simulador se
-apoya en ROS 2 Humble, Aerostack2 y el AS2 Multirotor Simulator. La ejecución de
-los scripts Python se organiza mediante el entorno de ejecución del proyecto,
-que incluye Gymnasium, Stable-Baselines3 y las dependencias de comunicación con
-Aerostack2.
-
-La observabilidad de las ejecuciones se apoya en varias fuentes. Los ficheros de
-monitor registran información por episodio, TensorBoard permite inspeccionar
-métricas agregadas cuando PPO alcanza suficientes pasos de \emph{rollout}, y
-RViz2 proporciona una vista cualitativa del estado del UAV, el marcador de
-objetivo y la trayectoria reciente. Además, el entorno incorpora campos
-específicos de diagnóstico para reset y accionabilidad, de modo que una ejecución
-fallida pueda clasificarse sin depender únicamente de la inspección visual.
-
-\section{Pruebas deterministas y de configuración} \label{sct:pruebas:deterministas}
-
-Las pruebas deterministas verifican las propiedades del entorno que no requieren
-un simulador activo. Entre ellas se incluyen la forma y rango de la observación,
-la acotación de acciones, la propagación de parámetros desde YAML, la lógica de
-éxito, salida de límites y truncamiento, y la compatibilidad con entornos
-vectorizados. Este nivel de prueba es necesario porque permite detectar errores
-de formulación antes de introducir la variabilidad propia de ROS 2 y del
-simulador físico.
-
-\begin{table}[H]
-\centering
-\footnotesize
-\setlength{\tabcolsep}{3pt}
-\renewcommand{\arraystretch}{1.12}
-
-\begin{tabularx}{\textwidth}{
->{\raggedright\arraybackslash}p{0.30\textwidth}
->{\raggedright\arraybackslash}X
->{\raggedright\arraybackslash}p{0.27\textwidth}
-}
-\hline
-\textbf{Validador} & \textbf{Propósito} & \textbf{Criterio de aceptación} \\
-\hline
-
-\path{scripts/test_vectorization.py}
-& Comprobar contrato del entorno, vectorización, reset y diagnósticos con dobles de prueba.
-& Todas las comprobaciones deterministas pasan. \\
-
-\path{scripts/test_ppo_config_propagation.py}
-& Verificar que los parámetros YAML llegan al entorno y al modelo PPO.
-& Los parámetros críticos aparecen en la instancia final. \\
-
-\path{scripts/test_exp010_reward_contract.py}
-& Comprobar la recompensa mínima usada en la configuración alineada con el tutor.
-& La recompensa continua depende de la distancia normalizada y el éxito aplica la penalización terminal de guiñada. \\
-
-\path{scripts/test_exp011_randomization_contract.py}
-& Validar muestreo aleatorio de inicio, objetivo y guiñada con margen de seguridad y límite de distancia.
-& Las muestras respetan separación mínima, distancia máxima y márgenes de escena. \\
-
-\path{scripts/test_exp012_training_contract.py}
-& Verificar la configuración del guard de límites, el corredor vertical y las claves de monitorización.
-& La configuración de Exp012 conserva la recompensa del tutor y activa las protecciones de frontera. \\
-
-\path{scripts/test_resume_checkpoint.py}
-& Validar la resolución de \emph{checkpoints} para reanudación de PPO.
-& El entrenamiento puede reanudarse desde una ruta explícita o desde el último \emph{checkpoint}. \\
-
-\path{scripts/test_bounds_action_guard.py} y \path{scripts/test_predictive_guard.py}
-& Verificar los guards de acción reactivos y predictivos en fronteras y techo.
-& Los comandos salientes se sustituyen por empuje interior en las condiciones geométricas especificadas. \\
-
-\path{scripts/test_idle_watchdog.py}
-& Validar el mecanismo de vigilancia de comandos inactivos.
-& Publica hover tras el umbral de inactividad, no interfiere con la operación normal y se desactiva por defecto. \\
-
-\path{scripts/test_evaluation_harness.py}
-& Verificar el protocolo de evaluación por semillas y sus métricas.
-& Dos evaluaciones con la misma semilla producen episodios idénticos y los artefactos CSV/JSON son coherentes. \\
-
-\path{scripts/test_pid_controller.py}
-& Validar el controlador PID de referencia.
-& Signos, saturación, anti-\emph{windup} y convergencia en lazo cerrado cinemático. \\
-
-\path{scripts/test_exp01*_training_contract.py}
-& Fijar el contrato de cada configuración experimental, Exp013--Exp018.
-& Geometría de guards, curriculum e hiperparámetros del tutor invariantes entre etapas. \\
-
-\path{scripts/validate_deterministic_reset.py}
-& Validar reinicios controlados y coherencia de pose inicial.
-& El UAV o doble de prueba alcanza el estado inicial esperado. \\
-
-\path{scripts/validate_exp008_training_smoke.py}
-& Ejecutar una prueba corta con acción fija o PPO y analizar movimiento físico.
-& Las acciones aceptadas producen desplazamiento suficiente y métricas coherentes. \\
-
-\hline
-\end{tabularx}
-
-\caption{Validadores representativos utilizados durante el desarrollo.}
-\label{tab:pruebas:validadores}
-\end{table}
-
-El Cuadro~\ref{tab:pruebas:validadores} resume los validadores más relevantes.
-La existencia de estas pruebas permite tratar el entrenamiento PPO como una fase
-posterior a la validación del entorno, no como el único mecanismo para detectar
-fallos.
-
-\section{Pruebas con Aerostack2 y reinicio de episodios} \label{sct:pruebas:as2_reset}
-
-Las pruebas con Aerostack2 evalúan si el contrato de Gymnasium puede sostenerse
-sobre un sistema robótico simulado. En particular, se comprueba que el método
-\texttt{reset} deja el UAV en una pose inicial válida, que \texttt{step} envía
-comandos de velocidad y que \texttt{close} no deja referencias activas ni estados
-bloqueantes. Durante las ejecuciones se detectaron fallos de reset que no podían
-tratarse como simples errores de PPO: episodios que comenzaban fuera de límites,
-comportamientos bloqueantes de retorno a pose inicial, pérdidas de estabilidad
-tras recrear el controlador y comandos aceptados sin movimiento físico medible.
-
-Como consecuencia de estos fallos, el reinicio de episodios se trasladó
-parcialmente al simulador mediante el servicio específico del fork del AS2
-Multirotor Simulator que se ha comentado durante la implementación. Este servicio recibe la pose objetivo del UAV, muta el
-estado interno de la dinámica, limpia velocidades, aceleraciones, referencias y
-estado de actuadores, y sincroniza la capa de plataforma de Aerostack2 para que
-el vehículo quede armado, en modo \emph{offboard} y en estado de vuelo. La
-validación de dicho servicio distingue entre dos fronteras de prueba: la respuesta
-inmediata del servicio, que informa errores de posición, guiñada y normas
-dinámicas residuales, y la telemetría posterior publicada por ROS 2, que debe
-confirmar que no aparecen picos transitorios tras el reinicio.
-
-Para evitar que estos casos contaminen el entrenamiento, el entorno registra
-razones de fallo y adopta una política de fallo acotado. Si el UAV no vuelve a la
-pose inicial dentro del tiempo configurado, si no se mantiene estable tras el
-reset o si una acción aceptada no produce movimiento observable, la ejecución se
-rechaza como evidencia de entrenamiento válido. Este criterio es más estricto que
-permitir que PPO continúe acumulando pasos, pero resulta necesario para mantener
-la validez de los datos. El Cuadro~\ref{tab:pruebas:fallos_control} se incluye
-en esta sección para vincular cada fallo de integración observado con su causa
-probable, la mitigación incorporada y la evidencia experimental que justificó el
-cambio; de este modo, la evolución del entorno queda presentada como un proceso
-de validación técnica y no como una simple sucesión de intentos de entrenamiento.
-
-\begin{table}[H]
-\centering
-\small
-\setlength{\tabcolsep}{3pt}
-\renewcommand{\arraystretch}{1.15}
-\begin{tabular}{p{0.24\textwidth} p{0.26\textwidth} p{0.28\textwidth} p{0.14\textwidth}}
-\hline
-\textbf{Fallo observado} & \textbf{Causa probable} & \textbf{Mitigación incorporada} & \textbf{Evidencia} \\
-\hline
-Éxitos triviales de un paso & Objetivo demasiado cercano al despegue inicial. & Objetivos desplazados y separación explícita entre inicio y objetivo. & Exp001--Exp002. \\
-Bucle de episodios fuera de límites & Reset fijo insuficiente tras una salida de escena. & \texttt{fixed\_start\_pose} y retorno controlado a pose inicial. & Exp002--Exp003. \\
-Bloqueo por \texttt{go\_to} & Comportamiento de Aerostack2 ejecutándose indefinidamente. & Eliminación del fallback bloqueante y fallo explícito. & Exp006--Exp007. \\
-Timeout de reset por velocidad & Derivas grandes o recuperación insuficiente entre episodios. & Diagnósticos de reset, \texttt{reset\_max\_vel} y fases de corrección. & Exp007--Exp008a. \\
-Comando aceptado sin movimiento & Desacoplamiento entre aceptación de API y acción física tras reset. & Prueba de accionabilidad y fallo cerrado antes de entrenar. & Smokes Exp008a. \\
-Degradación por reinicios de servicio repetidos & Muchos episodios terminan en fronteras no observables y fuerzan teleports sucesivos. & Reintentos completos del servicio, guard de acción en límites y supervisor con reanudación. & Exp010--Exp012. \\
-Inercia vertical atraviesa el guard reactivo & La plataforma invierte la velocidad vertical con lentitud y el margen se cruza antes de que actúe la corrección. & Disparo predictivo (posición + velocidad $\times$ horizonte) y empuje vertical con autoridad completa. & Exp012--Exp013. \\
-Deriva en vectorizado por \emph{lockstep} & El controlador mantiene la última referencia de velocidad mientras el paso vectorizado espera el reset de otro entorno (8,05 m en 20 s medidos). & Watchdog de comandos inactivos con consigna de hover periódica. & Exp017--Exp018, sondas dedicadas. \\
-Cuelgue del reciclado preventivo & La señal de terminación puede coincidir con un reset en curso y el cierre de ROS 2 queda bloqueado. & Escalado a terminación forzosa tras un tiempo de gracia en el supervisor. & Exp016. \\
+\texttt{total\_timesteps} & \texttt{1000000} & Duración máxima de la campaña de entrenamiento. \\
+\texttt{learning\_rate} & \texttt{3.0e-05} & Tamaño de actualización de los parámetros de PPO. \\
+\texttt{n\_steps} & \texttt{512} & Número de pasos recogidos antes de cada actualización. \\
+\texttt{batch\_size} & \texttt{32} & Tamaño de lote usado durante la optimización. \\
+\texttt{clip\_range} & \texttt{0.2} & Límite de variación entre política antigua y política nueva. \\
+\texttt{use\_sde} & \texttt{true} & Activación de exploración dependiente del estado. \\
+\texttt{net\_arch} & \texttt{[128, 128]} & Capas ocultas de las redes de política y valor. \\
 \hline
 \end{tabular}
-\caption{Fallos de integración identificados y mecanismos de control incorporados.}
-\label{tab:pruebas:fallos_control}
+\caption{Principales parámetros PPO definidos en la configuración base de entrenamiento.}
+\label{tab:aplicacion:parametros_ppo}
 \end{table}
 
-Además de las pruebas ejecutadas desde el repositorio del entorno, el fork del
-simulador incorpora pruebas unitarias sobre el servicio de reinicio. Estas
-pruebas verifican que el servicio está disponible, que rechaza entradas no
-finitas o tolerancias inválidas, que limpia referencias dinámicas obsoletas y que
-mantiene una altitud válida incluso cuando el estado previo del vehículo no era
-apto para iniciar un nuevo episodio. Estas comprobaciones son relevantes porque
-el servicio no solo debe modificar la pose externa del UAV, sino también dejar
-el estado interno del simulador en condiciones compatibles con el siguiente
-comando de velocidad.
+El Cuadro~\ref{tab:aplicacion:parametros_ppo} recoge los parámetros más
+representativos de la configuración base. Estos valores no deben interpretarse
+como una optimización definitiva del algoritmo, sino como una configuración
+inicial trazable y reproducible para validar la infraestructura de entrenamiento.
+Los capítulos de pruebas y resultados son los que deben determinar si una
+configuración concreta produce aprendizaje útil, estabilidad suficiente o
+necesidad de ajuste.
 
-\section{Métricas y criterios de aceptación} \label{sct:pruebas:metricas}
+A partir de Exp010 se utiliza una configuración ajustada con tasa de aprendizaje \texttt{3.0e-05},
+\texttt{n\_steps=512}, \texttt{batch\_size=32}, \texttt{n\_epochs=5},
+\texttt{ent\_coef=0.0}, exploración SDE y redes MLP de dos capas de 128 unidades
+por rama. Las configuraciones Exp010, Exp011 y Exp012 mantienen estos
+hiperparámetros y modifican principalmente propiedades del entorno y de la tarea,
+como la recompensa mínima, la randomización completa, los márgenes de muestreo,
+el límite de distancia inicio--objetivo, los guards de acción y la reanudación de
+entrenamiento. Esta separación evita mezclar ajustes del algoritmo con cambios en
+las condiciones de interacción del UAV.
+
+La configuración también explicita decisiones de que afectan a la
+reproducibilidad. El entrenamiento se fija inicialmente en CPU, coherente con el
+uso de políticas MLP y con la recomendación habitual de Stable-Baselines3 para
+evitar sobrecostes de GPU en redes no convolucionales. Además, se separan los
+directorios de \emph{logs}, monitorización y \emph{checkpoints}, lo que permite
+analizar una ejecución sin depender únicamente de la salida estándar del proceso.
+Esta estructura facilita repetir experimentos, comparar configuraciones y aislar
+fallos entre simulación, interfaz Gymnasium y algoritmo.
+
+
+\section{Métricas y criterios de interpretación} \label{sct:aplicacion:metricas}
 
 Las métricas empleadas combinan indicadores de aprendizaje e indicadores de
 infraestructura. En el primer grupo se encuentran la recompensa por episodio, la
@@ -237,7 +488,7 @@ longitud de episodio, la tasa de éxito y la distancia final al objetivo. En el
 segundo grupo se registran razones de terminación, desplazamiento físico,
 longitud de trayectoria, altitud mínima, ratio de comandos aceptados, método de
 reset y clase de fallo. Esta separación permite determinar si una ejecución
-fracasa porque la política todavía no resuelve la tarea o porque el entorno no
+fracasa porque la política todavía no resuelve la tarea o porque la arquitectura no
 está entregando transiciones físicamente válidas.
 
 Las curvas de TensorBoard se utilizan como evidencia complementaria, no como
@@ -252,9 +503,9 @@ por reinicios costosos del simulador.
 
 El criterio de aceptación para un entrenamiento no se reduce a que el proceso de
 Python siga ejecutándose. Una ejecución solo se considera apta para análisis de
-aprendizaje si el entorno inicia episodios desde estados válidos, si las acciones
+aprendizaje si la arquitectura establece episodios desde estados válidos, si las acciones
 producen movimiento físico medible, si los fallos de reset no se ocultan como
 episodios válidos y si las métricas de monitorización permiten reconstruir lo
 ocurrido. En caso contrario, el resultado se documenta como evidencia de
-integración y se utiliza para mejorar el entorno antes de extraer conclusiones
+integración y se utiliza para mejorar la arquitectura antes de extraer conclusiones
 sobre PPO.

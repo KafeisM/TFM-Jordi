@@ -349,6 +349,12 @@ INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/s
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/subfigure/subfigure.cfg
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/subfigure/subfigure.cfg
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/subfigure/subfigure.cfg
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/caption/caption.sty
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/caption/caption.sty
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/caption/caption3.sty
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/caption/caption3.sty
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/caption/ltcaption.sty
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/caption/ltcaption.sty
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/fancyhdr/fancyhdr.sty
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/fancyhdr/fancyhdr.sty
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/tex/latex/appendix/appendix.sty
@@ -507,6 +513,11 @@ INPUT ./tfg_etsiinf_NombreApellidos.lol
 INPUT ./tfg_etsiinf_NombreApellidos.lol
 INPUT tfg_etsiinf_NombreApellidos.lol
 OUTPUT tfg_etsiinf_NombreApellidos.lol
+INPUT ./secciones/00_Agradecimientos.tex
+INPUT ./secciones/00_Agradecimientos.tex
+INPUT ./secciones/00_Agradecimientos.tex
+INPUT ./secciones/00_Agradecimientos.tex
+INPUT secciones/00_Agradecimientos.tex
 INPUT ./secciones/00_Resumen.tex
 INPUT ./secciones/00_Resumen.tex
 INPUT ./secciones/00_Resumen.tex
@@ -532,6 +543,12 @@ INPUT ./images/ros_nodes_topics_services.png
 INPUT ./images/ros_nodes_topics_services.png
 INPUT ./images/ros_nodes_topics_services.png
 INPUT ./images/ros_nodes_topics_services.png
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/adobe/bookman/pbkl8t.tfm
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/adobe/bookman/pbkli8t.tfm
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/vf/adobe/bookman/pbkl8t.vf
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/adobe/bookman/pbkl8r.tfm
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/vf/adobe/bookman/pbkli8t.vf
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/adobe/bookman/pbkli8r.tfm
 INPUT ./images/aerostack2_layered_architecture.png
 INPUT ./images/aerostack2_layered_architecture.png
 INPUT ./images/aerostack2_layered_architecture.png
@@ -586,7 +603,13 @@ INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/a
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/vf/adobe/courier/pcrr8t.vf
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/adobe/courier/pcrr8r.tfm
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/adobe/bookman/pbkl8t.tfm
-INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/adobe/bookman/pbkl8t.tfm
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/vf/adobe/bookman/pbkl8t.vf
+INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/adobe/bookman/pbkl8r.tfm
+INPUT ./secciones/04_Implementacion.tex
+INPUT ./secciones/04_Implementacion.tex
+INPUT ./secciones/04_Implementacion.tex
+INPUT ./secciones/04_Implementacion.tex
+INPUT secciones/04_Implementacion.tex
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/public/cm/cmr9.tfm
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/public/cm/cmmi9.tfm
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/public/cm/cmsy9.tfm
@@ -595,32 +618,13 @@ INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/p
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/public/amsfonts/symbols/msbm10.tfm
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/adobe/bookman/pbkl8t.tfm
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/adobe/courier/pcrr8t.tfm
-INPUT ./images/drone_pose_roll_pitch_yaw.png
-INPUT ./images/drone_pose_roll_pitch_yaw.png
-INPUT ./images/drone_pose_roll_pitch_yaw.png
-INPUT ./images/drone_pose_roll_pitch_yaw.png
-INPUT ./images/drone_pose_roll_pitch_yaw.png
-INPUT ./images/drone_pose_roll_pitch_yaw.png
-INPUT ./images/drone_pose_roll_pitch_yaw.png
-INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/vf/adobe/bookman/pbkl8t.vf
-INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/adobe/bookman/pbkl8r.tfm
-INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/vf/adobe/bookman/pbkl8t.vf
-INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/adobe/bookman/pbkl8r.tfm
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/vf/adobe/bookman/pbkl8t.vf
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/adobe/bookman/pbkl8r.tfm
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/vf/adobe/courier/pcrr8t.vf
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/adobe/courier/pcrr8r.tfm
-INPUT ./secciones/04_Implementacion.tex
-INPUT ./secciones/04_Implementacion.tex
-INPUT ./secciones/04_Implementacion.tex
-INPUT ./secciones/04_Implementacion.tex
-INPUT secciones/04_Implementacion.tex
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/adobe/bookman/pbkd8t.tfm
-INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/adobe/bookman/pbkli8t.tfm
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/vf/adobe/bookman/pbkd8t.vf
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/adobe/bookman/pbkd8r.tfm
-INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/vf/adobe/bookman/pbkli8t.vf
-INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/adobe/bookman/pbkli8r.tfm
 INPUT ./images/rviz2_training_view.png
 INPUT ./images/rviz2_training_view.png
 INPUT ./images/rviz2_training_view.png
@@ -633,6 +637,13 @@ INPUT ./secciones/05_Pruebas.tex
 INPUT ./secciones/05_Pruebas.tex
 INPUT ./secciones/05_Pruebas.tex
 INPUT secciones/05_Pruebas.tex
+INPUT ./images/drone_pose_roll_pitch_yaw.png
+INPUT ./images/drone_pose_roll_pitch_yaw.png
+INPUT ./images/drone_pose_roll_pitch_yaw.png
+INPUT ./images/drone_pose_roll_pitch_yaw.png
+INPUT ./images/drone_pose_roll_pitch_yaw.png
+INPUT ./images/drone_pose_roll_pitch_yaw.png
+INPUT ./images/drone_pose_roll_pitch_yaw.png
 INPUT ./secciones/06_Resultados.tex
 INPUT ./secciones/06_Resultados.tex
 INPUT ./secciones/06_Resultados.tex
@@ -641,41 +652,30 @@ INPUT secciones/06_Resultados.tex
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/adobe/bookman/pbkd8t.tfm
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/adobe/courier/pcrr8t.tfm
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/adobe/bookman/pbkli8t.tfm
+INPUT ./images/fig_progresion_experimentos.pdf
+INPUT ./images/fig_progresion_experimentos.pdf
+INPUT ./images/fig_progresion_experimentos.pdf
+INPUT ./images/fig_progresion_experimentos.pdf
+INPUT ./images/fig_progresion_experimentos.pdf
+INPUT ./images/fig_progresion_experimentos.pdf
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/vf/adobe/bookman/pbkd8t.vf
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/adobe/bookman/pbkd8r.tfm
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/vf/adobe/courier/pcrr8t.vf
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/adobe/courier/pcrr8r.tfm
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/vf/adobe/bookman/pbkli8t.vf
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/adobe/bookman/pbkli8r.tfm
-INPUT ./images/fig_progresion_experimentos.pdf
-INPUT ./images/fig_progresion_experimentos.pdf
-INPUT ./images/fig_progresion_experimentos.pdf
-INPUT ./images/fig_progresion_experimentos.pdf
-INPUT ./images/fig_progresion_experimentos.pdf
-INPUT ./images/fig_progresion_experimentos.pdf
 INPUT ./images/fig_curva_curriculum.pdf
 INPUT ./images/fig_curva_curriculum.pdf
 INPUT ./images/fig_curva_curriculum.pdf
 INPUT ./images/fig_curva_curriculum.pdf
 INPUT ./images/fig_curva_curriculum.pdf
 INPUT ./images/fig_curva_curriculum.pdf
-INPUT ./images/fig_evaluacion_controladores.pdf
-INPUT ./images/fig_evaluacion_controladores.pdf
-INPUT ./images/fig_evaluacion_controladores.pdf
-INPUT ./images/fig_evaluacion_controladores.pdf
-INPUT ./images/fig_evaluacion_controladores.pdf
-INPUT ./images/fig_evaluacion_controladores.pdf
 INPUT ./images/fig_stall_exp016.pdf
 INPUT ./images/fig_stall_exp016.pdf
 INPUT ./images/fig_stall_exp016.pdf
 INPUT ./images/fig_stall_exp016.pdf
 INPUT ./images/fig_stall_exp016.pdf
 INPUT ./images/fig_stall_exp016.pdf
-INPUT ./secciones/07_Impacto.tex
-INPUT ./secciones/07_Impacto.tex
-INPUT ./secciones/07_Impacto.tex
-INPUT ./secciones/07_Impacto.tex
-INPUT secciones/07_Impacto.tex
 INPUT ./secciones/08_Conclusiones.tex
 INPUT ./secciones/08_Conclusiones.tex
 INPUT ./secciones/08_Conclusiones.tex
