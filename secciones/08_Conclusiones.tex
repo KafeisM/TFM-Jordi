@@ -83,12 +83,17 @@ comandos. Documentar estos comportamientos y las mitigaciones aplicadas evita
 interpretar como aprendizaje resultados que, en realidad, dependen de la
 plataforma de simulación.
 
-El código queda organizado en los repositorios públicos descritos en el
-Capítulo~\ref{chp:implementacion}, junto con la configuración de las ejecuciones,
-las comprobaciones automatizadas y los mecanismos de monitorización. De este
-modo, el resultado del trabajo no se limita a una política concreta, sino a una
-base técnica reutilizable para formular y validar nuevas tareas de aprendizaje
-por refuerzo sobre robots aéreos simulados.
+Como resultado adicional, la implementación queda disponible en dos
+repositorios públicos. \texttt{rl\_uav\_aerostack2}\footnote{\url{https://github.com/KafeisM/rl_uav_aerostack2}}
+reúne los componentes de la arquitectura de entrenamiento, las configuraciones
+de las ejecuciones, las comprobaciones automatizadas y los mecanismos de
+monitorización. El repositorio
+\texttt{as2\_platform\_multirotor\_simulator}\footnote{\url{https://github.com/KafeisM/as2_platform_multirotor_simulator}}
+contiene la adaptación del simulador que incorpora el servicio de reinicio. Esta
+organización permite reutilizar y revisar tanto la capa de aprendizaje como la
+modificación necesaria en la simulación, por lo que el resultado del trabajo no
+se limita a una política concreta, sino a una base técnica para formular y
+validar nuevas tareas de aprendizaje por refuerzo sobre robots aéreos simulados.
 
 \section{Líneas futuras} \label{sct:conclusiones:futuro}
 

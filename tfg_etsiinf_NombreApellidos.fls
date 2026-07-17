@@ -692,13 +692,13 @@ INPUT secciones/09_Anexos.tex
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/adobe/courier/pcrb8t.tfm
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/vf/adobe/courier/pcrb8t.vf
 INPUT /Users/jordi/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/adobe/courier/pcrb8r.tfm
-INPUT ./images/tensorboard_exp010_rollout.png
-INPUT ./images/tensorboard_exp010_rollout.png
-INPUT ./images/tensorboard_exp010_rollout.png
-INPUT ./images/tensorboard_exp010_rollout.png
-INPUT ./images/tensorboard_exp010_rollout.png
-INPUT ./images/tensorboard_exp010_rollout.png
-INPUT ./images/tensorboard_exp010_rollout.png
+INPUT ./images/tenorboard_final.png
+INPUT ./images/tenorboard_final.png
+INPUT ./images/tenorboard_final.png
+INPUT ./images/tenorboard_final.png
+INPUT ./images/tenorboard_final.png
+INPUT ./images/tenorboard_final.png
+INPUT ./images/tenorboard_final.png
 INPUT tfg_etsiinf_NombreApellidos.aux
 INPUT ./tfg_etsiinf_NombreApellidos.out
 INPUT ./tfg_etsiinf_NombreApellidos.out
