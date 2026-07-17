@@ -142,24 +142,25 @@ de que la arquitectura permite entrenar y evaluar una política sobre episodios
 reproducibles de la tarea definida.
 
 La Figura~\ref{fig:resultados:stall} permite interpretar los 22 fallos de la
-evaluación determinista de Exp016. El histograma incluye los 100 episodios: las
-barras azules corresponden a los 78 éxitos, cuya distancia final queda por debajo
-del umbral de 0,4 m, y las barras naranjas corresponden a los 22 episodios que
-agotaron el límite de pasos sin alcanzar ese umbral. Por tanto, los fallos no se
-deben a una terminación de seguridad, sino a que la política no completó la
-aproximación final al objetivo. Algunos episodios fallidos quedan cerca de la
-región de éxito, mientras que otros terminan a mayor distancia. En la evaluación
-determinista de Exp018, los 100 episodios alcanzan el umbral y no aparece este
-patrón de truncamiento.
+evaluación determinista de Exp016. El histograma se restringe a esos episodios y
+representa el exceso de la distancia final respecto del umbral de éxito de 0,4 m.
+Los 22 episodios terminaron por \texttt{max\_steps} tras 200 pasos y ninguno lo
+hizo por una condición de seguridad. Sus distancias finales quedaron entre 0,02
+y 0,72 m por encima del umbral, lo que sitúa la política en una región acotada
+alrededor del objetivo, pero con una aproximación terminal insuficiente. Esta
+evidencia es compatible con un atasco u oscilación de Exp016 cerca del objetivo;
+no demuestra que el límite de pasos sea la causa del fallo ni que ampliarlo
+hubiera bastado para alcanzar el umbral. En la evaluación determinista de Exp018,
+los 100 episodios alcanzan el umbral y este patrón desaparece.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.9\textwidth]{images/fig_stall_exp016.pdf}
-\caption{Distribución de la distancia final al objetivo en los 100 episodios de
-la evaluación determinista de Exp016. Las barras azules representan los éxitos
-y las naranjas los episodios truncados por alcanzar el límite de pasos. La línea
-discontinua marca el umbral de éxito de 0,4 m: los fallos quedan a su derecha,
-sin terminaciones de seguridad.}
+\caption{Distribución del exceso de distancia final respecto del umbral de éxito
+de 0,4 m en los 22 episodios fallidos de la evaluación determinista de Exp016.
+Todos agotaron \texttt{max\_steps} (200 pasos) y ninguno terminó por una condición
+de seguridad. La concentración cerca del objetivo describe una aproximación
+terminal insuficiente, pero no permite atribuir causalidad al límite de pasos.}
 \label{fig:resultados:stall}
 \end{figure}
 
